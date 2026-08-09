@@ -1,0 +1,23 @@
+name: Data klopt niet
+description: Verkeerde prijs, categorie, merk of een ontbrekend product
+labels: ["data"]
+body:
+  - type: input
+    id: product_id
+    attributes:
+      label: product_id
+      placeholder: dirk_125705_2026-08-05
+    validations:
+      required: true
+  - type: input
+    id: keten
+    attributes:
+      label: Keten
+      placeholder: dirk
+  - type: textarea
+    id: probleem
+    attributes:
+      label: Wat klopt er niet?
+      description: Wat staat er nu, en wat had er moeten staan? Een link naar de productpagina bij de keten helpt enorm.
+    validations:
+      required: true

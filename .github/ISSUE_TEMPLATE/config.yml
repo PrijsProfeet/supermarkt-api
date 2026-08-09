@@ -1,0 +1,11 @@
+blank_issues_enabled: true
+contact_links:
+  - name: Hoe pak ik iets aan?
+    url: https://github.com/PrijsProfeet/supermarkt-api/discussions
+    about: Vragen over gebruik, integratie en wat er wel of niet mogelijk is.
+  - name: Documentatie en prijzen
+    url: https://www.prijsprofeet.nl/api
+    about: Endpoints, plannen, en een gratis key zonder wachttijd.
+  - name: Zakelijk, facturen of een storing
+    url: mailto:info@prijsprofeet.nl
+    about: Alles wat niet in het openbaar hoort.

@@ -1,0 +1,29 @@
+name: API werkt niet zoals verwacht
+description: Een endpoint gedraagt zich anders dan de specificatie zegt
+labels: ["api"]
+body:
+  - type: input
+    id: endpoint
+    attributes:
+      label: Endpoint
+      placeholder: GET /api/v1/search?q=koffie
+    validations:
+      required: true
+  - type: textarea
+    id: verwacht
+    attributes:
+      label: Wat verwachtte je, en wat gebeurde er?
+    validations:
+      required: true
+  - type: textarea
+    id: response
+    attributes:
+      label: Statuscode en response
+      description: Plak de response. **Haal je API-key eruit** voordat je verstuurt.
+      render: json
+  - type: input
+    id: user_agent
+    attributes:
+      label: User-Agent die je stuurt
+      description: Een `403` zonder key komt meestal doordat er `bot`, `crawler`, `spider` of `slurp` in staat.
+      placeholder: MijnApp/1.0 (+https://mijn-site.nl)
