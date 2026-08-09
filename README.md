@@ -58,7 +58,8 @@ prijs pakt, toont een prijs die vandaag niet bestaat. Filter erop, of gebruik
 ## Gratis, Pro en Business
 
 De **gratis laag heeft geen key nodig** en mag ook commercieel gebruikt worden, mits
-je PrijsProfeet zichtbaar vermeldt (zie de voorwaarden).
+je PrijsProfeet zichtbaar vermeldt (zie de
+[API-voorwaarden](https://www.prijsprofeet.nl/api-voorwaarden)).
 
 Twee dingen zitten achter een betaald plan: **cross-retailer EAN-matching**
 (`/api/v1/match/*`) en **prijsgeschiedenis per week**
