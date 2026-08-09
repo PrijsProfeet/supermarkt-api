@@ -10,6 +10,7 @@ erachter zijn closed source en zitten hier niet in.
 |---|---|
 | Een endpoint doet niet wat de spec zegt | [Issue](../../issues) |
 | Data klopt niet (verkeerde prijs, categorie, ontbrekend product) | [Issue](../../issues) |
+| Je mist data, een veld of een endpoint | [Issue](../../issues) |
 | Fout in de voorbeeldcode of de README | Issue of pull request |
 | "Hoe pak ik X aan?" | [Discussions](../../discussions) |
 | Vraag over een plan, factuur of de voorwaarden | info@prijsprofeet.nl |

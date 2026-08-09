@@ -1,0 +1,41 @@
+name: Ik mis data, een veld of een endpoint
+description: Iets wat de API nog niet geeft, maar wat je nodig hebt
+labels: ["enhancement"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Meerdere afnemers die hetzelfde missen is het sterkste signaal dat we
+        hebben — `retailer_category` en de datums op `/deals/top` zijn er zo
+        gekomen.
+
+        Twee dingen vooraf, om teleurstelling te voorkomen: **"voeg keten X toe"**
+        gebeurt niet op basis van een issue alleen, en over **hoe** wij de data
+        verzamelen gaan we publiek niet in. Zie
+        [CONTRIBUTING.md](https://github.com/PrijsProfeet/supermarkt-api/blob/main/CONTRIBUTING.md).
+  - type: textarea
+    id: bouw
+    attributes:
+      label: Wat bouw je, en wat kun je nu niet?
+      description: Dit weegt zwaarder dan het verzoek zelf — het is het verschil tussen "handig" en "hier loopt iets op vast".
+    validations:
+      required: true
+  - type: textarea
+    id: verzoek
+    attributes:
+      label: Wat mis je precies?
+      placeholder: |
+        Een veld met de voedingswaarde op /products/{id}, of
+        filteren op einddatum in /deals/top
+    validations:
+      required: true
+  - type: input
+    id: endpoint
+    attributes:
+      label: Op welk endpoint hoort het volgens jou?
+      placeholder: GET /api/v1/products/{id}
+  - type: textarea
+    id: omweg
+    attributes:
+      label: Hoe los je het nu op?
+      description: De omweg die je nu gebruikt vertelt ons hoe dringend het is — en soms dat het al kan.
