@@ -12,6 +12,31 @@ Nieuwe velden, nieuwe ketens en betere dekking rollen we zonder aankondiging uit
 aan** (art. 10 van de [API-voorwaarden](https://www.prijsprofeet.nl/api-voorwaarden)):
 per e-mail aan betalende afnemers én hier.
 
+## 2026-08-25
+
+**Zoekresultaten staan in een andere volgorde — zelfde velden, zelfde aantal.** Onze
+relevantie-sortering woog mee hoe lang een productnaam is, en dat is een huisconventie
+van de keten en geen eigenschap van de aanbieding. Ketens die hun producten uitgebreid
+benoemen zakten daardoor structureel naar onderen: op `Doritos` stonden de drie
+Jumbo-rijen op plek 30 t/m 32 van 33. **Naamlengte telt niet meer mee**; bij gelijke
+relevantie beslist de prijs, oplopend. **Geen schemawijziging** — maar sorteer je zelf
+niet na, dan krijg je een andere volgorde terug dan voorheen.
+
+**Nieuw op `/search`: de parameter `include_all_retailers` en het veld
+`retailer_preference`.** Allebei alleen van betekenis voor browserverkeer met een
+`pp_uid`-cookie, waar een opgeslagen winkelvoorkeur de resultaten versmalt. **Voor
+integraties met een API-sleutel verandert er niets**: er is geen voorkeur om toe te
+passen, dus de parameter doet niets en het veld is altijd `null`. Puur toegevoegd.
+
+**`openapi.json` bevat geen interne modellen meer: 59 schema's → 12.** De spec filterde
+de interne endpoints wel uit de `paths`, maar niet uit `components.schemas` — die worden
+uit de routes verzameld vóórdat dat filter draait. Daardoor stonden 47 modellen in de
+spec die vanaf geen enkel gedocumenteerd endpoint bereikbaar waren, zoals
+`UserDataExport`, `PushSubscription` en `ScraperMetrics`. **Geen enkel endpoint en geen
+enkel gedocumenteerd model is verdwenen** — alle 24 paden staan er nog. Genereer je een
+client uit deze spec, dan krijg je voortaan alleen klassen die je ook echt kunt
+gebruiken.
+
 ## 2026-08-09
 
 **De OpenAPI-specificatie is nu machinaal op te halen.** Tot nu toe was de spec alleen
