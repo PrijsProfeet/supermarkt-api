@@ -12,6 +12,28 @@ Nieuwe velden, nieuwe ketens en betere dekking rollen we zonder aankondiging uit
 aan** (art. 10 van de [API-voorwaarden](https://www.prijsprofeet.nl/api-voorwaarden)):
 per e-mail aan betalende afnemers én hier.
 
+## 2026-08-27 (2)
+
+**Drie velden zijn uit het `/search`-antwoord verdwenen: `effective_unit_price`,
+`unit_normalized` en `unit_price_raw`.** Alle drie stonden op **elk** product op
+`null` — ze werden gevuld door een indexeerder die in de praktijk niet draaide.
+Lees je ze uit, dan kreeg je dus al `null` en verandert er feitelijk niets; wel
+verdwijnen ze uit `openapi.json`, dus **een gegenereerde client krijgt die drie
+attributen niet meer**. Regenereer je client als je die uit de spec bouwt.
+
+**De stukprijs zit in `unit_price`, met de eenheid in `unit`** (`kg`, `L` of
+`stuk`). Die twee zijn ongewijzigd en gevuld op 62% van de producten. Reken je
+zelf per eenheid, gebruik dan die twee — en let erop dat je alleen producten met
+dezelfde `unit` onderling vergelijkt.
+
+**Zoeksuggesties werken weer.** `/api/v1/suggest` gaf voor élke zoekterm een lege
+lijst terug, met een `200`: het completion-veld waarop die endpoint zoekt, stond
+niet in de index die daadwerkelijk gebouwd werd. Er waren drie definities van de
+index en de laatste die draaide won. Dat is er nu één, en de suggesties komen
+terug zodra de nachtelijke reindex is gelopen.
+
+**Geen wijziging aan paden** — 24, ongewijzigd. Geen ander veld geraakt.
+
 ## 2026-08-27
 
 **`sort_by` weigert nu een veld waarop niet gesorteerd kan worden, met een 422 in

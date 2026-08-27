@@ -2387,39 +2387,6 @@
             ],
             "title": "Unit Price"
           },
-          "unit_price_raw": {
-            "anyOf": [
-              {
-                "type": "number"
-              },
-              {
-                "type": "null"
-              }
-            ],
-            "title": "Unit Price Raw"
-          },
-          "effective_unit_price": {
-            "anyOf": [
-              {
-                "type": "number"
-              },
-              {
-                "type": "null"
-              }
-            ],
-            "title": "Effective Unit Price"
-          },
-          "unit_normalized": {
-            "anyOf": [
-              {
-                "type": "string"
-              },
-              {
-                "type": "null"
-              }
-            ],
-            "title": "Unit Normalized"
-          },
           "product_url": {
             "anyOf": [
               {
