@@ -12,6 +12,32 @@ Nieuwe velden, nieuwe ketens en betere dekking rollen we zonder aankondiging uit
 aan** (art. 10 van de [API-voorwaarden](https://www.prijsprofeet.nl/api-voorwaarden)):
 per e-mail aan betalende afnemers én hier.
 
+## 2026-08-27
+
+**`sort_by` weigert nu een veld waarop niet gesorteerd kan worden, met een 422 in
+plaats van een 500.** Op `/search` gaf een onbekend of niet-sorteerbaar veld een
+serverfout — inclusief het voorbeeld dat in onze eigen documentatie stond
+(`effective_unit_price:asc`) en de voor de hand liggende gok `name:asc`. Je krijgt
+nu een 422 die de toegestane velden opsomt, en die lijst staat in de spec bij de
+parameter zelf, zodat documentatie en gedrag niet meer uit elkaar kunnen lopen.
+
+Toegestaan op `/search`: `price`, `savings_percentage`, `product_id`,
+`savings_amount`, `original_price`, `discount_percentage`, `extracted_at`,
+`valid_until` — elk optioneel met `:asc` of `:desc`. Op `/products`:
+`extracted_at`, `price`, `name`, `product_id`.
+
+**Wat dit voor je integratie betekent.** Gebruik je een van bovenstaande velden,
+dan verandert er niets. Stuurde je een ander veld, dan kreeg je daarvoor een 500
+(`/search`) of een willekeurig geordende pagina met een 200 (`/products`) — dat
+laatste gaf met `page`/`page_size` eroverheen dubbele én ontbrekende rijen. Nu
+zegt het antwoord wat er mis is.
+
+`effective_unit_price` staat niet meer in de lijst met sorteervelden: dat veld is
+op alle producten `null` en er kon dus nooit op gesorteerd worden. De stukprijs
+zit in `unit_price` met `unit`.
+
+**Geen wijziging aan paden of schema's.**
+
 ## 2026-08-25
 
 **Zoekresultaten staan in een andere volgorde — zelfde velden, zelfde aantal.** Onze

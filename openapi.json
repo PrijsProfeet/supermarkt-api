@@ -132,11 +132,11 @@
             "required": false,
             "schema": {
               "type": "string",
-              "description": "Sort field (extracted_at, price, name)",
+              "description": "Sorteerveld. Toegestaan: extracted_at, price, name, product_id",
               "default": "extracted_at",
               "title": "Sort By"
             },
-            "description": "Sort field (extracted_at, price, name)"
+            "description": "Sorteerveld. Toegestaan: extracted_at, price, name, product_id"
           },
           {
             "name": "sort_order",
@@ -839,10 +839,10 @@
                   "type": "null"
                 }
               ],
-              "description": "Sort field (e.g., savings_percentage:desc, effective_unit_price:asc, price:asc)",
+              "description": "Sorteerveld, optioneel met richting: `veld` of `veld:asc` / `veld:desc`. Toegestaan: price, savings_percentage, product_id, savings_amount, original_price, discount_percentage, extracted_at, valid_until.",
               "title": "Sort By"
             },
-            "description": "Sort field (e.g., savings_percentage:desc, effective_unit_price:asc, price:asc)"
+            "description": "Sorteerveld, optioneel met richting: `veld` of `veld:asc` / `veld:desc`. Toegestaan: price, savings_percentage, product_id, savings_amount, original_price, discount_percentage, extracted_at, valid_until."
           },
           {
             "name": "page",
