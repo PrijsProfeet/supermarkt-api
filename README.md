@@ -48,12 +48,23 @@ Geen key nodig voor zoeken, producten, aanbiedingen, categorieën en filterstati
 | `GET /api/v1/categories` | De 18 categorieën |
 
 De volledige lijst staat in [`openapi.json`](openapi.json); werkende voorbeelden in
-[`examples/`](examples/).
+[`examples/`](examples/). ⚠️ De respons van `/match/*` staat in `openapi.json` als
+ongetypeerd object — de parameters zijn daar volledig beschreven, de veldnamen niet.
+Die staan in [`examples/matching.py`](examples/matching.py).
 
-⚠️ **Let op `promotion_status`.** Een resultaat kan `active`, `upcoming` (een
-aanbieding die pas volgende week begint) of `historical` zijn. Wie blind de laagste
-prijs pakt, toont een prijs die vandaag niet bestaat. Filter erop, of gebruik
-`?current_only=true` waar dat wordt aangeboden.
+⚠️ **Let op `promotion_status`.** Er zijn vier waarden:
+
+| Waarde | Betekent |
+|---|---|
+| `active` | de aanbieding loopt nu |
+| `upcoming` | de aanbieding begint pas volgende week |
+| `shelf` | geen aanbieding: de reguliere prijs die de keten vandaag rekent |
+| `historical` | de laatste prijs die wij bij die keten zagen, maximaal 60 dagen oud |
+
+Wie blind de laagste prijs pakt, toont een prijs die vandaag niet bestaat. Filter
+erop, of gebruik `?current_only=true` waar dat wordt aangeboden. `shelf` komt alleen
+voor in de respons van `/api/v1/match/*` en heeft geen van/voor-prijs en geen
+`valid_from`/`valid_until`.
 
 ## Gratis, Pro en Business
 
