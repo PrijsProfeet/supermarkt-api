@@ -74,7 +74,9 @@ je PrijsProfeet zichtbaar vermeldt (zie de
 
 Twee dingen zitten achter een betaald plan: **cross-retailer EAN-matching**
 (`/api/v1/match/*`) en **prijsgeschiedenis per week**
-(`/api/v1/products/{id}/price-history`). Prijzen en een proefperiode van 14 dagen
+(`/api/v1/products/{id}/price-history`). Een keten die deze week niets promoot valt
+in een match niet weg: die krijgt zijn reguliere schapprijs mee (`promotion_status:
+"shelf"`) in plaats van de laatste prijs die wij er zagen. Vandaag levert PLUS die. Prijzen en een proefperiode van 14 dagen
 staan op [prijsprofeet.nl/api](https://www.prijsprofeet.nl/api).
 
 Een gratis key hoef je niet aan te vragen per mail — die haal je zelf op via

@@ -12,6 +12,44 @@ Nieuwe velden, nieuwe ketens en betere dekking rollen we zonder aankondiging uit
 aan** (art. 10 van de [API-voorwaarden](https://www.prijsprofeet.nl/api-voorwaarden)):
 per e-mail aan betalende afnemers én hier.
 
+## 2026-09-02
+
+**Nieuw: `promotion_status: "shelf"` — de reguliere prijs die een keten vandaag
+rekent.** Tot nu toe kende `/match/*` drie waarden: `active`, `upcoming` en
+`historical`. Er is er een vierde bij. Een `shelf`-rij is *geen* aanbieding —
+`original_price`, `valid_from` en `valid_until` zijn `null` en `is_current_deal`
+is `false` — maar het is wél wat je vandaag bij die keten betaalt.
+
+**Filter je op een lijst statussen, vul die dan aan.** Dit is het enige dat je
+integratie kan raken. Laat je onbekende waarden vallen, dan verlies je precies de
+rijen met de meest actuele prijs; behandel je alles wat niet `active` is als
+"verlopen", dan klopt dat voor `historical` en niet voor `shelf`.
+
+**Wat er praktisch verandert.** Waar `/match/*` je eerder een `historical`-rij gaf
+— de laatste prijs die wíj bij die keten zagen, tot zestig dagen oud — staat er nu
+vaak een prijs van vandaag. Gemeten op 2 september over onze eigen
+vergelijkkaarten: **1.514 producten krijgen zo'n rij, en bij 1.050 daarvan verving
+hij een waarneming die tot twee maanden oud kon zijn.** Het maakt niet zozeer méér
+producten vergelijkbaar — het maakt de prijs actueel op de producten die dat al
+waren.
+
+**Vandaag alleen PLUS.** Dat is een eigenschap van de bron en niet van het
+endpoint: de meeste ketens publiceren alleen wat in de aanbieding is. Komt er een
+keten bij, dan staat dat hier.
+
+**Niet op `/search` en `/products`.** Daar houdt `promotion_status` zijn drie oude
+waarden. Een schapprijs is geen aanbieding, dus hij staat niet tussen de acties —
+je komt hem alleen tegen als vergelijkingsrij in `/match/*`.
+
+**Geen schemawijziging** — geen veld erbij of eraf en `openapi.json` is
+ongewijzigd, dus een gegenereerde client hoeft niet opnieuw. Wel nieuw:
+[`examples/matching.py`](examples/matching.py), dat elke match met zijn status
+print. De respons van `/match/*` staat in de spec als ongetypeerd object, dus dat
+voorbeeld is de plek waar de veldnamen staan.
+
+**Let op `best_deal` in `/match/compare/{ean}`:** dat is de laagste prijs ongeacht
+status. Controleer daar `promotion_status` — nu ook op `shelf`.
+
 ## 2026-08-27 (2)
 
 **Drie velden zijn uit het `/search`-antwoord verdwenen: `effective_unit_price`,
