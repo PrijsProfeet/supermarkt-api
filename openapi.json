@@ -579,7 +579,7 @@
           "products"
         ],
         "summary": "Get Promotional Products",
-        "description": "Get all promotional products.\n\n- **retailer**: Optional retailer filter\n- **page**: Page number (starts at 1)\n- **page_size**: Number of items per page (max 100)",
+        "description": "Get all promotional products, cheapest first.\n\n- **retailer**: Optional retailer filter\n- **page**: Page number (starts at 1)\n- **page_size**: Number of items per page (max 100)\n\n`total` is the number of promotions matching the filter, not the size of\nthis page: divide it by `page_size` to know how many pages to fetch. There\nis no result cap — paging to the last page returns the whole set, and the\nordering is stable across pages, so a full walk yields every promotion once.",
         "operationId": "get_promotional_products_api_v1_products_promotional_all_get",
         "parameters": [
           {
