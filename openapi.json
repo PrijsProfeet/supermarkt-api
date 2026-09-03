@@ -2716,6 +2716,14 @@
             "title": "Retailer Preference",
             "description": "The retailers a stored preference narrowed this search to, or null when nothing was narrowed. Set only for browser callers carrying a `pp_uid` cookie, and only when the preference actually excludes a retailer — always null for API-key callers."
           },
+          "unmatched_terms": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Unmatched Terms",
+            "description": "Words from `query` that match nothing on their own, so the results answer only the rest of the query. Empty when every word contributed. Only ever populated for multi-word queries that fell back to fuzzy matching — an exact-phase result requires the whole query, so it cannot have dropped a word."
+          },
           "brand_hub": {
             "anyOf": [
               {

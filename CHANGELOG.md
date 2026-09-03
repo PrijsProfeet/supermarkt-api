@@ -12,6 +12,32 @@ Nieuwe velden, nieuwe ketens en betere dekking rollen we zonder aankondiging uit
 aan** (art. 10 van de [API-voorwaarden](https://www.prijsprofeet.nl/api-voorwaarden)):
 per e-mail aan betalende afnemers én hier.
 
+## 2026-09-04 (2)
+
+**Nieuw op `/search`: `unmatched_terms` — de woorden uit je zoekopdracht die
+niets opleveren.** Zoek je op twee woorden waarvan er één nergens op slaat, dan
+gaf het antwoord tot nu toe gewoon resultaten voor de rest, zonder enig signaal.
+Gemeten: `zzzzz barista` gaf **exact hetzelfde antwoord** als `oatly barista`, en
+`oatly chips` gaf 84 producten die allemaal Lay's waren — terwijl er geen enkel
+Oatly-product in de catalogus stond.
+
+**Puur toegevoegd.** `results`, `total` en de rest veranderen niet; laat je het
+veld links liggen, dan blijft alles zoals het was. Wel nieuw in `openapi.json`,
+dus **genereer je client opnieuw** als je die uit de spec bouwt.
+
+**Wat je ermee kunt.** Is `unmatched_terms` niet leeg, dan beantwoorden de
+resultaten alleen de rest van de zoekopdracht. Dat is precies het geval waarin je
+gebruiker denkt dat wij een merk voeren dat wij niet voeren. Wij zetten er zelf
+"Geen resultaten voor *oatly*. Hieronder alles voor *barista*." boven.
+
+**Wanneer het gevuld is.** Alleen bij zoekopdrachten van twee of meer woorden die
+op de fuzzy terugval uitkomen. Een exact resultaat vereist de héle zoekopdracht,
+dus daar kan per definitie geen woord zijn weggevallen — het veld is dan leeg. Een
+woord dat alléén fuzzy matcht telt als gevonden; dat heeft wél bijgedragen. En
+slaan álle woorden nergens op terwijl er toch resultaten zijn, dan blijft het veld
+leeg: een melding die de hele zoekopdracht ontkent terwijl er resultaten staan is
+misleidender dan geen melding.
+
 ## 2026-09-04
 
 **Dirk en DekaMarkt leveren nu ook schapprijzen — `promotion_status: "shelf"`
