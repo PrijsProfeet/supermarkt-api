@@ -14,6 +14,20 @@ per e-mail aan betalende afnemers én hier.
 
 ## 2026-09-03
 
+**Nieuw op `/search`: `brand_hub` — de merkpagina die bij deze zoekopdracht
+hoort.** Zoek je op een merk (`?q=oatly`, maar ook `?q=oatly%20barista`), dan
+draagt het antwoord voortaan een extra veld met de merkpagina erbij: naam, slug,
+url, bij hoeveel ketens dat merk in de actie is geweest en over hoeveel
+promoweken. Is de zoekopdracht geen merk, dan is het veld `null`.
+
+**`results` verandert niet.** Het veld staat er náást, niet in — precies zodat
+een integratie die de productlijst uitleest hier niets van merkt. Puur
+toegevoegd; laat je het veld links liggen, dan blijft alles zoals het was.
+
+Gematcht op de langste prefix van de zoekopdracht, hoofdletter- en
+leestekenongevoelig: `Hertog Jan krat` komt bij het bier uit en niet bij het
+gelijknamige ijs.
+
 **Nieuw op `/products`: filteren op de startdag van een actie — `min_valid_from`
 en `max_valid_from`.** Allebei optioneel, allebei inclusief, in de vorm
 `YYYY-MM-DD` (bijvoorbeeld `?min_valid_from=2026-09-03`). Gevraagd door een

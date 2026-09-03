@@ -1720,6 +1720,40 @@
   },
   "components": {
     "schemas": {
+      "BrandHub": {
+        "properties": {
+          "brand": {
+            "type": "string",
+            "title": "Brand"
+          },
+          "slug": {
+            "type": "string",
+            "title": "Slug"
+          },
+          "url": {
+            "type": "string",
+            "title": "Url"
+          },
+          "retailer_count": {
+            "type": "integer",
+            "title": "Retailer Count"
+          },
+          "promo_weeks": {
+            "type": "integer",
+            "title": "Promo Weeks"
+          }
+        },
+        "type": "object",
+        "required": [
+          "brand",
+          "slug",
+          "url",
+          "retailer_count",
+          "promo_weeks"
+        ],
+        "title": "BrandHub",
+        "description": "De merkpagina die deze zoekopdracht beantwoordt.\n\nBewust een EIGEN veld en niet een rij in `results`: `/api/v1/search` is de\nsleutelloze publieke API en partners parsen die lijst als producten. Er een\nander soort object in schuiven zou hun integratie breken voor een puur\ncosmetische winst aan onze kant."
+      },
       "CategoriesResponse": {
         "properties": {
           "categories": {
@@ -2681,6 +2715,17 @@
             ],
             "title": "Retailer Preference",
             "description": "The retailers a stored preference narrowed this search to, or null when nothing was narrowed. Set only for browser callers carrying a `pp_uid` cookie, and only when the preference actually excludes a retailer — always null for API-key callers."
+          },
+          "brand_hub": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/BrandHub"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "The brand hub page answering this query, or null when the query does not name a brand that has one. Matched on the whole query, case- and punctuation-insensitively."
           }
         },
         "type": "object",
