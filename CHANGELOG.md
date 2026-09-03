@@ -12,7 +12,7 @@ Nieuwe velden, nieuwe ketens en betere dekking rollen we zonder aankondiging uit
 aan** (art. 10 van de [API-voorwaarden](https://www.prijsprofeet.nl/api-voorwaarden)):
 per e-mail aan betalende afnemers én hier.
 
-## 2026-09-03
+## 2026-09-03 (2)
 
 **Nieuw op `/search`: `brand_hub` — de merkpagina die bij deze zoekopdracht
 hoort.** Zoek je op een merk (`?q=oatly`, maar ook `?q=oatly%20barista`), dan
@@ -27,6 +27,8 @@ toegevoegd; laat je het veld links liggen, dan blijft alles zoals het was.
 Gematcht op de langste prefix van de zoekopdracht, hoofdletter- en
 leestekenongevoelig: `Hertog Jan krat` komt bij het bier uit en niet bij het
 gelijknamige ijs.
+
+## 2026-09-03
 
 **Nieuw op `/products`: filteren op de startdag van een actie — `min_valid_from`
 en `max_valid_from`.** Allebei optioneel, allebei inclusief, in de vorm
