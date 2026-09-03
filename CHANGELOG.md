@@ -12,6 +12,32 @@ Nieuwe velden, nieuwe ketens en betere dekking rollen we zonder aankondiging uit
 aan** (art. 10 van de [API-voorwaarden](https://www.prijsprofeet.nl/api-voorwaarden)):
 per e-mail aan betalende afnemers én hier.
 
+## 2026-09-04
+
+**Dirk en DekaMarkt leveren nu ook schapprijzen — `promotion_status: "shelf"`
+komt bij drie ketens vandaan in plaats van bij één.** Tot nu toe kwam die vierde
+status alleen van PLUS. Een match waarin Dirk of DekaMarkt deze week niets
+promoot, draagt voortaan hun reguliere prijs van vandaag in plaats van de laatste
+prijs die wij daar toevallig zagen — of in plaats van helemaal niets.
+
+**Geen schemawijziging.** Zelfde velden, zelfde vorm; alleen meer en betere rijen
+in `/api/v1/match/*`. Wat je merkt:
+
+- **Meer ketens per match.** Gemeten over onze eigen live catalogus komen er
+  1.713 rijen bij op producten waar die keten vandaag níet in het antwoord staat,
+  en 231 producten worden voor het eerst überhaupt vergelijkbaar.
+- **Verse in plaats van oude prijzen.** 2.843 rijen die nu `historical` zijn
+  (maximaal 60 dagen oud) worden `shelf`. ⚠️ Als je op die status filtert of erop
+  labelt: dezelfde SKU kan dus van `historical` naar `shelf` verspringen zonder
+  dat de prijs verandert — 92,8% van die rijen draagt exact hetzelfde bedrag.
+- **Verpakkingsmaat gevuld.** De schaprijen dragen `quantity` en, waar die
+  parseerbaar is, `unit_price`/`unit`. Een prijs zonder de verpakking is niet
+  vergelijkbaar.
+
+**Wat het niet is:** een volledig assortiment per keten in de API. De schaprijen
+voeden de matching; ze verschijnen niet als losse producten in `/products` of
+`/search` (een schapprijs is geen aanbieding).
+
 ## 2026-09-03 (2)
 
 **Nieuw op `/search`: `brand_hub` — de merkpagina die bij deze zoekopdracht
