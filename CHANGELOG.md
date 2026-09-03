@@ -12,6 +12,38 @@ Nieuwe velden, nieuwe ketens en betere dekking rollen we zonder aankondiging uit
 aan** (art. 10 van de [API-voorwaarden](https://www.prijsprofeet.nl/api-voorwaarden)):
 per e-mail aan betalende afnemers én hier.
 
+## 2026-09-03
+
+**Nieuw op `/products`: filteren op de startdag van een actie — `min_valid_from`
+en `max_valid_from`.** Allebei optioneel, allebei inclusief, in de vorm
+`YYYY-MM-DD` (bijvoorbeeld `?min_valid_from=2026-09-03`). Gevraagd door een
+afnemer die wekelijks synchroniseert en tot nu toe de hele lijst moest ophalen om
+er een paar honderd nieuwe acties uit te vissen. **Puur toegevoegd** — laat je ze
+weg, dan verandert er niets aan het antwoord.
+
+**Een datum die we niet kunnen lezen geeft een `422`, geen genegeerde parameter.**
+`valid_from` is een datumstring, dus de vergelijking is lexicografisch:
+`2026-9-1` of `01-09-2026` zou een `200` opleveren met de verkeerde rijen. Het
+antwoord noemt de parameter en de verwachte vorm. De compacte schrijfwijze
+(`20260903`) wordt geaccepteerd en genormaliseerd.
+
+**`valid_from` mag nu ook in `sort_by` op `/products`.** De lijst van 27 augustus
+wordt daarmee: `extracted_at`, `price`, `name`, `product_id`, `valid_from`.
+Filteren op een startdag zonder erop te kunnen sorteren laat je alsnog blind
+pagineren.
+
+**Gecorrigeerd: `unit_price` bij Albert Heijn hoorde bij de reguliere prijs zodra
+de actie een percentagekorting was.** Onze bron geeft de prijs per eenheid bij de
+prijs vóór de korting; wij rekenden die alleen terug bij "2 voor …" en "1+1
+gratis". Gemeld door een afnemer en gemeten op 3 september over alle lopende
+acties met een korting én een prijs per eenheid: **831 van 2.607 rijen bij Albert
+Heijn**, en **nul bij de andere negen ketens** — die leiden de stukprijs zelf uit
+de actieprijs af. Voorbeeld: Amstel Pilsener 0,3 l voor €0,56 stond op €2,50/L
+(dat is 0,75 / 0,3) en is nu €1,87/L. **`price`, `original_price` en `unit` zijn
+ongewijzigd**, en er is geen veld bij of af — rekende je zelf al met
+`price / quantity`, dan verandert er voor jou niets. De live rijen lopen mee met
+de eerstvolgende nachtelijke scrape.
+
 ## 2026-09-02
 
 **Nieuw: `promotion_status: "shelf"` — de reguliere prijs die een keten vandaag
