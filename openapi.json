@@ -33,7 +33,7 @@
           "products"
         ],
         "summary": "List Products",
-        "description": "List all products with optional filters and pagination.\n\n- **retailer**: Filter by retailer name\n- **folder_id**: Filter by folder ID\n- **is_promotional**: Filter promotional products only\n- **min_price**: Minimum price (inclusive)\n- **max_price**: Maximum price (inclusive)\n- **sort_by**: Sort field (extracted_at, price, name)\n- **sort_order**: Sort order (asc or desc)\n- **page**: Page number (starts at 1)\n- **page_size**: Number of items per page (max 100)",
+        "description": "List all products with optional filters and pagination.\n\n- **retailer**: Filter by retailer name\n- **folder_id**: Filter by folder ID\n- **is_promotional**: Filter promotional products only\n- **min_price**: Minimum price (inclusive)\n- **max_price**: Maximum price (inclusive)\n- **min_valid_from**: Only promotions starting on or after this date (YYYY-MM-DD)\n- **max_valid_from**: Only promotions starting on or before this date (YYYY-MM-DD)\n- **sort_by**: Sort field (extracted_at, price, name, product_id, valid_from)\n- **sort_order**: Sort order (asc or desc)\n- **page**: Page number (starts at 1)\n- **page_size**: Number of items per page (max 100)",
         "operationId": "list_products_api_v1_products_get",
         "parameters": [
           {
@@ -127,16 +127,52 @@
             "description": "Maximum price filter"
           },
           {
+            "name": "min_valid_from",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "description": "Alleen acties die op of ná deze dag beginnen (YYYY-MM-DD)",
+              "title": "Min Valid From"
+            },
+            "description": "Alleen acties die op of ná deze dag beginnen (YYYY-MM-DD)"
+          },
+          {
+            "name": "max_valid_from",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "description": "Alleen acties die op of vóór deze dag beginnen (YYYY-MM-DD)",
+              "title": "Max Valid From"
+            },
+            "description": "Alleen acties die op of vóór deze dag beginnen (YYYY-MM-DD)"
+          },
+          {
             "name": "sort_by",
             "in": "query",
             "required": false,
             "schema": {
               "type": "string",
-              "description": "Sorteerveld. Toegestaan: extracted_at, price, name, product_id",
+              "description": "Sorteerveld. Toegestaan: extracted_at, price, name, product_id, valid_from",
               "default": "extracted_at",
               "title": "Sort By"
             },
-            "description": "Sorteerveld. Toegestaan: extracted_at, price, name, product_id"
+            "description": "Sorteerveld. Toegestaan: extracted_at, price, name, product_id, valid_from"
           },
           {
             "name": "sort_order",
