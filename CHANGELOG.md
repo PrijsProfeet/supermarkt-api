@@ -32,6 +32,45 @@ opnieuw te verwerken. Op `active`-, `upcoming`- en `historical`-rijen is het vel
 **Puur toegevoegd.** Bestaande velden veranderen niet. Het veld staat in
 [`examples/matching.py`](examples/matching.py); de respons van `/match/*` is in
 de spec een ongetypeerd object, dus voor dat deel hoeft geen client opnieuw.
+## 2026-09-04 (3)
+
+**De API-voorwaarden zijn op twee punten verduidelijkt, allebei in jouw voordeel.**
+Versie 1.2 (31 augustus, artikel 7) en versie 1.3 (3 september, artikel 6). Er
+verdwijnt geen recht en er komt geen verbod bij: de tekst zegt nu wat hij al
+bedoelde. We kondigen het aan omdat een verduidelijking die je niet leest niets
+verduidelijkt — verplicht is het niet, want artikel 16 vraagt een termijn van 30
+dagen bij een wijziging en dit versmalt niets.
+
+**Artikel 7 — je eigen waarnemingen mag je bewaren.** De regel "cache prijsdata niet
+langer dan 24 uur" maakte geen onderscheid en las dus als een verbod op onthouden wat
+je zelf gemeten hebt. Die 24 uur gaat over de prijs die je als **actueel** toont. Wat
+je wanneer bij ons hebt opgehaald mag je bewaren en tonen zolang je plan loopt —
+bijvoorbeeld om een opgeblazen referentieprijs te herkennen. Wat niet mag, is die
+reeks doorleveren als dataset of feed: publiceren als downloadbaar bestand, in een
+publieke repository, of via een eigen API.
+
+**Artikel 6 — de grens bij "nabouwen" gaat over hoe je ophaalt, niet over hoeveel je
+bewaart.** Het verbod stond geformuleerd als een intentie ("data onttrekken *om* onze
+database te reconstrueren") en dat kan niemand toetsen — wij niet over jou, en
+belangrijker: jij niet over jezelf. Wie zich aan de regel wil houden moet kunnen
+nagaan of hij dat doet. De waarneembare toets staat er nu naast:
+
+- Vraag je op wat je gebruikers of je product nodig hebben, dan is dat **normaal
+  gebruik** — ook als er na een jaar veel ligt, en ook als het schapprijzen zijn en
+  niet alleen aanbiedingen.
+- Loop je onze catalogus af om hem te vullen (alle producten of alle EAN's op rij,
+  ongeacht of iemand ernaar vroeg), dan is dat **onttrekken**, ook als het er weinig
+  zijn.
+
+**Waarom nu.** Twee afnemers stelden hier in vier dagen tijd dezelfde vraag over —
+mag ik houden wat ik zelf heb opgehaald — en kregen het antwoord geen van beiden uit
+de tekst. Als twee mensen die de voorwaarden hebben gelézen het er niet uit halen,
+dan ligt dat aan de tekst. Dezelfde vraag staat nu ook in de FAQ op
+[/api](https://www.prijsprofeet.nl/api), want alleen de juridische tekst aanpassen
+herhaalt precies die fout.
+
+**Niets te doen.** Geen schemawijziging, geen veld erbij of eraf, `openapi.json`
+ongewijzigd. Je hoeft geen client opnieuw te genereren.
 
 ## 2026-09-04 (2)
 

@@ -12,6 +12,10 @@ curl -H 'User-Agent: MijnApp/1.0 (jij@voorbeeld.nl)' \
   'https://www.prijsprofeet.nl/api/v1/search?q=koffie&page_size=5'
 ```
 
+> **Wijzigingen volgen?** Zet deze repo op *Watch → Releases* — de knop rechtsboven,
+> dan **Custom → Releases**. Elke wijziging die voor een integratie uitmaakt krijgt
+> hier een release, met dezelfde tekst als het [changelog](CHANGELOG.md).
+
 ## Wat dit is — en wat het niet is
 
 **Wel:** de promoties die deze week (en soms volgende week) lopen. Per product de
