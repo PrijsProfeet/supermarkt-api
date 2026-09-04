@@ -32,6 +32,7 @@ opnieuw te verwerken. Op `active`-, `upcoming`- en `historical`-rijen is het vel
 **Puur toegevoegd.** Bestaande velden veranderen niet. Het veld staat in
 [`examples/matching.py`](examples/matching.py); de respons van `/match/*` is in
 de spec een ongetypeerd object, dus voor dat deel hoeft geen client opnieuw.
+
 ## 2026-09-04 (3)
 
 **De API-voorwaarden zijn op twee punten verduidelijkt, allebei in jouw voordeel.**
