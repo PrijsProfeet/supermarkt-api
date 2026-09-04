@@ -615,7 +615,7 @@
           "products"
         ],
         "summary": "Get Promotional Products",
-        "description": "Get all promotional products, cheapest first.\n\n- **retailer**: Optional retailer filter\n- **page**: Page number (starts at 1)\n- **page_size**: Number of items per page (max 100)\n\n`total` is the number of promotions matching the filter, not the size of\nthis page: divide it by `page_size` to know how many pages to fetch. There\nis no result cap — paging to the last page returns the whole set, and the\nordering is stable across pages, so a full walk yields every promotion once.",
+        "description": "Get all promotional products, cheapest first.\n\n- **retailer**: Optional retailer filter\n- **min_valid_from**: Only promotions starting on or after this date (YYYY-MM-DD)\n- **max_valid_from**: Only promotions starting on or before this date (YYYY-MM-DD)\n- **page**: Page number (starts at 1)\n- **page_size**: Number of items per page (max 100)\n\n`total` is the number of promotions matching the filter, not the size of\nthis page: divide it by `page_size` to know how many pages to fetch. There\nis no result cap — paging to the last page returns the whole set, and the\nordering is stable across pages, so a full walk yields every promotion once.",
         "operationId": "get_promotional_products_api_v1_products_promotional_all_get",
         "parameters": [
           {
@@ -635,6 +635,42 @@
               "title": "Retailer"
             },
             "description": "Filter by retailer"
+          },
+          {
+            "name": "min_valid_from",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "description": "Alleen acties die op of ná deze dag beginnen (YYYY-MM-DD)",
+              "title": "Min Valid From"
+            },
+            "description": "Alleen acties die op of ná deze dag beginnen (YYYY-MM-DD)"
+          },
+          {
+            "name": "max_valid_from",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "description": "Alleen acties die op of vóór deze dag beginnen (YYYY-MM-DD)",
+              "title": "Max Valid From"
+            },
+            "description": "Alleen acties die op of vóór deze dag beginnen (YYYY-MM-DD)"
           },
           {
             "name": "page",
