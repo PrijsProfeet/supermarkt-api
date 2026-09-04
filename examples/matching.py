@@ -79,6 +79,10 @@ def main() -> None:
             print(f"      was €{m['last_deal_price']:.2f} in de actie t/m {m['last_deal_until']}")
         if m.get("quantity"):
             print(f"      inhoud {m['quantity']}  ({m.get('unit_price') or '—'})")
+        if m.get("price_changed_at"):
+            # Alleen op een shelf-rij: sinds wanneer deze reguliere prijs geldt.
+            # Spiegel je schapprijzen, dan is dit het veld om op over te slaan.
+            print(f"      deze prijs sinds {m['price_changed_at']}")
         if m["match_level"] != "exact_ean":
             print(f"      ≈ vergelijkbaar ({m['match_level']}, zekerheid {m['confidence']})")
 

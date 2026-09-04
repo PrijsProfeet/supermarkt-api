@@ -12,6 +12,26 @@ Nieuwe velden, nieuwe ketens en betere dekking rollen we zonder aankondiging uit
 aan** (art. 10 van de [API-voorwaarden](https://www.prijsprofeet.nl/api-voorwaarden)):
 per e-mail aan betalende afnemers én hier.
 
+## 2026-09-04 (4)
+
+**Gecorrigeerd: `min_valid_from` en `max_valid_from` werkten alleen op
+`/products`, niet op `/products/promotional/all`.** Op die tweede route kreeg je
+een `200` met het volle totaal, ongeacht de datum — een onbekende parameter wordt
+stil genegeerd, en dat leest als een antwoord. Gemeld door een afnemer, een dag
+na de introductie. Beide routes lezen nu hetzelfde filter, met dezelfde `422` op
+een datum die we niet kunnen lezen. De twee parameters staan nieuw in
+`openapi.json` voor die route.
+
+**Nieuw op `/match/*`: `price_changed_at` op een `shelf`-rij — sinds wanneer die
+reguliere prijs geldt.** Een tijdstip in ISO 8601 met Nederlandse offset
+(`2026-09-04T01:38:22+02:00`). Spiegel je schapprijzen, dan kun je een rij
+overslaan waarvan de prijs sinds je vorige ophaal niet bewoog, in plaats van hem
+opnieuw te verwerken. Op `active`-, `upcoming`- en `historical`-rijen is het veld
+`null`: een actie heeft een venster (`valid_from`/`valid_until`), geen "sinds".
+
+**Puur toegevoegd.** Bestaande velden veranderen niet. Het veld staat in
+[`examples/matching.py`](examples/matching.py); de respons van `/match/*` is in
+de spec een ongetypeerd object, dus voor dat deel hoeft geen client opnieuw.
 ## 2026-09-04 (3)
 
 **De API-voorwaarden zijn op twee punten verduidelijkt, allebei in jouw voordeel.**
