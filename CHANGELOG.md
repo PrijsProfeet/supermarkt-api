@@ -12,6 +12,31 @@ Nieuwe velden, nieuwe ketens en betere dekking rollen we zonder aankondiging uit
 aan** (art. 10 van de [API-voorwaarden](https://www.prijsprofeet.nl/api-voorwaarden)):
 per e-mail aan betalende afnemers én hier.
 
+## 2026-09-06
+
+**Nieuw op elke route die een product teruggeeft — `/products`,
+`/products/{id}`, `/products/promotional/all`, `/products/search/{q}`,
+`/products/folder/{id}` en `/products/retailer/{r}`: `base_product_id` — het
+`product_id` zonder de weekdatum, en dus de sleutel om op te dedupliceren.** Een `product_id` draagt de actieweek, dus dezelfde SKU krijgt
+een nieuw id zodra er een actie begint. Wie op `product_id` ontdubbelt ziet een
+heraangeboden artikel daardoor als een nieuw product. Gemeld door een afnemer die
+vier Aldi-artikelen elke nacht opnieuw binnenkreeg: Aldi vernieuwt die dagelijks,
+zelfde artikel, zelfde prijs, venster één dag opgeschoven — `1233345_2026-09-05`
+en `1233345_2026-09-06` zijn allebei `base_product_id: "1233345"`.
+
+**Het veld bestond al op `/search`; het ontbrak op precies de routes die je
+paginert.** Dat was een omissie, geen keuze — we berekenen die sleutel al bij het
+indexeren.
+
+**Puur toegevoegd, en altijd gevuld.** Bestaande velden veranderen niet. Bij
+Jumbo, Ekoplaza en Vomar staat er geen datum in het `product_id`, dus daar is het
+gelijk aan `product_id` — nooit leeg, zodat je er niet per keten een uitzondering
+voor hoeft te maken. **Let op bij Vomar:** die ids worden per folder afgeleid en
+rotéren wekelijks, dus daar dedupliceert het veld niet over weken heen. Het is
+geen sleutel tussen ketens; gebruik daarvoor `ean`.
+
+Het veld staat nieuw in `openapi.json` op `ProductResponse`.
+
 ## 2026-09-04 (4)
 
 **Gecorrigeerd: `min_valid_from` en `max_valid_from` werkten alleen op

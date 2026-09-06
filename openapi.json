@@ -2034,6 +2034,11 @@
             "title": "Product Id",
             "description": "Unique product identifier"
           },
+          "base_product_id": {
+            "type": "string",
+            "title": "Base Product Id",
+            "description": "The product_id with its weekly date suffix stripped — stable across promo weeks, so it is the key to deduplicate on. Most chains mint a new product_id whenever a promotion starts (a re-promoted or daily-renewed offer therefore looks like a new product), and this is the same SKU behind those. Jumbo, Ekoplaza and Vomar carry no date suffix, so for them it equals product_id. ⚠️ Not a cross-retailer identifier and not stable at Vomar, whose ids are derived per folder and rotate weekly — use ean to match across chains."
+          },
           "name": {
             "type": "string",
             "title": "Name",
@@ -2339,6 +2344,7 @@
         "type": "object",
         "required": [
           "product_id",
+          "base_product_id",
           "name",
           "price",
           "retailer",
@@ -2347,6 +2353,7 @@
         "title": "ProductResponse",
         "description": "Product response schema",
         "example": {
+          "base_product_id": "ah_wi563637",
           "brand": "De Ruijter",
           "currency": "EUR",
           "dietary_tags": [
