@@ -33,11 +33,13 @@ integratie tegenvalt, dus liever hier dan na twee weken bouwen.
 Albert Heijn · Aldi · DekaMarkt · Dirk · Ekoplaza · Hoogvliet · Jumbo · Lidl ·
 PLUS · Vomar
 
-EAN-dekking verschilt per keten en is geen detail als je op product wilt koppelen:
-bij **Albert Heijn, Jumbo, Dirk en DekaMarkt** is de EAN er vrijwel altijd, bij
-**Aldi, Lidl, Hoogvliet en Vomar publiceert de keten zelf geen EAN** — daar bestaat
-hij domweg niet. Koppelen op naam is dan de enige optie, met de foutmarge die daarbij
-hoort.
+EAN-dekking verschilt per keten en is geen detail als je op product wilt koppelen.
+Bij **Aldi, Lidl, Hoogvliet en Vomar publiceert de keten zelf geen EAN** — daar
+bestaat hij domweg niet, en koppelen op naam is de enige optie, met de foutmarge die
+daarbij hoort. Bij de overige zes is de EAN er vrijwel altijd; het percentage per
+keten staat **gemeten** op [prijsprofeet.nl/api](https://www.prijsprofeet.nl/api#ean-dekking),
+inclusief de datum van de meting. Een lijst met cijfers hier zou binnen een week
+verouderen.
 
 ## Beginnen
 
@@ -80,8 +82,9 @@ Twee dingen zitten achter een betaald plan: **cross-retailer EAN-matching**
 (`/api/v1/match/*`) en **prijsgeschiedenis per week**
 (`/api/v1/products/{id}/price-history`). Een keten die deze week niets promoot valt
 in een match niet weg: die krijgt zijn reguliere schapprijs mee (`promotion_status:
-"shelf"`) in plaats van de laatste prijs die wij er zagen. Vandaag leveren PLUS,
-Dirk en DekaMarkt die. Prijzen en een proefperiode van 14 dagen
+"shelf"`) in plaats van de laatste prijs die wij er zagen. Welke ketens dat vandaag zijn, staat op
+[prijsprofeet.nl/api](https://www.prijsprofeet.nl/api) — daar wordt die lijst
+gemeten; hier zou hij verouderen. Prijzen en een proefperiode van 14 dagen
 staan op [prijsprofeet.nl/api](https://www.prijsprofeet.nl/api).
 
 Een gratis key hoef je niet aan te vragen per mail — die haal je zelf op via
