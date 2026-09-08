@@ -12,6 +12,41 @@ Nieuwe velden, nieuwe ketens en betere dekking rollen we zonder aankondiging uit
 aan** (art. 10 van de [API-voorwaarden](https://www.prijsprofeet.nl/api-voorwaarden)):
 per e-mail aan betalende afnemers én hier.
 
+## 2026-09-08 (2)
+
+**Gewijzigd op `/match/*`: een `shelf`-rij draagt `product_id: null` tenzij
+`/products/{id}` dat id ook echt kan beantwoorden.** Een schaprij is gesleuteld
+op de eigen SKU van de keten, en die SKU heeft vaak geen levend product — hij zat
+nooit in de aanbieding, of alleen in het verleden, en die route serveert alleen
+levende producten. We publiceerden dat id toch, en aan de respons was niet te
+zien dat je er niets mee kon. Gemeld door een afnemer, die het las zoals iedereen
+het zou lezen: als een sleutel die je kunt opvragen.
+
+**Hoe vaak dat speelde.** Gemeten over 200 gesamplede schaprijen mét EAN per
+keten kon `/products/{id}` er 15 tot 42 beantwoorden; de rest niet. Op EAN
+`8711200432394` (Calvé Pindakaas) loopt geen enkele actie, dus daar zijn alle
+vier de matches schaprijen en gaf geen van de vier ids een antwoord.
+
+**Let op het verschil met de website.** Een artikel dat ooit in de actie zat
+houdt bij ons een productpagina, met zijn prijsgeschiedenis, en
+`/product/{id}/{slug}` rendert die gewoon. Maar `/products/{id}` in de API geeft
+er een `404` op, want die serveert alleen wat nu loopt. Het veld volgt daarom de
+API en niet de pagina: een id dat je krijgt, kun je ophalen.
+
+**Wat je nu doet.** Sleutel op `ean` zolang je schaprijen meeneemt — dat is
+sowieso de sleutel die over ketens heen werkt. De rij houdt `retailer`, `ean`,
+`price`, `quantity`, `url` en `price_changed_at`; alleen de sleutel die nergens
+heen ging is weg. Wil je uitsluitend rijen met een productpagina, gebruik dan
+`current_only=true`: dat houdt alleen `promotion_status: "active"` over.
+
+**Het veld is leeg, niet verdwenen.** `product_id` staat er nog steeds op elke
+match en leest `null` waar niets oplost — een sleutel die uit de JSON verdwijnt
+is lastiger voor een getypeerde client dan een die expliciet leeg is. Dit is de
+enige wijziging van vandaag die iets wegneemt; de andere voegen alleen toe.
+Alleen de beschrijving van `/match/ean/{ean}` wijzigde in `openapi.json`; de
+respons van `/match/*` is daar een ongetypeerd object, dus voor dat deel hoeft
+geen client opnieuw.
+
 ## 2026-09-08
 
 **Nieuw in `openapi.json`: de API-sleutel staat er nu in als security scheme
