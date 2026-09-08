@@ -24,7 +24,13 @@
               }
             }
           }
-        }
+        },
+        "security": [
+          {},
+          {
+            "ApiKeyAuth": []
+          }
+        ]
       }
     },
     "/api/v1/products": {
@@ -235,7 +241,13 @@
               }
             }
           }
-        }
+        },
+        "security": [
+          {},
+          {
+            "ApiKeyAuth": []
+          }
+        ]
       }
     },
     "/api/v1/products/{product_id}": {
@@ -244,7 +256,7 @@
           "products"
         ],
         "summary": "Get Product",
-        "description": "Get a specific product by ID.\n\n- **product_id**: Unique product identifier",
+        "description": "Get a specific product by ID.\n\n- **product_id**: the `product_id` of a promotion, or the stable\n  `base_product_id` published on every product response. A `product_id`\n  embeds the promotion week, so a re-promoted article gets a new one every\n  week; the base id is the key to store and to deduplicate on. Passing a\n  base id returns the promotion that is running now.",
         "operationId": "get_product_api_v1_products__product_id__get",
         "parameters": [
           {
@@ -278,7 +290,13 @@
               }
             }
           }
-        }
+        },
+        "security": [
+          {},
+          {
+            "ApiKeyAuth": []
+          }
+        ]
       }
     },
     "/api/v1/products/{product_id}/price-history": {
@@ -326,7 +344,12 @@
               }
             }
           }
-        }
+        },
+        "security": [
+          {
+            "ApiKeyAuth": []
+          }
+        ]
       }
     },
     "/api/v1/products/{product_id}/forecast": {
@@ -378,7 +401,13 @@
               }
             }
           }
-        }
+        },
+        "security": [
+          {},
+          {
+            "ApiKeyAuth": []
+          }
+        ]
       }
     },
     "/api/v1/products/search/{query}": {
@@ -466,7 +495,13 @@
               }
             }
           }
-        }
+        },
+        "security": [
+          {},
+          {
+            "ApiKeyAuth": []
+          }
+        ]
       }
     },
     "/api/v1/products/folder/{folder_id}": {
@@ -536,7 +571,13 @@
               }
             }
           }
-        }
+        },
+        "security": [
+          {},
+          {
+            "ApiKeyAuth": []
+          }
+        ]
       }
     },
     "/api/v1/products/retailer/{retailer}": {
@@ -606,7 +647,13 @@
               }
             }
           }
-        }
+        },
+        "security": [
+          {},
+          {
+            "ApiKeyAuth": []
+          }
+        ]
       }
     },
     "/api/v1/products/promotional/all": {
@@ -721,7 +768,13 @@
               }
             }
           }
-        }
+        },
+        "security": [
+          {},
+          {
+            "ApiKeyAuth": []
+          }
+        ]
       }
     },
     "/api/v1/search": {
@@ -995,7 +1048,13 @@
               }
             }
           }
-        }
+        },
+        "security": [
+          {},
+          {
+            "ApiKeyAuth": []
+          }
+        ]
       }
     },
     "/api/v1/categories": {
@@ -1017,7 +1076,13 @@
               }
             }
           }
-        }
+        },
+        "security": [
+          {},
+          {
+            "ApiKeyAuth": []
+          }
+        ]
       }
     },
     "/api/v1/filter-stats": {
@@ -1141,7 +1206,13 @@
               }
             }
           }
-        }
+        },
+        "security": [
+          {},
+          {
+            "ApiKeyAuth": []
+          }
+        ]
       }
     },
     "/api/v1/match/ean/{ean}": {
@@ -1220,7 +1291,12 @@
               }
             }
           }
-        }
+        },
+        "security": [
+          {
+            "ApiKeyAuth": []
+          }
+        ]
       }
     },
     "/api/v1/match/product/{product_id}": {
@@ -1291,7 +1367,12 @@
               }
             }
           }
-        }
+        },
+        "security": [
+          {
+            "ApiKeyAuth": []
+          }
+        ]
       }
     },
     "/api/v1/match/compare/{ean}": {
@@ -1340,7 +1421,12 @@
               }
             }
           }
-        }
+        },
+        "security": [
+          {
+            "ApiKeyAuth": []
+          }
+        ]
       }
     },
     "/api/v1/match/stats": {
@@ -1364,7 +1450,12 @@
               }
             }
           }
-        }
+        },
+        "security": [
+          {
+            "ApiKeyAuth": []
+          }
+        ]
       }
     },
     "/api/v1/deals/top": {
@@ -1447,7 +1538,13 @@
               }
             }
           }
-        }
+        },
+        "security": [
+          {},
+          {
+            "ApiKeyAuth": []
+          }
+        ]
       }
     },
     "/api/v1/deals/brand/{brand}": {
@@ -1527,7 +1624,13 @@
               }
             }
           }
-        }
+        },
+        "security": [
+          {},
+          {
+            "ApiKeyAuth": []
+          }
+        ]
       }
     },
     "/api/v1/deals/summary": {
@@ -1547,7 +1650,13 @@
               }
             }
           }
-        }
+        },
+        "security": [
+          {},
+          {
+            "ApiKeyAuth": []
+          }
+        ]
       }
     },
     "/api/v1/deals/popular": {
@@ -1591,7 +1700,13 @@
               }
             }
           }
-        }
+        },
+        "security": [
+          {},
+          {
+            "ApiKeyAuth": []
+          }
+        ]
       }
     },
     "/api/v1/deals/by-type": {
@@ -1646,7 +1761,13 @@
               }
             }
           }
-        }
+        },
+        "security": [
+          {},
+          {
+            "ApiKeyAuth": []
+          }
+        ]
       }
     },
     "/api/v1/deals/new": {
@@ -1690,7 +1811,13 @@
               }
             }
           }
-        }
+        },
+        "security": [
+          {},
+          {
+            "ApiKeyAuth": []
+          }
+        ]
       }
     },
     "/api/v1/partner/signup": {
@@ -1730,7 +1857,13 @@
               }
             }
           }
-        }
+        },
+        "security": [
+          {},
+          {
+            "ApiKeyAuth": []
+          }
+        ]
       }
     },
     "/api/v1/partner/usage": {
@@ -1750,7 +1883,13 @@
               }
             }
           }
-        }
+        },
+        "security": [
+          {},
+          {
+            "ApiKeyAuth": []
+          }
+        ]
       }
     }
   },
@@ -2853,6 +2992,14 @@
           "type"
         ],
         "title": "ValidationError"
+      }
+    },
+    "securitySchemes": {
+      "ApiKeyAuth": {
+        "type": "apiKey",
+        "in": "header",
+        "name": "X-API-Key",
+        "description": "Partner key, sent as the `X-API-Key` header. Required on `/match/*` and `/price-history`, which additionally need a paid plan (trial, pro or business). Optional everywhere else — the Gratis tier needs no key — but sending it raises your rate limit from the anonymous per-endpoint caps to your plan's. Request one at /api."
       }
     }
   },
