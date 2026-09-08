@@ -12,6 +12,53 @@ Nieuwe velden, nieuwe ketens en betere dekking rollen we zonder aankondiging uit
 aan** (art. 10 van de [API-voorwaarden](https://www.prijsprofeet.nl/api-voorwaarden)):
 per e-mail aan betalende afnemers én hier.
 
+## 2026-09-08
+
+**Nieuw in `openapi.json`: de API-sleutel staat er nu in als security scheme
+(`ApiKeyAuth`, header `X-API-Key`).** Op `/docs` krijg je daardoor een
+*Authorize*-knop: je voert je sleutel eenmalig in en hij gaat automatisch mee.
+Genereer je een client uit de spec, dan kent die de header nu ook — tot nu toe
+stond hij alleen in het proza op `/api`, dus een gegenereerde client wist niet
+dat hij bestond. Gemeld door een afnemer die elke beveiligde route met een
+handgebouwde `curl` moest proberen.
+
+**Waar hij verplicht is en waar niet.** Op `/match/*` en
+`/products/{id}/price-history` staat de sleutel als vereist; dat zijn de twee
+endpoints die een betaald plan vragen. Op de gratis endpoints (`/search`,
+`/products`, `/deals`, `/categories`, `/filter-stats`) staat hij als optioneel —
+die werken zonder sleutel en dat blijft zo. Meesturen loont daar wel: met
+sleutel val je onder het ratelimiet van je plan in plaats van onder de anonieme
+limiet per endpoint, die op `/products` 30 per minuut is.
+
+**Gecorrigeerd: `/products/{id}` gaf een `404` op `base_product_id`.** Dat is
+precies het veld waarvan we [op 6 september](#2026-09-06) schreven dat je erop
+moet dedupliceren — en het was het enige id dat de route niet kon beantwoorden.
+Oorzaak: het stabiele id staat op geen enkele rij opgeslagen, we leiden het af
+bij het uitlezen, en de route zocht exact. Gemeten over 200 producten per keten:
+**1.393 van de 1.393** stabiele ids gaven een `404`, bij alle zeven ketens die
+een weekdatum in het `product_id` dragen (Albert Heijn, Aldi, Lidl, PLUS, Dirk,
+DekaMarkt, Hoogvliet). Bij Jumbo, Ekoplaza en Vomar zit er geen datum in het id,
+dus daar speelde het niet.
+
+**Puur verruimend.** Een gedateerd `product_id` werkt onveranderd; wat eerst een
+`404` gaf, geeft nu de actie die op dat moment loopt. Hetzelfde gold voor
+`/match/product/{product_id}`, ook opgelost.
+
+**Verduidelijkt: `/match/ean/{ean}` waarschuwt nu dat een GTIN geen
+verpakkingsmaat is.** Het endpoint is bewust ongegate — het moet alles met die
+barcode teruggeven — maar de beschrijving zei alleen "for price comparison", en
+dat nodigt uit tot een `min(price)` over rijen die verschillende verpakkingen
+zijn. Eén EAN kan het blik, de multipack en de tray zijn: `5000112658620` draagt
+bij Albert Heijn een blik van EUR 0,85, een 8-pack van EUR 5,19 en een 20-pack
+van EUR 13,19. Filter op `quantity`, dat op elke match staat, of gebruik
+`/match/product/{product_id}`, dat die controle voor je doet. Alleen de tekst in
+de spec wijzigde; het gedrag niet.
+
+**Genereer je client opnieuw** als je hem uit de spec bouwt: `openapi.json`
+draagt een nieuw `components.securitySchemes` en een `security`-blok per
+operatie. Er is geen veld bijgekomen of verdwenen, en er is geen pad bijgekomen
+of verdwenen.
+
 ## 2026-09-06
 
 **Nieuw op elke route die een product teruggeeft — `/products`,
