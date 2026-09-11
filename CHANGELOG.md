@@ -12,6 +12,26 @@ Nieuwe velden, nieuwe ketens en betere dekking rollen we zonder aankondiging uit
 aan** (art. 10 van de [API-voorwaarden](https://www.prijsprofeet.nl/api-voorwaarden)):
 per e-mail aan betalende afnemers én hier.
 
+## 2026-09-11
+
+**Gewijzigd op `/deals/top`: `DealGroup.brand` kan nu `null` zijn.** Een
+deal-groep zonder merk — vrijwel altijd losse groente of fruit — kreeg tot nu
+toe de naam **"Huismerk"** toegewezen. Dat is feitelijk onjuist: het veld
+beweerde een herkomst die er niet is. `brand` staat in `openapi.json` nu als
+`["string", "null"]` in plaats van verplicht `string`.
+
+**Wat er niet verandert.** De overige velden van een groep —
+`promotion_type`, `variant_count`, `savings_percentage`, `savings_amount`,
+`retailer`, `representative_product` — blijven zoals ze waren.
+
+**Wat je nu doet.** Vertrouwt jouw client erop dat `brand` nooit leeg is, dan
+is dit het moment om dat los te laten. Genereer je een client uit de spec,
+dan is dat opnieuw genereren.
+
+**Wanneer je het tegenkomt.** Alleen bij groepen zonder merk; een deal met
+een merk verandert niet. Op de huidige catalogus is dat een kleine
+minderheid van de rijen op deze route.
+
 ## 2026-09-08 (2)
 
 **Gewijzigd op `/match/*`: een `shelf`-rij draagt `product_id: null` tenzij
