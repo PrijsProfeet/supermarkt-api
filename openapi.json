@@ -783,7 +783,7 @@
           "search"
         ],
         "summary": "Search Products",
-        "description": "Search products using Elasticsearch with fuzzy matching.\n\nAll products are promotions (scraped from bonus/aanbieding pages).\n\nFeatures:\n- Fuzzy search (handles typos)\n- Dutch language analysis\n- Relevance scoring\n- Fast performance\n- Filter by promotion status (active/upcoming/expired)\n- Filter by promotion type (percentage, multi_buy, one_plus_one, etc.)\n- Filter by minimum savings percentage\n- Sort by savings, unit price, or regular price\n- Filter by unified category\n- Filter by dietary tags (bio, glutenvrij, lactosevrij, vegan)\n\nExample: `/api/v1/search?q=kaas&category=zuivel-eieren&promotion_status=active`\nExample: `/api/v1/search?q=*&promotion_type=multi_buy&min_savings=20&sort_by=savings_percentage:desc`\nExample: `/api/v1/search?q=melk&dietary=vegan,lactosevrij`",
+        "description": "Search products using Elasticsearch with fuzzy matching.\n\nAll products are promotions (scraped from bonus/aanbieding pages).\n\nFeatures:\n- Fuzzy search (handles typos)\n- Dutch language analysis\n- Relevance scoring\n- Fast performance\n- Filter by promotion status (active/upcoming/expired)\n- Filter by promotion type (percentage, multi_buy, one_plus_one, etc.)\n- Filter by minimum savings percentage\n- Sort by savings, unit price, or regular price\n- Filter by unified category\n- Filter by dietary tags (bio, glutenvrij, lactosevrij, vegan)\n- Filter by house brand vs A-merk (private_label)\n\nExample: `/api/v1/search?q=kaas&category=zuivel-eieren&promotion_status=active`\nExample: `/api/v1/search?q=*&promotion_type=multi_buy&min_savings=20&sort_by=savings_percentage:desc`\nExample: `/api/v1/search?q=melk&dietary=vegan,lactosevrij`\nExample: `/api/v1/search?q=*&category=zuivel-eieren&private_label=true`",
         "operationId": "search_products_api_v1_search_get",
         "parameters": [
           {
@@ -894,6 +894,24 @@
               "title": "Dietary"
             },
             "description": "Comma-separated dietary tags: bio, glutenvrij, lactosevrij, vegan"
+          },
+          {
+            "name": "private_label",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "boolean"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "description": "Filter on the retailer's own house brand: true for huismerken only, false for A-merken only. Omit for no filter. A chain with no reliable brand signal (Lidl, Vomar) carries no rows on either side of this filter, rather than a guessed one.",
+              "title": "Private Label"
+            },
+            "description": "Filter on the retailer's own house brand: true for huismerken only, false for A-merken only. Omit for no filter. A chain with no reliable brand signal (Lidl, Vomar) carries no rows on either side of this filter, rather than a guessed one."
           },
           {
             "name": "min_price",
@@ -1183,6 +1201,24 @@
               "title": "Dietary"
             },
             "description": "Comma-separated dietary tags: bio, glutenvrij, lactosevrij, vegan"
+          },
+          {
+            "name": "private_label",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "boolean"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "description": "Filter on house brand: true for huismerken, false for A-merken",
+              "title": "Private Label"
+            },
+            "description": "Filter on house brand: true for huismerken, false for A-merken"
           }
         ],
         "responses": {
@@ -1891,6 +1927,60 @@
           }
         ]
       }
+    },
+    "/api/v1/sla/summary": {
+      "get": {
+        "tags": [
+          "sla"
+        ],
+        "summary": "Sla Public",
+        "description": "Availability per calendar month, newest first — the same shape as the\ninternal route, minus ``refresh`` (a status page has no use for it and it\nis not a knob to hand the open internet).",
+        "operationId": "sla_public_api_v1_sla_summary_get",
+        "parameters": [
+          {
+            "name": "months",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "maximum": 24,
+              "minimum": 1,
+              "default": 12,
+              "title": "Months"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": true,
+                  "title": "Response Sla Public Api V1 Sla Summary Get"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {},
+          {
+            "ApiKeyAuth": []
+          }
+        ]
+      }
     }
   },
   "components": {
@@ -2070,6 +2160,12 @@
             "additionalProperties": true,
             "type": "object",
             "title": "Dietary",
+            "default": {}
+          },
+          "private_label": {
+            "additionalProperties": true,
+            "type": "object",
+            "title": "Private Label",
             "default": {}
           },
           "total": {
@@ -2697,6 +2793,17 @@
               }
             ],
             "title": "Dietary Tags"
+          },
+          "private_label": {
+            "anyOf": [
+              {
+                "type": "boolean"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Private Label"
           },
           "is_promotional": {
             "type": "boolean",

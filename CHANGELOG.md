@@ -12,6 +12,20 @@ Nieuwe velden, nieuwe ketens en betere dekking rollen we zonder aankondiging uit
 aan** (art. 10 van de [API-voorwaarden](https://www.prijsprofeet.nl/api-voorwaarden)):
 per e-mail aan betalende afnemers én hier.
 
+## 2026-09-12
+
+**Nieuw op `/search` en `/filter-stats`: de parameter `private_label`.** Filtert
+op het eigen huismerk van de keten (`true`) of juist op A-merken (`false`);
+weglaten geeft geen filter. Ketens zonder betrouwbaar merksignaal (Lidl, Vomar)
+leveren geen rijen aan weerskant van dit filter — dat is geen gok, ze zijn
+gewoon afwezig. `/filter-stats` krijgt er een `private_label`-telling bij,
+naast `dietary`. **Puur toegevoegd, geen wijziging aan bestaande velden.**
+
+**`openapi.json` liep achter op de site: `/api/v1/sla/summary` ontbrak.** Dat
+keyless, vijf minuten gecachete endpoint (maandelijkse beschikbaarheidscijfers
+voor een externe statuspagina) draait al een tijd live maar was nooit
+geëxporteerd. Toegevoegd, zonder wijziging aan wat er al in de spec stond.
+
 ## 2026-09-11
 
 **Gewijzigd op `/deals/top`: `DealGroup.brand` kan nu `null` zijn.** Een
