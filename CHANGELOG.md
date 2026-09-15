@@ -12,6 +12,31 @@ Nieuwe velden, nieuwe ketens en betere dekking rollen we zonder aankondiging uit
 aan** (art. 10 van de [API-voorwaarden](https://www.prijsprofeet.nl/api-voorwaarden)):
 per e-mail aan betalende afnemers én hier.
 
+## 2026-09-15 (2)
+
+**Gewijzigd op `GET /products/{id}`: `nutriscore` staat er nu ook op producten
+die de keten zelf niet zelf publiceert, gevuld via een exacte EAN-match bij een
+andere keten (#979).** We scrapen Nutri-Score uitsluitend uit Albert Heijns
+eigen feed; elke andere keten publiceerde tot nu toe `null`, ook wanneer
+precies dezelfde EAN bij AH wél een score droeg — een formulering verandert
+niet per winkel. Gemeten vóór de bouw: van de 1.429 AH-EAN's met een score
+wordt **652 (45,6%)** ook bij een andere keten verkocht, wat de "eerst meten"-
+drempel haalde.
+
+**Alleen op de detailroute, alleen op read, alleen als het nodig is.** De
+lookup draait één keer per aanvraag, en alleen wanneer de opgeloste respons
+zelf `nutriscore: null` heeft én een `ean` draagt — een product met een eigen
+score kost geen extra lookup. Niet toegepast op `/products`,
+`/products/promotional/all` of de andere lijst-/bulkroutes: die geven tot 100
+rijen per aanroep, waar dit 100 losse lookups zou kosten; alleen de
+enkelvoudige detailroute betaalt de extra rondgang.
+
+**Wat er niet verandert.** Elke keten kan de bron zijn, niet alleen AH — het
+veld is symmetrisch, dus een keten die morgen zelf een score publiceert voedt
+vanzelf elke andere keten mee, zonder codewijziging. De schapprijs-laag
+(`/match/*`) blijft buiten deze propagatie: die matcht op naam, niet op EAN, en
+een gezondheidsclaim vraagt om een exacte bron, geen gok.
+
 ## 2026-09-15
 
 **Uitgebreid op `private_label` (`/search`, `/filter-stats`): meer echte

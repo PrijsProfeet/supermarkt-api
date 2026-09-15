@@ -2471,7 +2471,7 @@
               }
             ],
             "title": "Nutriscore",
-            "description": "Nutri-Score grade a-e (lowercase). Albert Heijn only."
+            "description": "Nutri-Score grade a-e (lowercase). Scraped from Albert Heijn only, but propagated to other retailers on GET /products/{id} via an exact EAN match (#979) — a product's formulation doesn't change by shop."
           },
           "product_url": {
             "anyOf": [
