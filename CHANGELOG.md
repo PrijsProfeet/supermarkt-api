@@ -12,6 +12,27 @@ Nieuwe velden, nieuwe ketens en betere dekking rollen we zonder aankondiging uit
 aan** (art. 10 van de [API-voorwaarden](https://www.prijsprofeet.nl/api-voorwaarden)):
 per e-mail aan betalende afnemers én hier.
 
+## 2026-09-15
+
+**Uitgebreid op `private_label` (`/search`, `/filter-stats`): meer echte
+huismerken herkend bij PLUS, Dirk, DekaMarkt en Hoogvliet.** `Bio+`, `Melkan`
+en `G'woon` zijn gedeelde Superunie-inkoopmerken (dezelfde eigen-merk-status
+als de merknaam van de keten zelf), en `Casa Italiana` bleek niet
+Detailresult-exclusief maar ook bij Hoogvliet te lopen — de detectie kende ze
+nog niet. Gemeten effect op `/filter-stats`: het aandeel `true` ging van
+vrijwel nul naar 15 van 557 (DekaMarkt), 15 van 543 (Hoogvliet) en 33 van 786
+(Dirk); bij PLUS (461 van 2889) en Ekoplaza (2 van 423, via `Puur Nl`) klopte
+het al grotendeels.
+
+**Correctie op de regel van 12 sep hieronder: Vomar levert wél rijen op dit
+filter, allemaal `false`, niet "geen rijen aan weerskant".** Dat klopte op
+12 sep, maar veranderde daarna stilzwijgend: Vomar's promo-producten (waar
+`/search` op leest) dragen geen merkveld, dus elke Vomar-rij test `false` in
+plaats van afwezig te zijn. Vomar's échte huismerken (Bio+, Melkan, G'woon,
+Zuivelmeester) zijn wél zichtbaar, maar alleen via de schapprijs-laag op
+`/match/*`, niet hier. Lidl blijft wel volledig afwezig aan beide kanten van
+dit filter, zoals hieronder beschreven.
+
 ## 2026-09-12
 
 **Nieuw op `/search` en `/filter-stats`: de parameter `private_label`.** Filtert
