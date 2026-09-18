@@ -2375,6 +2375,30 @@
             "title": "Savings Percentage",
             "description": "Saving as percentage"
           },
+          "multi_buy_quantity": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Multi Buy Quantity",
+            "description": "Bundle size the promotion names: 2 for '2 voor 3,-', 2 for '1+1 gratis'. Null when the promotion is not a bundle of two or more. `price` stays the price of ONE item wherever the chain lets us derive it; Aldi publishes the bundle total as its price."
+          },
+          "multi_buy_price": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Multi Buy Price",
+            "description": "Bundle total the promotion names: 3.0 for '2 voor 3,-'. Null when the mechanism names no total (1+1 gratis, 2e halve prijs)."
+          },
           "currency": {
             "type": "string",
             "title": "Currency",
@@ -2575,6 +2599,18 @@
             ],
             "title": "Valid Until",
             "description": "Promotion end (ISO date)"
+          },
+          "valid_until_estimated": {
+            "anyOf": [
+              {
+                "type": "boolean"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Valid Until Estimated",
+            "description": "True when valid_until is OUR rolling estimate, not a date the retailer published. Today only PLUS long-running promotions: its feed carries no end date, so the end is re-extended by two days on every nightly run while the promotion stays in the feed, and can outlast the real promotion by up to two days. Null means not assessed — not 'retailer-stated'."
           },
           "extracted_at": {
             "type": "string",
@@ -2936,6 +2972,17 @@
               }
             ],
             "title": "Valid Until"
+          },
+          "valid_until_estimated": {
+            "anyOf": [
+              {
+                "type": "boolean"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Valid Until Estimated"
           },
           "score": {
             "type": "number",

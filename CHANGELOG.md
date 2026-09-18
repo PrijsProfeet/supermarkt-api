@@ -12,6 +12,34 @@ Nieuwe velden, nieuwe ketens en betere dekking rollen we zonder aankondiging uit
 aan** (art. 10 van de [API-voorwaarden](https://www.prijsprofeet.nl/api-voorwaarden)):
 per e-mail aan betalende afnemers én hier.
 
+## 2026-09-18
+
+**Nieuw op `/products`, `/products/{id}` en de andere productroutes:
+`multi_buy_quantity`, `multi_buy_price` en `valid_until_estimated` (#1055,
+#1054, #1057).** De eerste twee beschrijven een bundelactie zoals de keten hem
+noemt: `2` en `3.0` bij "2 VOOR 3,-", `2` en `null` bij "1+1 gratis" (geen
+totaalbedrag genoemd). Ze stonden al op `/search`, maar lazen daar altijd
+`null`: we lazen de actietekst wel om `price` te corrigeren, maar bewaarden het
+resultaat niet. Gemeld door een afnemer.
+
+**Wat de velden wel en niet zeggen.** Ze zijn alleen gevuld bij een bundel van
+twee of meer; "Per stuk €1,49" is een stuksprijs, geen bundel. `price` blijft
+de prijs van één artikel waar de keten ons dat laat afleiden, behalve bij Aldi,
+dat het bundeltotaal als prijs publiceert. "2 VOOR 3,-" (met komma) werd tot
+nu toe niet herkend en nu wel. Vomar blijft leeg: onze bron voor Vomar levert
+geen actietekst mee.
+
+**`valid_until_estimated`** is `true` als `valid_until` *onze schatting* is en
+geen datum die de keten publiceerde. Dat geldt vandaag alleen voor langlopende
+PLUS-acties: de PLUS-feed kent geen einddatum, dus schuiven we het einde elke
+nacht twee dagen op zolang de actie in de feed staat, en kan een actie tot twee
+dagen na haar echte einde nog als `active` lezen. Bij de wekelijkse PLUS-acties
+staat het veld op `false`, bij alle andere ketens op `null`: "niet beoordeeld",
+niet "door de keten opgegeven". Het staat ook op `/search`.
+
+**Puur toegevoegd, geen wijziging aan bestaande velden.** De velden vullen zich
+bij de eerstvolgende nachtelijke scrape.
+
 ## 2026-09-15 (2)
 
 **Gewijzigd op `GET /products/{id}`: `nutriscore` staat er nu ook op producten
