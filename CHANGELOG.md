@@ -12,6 +12,34 @@ Nieuwe velden, nieuwe ketens en betere dekking rollen we zonder aankondiging uit
 aan** (art. 10 van de [API-voorwaarden](https://www.prijsprofeet.nl/api-voorwaarden)):
 per e-mail aan betalende afnemers én hier.
 
+## 2026-09-18 (2)
+
+**Gewijzigd: `promotion_type` spreekt nu bij elke keten hetzelfde vocabulaire
+(#1053).** Het veld droeg bij de meeste ketens het mechanisme, maar bij PLUS,
+Ekoplaza, Hoogvliet en Vomar de bron waar de rij vandaan kwam (`feed`,
+`website`, `webshop`, `folder`) en bij Lidl, Dirk en DekaMarkt eigen woorden
+(`percentage_discount`, `promotional`). Wie filterde op
+`promotion_type=one_plus_one` miste zo bijvoorbeeld elke 1+1-actie van PLUS.
+Het is nu altijd een van `percentage`, `multi_buy`, `one_plus_one`, `volume`,
+`limited` of `starting`, afgeleid uit de actietekst van de keten, of `null` als
+die tekst geen mechanisme noemt en er ook geen van-voorprijs is ("Actie").
+Daarbij wordt "2DE HALVE PRIJS" nu herkend; tot nu toe werd alleen "2e"
+gelezen. Gemeld door een afnemer.
+
+**Nieuw op `/products`, `/products/{id}` en `/search`: `promo_group_id` en
+`promo_group_mixable` (#1056).** Producten die samen één actie vormen ("Kies &
+Mix 2 voor 6,00") droegen niets dat ze verbond. `promo_group_id` is de eigen
+actie-id van de keten; `GET /api/v1/products?promo_group_id=…` geeft alle
+deelnemers. Gevuld bij Albert Heijn, Jumbo, Dirk, DekaMarkt en Ekoplaza; de
+andere ketens publiceren geen actie-id. `promo_group_mixable` is `true` als de
+keten zegt dat de producten samen tellen voor één actie, `false` als de actie
+per product geldt, en `null` als de keten het niet zegt. Vandaag zegt alleen
+Ekoplaza het: een gedeelde id bewijst op zich niet dat je mag combineren.
+
+**Wanneer.** `promotion_type` klopt meteen op `/products` en
+`/products/{id}`, en op `/search` na de eerstvolgende nachtelijke scrape. De
+twee nieuwe velden vullen zich na die scrape.
+
 ## 2026-09-18
 
 **Nieuw op `/products`, `/products/{id}` en de andere productroutes:
