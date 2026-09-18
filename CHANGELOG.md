@@ -12,6 +12,18 @@ Nieuwe velden, nieuwe ketens en betere dekking rollen we zonder aankondiging uit
 aan** (art. 10 van de [API-voorwaarden](https://www.prijsprofeet.nl/api-voorwaarden)):
 per e-mail aan betalende afnemers én hier.
 
+## 2026-09-18 (3)
+
+**Gewijzigd op `/products/{id}/price-history`: `promotion_type` is nu het
+mechanisme, de actietekst staat in het nieuwe veld `promotion_text`.** Op dit
+endpoint droeg `promotion_type` de letterlijke actietekst van de keten
+("2 VOOR 3.99"), terwijl hetzelfde veld op `/products` en `/search` het
+mechanisme is. Nu betekent de naam overal hetzelfde: een van `percentage`,
+`multi_buy`, `one_plus_one`, `volume`, `limited` of `starting`, of `null` als
+de actietekst geen mechanisme noemt ("Actie", "Gratis bezorging bij 12 euro").
+Wie de tekst las, vindt hem voortaan in `promotion_text`. Een week zonder actie
+heeft beide op `null`.
+
 ## 2026-09-18 (2)
 
 **Gewijzigd: `promotion_type` spreekt nu bij elke keten hetzelfde vocabulaire
