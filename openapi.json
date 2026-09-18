@@ -39,7 +39,7 @@
           "products"
         ],
         "summary": "List Products",
-        "description": "List all products with optional filters and pagination.\n\n- **retailer**: Filter by retailer name\n- **folder_id**: Filter by folder ID\n- **is_promotional**: Filter promotional products only\n- **min_price**: Minimum price (inclusive)\n- **max_price**: Maximum price (inclusive)\n- **min_valid_from**: Only promotions starting on or after this date (YYYY-MM-DD)\n- **max_valid_from**: Only promotions starting on or before this date (YYYY-MM-DD)\n- **sort_by**: Sort field (extracted_at, price, name, product_id, valid_from)\n- **sort_order**: Sort order (asc or desc)\n- **page**: Page number (starts at 1)\n- **page_size**: Number of items per page (max 100)",
+        "description": "List all products with optional filters and pagination.\n\n- **retailer**: Filter by retailer name\n- **folder_id**: Filter by folder ID\n- **is_promotional**: Filter promotional products only\n- **min_price**: Minimum price (inclusive)\n- **max_price**: Maximum price (inclusive)\n- **min_valid_from**: Only promotions starting on or after this date (YYYY-MM-DD)\n- **max_valid_from**: Only promotions starting on or before this date (YYYY-MM-DD)\n- **promo_group_id**: Only the products taking part in this joint promotion\n- **sort_by**: Sort field (extracted_at, price, name, product_id, valid_from)\n- **sort_order**: Sort order (asc or desc)\n- **page**: Page number (starts at 1)\n- **page_size**: Number of items per page (max 100)",
         "operationId": "list_products_api_v1_products_get",
         "parameters": [
           {
@@ -167,6 +167,24 @@
               "title": "Max Valid From"
             },
             "description": "Alleen acties die op of vóór deze dag beginnen (YYYY-MM-DD)"
+          },
+          {
+            "name": "promo_group_id",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "description": "Alleen producten uit deze actiegroep (zie `promo_group_id` op een product): alle deelnemers aan één gezamenlijke actie",
+              "title": "Promo Group Id"
+            },
+            "description": "Alleen producten uit deze actiegroep (zie `promo_group_id` op een product): alle deelnemers aan één gezamenlijke actie"
           },
           {
             "name": "sort_by",
@@ -2554,7 +2572,31 @@
               }
             ],
             "title": "Promotion Type",
-            "description": "Promotion mechanism"
+            "description": "Promotion mechanism, one fixed vocabulary for every retailer: `percentage` (a price cut, incl. a plain was/now price), `multi_buy` ('2 voor 6,00', '3 stuks €5'), `one_plus_one` ('1+1 gratis', '2+1 gratis', '2e halve prijs'), `volume`, `limited` ('OP=OP'), `starting` ('vanaf'). Null when the retailer's label names no mechanism we can classify."
+          },
+          "promo_group_id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Promo Group Id",
+            "description": "The retailer's own id for the promotion this product takes part in, namespaced by retailer. Every product in the same promotion carries the same value, so `GET /api/v1/products?promo_group_id=...` lists them all. Scoped to the promotion week. Null when the retailer publishes no id."
+          },
+          "promo_group_mixable": {
+            "anyOf": [
+              {
+                "type": "boolean"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Promo Group Mixable",
+            "description": "True when the retailer states the products in this group combine toward one deal (e.g. 'Kies & Mix 2 voor 6,00'); false when it states the deal applies per product. Null when the retailer does not say: a shared `promo_group_id` alone does not prove the products can be mixed."
           },
           "promotion_status": {
             "anyOf": [
@@ -2905,7 +2947,32 @@
                 "type": "null"
               }
             ],
-            "title": "Promotion Type"
+            "title": "Promotion Type",
+            "description": "Promotion mechanism, one fixed vocabulary for every retailer: `percentage` (a price cut, incl. a plain was/now price), `multi_buy` ('2 voor 6,00', '3 stuks €5'), `one_plus_one` ('1+1 gratis', '2+1 gratis', '2e halve prijs'), `volume`, `limited` ('OP=OP'), `starting` ('vanaf'). Null when the retailer's label names no mechanism we can classify."
+          },
+          "promo_group_id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Promo Group Id",
+            "description": "The retailer's own id for the promotion this product takes part in, namespaced by retailer. Every product in the same promotion carries the same value, so `GET /api/v1/products?promo_group_id=...` lists them all. Scoped to the promotion week. Null when the retailer publishes no id."
+          },
+          "promo_group_mixable": {
+            "anyOf": [
+              {
+                "type": "boolean"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Promo Group Mixable",
+            "description": "True when the retailer states the products in this group combine toward one deal (e.g. 'Kies & Mix 2 voor 6,00'); false when it states the deal applies per product. Null when the retailer does not say: a shared `promo_group_id` alone does not prove the products can be mixed."
           },
           "savings_percentage": {
             "anyOf": [
