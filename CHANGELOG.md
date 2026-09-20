@@ -14,6 +14,29 @@ per e-mail aan betalende afnemers én hier.
 
 ## 2026-09-20
 
+**Nieuw op `/products`, `/products/{id}`, de andere productroutes en
+`/search`: `in_store_only`.** Een actieprijs zonder de voorwaarde waaronder
+hij geldt, is voor een boodschappenplan niet bruikbaar. Twee ketens zeggen die
+voorwaarde zelf en dat signaal gooiden we tot nu toe weg. `true` betekent dat
+de actie alleen in de winkel geldt en niet in de webshop van die keten.
+Gemeld door een afnemer.
+
+**Waar het vandaan komt.** Bij Albert Heijn uit de eigen winkelvlag op de
+bonusgroep (gemeten 20 september: 45 van 4.964 lopende acties `true`), bij
+Lidl uit het beschikbaarheidslabel op het product zelf ("Alleen in de winkel
+vanaf 21/09 - 27/09"). Loopt een Lidl-actie ook online, dan staat het veld op
+`false`.
+
+**`null` betekent "niet beoordeeld", niet "dus ook online".** De andere acht
+ketens publiceren hierover geen signaal, dus doen wij er geen uitspraak over.
+Twee dingen zitten er bewust niet in, omdat ze niet in onze bron staan:
+"alleen online" en een loyaliteitseis (Lidl Plus).
+
+**Puur toegevoegd, geen wijziging aan bestaande velden.** Het veld vult zich
+bij de eerstvolgende nachtelijke scrape.
+
+## 2026-09-20
+
 **Hersteld: `multi_buy_quantity` en `multi_buy_price` zijn nu ook bij Aldi
 gevuld.** Aldi levert het mechanisme zonder bedrag — het etiket zegt "2 VOOR"
 en het bedrag staat in een apart veld — en wij zetten die twee pas bij elkaar

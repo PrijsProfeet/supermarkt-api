@@ -2654,6 +2654,18 @@
             "title": "Valid Until Estimated",
             "description": "True when valid_until is OUR rolling estimate, not a date the retailer published. Today only PLUS long-running promotions: its feed carries no end date, so the end is re-extended by two days on every nightly run while the promotion stays in the feed, and can outlast the real promotion by up to two days. Null means not assessed — not 'retailer-stated'."
           },
+          "in_store_only": {
+            "anyOf": [
+              {
+                "type": "boolean"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "In Store Only",
+            "description": "True when the retailer itself states the promotion holds only in the shop, not in its webshop. Filled where the chain says so: Albert Heijn's own store-only flag on the bonus segment, and Lidl's availability badge ('Alleen in de winkel'). Null means not assessed — the other chains publish no such signal, so no claim is made."
+          },
           "extracted_at": {
             "type": "string",
             "format": "date-time",
@@ -3050,6 +3062,17 @@
               }
             ],
             "title": "Valid Until Estimated"
+          },
+          "in_store_only": {
+            "anyOf": [
+              {
+                "type": "boolean"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "In Store Only"
           },
           "score": {
             "type": "number",
