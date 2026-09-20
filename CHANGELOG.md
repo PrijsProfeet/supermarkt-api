@@ -14,6 +14,33 @@ per e-mail aan betalende afnemers én hier.
 
 ## 2026-09-20
 
+**`multi_buy_price` is nu ook gevuld bij 1+1, 2e gratis, 2e halve prijs en
+3e gratis.** Zo'n actie noemt geen bedrag, maar wel een verhouding, en tegen
+de reguliere prijs is dat een totaal. Dat totaal is het bedrag dat je aan de
+kassa betaalt.
+
+**Waarom het niet uit `price` te herleiden was.** `price` is de prijs van één
+stuk en staat afgerond op de cent. Die afronding is niet terug te rekenen: een
+1+1 op een artikel van €10,99 geeft een stuksprijs van €5,50, en tweemaal
+€5,50 is €11,00 — een cent meer dan je betaalt. Gemeten op 20 september wijkt
+`multi_buy_quantity × price` op **98,1%** van de lopende 1+1-acties af van het
+werkelijke totaal, omdat vrijwel elke winkelprijs op een oneven cent eindigt.
+Bij Ekoplaza gaat het niet om centen maar om een mediaan van €2,32, omdat de
+stuksprijs daar bij een Kies & Mix niet meebeweegt. Gemeld door een afnemer.
+
+**`price` verandert niet.** Alleen `multi_buy_price` vult zich waar hij eerst
+`null` was; hij blijft `null` als wij van die keten geen reguliere prijs
+krijgen. Vult zich bij de eerstvolgende nachtelijke scrape.
+
+**Nieuw op `/search`: `extracted_at` en `currency`.** `/products` gaf die al;
+op `/search` moest je ze aannemen. `extracted_at` zegt wanneer wij die rij voor
+het laatst gezien hebben — `valid_from`/`valid_until` zeggen wanneer de *actie*
+loopt, en dat is een andere vraag dan hoe vers onze waarneming is. Let op:
+`extracted_at` is niet "sinds wanneer geldt deze prijs". Puur toegevoegd, per
+direct gevuld. Gemeld door een afnemer.
+
+## 2026-09-20
+
 **Nieuw op `/products`, `/products/{id}`, de andere productroutes en
 `/search`: `in_store_only`.** Een actieprijs zonder de voorwaarde waaronder
 hij geldt, is voor een boodschappenplan niet bruikbaar. Twee ketens zeggen die

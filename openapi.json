@@ -2415,7 +2415,7 @@
               }
             ],
             "title": "Multi Buy Price",
-            "description": "Bundle total the promotion names: 3.0 for '2 voor 3,-'. Null when the mechanism names no total (1+1 gratis, 2e halve prijs). At Aldi this equals `price`, because Aldi publishes the bundle total as the product's price."
+            "description": "What the bundle costs in total: 3.0 for '2 voor 3,-', and for an N-th-free mechanism the amount that ratio comes to against the regular price — 10.99 for a '1+1 gratis' on a €10,99 item. This is the payable figure; `price` is the per-item view of it and is rounded to the cent, so multiplying it by `multi_buy_quantity` can miss the total by a cent in either direction. Null where no regular price was available. At Aldi this equals `price`, because Aldi publishes the bundle total as the product's price."
           },
           "currency": {
             "type": "string",
@@ -3073,6 +3073,23 @@
               }
             ],
             "title": "In Store Only"
+          },
+          "extracted_at": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "date-time"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Extracted At"
+          },
+          "currency": {
+            "type": "string",
+            "title": "Currency",
+            "default": "EUR"
           },
           "score": {
             "type": "number",
