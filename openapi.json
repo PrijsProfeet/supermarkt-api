@@ -2343,7 +2343,7 @@
           "price": {
             "type": "number",
             "title": "Price",
-            "description": "Product price"
+            "description": "What the product costs today: the promotional price while a promotion runs, the regular price otherwise. ⚠️ It is the price of ONE item at every chain except Aldi, which publishes the bundle total as its price — so '2 VOOR 0.79' reads price=0.79 for TWO items there. Read it together with multi_buy_quantity to tell the two apart: where that field is set and Aldi is the retailer, price buys multi_buy_quantity items. At PLUS a multipack's price is the price of the pack, which is the one unit you can buy. Use unit_price to compare across pack sizes."
           },
           "original_price": {
             "anyOf": [
@@ -2415,7 +2415,7 @@
               }
             ],
             "title": "Multi Buy Price",
-            "description": "Bundle total the promotion names: 3.0 for '2 voor 3,-'. Null when the mechanism names no total (1+1 gratis, 2e halve prijs)."
+            "description": "Bundle total the promotion names: 3.0 for '2 voor 3,-'. Null when the mechanism names no total (1+1 gratis, 2e halve prijs). At Aldi this equals `price`, because Aldi publishes the bundle total as the product's price."
           },
           "currency": {
             "type": "string",

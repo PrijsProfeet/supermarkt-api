@@ -12,6 +12,25 @@ Nieuwe velden, nieuwe ketens en betere dekking rollen we zonder aankondiging uit
 aan** (art. 10 van de [API-voorwaarden](https://www.prijsprofeet.nl/api-voorwaarden)):
 per e-mail aan betalende afnemers én hier.
 
+## 2026-09-20
+
+**Hersteld: `multi_buy_quantity` en `multi_buy_price` zijn nu ook bij Aldi
+gevuld.** Aldi levert het mechanisme zonder bedrag — het etiket zegt "2 VOOR"
+en het bedrag staat in een apart veld — en wij zetten die twee pas bij elkaar
+nádat we het etiket gelezen hadden. Daardoor bleven beide velden bij Aldi leeg,
+ook na de wijziging van 18 september: gemeten op 19 september droeg geen van de
+197 lopende Aldi-acties een `multi_buy_quantity`. Gemeld door een afnemer.
+
+**Let op wat `price` bij Aldi betekent.** Aldi publiceert het bundeltotaal als
+prijs: "2 VOOR 0.79" leest als `price: 0.79` met `multi_buy_quantity: 2`, dus
+dat bedrag koopt twee artikelen. Bij de andere ketens is `price` de prijs van
+één artikel (bij 1+1 en multi-buy al verlaagd waar de keten ons dat laat
+afleiden). Dat stond al op /api, maar niet in de veldbeschrijving zelf; `price`
+en `multi_buy_price` zeggen het nu ook in deze spec en op `/docs`.
+
+De velden vullen zich na de eerstvolgende nachtelijke scrape. Bestaande velden
+veranderen niet.
+
 ## 2026-09-18 (3)
 
 **Gewijzigd op `/products/{id}/price-history`: `promotion_type` is nu het
