@@ -12,6 +12,29 @@ Nieuwe velden, nieuwe ketens en betere dekking rollen we zonder aankondiging uit
 aan** (art. 10 van de [API-voorwaarden](https://www.prijsprofeet.nl/api-voorwaarden)):
 per e-mail aan betalende afnemers én hier.
 
+## 2026-09-21
+
+**Hersteld: bij Lidl stond in `price` soms de Lidl Plus-ledenprijs. Nieuw:
+`loyalty_price` en `loyalty_program`.** Lidl publiceert bij een Lidl
+Plus-actie een aparte ledenprijs, en die lazen wij als de gewone actieprijs.
+Dat gold voor ongeveer 1 op de 10 Lidl-acties (29 in de meting van 20 en 21
+september), met een ledenkorting van 13 tot 52%. Wie de app niet heeft,
+betaalde dus meer dan `price` aangaf. Gemeld door een afnemer.
+
+**Wat er verandert.** `price` is nu altijd de prijs die iedereen betaalt. Bij
+zo'n actie is dat de normale Lidl-prijs, dus zonder `original_price` en met
+`savings_percentage` 0. De ledenprijs staat in `loyalty_price`, met
+`loyalty_program: "Lidl Plus"`. Zo kies je zelf welke prijs je gebruiker
+krijgt. `promotion_type` is voor deze rijen `null`, want voor wie geen lid is,
+is er geen korting. Dit corrigeert ook de zin hieronder (20 september) dat een
+loyaliteitseis niet in onze bron stond: bij Lidl stond hij er wel.
+
+**`null` betekent "niet beoordeeld", niet "geen ledenprijs".** Alleen Lidl
+publiceert zo'n prijs. De velden staan op `/products`, `/products/{id}`, de
+andere productroutes en `/search`. De rijen worden bij de eerstvolgende
+nachtelijke scrape rechtgezet. In `/price-history` van eerdere weken kan de
+ledenprijs nog staan.
+
 ## 2026-09-20
 
 **`multi_buy_price` is nu ook gevuld bij 1+1, 2e gratis, 2e halve prijs en

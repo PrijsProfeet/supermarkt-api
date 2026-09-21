@@ -2666,6 +2666,30 @@
             "title": "In Store Only",
             "description": "True when the retailer itself states the promotion holds only in the shop, not in its webshop. Filled where the chain says so: Albert Heijn's own store-only flag on the bonus segment, and Lidl's availability badge ('Alleen in de winkel'). Null means not assessed — the other chains publish no such signal, so no claim is made."
           },
+          "loyalty_price": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Loyalty Price",
+            "description": "The price that holds only for members of the retailer's loyalty programme (named in loyalty_program). `price` is always what a shopper without it pays. Filled where the chain states a member price: today Lidl Plus. Null means not assessed, not 'no member price'."
+          },
+          "loyalty_program": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Loyalty Program",
+            "description": "The loyalty programme loyalty_price requires, e.g. 'Lidl Plus'. Null whenever loyalty_price is null."
+          },
           "extracted_at": {
             "type": "string",
             "format": "date-time",
@@ -3073,6 +3097,28 @@
               }
             ],
             "title": "In Store Only"
+          },
+          "loyalty_price": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Loyalty Price"
+          },
+          "loyalty_program": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Loyalty Program"
           },
           "extracted_at": {
             "anyOf": [
