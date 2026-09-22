@@ -376,7 +376,7 @@
           "products"
         ],
         "summary": "Get Forecast",
-        "description": "Server-side backtested price forecast (\"Profeet voorspelt\").\n\nReturns the forecast dict, or null (HTTP 200) when there is insufficient\npromo history — the card then hides gracefully.",
+        "description": "Server-side backtested price forecast (\"Profeet voorspelt\").\n\nReturns the forecast dict, or null (HTTP 200) when there is none; the\n`X-Forecast-Reason` header then says why.",
         "operationId": "get_forecast_api_v1_products__product_id__forecast_get",
         "parameters": [
           {
@@ -405,6 +405,14 @@
                     }
                   ],
                   "title": "Response Get Forecast Api V1 Products  Product Id  Forecast Get"
+                }
+              }
+            },
+            "headers": {
+              "X-Forecast-Reason": {
+                "description": "Only when the body is null: why there is no forecast. `no_price_history` (no history for this id), `too_few_promos` (fewer than two promotions to derive a rhythm from), `retailer_not_supported` (we do not publish forecasts for this chain because our track record there does not back them), `weak_backtest` (this product's own past promotions show no predictable rhythm), `error`.",
+                "schema": {
+                  "type": "string"
                 }
               }
             }

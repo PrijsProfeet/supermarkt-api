@@ -14,6 +14,15 @@ per e-mail aan betalende afnemers én hier.
 
 ## 2026-09-22
 
+**`/products/{id}/forecast` zegt nu waarom er geen voorspelling is.** Is de
+body `null`, dan staat de reden in de header `X-Forecast-Reason`:
+`no_price_history` (geen historie voor dit id), `too_few_promos` (minder dan twee
+acties om een ritme uit af te leiden), `retailer_not_supported` (voor deze keten
+publiceren we geen voorspelling, omdat ons gemeten trackrecord daar tekortschiet),
+`weak_backtest` (de eigen actiegeschiedenis van dit product laat geen voorspelbaar
+ritme zien) of `error`. De body blijft `null`, dus bestaande integraties werken
+ongewijzigd. Gemeld door een afnemer.
+
 **Nieuw op `/products`, `/products/{id}`, de andere productroutes en `/search`:
 `online_only`. Uitgebreid: `in_store_only` is nu ook bij Jumbo gevuld.**
 `online_only` is `true` als de keten zelf zegt dat de actie alleen in zijn
