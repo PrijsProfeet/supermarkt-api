@@ -1520,6 +1520,129 @@
         ]
       }
     },
+    "/api/v1/shelf-prices": {
+      "get": {
+        "tags": [
+          "shelf-prices"
+        ],
+        "summary": "Search current regular (non-promotional) shelf prices",
+        "description": "Search the regular assortment by name and/or EAN, filtered by retailer — the current price a retailer charges when a SKU is NOT on offer. This is the doorway `/match/*` doesn't provide: that endpoint only answers once you already hold an EAN from a live promotion, with no way to search cold. **Coverage is chain-dependent, see /api for the current breakdown.** Lidl is absent: it publishes no regular assortment prices. Aldi, Ekoplaza and Hoogvliet rows carry no barcode, so `ean` is always null there; search those by name. **This is the current price only, not a history.** `price_changed_at` says since when this price holds, `last_seen` when we last observed it.",
+        "operationId": "search_shelf_prices_api_v1_shelf_prices_get",
+        "parameters": [
+          {
+            "name": "q",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string",
+                  "minLength": 2
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "description": "Search term, matched against the product name",
+              "title": "Q"
+            },
+            "description": "Search term, matched against the product name"
+          },
+          {
+            "name": "ean",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string",
+                  "minLength": 8,
+                  "maxLength": 14
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "description": "Exact EAN/GTIN match",
+              "title": "Ean"
+            },
+            "description": "Exact EAN/GTIN match"
+          },
+          {
+            "name": "retailer",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "description": "Filter by retailer slug",
+              "title": "Retailer"
+            },
+            "description": "Filter by retailer slug"
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "minimum": 1,
+              "description": "Page number",
+              "default": 1,
+              "title": "Page"
+            },
+            "description": "Page number"
+          },
+          {
+            "name": "page_size",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "maximum": 100,
+              "minimum": 1,
+              "description": "Items per page",
+              "default": 20,
+              "title": "Page Size"
+            },
+            "description": "Items per page"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ShelfPriceListResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "ApiKeyAuth": []
+          }
+        ]
+      }
+    },
     "/api/v1/deals/top": {
       "get": {
         "tags": [
@@ -3295,6 +3418,166 @@
           "results"
         ],
         "title": "SearchResponse"
+      },
+      "ShelfPriceItem": {
+        "properties": {
+          "retailer": {
+            "type": "string",
+            "title": "Retailer",
+            "description": "Retailer slug"
+          },
+          "shelf_id": {
+            "type": "string",
+            "title": "Shelf Id",
+            "description": "The retailer's own SKU identifier"
+          },
+          "ean": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Ean",
+            "description": "EAN/GTIN, when the retailer publishes one"
+          },
+          "name": {
+            "type": "string",
+            "title": "Name",
+            "description": "Product name as the retailer states it"
+          },
+          "brand": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Brand",
+            "description": "Brand, when stated"
+          },
+          "price": {
+            "type": "number",
+            "title": "Price",
+            "description": "Current regular (non-promotional) price"
+          },
+          "currency": {
+            "type": "string",
+            "title": "Currency",
+            "description": "ISO currency code",
+            "default": "EUR"
+          },
+          "quantity": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Quantity",
+            "description": "Pack size as stated by the retailer"
+          },
+          "unit_price": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Unit Price",
+            "description": "Derived price per standard unit (kg/L/piece)"
+          },
+          "product_url": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Product Url",
+            "description": "Link to the product on the retailer's own site"
+          },
+          "price_changed_at": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Price Changed At",
+            "description": "When this price last actually changed (not a snapshot timestamp). ISO 8601 with the Dutch UTC offset."
+          },
+          "last_seen": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Last Seen",
+            "description": "When we last observed this row at the retailer -- the freshness indicator, what `extracted_at` is on a promotion. ISO 8601 with the Dutch UTC offset."
+          }
+        },
+        "type": "object",
+        "required": [
+          "retailer",
+          "shelf_id",
+          "name",
+          "price",
+          "last_seen"
+        ],
+        "title": "ShelfPriceItem",
+        "description": "A retailer's current REGULAR price for one SKU, not a promotion.\n\nKeyed on the retailer's own SKU (`shelf_id`), which often has no\npromotion and therefore no `product_id`. `ean` is the cross-retailer join\nkey where the retailer publishes one; Aldi, Ekoplaza and Hoogvliet do not."
+      },
+      "ShelfPriceListResponse": {
+        "properties": {
+          "total": {
+            "type": "integer",
+            "title": "Total",
+            "description": "Total matching rows"
+          },
+          "page": {
+            "type": "integer",
+            "title": "Page",
+            "description": "Current page number"
+          },
+          "page_size": {
+            "type": "integer",
+            "title": "Page Size",
+            "description": "Number of items per page"
+          },
+          "items": {
+            "items": {
+              "$ref": "#/components/schemas/ShelfPriceItem"
+            },
+            "type": "array",
+            "title": "Items",
+            "description": "Matching shelf-price rows"
+          }
+        },
+        "type": "object",
+        "required": [
+          "total",
+          "page",
+          "page_size",
+          "items"
+        ],
+        "title": "ShelfPriceListResponse",
+        "description": "Paginated shelf-price search response."
       },
       "TopDealsResponse": {
         "properties": {

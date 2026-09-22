@@ -14,6 +14,19 @@ per e-mail aan betalende afnemers én hier.
 
 ## 2026-09-22
 
+**`GET /api/v1/shelf-prices` staat nu in de spec (Pro).** De reguliere
+schapprijs van het assortiment, dus ook van producten die niet in de actie zijn.
+Zoek op naam (`q`, minimaal 2 tekens) en/of exacte EAN (`ean`), filter op keten
+(`retailer`), pagineer met `page` en `page_size` (maximaal 100). Elke rij draagt
+`price_changed_at` (sinds wanneer deze prijs geldt) en `last_seen` (wanneer wij
+hem het laatst zagen), allebei met de Nederlandse UTC-offset. Het endpoint
+draaide al bij een paar afnemers en verandert niet; het valt nu onder dezelfde
+afspraken als de andere betaalde endpoints.
+
+Dekking: negen van de tien ketens. Lidl publiceert geen reguliere prijzen en
+ontbreekt. Bij Aldi, Ekoplaza en Hoogvliet is `ean` altijd `null`: zoek daar op
+naam. Dit is de huidige prijs, geen prijsverloop.
+
 **`/products/{id}/forecast` zegt nu waarom er geen voorspelling is.** Is de
 body `null`, dan staat de reden in de header `X-Forecast-Reason`:
 `no_price_history` (geen historie voor dit id), `too_few_promos` (minder dan twee
@@ -75,6 +88,25 @@ nachtelijke scrape rechtgezet. In `/price-history` van eerdere weken kan de
 ledenprijs nog staan.
 
 ## 2026-09-20
+
+**Uitgebreid: `promo_group_id` is nu ook bij Hoogvliet gevuld.** Hoogvliet was
+de enige keten met een eigen actie-id die het veld leeg liet: op 19 september
+droeg geen van de 414 lopende Hoogvliet-acties een groeps-id. Het is nu
+Hoogvliets eigen actiecode (bijvoorbeeld `hoogvliet_202638001`), dus
+`GET /api/v1/products?promo_group_id=…` geeft ook daar alle deelnemers aan één
+actie.
+
+**Nagemeten voordat we het aanzetten.** Over de lopende week: 123 groepen en 677
+producten, waarbij elke groep één actie is met een eigen titel en
+geldigheidsperiode ("Elixio of Santa Terra — alle flessen van 0,75 liter") en de
+leden de varianten daarvan zijn. Zit een product in twee groepen (21 van 677),
+dan draagt het de eerste.
+
+**`promo_group_mixable` blijft bij Hoogvliet `null`.** Een gedeelde id bewijst
+niet dat je de producten mag combineren voor de actie, en Hoogvliet zegt dat
+nergens; vandaag zegt alleen Ekoplaza het wel.
+
+**Wanneer.** Na de eerstvolgende nachtelijke scrape.
 
 **`multi_buy_price` is nu ook gevuld bij 1+1, 2e gratis, 2e halve prijs en
 3e gratis.** Zo'n actie noemt geen bedrag, maar wel een verhouding, en tegen
