@@ -1526,7 +1526,7 @@
           "shelf-prices"
         ],
         "summary": "Search current regular (non-promotional) shelf prices",
-        "description": "Search the regular assortment by name and/or EAN, filtered by retailer — the current price a retailer charges when a SKU is NOT on offer. This is the doorway `/match/*` doesn't provide: that endpoint only answers once you already hold an EAN from a live promotion, with no way to search cold. **Coverage is chain-dependent, see /api for the current breakdown.** Lidl is absent: it publishes no regular assortment prices. Aldi, Ekoplaza and Hoogvliet rows carry no barcode, so `ean` is always null there; search those by name. **This is the current price only, not a history.** `price_changed_at` says since when this price holds, `last_seen` when we last observed it.",
+        "description": "Search the regular assortment by name and/or EAN, filtered by retailer: the price a retailer charges when a SKU is NOT on offer, including the many products that never are. `/match/*` only answers for an EAN you already hold; this is where you start without one.\n\n**Access.** Pro, Business or trial key in `X-API-Key`; a free key gets 403. Your plan's rate limit applies.\n\n**Filters.** Give at least one of `q`, `ean` or `retailer`. Without any, the endpoint pages through the whole collection, which is rarely what you want. `q` is matched as one phrase against the product name, case-insensitively. A phrase of 4+ characters matches anywhere in the name (`brood` finds `volkorenbrood`); a shorter one only as a whole word.\n\n**Order and paging.** Most recently observed first, then by `retailer` and `shelf_id`. The order is total, so paging with `page`/`page_size` returns every row exactly once while the data does not change. It changes nightly (roughly 01:00-02:30 Dutch time), so run a full sync outside that window. `total` is the number of matching rows.\n\n**Coverage.** Nine of the ten chains. Lidl publishes no regular prices and returns nothing. Aldi, Ekoplaza and Hoogvliet publish no barcode, so `ean` is always null there: search those by name. Prices are national per chain: there is no store level, and no loyalty-card or personal-offer prices. A row that has not been seen for 60 days drops out. See /api for the current breakdown per chain.\n\n**Freshness.** Current price only, not a history. `price_changed_at` says since when this price holds (regular prices move rarely, about 0.2% of SKUs a day); `last_seen` says when we last observed the row, normally last night. Responses are cached for up to an hour.",
         "operationId": "search_shelf_prices_api_v1_shelf_prices_get",
         "parameters": [
           {
@@ -1581,10 +1581,10 @@
                   "type": "null"
                 }
               ],
-              "description": "Filter by retailer slug",
+              "description": "Filter by retailer slug: albert_heijn, jumbo, aldi, lidl, ekoplaza, plus, dekamarkt, hoogvliet, vomar, dirk",
               "title": "Retailer"
             },
-            "description": "Filter by retailer slug"
+            "description": "Filter by retailer slug: albert_heijn, jumbo, aldi, lidl, ekoplaza, plus, dekamarkt, hoogvliet, vomar, dirk"
           },
           {
             "name": "page",
@@ -3541,7 +3541,21 @@
           "last_seen"
         ],
         "title": "ShelfPriceItem",
-        "description": "A retailer's current REGULAR price for one SKU, not a promotion.\n\nKeyed on the retailer's own SKU (`shelf_id`), which often has no\npromotion and therefore no `product_id`. `ean` is the cross-retailer join\nkey where the retailer publishes one; Aldi, Ekoplaza and Hoogvliet do not."
+        "description": "A retailer's current REGULAR price for one SKU, not a promotion.\n\nKeyed on the retailer's own SKU (`shelf_id`), which often has no\npromotion and therefore no `product_id`. `ean` is the cross-retailer join\nkey where the retailer publishes one; Aldi, Ekoplaza and Hoogvliet do not.",
+        "example": {
+          "brand": "Boerderij Zuivel",
+          "currency": "EUR",
+          "ean": "8718452547647",
+          "last_seen": "2026-09-22T01:55:34+02:00",
+          "name": "Jumbo Boerderij Zuivel Halfvolle Melk 1 L",
+          "price": 1.95,
+          "price_changed_at": "2026-09-07T01:55:36+02:00",
+          "product_url": "https://www.jumbo.com/producten/jumbo-boerderij-zuivel-halfvolle-melk-1-l-646586FLS",
+          "quantity": "1 L",
+          "retailer": "jumbo",
+          "shelf_id": "646586FLS",
+          "unit_price": 1.95
+        }
       },
       "ShelfPriceListResponse": {
         "properties": {

@@ -14,6 +14,18 @@ per e-mail aan betalende afnemers én hier.
 
 ## 2026-09-22
 
+**Hersteld: doorbladeren van `/shelf-prices` sloeg rijen over.** De volgorde
+was alleen "meest recent gezien", en honderden rijen worden in dezelfde
+milliseconde gezien. Bij gelijke waarden kon de volgorde per verzoek
+verschillen, waardoor een deel van de rijen op twee pagina's verscheen en een
+even groot deel op geen enkele: bij Dirk 296 van de 7.768. De volgorde is nu
+meest recent gezien, dan `retailer`, dan `shelf_id`, zodat elke rij precies één
+keer langskomt. **Heb je de lijst eerder volledig opgehaald, haal hem dan één
+keer opnieuw op.** Doe een volledige synchronisatie buiten de nachtelijke
+verversing (ongeveer 01:00-02:30). De beschrijving van het endpoint in de spec
+is aangevuld met toegang, filters, volgorde, dekking en versheid, en
+`retailer` noemt de geldige slugs.
+
 **`GET /api/v1/shelf-prices` staat nu in de spec (Pro).** De reguliere
 schapprijs van het assortiment, dus ook van producten die niet in de actie zijn.
 Zoek op naam (`q`, minimaal 2 tekens) en/of exacte EAN (`ean`), filter op keten
