@@ -12,6 +12,36 @@ Nieuwe velden, nieuwe ketens en betere dekking rollen we zonder aankondiging uit
 aan** (art. 10 van de [API-voorwaarden](https://www.prijsprofeet.nl/api-voorwaarden)):
 per e-mail aan betalende afnemers én hier.
 
+## 2026-09-22
+
+**Nieuw op `/products`, `/products/{id}`, de andere productroutes en `/search`:
+`online_only`. Uitgebreid: `in_store_only` is nu ook bij Jumbo gevuld.**
+`online_only` is `true` als de keten zelf zegt dat de actie alleen in zijn
+webshop geldt en niet in de winkel. Een online-only prijs hoort niet in een
+winkelplan. Albert Heijn geeft het per bonusgroep op, Jumbo per actie ("Alleen
+online"). Jumbo's label "Alleen in de winkel" vult nu ook `in_store_only`.
+Gemeld door een afnemer.
+
+**De twee sluiten elkaar uit.** Waar `in_store_only` `true` is, is
+`online_only` `false`, en omgekeerd. Zo is elke Lidl-actie nu ook expliciet
+`online_only: false`. `null` betekent nog steeds "niet beoordeeld", en niet
+"ook in de winkel".
+
+**Nieuw op dezelfde routes: `max_per_customer`.** Het maximale aantal keer dat
+één klant deze actie mag afnemen, als de keten dat voor déze actie opgeeft.
+Vandaag doen twee ketens dat. Jumbo geeft het bij ongeveer een kwart van zijn
+lopende acties op, met waarden van 2 tot 25. DekaMarkt geeft het een enkele
+keer op, bijvoorbeeld "Max. 8 kratten per klant." bij bier. Gemeld door een
+afnemer.
+
+**`null` betekent niet "onbeperkt".** Het betekent dat de keten voor deze actie
+geen eigen limiet opgeeft. Een aantal ketens hanteert één huisregel voor alle
+acties, en die zetten we niet op elke rij. Zoals gepubliceerd op 21 september:
+Jumbo maximaal 4 dezelfde aanbiedingen per klant per bezoek, tenzij anders
+aangegeven. PLUS maximaal 5, tenzij anders vermeld. Hoogvliet maximaal 8. Aldi
+maximaal 4 per bezoek, alleen voor non-food. Staat bij Jumbo een eigen
+`max_per_customer`, dan geldt dat getal in plaats van de huisregel.
+
 ## 2026-09-21
 
 **Hersteld: bij Lidl stond in `price` soms de Lidl Plus-ledenprijs. Nieuw:

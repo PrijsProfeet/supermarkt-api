@@ -2664,7 +2664,19 @@
               }
             ],
             "title": "In Store Only",
-            "description": "True when the retailer itself states the promotion holds only in the shop, not in its webshop. Filled where the chain says so: Albert Heijn's own store-only flag on the bonus segment, and Lidl's availability badge ('Alleen in de winkel'). Null means not assessed — the other chains publish no such signal, so no claim is made."
+            "description": "True when the retailer itself states the promotion holds only in the shop, not in its webshop. Filled where the chain says so: Albert Heijn's own store-only flag on the bonus segment, Lidl's availability badge and Jumbo's label ('Alleen in de winkel'); false wherever online_only is true. Null means not assessed — the other chains publish no such signal, so no claim is made."
+          },
+          "online_only": {
+            "anyOf": [
+              {
+                "type": "boolean"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Online Only",
+            "description": "True when the retailer itself states the promotion holds only in its webshop, not in the shop. Filled where the chain says so: Albert Heijn's online-only bonus segment and Jumbo's 'Alleen online' label; false wherever in_store_only is true. Null means not assessed, not 'also in the shop'."
           },
           "loyalty_price": {
             "anyOf": [
@@ -2689,6 +2701,18 @@
             ],
             "title": "Loyalty Program",
             "description": "The loyalty programme loyalty_price requires, e.g. 'Lidl Plus'. Null whenever loyalty_price is null."
+          },
+          "max_per_customer": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Max Per Customer",
+            "description": "The most times one customer may take this promotion, where the chain states it for this promotion: today Jumbo and DekaMarkt. Null means no promotion-specific limit is stated, not 'unlimited': several chains publish one house rule for every promotion, which is not copied onto rows. As published on 2026-09-21: Jumbo 4 per visit unless stated otherwise, PLUS 5 unless stated otherwise, Hoogvliet 8, Aldi 4 per visit (non-food)."
           },
           "extracted_at": {
             "type": "string",
@@ -3098,6 +3122,17 @@
             ],
             "title": "In Store Only"
           },
+          "online_only": {
+            "anyOf": [
+              {
+                "type": "boolean"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Online Only"
+          },
           "loyalty_price": {
             "anyOf": [
               {
@@ -3119,6 +3154,17 @@
               }
             ],
             "title": "Loyalty Program"
+          },
+          "max_per_customer": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Max Per Customer"
           },
           "extracted_at": {
             "anyOf": [
