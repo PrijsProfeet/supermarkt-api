@@ -12,6 +12,17 @@ Nieuwe velden, nieuwe ketens en betere dekking rollen we zonder aankondiging uit
 aan** (art. 10 van de [API-voorwaarden](https://www.prijsprofeet.nl/api-voorwaarden)):
 per e-mail aan betalende afnemers én hier.
 
+## 2026-09-23
+
+**Hersteld: `/filter-stats` miste ketens in de ketentelling.** De telling gaf
+maximaal tien ketens terug en was niet beperkt tot de ketens die op de site
+staan, waardoor Lidl en Vomar eruit vielen en `total` niet optelde bij de som
+per keten. De telling is nu gescoopt op de ketens die we tonen, dus alle tien
+staan er weer in.
+
+De spec verandert hierdoor niet: dit is een correctie in de data die het
+endpoint teruggeeft, niet in zijn schema. `openapi.json` is dus ongewijzigd.
+
 ## 2026-09-22
 
 **Hersteld: doorbladeren van `/shelf-prices` sloeg rijen over.** De volgorde
