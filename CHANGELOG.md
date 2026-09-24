@@ -12,6 +12,42 @@ Nieuwe velden, nieuwe ketens en betere dekking rollen we zonder aankondiging uit
 aan** (art. 10 van de [API-voorwaarden](https://www.prijsprofeet.nl/api-voorwaarden)):
 per e-mail aan betalende afnemers én hier.
 
+## 2026-09-24
+
+**Nieuw: `retailer_filter` zegt wanneer een `retailer`-waarde niet is
+toegepast.** Vroeg je om een keten die wij niet voeren, dan viel dat filter weg
+en kreeg je stilzwijgend alle ketens terug — een `200` die eruitziet als
+antwoord op je vraag, maar het niet is. Over de afgelopen 30 dagen gebeurde dat
+bij 5,0% van alle verzoeken met `retailer=`, meestal door een tikfout in de
+slug (`ah` in plaats van `albert_heijn`) of door een keten die niet in ons
+aanbod zit.
+
+Is er iets weggevallen, dan draagt het antwoord nu:
+
+```json
+{
+  "retailer_filter": {
+    "ignored": ["picnic"],
+    "applied": ["albert_heijn", "jumbo", "..."]
+  }
+}
+```
+
+`ignored` bevat de waarden die niet zijn toegepast, precies zoals je ze stuurde;
+`applied` de ketens waar de resultaten wél uit komen. Is alles toegepast, dan is
+het veld `null` — op een normaal verzoek verandert er dus niets.
+
+Waar: `/products`, `/products/promotional/all`, `/products/search/{query}`,
+`/products/retailer/{retailer}` en `/search`. Bij
+`/products/retailer/{retailer}` is `applied` een lege lijst: die route valt niet
+terug op andere ketens maar geeft niets, en dat was tot nu toe niet te
+onderscheiden van "deze keten heeft deze week geen acties". Op `/search` geldt
+het ook voor een komma-gescheiden lijst waarvan een deel afvalt.
+
+**Toevoeging, geen wijziging.** Er verdwijnt geen veld en geen statuscode
+verandert; bestaande integraties werken ongewijzigd. In `openapi.json` komt er
+precies één schema bij (`RetailerFilterNotice`) en verdwijnt er niets.
+
 ## 2026-09-23
 
 **Hersteld: `/filter-stats` miste ketens in de ketentelling.** De telling gaf

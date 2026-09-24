@@ -2406,6 +2406,17 @@
             "type": "array",
             "title": "Products",
             "description": "List of products"
+          },
+          "retailer_filter": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/RetailerFilterNotice"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "Set only when a `retailer` value could not be applied; null otherwise. Names what was dropped and which retailers the results actually come from."
           }
         },
         "type": "object",
@@ -3349,6 +3360,33 @@
         ],
         "title": "ProductSearchResult"
       },
+      "RetailerFilterNotice": {
+        "properties": {
+          "ignored": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Ignored",
+            "description": "The values from `retailer` that were not applied, echoed back exactly as sent."
+          },
+          "applied": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Applied",
+            "description": "The retailers the results were actually drawn from."
+          }
+        },
+        "type": "object",
+        "required": [
+          "ignored",
+          "applied"
+        ],
+        "title": "RetailerFilterNotice",
+        "description": "Reported when a `retailer` request could not be honoured as asked.\n\nA `retailer` naming a chain this storefront does not carry is dropped, and\nthe query falls back to every chain we do carry. Without this field that is\ninvisible: the caller asked to narrow and received the opposite, with a\nplausible-looking 200 and nothing to tell them apart."
+      },
       "SearchResponse": {
         "properties": {
           "total": {
@@ -3388,6 +3426,17 @@
             ],
             "title": "Retailer Preference",
             "description": "The retailers a stored preference narrowed this search to, or null when nothing was narrowed. Set only for browser callers carrying a `pp_uid` cookie, and only when the preference actually excludes a retailer — always null for API-key callers."
+          },
+          "retailer_filter": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/RetailerFilterNotice"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "Set only when a `retailer` value could not be applied; null otherwise. Names what was dropped and which retailers the results actually come from."
           },
           "unmatched_terms": {
             "items": {
