@@ -12,6 +12,15 @@ Nieuwe velden, nieuwe ketens en betere dekking rollen we zonder aankondiging uit
 aan** (art. 10 van de [API-voorwaarden](https://www.prijsprofeet.nl/api-voorwaarden)):
 per e-mail aan betalende afnemers én hier.
 
+## 2026-09-25
+
+**Zonder key: maximaal 200 productdetails per dag per IP.**
+`GET /api/v1/products/{id}` houdt zijn limiet van 120 per minuut, en telt
+daarnaast maximaal 200 opvragingen per dag per IP-adres. Over de afgelopen twee
+weken zat geen enkele gebruiker zonder key boven de 36 per dag. Met een
+[gratis key](https://www.prijsprofeet.nl/api#gratis-key) geldt deze daglimiet
+niet; dan telt alleen de limiet per minuut van je plan.
+
 ## 2026-09-24
 
 **Nieuw: `retailer_filter` zegt wanneer een `retailer`-waarde niet is
