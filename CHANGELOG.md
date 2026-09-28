@@ -12,6 +12,20 @@ Nieuwe velden, nieuwe ketens en betere dekking rollen we zonder aankondiging uit
 aan** (art. 10 van de [API-voorwaarden](https://www.prijsprofeet.nl/api-voorwaarden)):
 per e-mail aan betalende afnemers én hier.
 
+## 2026-09-28
+
+**Aangekondigd: vijf altijd-lege velden verdwijnen uit `/search`.**
+`title`, `promotion`, `promotional_labels`, `match_type` en `match_confidence`
+dragen op `GET /api/v1/search` nooit een waarde: gemeten op 28 september stond
+geen van de vijf op één van de 16.809 rijen. Ze staan nu als `deprecated` in de
+spec en **vervallen op of na 29 oktober 2026**. Lees je ze, dan kreeg je altijd
+`null`; haal ze uit je model of parser voordat ze verdwijnen. De informatie die
+ze suggereerden staat elders: de actietekst in `promotional_keywords`, het
+mechanisme in `promotion_type`.
+
+Nieuw op [/api](https://www.prijsprofeet.nl/api#welk-endpoint): *welk endpoint
+voor welke vraag*.
+
 ## 2026-09-25
 
 **Zonder key: maximaal 200 productdetails per dag per IP.**

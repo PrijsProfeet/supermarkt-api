@@ -2943,7 +2943,9 @@
                 "type": "null"
               }
             ],
-            "title": "Title"
+            "title": "Title",
+            "description": "Altijd `null`: dit veld wordt op deze route nooit gevuld. Vervalt op of na 29 oktober 2026.",
+            "deprecated": true
           },
           "brand": {
             "anyOf": [
@@ -3116,7 +3118,9 @@
                 "type": "null"
               }
             ],
-            "title": "Promotional Labels"
+            "title": "Promotional Labels",
+            "description": "Altijd `null`: dit veld wordt op deze route nooit gevuld. Vervalt op of na 29 oktober 2026.",
+            "deprecated": true
           },
           "promotion": {
             "anyOf": [
@@ -3127,7 +3131,9 @@
                 "type": "null"
               }
             ],
-            "title": "Promotion"
+            "title": "Promotion",
+            "description": "Altijd `null`: dit veld wordt op deze route nooit gevuld. Vervalt op of na 29 oktober 2026.",
+            "deprecated": true
           },
           "promotion_status": {
             "anyOf": [
@@ -3338,7 +3344,9 @@
                 "type": "null"
               }
             ],
-            "title": "Match Type"
+            "title": "Match Type",
+            "description": "Altijd `null`: dit veld wordt op deze route nooit gevuld. Vervalt op of na 29 oktober 2026.",
+            "deprecated": true
           },
           "match_confidence": {
             "anyOf": [
@@ -3349,7 +3357,9 @@
                 "type": "null"
               }
             ],
-            "title": "Match Confidence"
+            "title": "Match Confidence",
+            "description": "Altijd `null`: dit veld wordt op deze route nooit gevuld. Vervalt op of na 29 oktober 2026.",
+            "deprecated": true
           }
         },
         "type": "object",
