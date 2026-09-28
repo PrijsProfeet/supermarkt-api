@@ -3730,7 +3730,11 @@
   "servers": [
     {
       "url": "https://www.prijsprofeet.nl",
-      "description": "Productie"
+      "description": "Nederlandse ketens"
+    },
+    {
+      "url": "https://www.prijsprofeet.be",
+      "description": "Belgische ketens"
     }
   ]
 }

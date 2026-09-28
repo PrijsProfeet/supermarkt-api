@@ -12,6 +12,27 @@ Nieuwe velden, nieuwe ketens en betere dekking rollen we zonder aankondiging uit
 aan** (art. 10 van de [API-voorwaarden](https://www.prijsprofeet.nl/api-voorwaarden)):
 per e-mail aan betalende afnemers én hier.
 
+## 2026-09-28 (2)
+
+**Nieuw: de Belgische ketens op `www.prijsprofeet.be/api/v1`.** De API antwoordt
+per host, net als de site: op `www.prijsprofeet.be` krijg je de Belgische ketens,
+met dezelfde endpoints, hetzelfde schema en dezelfde key als op
+`www.prijsprofeet.nl`. De ketens en hun dekking staan op
+[prijsprofeet.be/api](https://www.prijsprofeet.be/api#ketens).
+
+**Op `www.prijsprofeet.nl` verandert er niets.** Daar komen alleen Nederlandse
+ketens terug, ook als je een Belgische keten bij naam vraagt: die staat dan in
+`retailer_filter.ignored`.
+
+**De spec noemt nu beide hosts als server.** `openapi.json` heeft twee entries in
+`servers`; de eerste blijft `https://www.prijsprofeet.nl`, dus een client die je
+al gegenereerd hebt, blijft werken zoals hij werkt. Wil je Belgische data, kies
+dan `https://www.prijsprofeet.be`.
+
+De [API-voorwaarden](https://www.prijsprofeet.nl/api-voorwaarden) (versie 1.7)
+gelden voor beide hosts. De beschikbaarheidsnorm van het Business-plan wordt
+gemeten op `www.prijsprofeet.nl`.
+
 ## 2026-09-28
 
 **Aangekondigd: vijf altijd-lege velden verdwijnen uit `/search`.**
