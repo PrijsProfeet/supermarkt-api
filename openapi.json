@@ -2083,7 +2083,7 @@
           "sla"
         ],
         "summary": "Sla Public",
-        "description": "Availability per calendar month, newest first — the same shape as the\ninternal route, minus ``refresh`` (a status page has no use for it and it\nis not a knob to hand the open internet).",
+        "description": "This host's availability per calendar month, newest first — the same shape\nas the internal route, minus ``refresh`` (a status page has no use for it and it\nis not a knob to hand the open internet).",
         "operationId": "sla_public_api_v1_sla_summary_get",
         "parameters": [
           {

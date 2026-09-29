@@ -12,6 +12,18 @@ Nieuwe velden, nieuwe ketens en betere dekking rollen we zonder aankondiging uit
 aan** (art. 10 van de [API-voorwaarden](https://www.prijsprofeet.nl/api-voorwaarden)):
 per e-mail aan betalende afnemers én hier.
 
+## 2026-09-29
+
+**Business-SLA per host.** De 99,5% beschikbaarheid per kalendermaand geldt nu op elke
+host die je gebruikt: `www.prijsprofeet.nl` en `www.prijsprofeet.be`. Elke host wordt
+apart gemeten en apart afgerekend, nooit als gemiddelde (art. 10 van de
+[API-voorwaarden](https://www.prijsprofeet.nl/api-voorwaarden), versie 1.8).
+`GET /api/v1/sla/summary` geeft de cijfers van de host waarop je hem aanroept en draagt
+daarvoor een nieuw veld `host`. Oktober 2026 is de eerste volle maand voor `.be`.
+
+**Toevoeging, geen wijziging.** Er komt één veld bij en er verdwijnt er geen; op
+`www.prijsprofeet.nl` blijven de cijfers gelijk.
+
 ## 2026-09-28 (3)
 
 **`/match/*`: de laatste actie staat nu ook op een `shelf`-rij.** Een keten met een
