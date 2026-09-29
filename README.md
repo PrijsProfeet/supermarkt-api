@@ -1,16 +1,19 @@
 # Supermarkt-API
 
-Wekelijkse **supermarktaanbiedingen van 10 Nederlandse ketens** via één REST-API,
-elke nacht ververst. Dit is de publieke documentatie, OpenAPI-specificatie en
+Wekelijkse **supermarktaanbiedingen van 10 Nederlandse en 6 Belgische ketens** via
+één REST-API, elke nacht ververst. Dit is de publieke documentatie, OpenAPI-specificatie en
 voorbeeldcode bij de API van [PrijsProfeet](https://www.prijsprofeet.nl).
 
-Geen enkele Nederlandse supermarkt biedt een officiële publieke API. Deze wel — en
+Geen enkele Nederlandse of Belgische supermarkt biedt een officiële publieke API. Deze wel — en
 het grootste deel ervan werkt **zonder key en zonder registratie**.
 
 ```bash
 curl -H 'User-Agent: MijnApp/1.0 (jij@voorbeeld.nl)' \
   'https://www.prijsprofeet.nl/api/v1/search?q=koffie&page_size=5'
 ```
+
+Belgische aanbiedingen haal je met dezelfde API en dezelfde key bij
+`https://www.prijsprofeet.be/api/v1/…`: de host bepaalt het land.
 
 > **Wijzigingen volgen?** Zet deze repo op *Watch → Releases* — de knop rechtsboven,
 > dan **Custom → Releases**. Elke wijziging die voor een integratie uitmaakt krijgt
