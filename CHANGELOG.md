@@ -12,6 +12,22 @@ Nieuwe velden, nieuwe ketens en betere dekking rollen we zonder aankondiging uit
 aan** (art. 10 van de [API-voorwaarden](https://www.prijsprofeet.nl/api-voorwaarden)):
 per e-mail aan betalende afnemers én hier.
 
+## 2026-09-29 (2)
+
+**Zeven nieuwe categorieën: zes uit `drogisterij`, en `huisdier` uit `huishouden`.**
+`unified_category` en de `category`-parameter kennen nu `baby-kind`, `huidverzorging`,
+`haarverzorging`, `deodorant`, `mondverzorging`, `gezondheid` en `huisdier`. Wat niet
+in een van de zes drogisterijcategorieën past (zakdoekjes, sets, onbenoemde
+verzorging) blijft onder `drogisterij`, dat nu "Drogisterij overig" heet; zonnebrand
+valt onder `huidverzorging`. `huishouden` heet nu "Huishouden". `GET /api/v1/categories`
+geeft de volledige lijst en een nieuwe groep, `verzorging`.
+
+**Let op als je filtert op `category=drogisterij` of `category=huishouden`:** die
+geven nu alleen wat overblijft. Bij `drogisterij` is dat gemeten op 29 september 5%
+van wat het gaf in Nederland en 10% in België; bij `huishouden` staat ongeveer de
+helft (dierenvoer en -verzorging) nu onder `huisdier`. Wil je het oude bereik, vraag
+dan de nieuwe categorieën erbij op.
+
 ## 2026-09-29
 
 **Business-SLA per host.** De 99,5% beschikbaarheid per kalendermaand geldt nu op elke
