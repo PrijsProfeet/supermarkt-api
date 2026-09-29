@@ -33,16 +33,21 @@ integratie tegenvalt, dus liever hier dan na twee weken bouwen.
 
 ## Ketens
 
-Albert Heijn · Aldi · DekaMarkt · Dirk · Ekoplaza · Hoogvliet · Jumbo · Lidl ·
-PLUS · Vomar
+**Nederland** (`www.prijsprofeet.nl/api/v1`): Albert Heijn · Aldi · DekaMarkt · Dirk ·
+Ekoplaza · Hoogvliet · Jumbo · Lidl · PLUS · Vomar
+
+**België** (`www.prijsprofeet.be/api/v1`): Albert Heijn · Aldi · Carrefour · Colruyt ·
+Delhaize · Lidl
 
 EAN-dekking verschilt per keten en is geen detail als je op product wilt koppelen.
-Bij **Aldi, Lidl, Hoogvliet en Vomar publiceert de keten zelf geen EAN** — daar
-bestaat hij domweg niet, en koppelen op naam is de enige optie, met de foutmarge die
-daarbij hoort. Bij de overige zes is de EAN er vrijwel altijd; het percentage per
-keten staat **gemeten** op [prijsprofeet.nl/api](https://www.prijsprofeet.nl/api#ean-dekking),
-inclusief de datum van de meting. Een lijst met cijfers hier zou binnen een week
-verouderen.
+Bij **Aldi, Lidl, Hoogvliet en Vomar**, en in België bij **Aldi, Lidl, Carrefour en
+Delhaize**, publiceert de keten zelf geen EAN — daar bestaat hij domweg niet, en
+koppelen op naam is de enige optie, met de foutmarge die daarbij hoort. Carrefour lezen
+we uit de folder, zonder merk: daar koppelen we niet. Bij de overige ketens is de EAN er
+vrijwel altijd; het percentage per keten staat **gemeten** op
+[prijsprofeet.nl/api](https://www.prijsprofeet.nl/api#ketens) en
+[prijsprofeet.be/api](https://www.prijsprofeet.be/api#ketens), inclusief de datum van
+de meting. Een lijst met cijfers hier zou binnen een week verouderen.
 
 ## Beginnen
 
