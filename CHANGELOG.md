@@ -12,6 +12,20 @@ Nieuwe velden, nieuwe ketens en betere dekking rollen we zonder aankondiging uit
 aan** (art. 10 van de [API-voorwaarden](https://www.prijsprofeet.nl/api-voorwaarden)):
 per e-mail aan betalende afnemers én hier.
 
+## 2026-09-28 (3)
+
+**`/match/*`: de laatste actie staat nu ook op een `shelf`-rij.** Een keten met een
+actuele schapprijs gaf tot nu toe alleen die prijs terug, en de actie die daar kort
+geleden liep viel weg: `last_deal_price` en `last_deal_until` stonden alleen op een
+`historical`-rij. Nu dragen ze op beide de meest recente actie van dezelfde keten en
+verpakking in de afgelopen 60 dagen, naast de reguliere prijs in `price`. Gemeten op
+28 september ging het om 58% van de schaprijen op onze eigen vergelijkingen. Op een
+`historical`-rij verdwijnt de actie ook niet meer zodra wij daarna een gewone prijs
+zagen.
+
+**Toevoeging, geen wijziging.** Er komt geen veld bij en er verdwijnt er geen; wat
+eerst `null` was, is nu vaker gevuld.
+
 ## 2026-09-28 (2)
 
 **Nieuw: de Belgische ketens op `www.prijsprofeet.be/api/v1`.** De API antwoordt
