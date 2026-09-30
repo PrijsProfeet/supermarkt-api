@@ -12,6 +12,23 @@ Nieuwe velden, nieuwe ketens en betere dekking rollen we zonder aankondiging uit
 aan** (art. 10 van de [API-voorwaarden](https://www.prijsprofeet.nl/api-voorwaarden)):
 per e-mail aan betalende afnemers én hier.
 
+## 2026-09-30 (2)
+
+**API-voorwaarden versie 1.10: releases en onderhoud tellen mee voor de
+Business-SLA.** Artikel 10 sloot "onderhoud en releases" uit van de 99,5%. Dat
+doet het niet meer: gaat de API tijdens een update onderuit, dan telt dat als
+storing, net als elke andere. Gemeten over 142 releases in de tweede helft van
+september gaf de API daarbij geen enkele 5xx en zag de externe probe 2
+mislukte metingen op 528, allebei van één los certificaatincident: de
+uitzondering scheelde ons een honderdste procent en gaf jou een voorbehoud.
+De maandcijfers op `GET /api/v1/sla/summary` vanaf september zijn zonder
+uitzondering berekend; de velden `maintenance_minutes`, `release_windows` en
+`samples.excluded` staan alleen nog op juli en augustus, die onder de oude
+regel zijn vastgelegd ([API-voorwaarden](https://www.prijsprofeet.nl/api-voorwaarden),
+artikel 10).
+
+**Gunstiger voor jou, geen nieuwe beperking.**
+
 ## 2026-09-30
 
 **API-voorwaarden versie 1.9: de lopende acties synchroniseren staat er nu
