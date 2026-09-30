@@ -12,6 +12,21 @@ Nieuwe velden, nieuwe ketens en betere dekking rollen we zonder aankondiging uit
 aan** (art. 10 van de [API-voorwaarden](https://www.prijsprofeet.nl/api-voorwaarden)):
 per e-mail aan betalende afnemers én hier.
 
+## 2026-09-30
+
+**API-voorwaarden versie 1.9: de lopende acties synchroniseren staat er nu
+uitdrukkelijk in.** Artikel 6 zei dat "alle producten op rij" ophalen de dataset
+nabouwen is, en dat las ook als een verbod op wat de meeste integraties terecht
+doen: de lopende aanbiedingen regelmatig in hun geheel ophalen via
+`/api/v1/products` of `/api/v1/search`. Dat mag, en staat er nu zo in. Wat niet
+mag is ongewijzigd: de catalogus product voor product aflopen, zoals elk
+product-id langs `/api/v1/products/{id}` of elke EAN langs de zoek- of
+match-endpoints ([API-voorwaarden](https://www.prijsprofeet.nl/api-voorwaarden),
+artikel 6).
+
+**Verduidelijking, geen nieuwe beperking.** Er valt niets weg dat eerder was
+toegestaan.
+
 ## 2026-09-29 (2)
 
 **Zeven nieuwe categorieën: zes uit `drogisterij`, en `huisdier` uit `huishouden`.**
