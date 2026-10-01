@@ -12,6 +12,28 @@ Nieuwe velden, nieuwe ketens en betere dekking rollen we zonder aankondiging uit
 aan** (art. 10 van de [API-voorwaarden](https://www.prijsprofeet.nl/api-voorwaarden)):
 per e-mail aan betalende afnemers én hier.
 
+## 2026-10-01
+
+**API-voorwaarden versie 1.11: bronvermelding naar prijsprofeet.be mag voor de
+Belgische data.** Artikel 6 vroeg op Gratis en tijdens een proef altijd een link
+naar `prijsprofeet.nl`, ook als je app alleen de Belgische ketens toont. Wie de
+data van `www.prijsprofeet.be/api/v1` gebruikt, linkt nu naar `prijsprofeet.be`
+([API-voorwaarden](https://www.prijsprofeet.nl/api-voorwaarden), artikel 6).
+Een kant-en-klaar fragment met kopieerknop staat op
+[prijsprofeet.nl/api](https://www.prijsprofeet.nl/api#bronvermelding) en
+[prijsprofeet.be/api](https://www.prijsprofeet.be/api#bronvermelding):
+
+```html
+Aanbiedingen via <a href="https://www.prijsprofeet.nl">PrijsProfeet</a>
+```
+
+Toont jouw product de bronvermelding en staat het online, dan zetten we het
+graag op [Gebouwd met PrijsProfeet](https://www.prijsprofeet.nl/gebouwd-met-prijsprofeet/),
+met een gewone link naar je site.
+
+**Gunstiger voor jou, geen nieuwe beperking.** Een bestaande link naar
+`prijsprofeet.nl` blijft voldoen.
+
 ## 2026-09-30 (2)
 
 **API-voorwaarden versie 1.10: releases en onderhoud tellen mee voor de
