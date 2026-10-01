@@ -12,6 +12,29 @@ Nieuwe velden, nieuwe ketens en betere dekking rollen we zonder aankondiging uit
 aan** (art. 10 van de [API-voorwaarden](https://www.prijsprofeet.nl/api-voorwaarden)):
 per e-mail aan betalende afnemers én hier.
 
+## 2026-10-01 (4)
+
+**`current_only=true` op `/match/*` houdt nu ook de schapprijs.** De parameter
+belooft "alleen wat je vandaag kunt kopen", maar hield alleen lopende acties over
+(`promotion_status: "active"`). De rijen met `"shelf"`, de actuele reguliere prijs
+bij een keten, vielen weg, terwijl je die vandaag gewoon betaalt. Een keten zonder
+lopende actie zag er daardoor uit als afwezig, ook als hij met zijn schapprijs de
+goedkoopste was. Gemeten op 1 oktober over 300 lopende acties met een match:
+`current_only=true` gaf er 102 een leeg antwoord, met de schapprijs erbij nog 3.
+
+`is_current_deal` blijft wat het was: `true` alleen op een lopende actie, want een
+schapprijs is geen deal. Wil je alleen acties, filter dan op dat veld.
+
+**Volgde je het advies van 8 september?** Daar stond dat `current_only=true` alleen
+rijen met een productpagina oplevert. Dat klopt niet meer: een `shelf`-rij kan
+`product_id: null` dragen. Wil je alleen rijen met een `product_id`, filter dan op
+`is_current_deal` of op `product_id` zelf. Het voorbeeld in
+[`examples/matching.py`](examples/matching.py) rekent "vandaag te koop" nu als
+`active` of `shelf`.
+
+**Uitbreiding, geen nieuwe beperking.** Je krijgt meer rijen terug; er verdwijnt
+geen veld en er verandert geen waarde.
+
 ## 2026-10-01 (3)
 
 **De spec noemt nu beide winkels.** De beschrijving bovenaan `openapi.json` sprak

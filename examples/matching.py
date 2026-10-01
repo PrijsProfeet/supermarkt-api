@@ -89,7 +89,9 @@ def main() -> None:
     # De valkuil, en de manier eromheen.
     if antwoord["matches"]:
         goedkoopste = min(antwoord["matches"], key=lambda m: m["price"])
-        vandaag = [m for m in antwoord["matches"] if m["is_current_deal"]]
+        # Vandaag te koop: een lopende actie of de reguliere schapprijs.
+        # (`is_current_deal` is alleen `true` op een actie.)
+        vandaag = [m for m in antwoord["matches"] if m["promotion_status"] in ("active", "shelf")]
         print(f"\n  min(price)          €{goedkoopste['price']:.2f} bij {goedkoopste['retailer_display']}"
               f"  — {STATUS.get(goedkoopste['promotion_status'], '—')}")
         if vandaag:
