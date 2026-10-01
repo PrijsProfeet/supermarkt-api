@@ -3545,6 +3545,18 @@
             "title": "Quantity",
             "description": "Pack size as stated by the retailer"
           },
+          "unit": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Unit",
+            "description": "Unit of unit_price: kg, L or stuk. Null when no comparable unit exists, e.g. one price over several pack sizes"
+          },
           "unit_price": {
             "anyOf": [
               {
@@ -3616,6 +3628,7 @@
           "quantity": "1 L",
           "retailer": "jumbo",
           "shelf_id": "646586FLS",
+          "unit": "L",
           "unit_price": 1.95
         }
       },

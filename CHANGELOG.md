@@ -12,6 +12,17 @@ Nieuwe velden, nieuwe ketens en betere dekking rollen we zonder aankondiging uit
 aan** (art. 10 van de [API-voorwaarden](https://www.prijsprofeet.nl/api-voorwaarden)):
 per e-mail aan betalende afnemers én hier.
 
+## 2026-10-01 (6)
+
+**`/shelf-prices` noemt nu de eenheid van `unit_price`.** Elke rij draagt een veld
+`unit`: `kg`, `L` of `stuk`, dezelfde woorden als op `/products` en `/search`. Tot nu
+toe gaf `/shelf-prices` wel de prijs per eenheid maar niet welke eenheid, zodat je die
+zelf uit `quantity` moest afleiden, in de spelling van elke keten. `unit` is `null`
+waar `unit_price` dat ook is.
+
+**Uitbreiding, geen nieuwe beperking.** Er komt een veld bij; er verdwijnt geen veld
+en er verandert geen waarde.
+
 ## 2026-10-01 (5)
 
 **De `retailer`-parameters zeggen nu welke sleutels ze per host aannemen.** De spec
