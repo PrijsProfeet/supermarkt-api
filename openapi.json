@@ -2587,7 +2587,7 @@
               }
             ],
             "title": "Unit",
-            "description": "Normalised unit (kg, l, stuk)"
+            "description": "Unit of unit_price: kg, L or stuk. Null when no comparable unit exists, e.g. one price over several pack sizes"
           },
           "unit_price": {
             "anyOf": [
@@ -3011,7 +3011,8 @@
                 "type": "null"
               }
             ],
-            "title": "Unit"
+            "title": "Unit",
+            "description": "Unit of unit_price: kg, L or stuk. Null when no comparable unit exists, e.g. one price over several pack sizes"
           },
           "unit_price": {
             "anyOf": [

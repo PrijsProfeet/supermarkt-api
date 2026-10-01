@@ -12,6 +12,25 @@ Nieuwe velden, nieuwe ketens en betere dekking rollen we zonder aankondiging uit
 aan** (art. 10 van de [API-voorwaarden](https://www.prijsprofeet.nl/api-voorwaarden)):
 per e-mail aan betalende afnemers én hier.
 
+## 2026-10-01 (2)
+
+**`unit` is nu bij elke keten `kg`, `L` of `stuk`.** Aldi schreef zijn eigen
+spelling: `l` op 14 van 414 rijen in Nederland, en in België `per kg`, `per l` en
+`per st.` op 225 van 273 rijen. Die rijen dragen nu dezelfde woorden als de andere
+ketens; `unit_price` verandert er niet door.
+
+Op 15 Belgische rijen gaf Aldi een eenheidsprijs die niet te vergelijken is:
+`per wasbeurt`, of `bijv. 20 g: per kg` bij één prijs voor meerdere maten (een
+kruidenmix van 20, 40 of 45 g). Daar staan `unit` en `unit_price` nu op `null`, of
+op een prijs per liter als de verpakking een inhoud noemt. Om dezelfde reden krijgt
+een `quantity` met een keuze uit maten (`200 g/250 g`) geen eenheidsprijs meer. In
+de spec beschrijft `unit` nu deze woordenschat; er stond `kg, l, stuk`, met een
+kleine l die de API nooit teruggaf.
+
+**Correctie, geen nieuwe beperking.** De waarden komen nu overeen met wat de
+documentatie al beloofde. Schakel je op `unit == "L"`, dan telt Aldi voortaan mee.
+De Aldi-rijen worden bijgewerkt bij de nachtelijke run van 2 oktober.
+
 ## 2026-10-01
 
 **API-voorwaarden versie 1.11: bronvermelding naar prijsprofeet.be mag voor de
