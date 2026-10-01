@@ -12,6 +12,17 @@ Nieuwe velden, nieuwe ketens en betere dekking rollen we zonder aankondiging uit
 aan** (art. 10 van de [API-voorwaarden](https://www.prijsprofeet.nl/api-voorwaarden)):
 per e-mail aan betalende afnemers én hier.
 
+## 2026-10-01 (3)
+
+**De spec noemt nu beide winkels.** De beschrijving bovenaan `openapi.json` sprak
+alleen van "10 Nederlandse supermarkten", terwijl dezelfde spec ook geldt voor
+`www.prijsprofeet.be/api/v1`. Hij noemt nu 10 Nederlandse en 7 Belgische ketens, en
+zegt dat de host het land bepaalt: dezelfde paden, hetzelfde schema, en één key
+werkt op beide. Dat stond al in de README en onder `servers`, maar niet in de
+beschrijving die `/docs` en een gegenereerde client als eerste tonen.
+
+**Alleen documentatie.** Er verandert geen endpoint, veld of antwoord.
+
 ## 2026-10-01 (2)
 
 **`unit` is nu bij elke keten `kg`, `L` of `stuk`.** Aldi schreef zijn eigen
