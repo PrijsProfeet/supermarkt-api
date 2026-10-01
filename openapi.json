@@ -55,10 +55,10 @@
                   "type": "null"
                 }
               ],
-              "description": "Filter by retailer",
+              "description": "Retailer key: the same value as `retailer` in every response. Each host has its own: www.prijsprofeet.nl: `albert_heijn`, `jumbo`, `aldi`, `lidl`, `ekoplaza`, `plus`, `dekamarkt`, `hoogvliet`, `vomar`, `dirk`; www.prijsprofeet.be: `delhaize`, `albert_heijn_be`, `colruyt`, `carrefour`, `aldi_be`, `lidl_be`, `jumbo_be`.",
               "title": "Retailer"
             },
-            "description": "Filter by retailer"
+            "description": "Retailer key: the same value as `retailer` in every response. Each host has its own: www.prijsprofeet.nl: `albert_heijn`, `jumbo`, `aldi`, `lidl`, `ekoplaza`, `plus`, `dekamarkt`, `hoogvliet`, `vomar`, `dirk`; www.prijsprofeet.be: `delhaize`, `albert_heijn_be`, `colruyt`, `carrefour`, `aldi_be`, `lidl_be`, `jumbo_be`."
           },
           {
             "name": "folder_id",
@@ -467,10 +467,10 @@
                   "type": "null"
                 }
               ],
-              "description": "Filter by retailer",
+              "description": "Retailer key: the same value as `retailer` in every response. Each host has its own: www.prijsprofeet.nl: `albert_heijn`, `jumbo`, `aldi`, `lidl`, `ekoplaza`, `plus`, `dekamarkt`, `hoogvliet`, `vomar`, `dirk`; www.prijsprofeet.be: `delhaize`, `albert_heijn_be`, `colruyt`, `carrefour`, `aldi_be`, `lidl_be`, `jumbo_be`.",
               "title": "Retailer"
             },
-            "description": "Filter by retailer"
+            "description": "Retailer key: the same value as `retailer` in every response. Each host has its own: www.prijsprofeet.nl: `albert_heijn`, `jumbo`, `aldi`, `lidl`, `ekoplaza`, `plus`, `dekamarkt`, `hoogvliet`, `vomar`, `dirk`; www.prijsprofeet.be: `delhaize`, `albert_heijn_be`, `colruyt`, `carrefour`, `aldi_be`, `lidl_be`, `jumbo_be`."
           },
           {
             "name": "page",
@@ -612,7 +612,7 @@
           "products"
         ],
         "summary": "Get Products By Retailer",
-        "description": "Get all products for a specific retailer.\n\n- **retailer**: Retailer name (aldi, albert_heijn, jumbo)\n- **page**: Page number (starts at 1)\n- **page_size**: Number of items per page (max 100)",
+        "description": "Get all products for a specific retailer.\n\nA key this host does not carry answers an empty list, with the key in\n`retailer_filter.ignored`.\n\n- **page**: Page number (starts at 1)\n- **page_size**: Number of items per page (max 100)",
         "operationId": "get_products_by_retailer_api_v1_products_retailer__retailer__get",
         "parameters": [
           {
@@ -621,8 +621,10 @@
             "required": true,
             "schema": {
               "type": "string",
+              "description": "Retailer key: the same value as `retailer` in every response. Each host has its own: www.prijsprofeet.nl: `albert_heijn`, `jumbo`, `aldi`, `lidl`, `ekoplaza`, `plus`, `dekamarkt`, `hoogvliet`, `vomar`, `dirk`; www.prijsprofeet.be: `delhaize`, `albert_heijn_be`, `colruyt`, `carrefour`, `aldi_be`, `lidl_be`, `jumbo_be`.",
               "title": "Retailer"
-            }
+            },
+            "description": "Retailer key: the same value as `retailer` in every response. Each host has its own: www.prijsprofeet.nl: `albert_heijn`, `jumbo`, `aldi`, `lidl`, `ekoplaza`, `plus`, `dekamarkt`, `hoogvliet`, `vomar`, `dirk`; www.prijsprofeet.be: `delhaize`, `albert_heijn_be`, `colruyt`, `carrefour`, `aldi_be`, `lidl_be`, `jumbo_be`."
           },
           {
             "name": "page",
@@ -704,10 +706,10 @@
                   "type": "null"
                 }
               ],
-              "description": "Filter by retailer",
+              "description": "Retailer key: the same value as `retailer` in every response. Each host has its own: www.prijsprofeet.nl: `albert_heijn`, `jumbo`, `aldi`, `lidl`, `ekoplaza`, `plus`, `dekamarkt`, `hoogvliet`, `vomar`, `dirk`; www.prijsprofeet.be: `delhaize`, `albert_heijn_be`, `colruyt`, `carrefour`, `aldi_be`, `lidl_be`, `jumbo_be`.",
               "title": "Retailer"
             },
-            "description": "Filter by retailer"
+            "description": "Retailer key: the same value as `retailer` in every response. Each host has its own: www.prijsprofeet.nl: `albert_heijn`, `jumbo`, `aldi`, `lidl`, `ekoplaza`, `plus`, `dekamarkt`, `hoogvliet`, `vomar`, `dirk`; www.prijsprofeet.be: `delhaize`, `albert_heijn_be`, `colruyt`, `carrefour`, `aldi_be`, `lidl_be`, `jumbo_be`."
           },
           {
             "name": "min_valid_from",
@@ -844,10 +846,10 @@
                   "type": "null"
                 }
               ],
-              "description": "Filter by retailer (aldi, albert_heijn, jumbo, lidl)",
+              "description": "Retailer key: the same value as `retailer` in every response. Each host has its own: www.prijsprofeet.nl: `albert_heijn`, `jumbo`, `aldi`, `lidl`, `ekoplaza`, `plus`, `dekamarkt`, `hoogvliet`, `vomar`, `dirk`; www.prijsprofeet.be: `delhaize`, `albert_heijn_be`, `colruyt`, `carrefour`, `aldi_be`, `lidl_be`, `jumbo_be`. Several at once: comma-separated.",
               "title": "Retailer"
             },
-            "description": "Filter by retailer (aldi, albert_heijn, jumbo, lidl)"
+            "description": "Retailer key: the same value as `retailer` in every response. Each host has its own: www.prijsprofeet.nl: `albert_heijn`, `jumbo`, `aldi`, `lidl`, `ekoplaza`, `plus`, `dekamarkt`, `hoogvliet`, `vomar`, `dirk`; www.prijsprofeet.be: `delhaize`, `albert_heijn_be`, `colruyt`, `carrefour`, `aldi_be`, `lidl_be`, `jumbo_be`. Several at once: comma-separated."
           },
           {
             "name": "category",
@@ -1169,10 +1171,10 @@
                   "type": "null"
                 }
               ],
-              "description": "Filter by retailer",
+              "description": "Retailer key: the same value as `retailer` in every response. Each host has its own: www.prijsprofeet.nl: `albert_heijn`, `jumbo`, `aldi`, `lidl`, `ekoplaza`, `plus`, `dekamarkt`, `hoogvliet`, `vomar`, `dirk`; www.prijsprofeet.be: `delhaize`, `albert_heijn_be`, `colruyt`, `carrefour`, `aldi_be`, `lidl_be`, `jumbo_be`.",
               "title": "Retailer"
             },
-            "description": "Filter by retailer"
+            "description": "Retailer key: the same value as `retailer` in every response. Each host has its own: www.prijsprofeet.nl: `albert_heijn`, `jumbo`, `aldi`, `lidl`, `ekoplaza`, `plus`, `dekamarkt`, `hoogvliet`, `vomar`, `dirk`; www.prijsprofeet.be: `delhaize`, `albert_heijn_be`, `colruyt`, `carrefour`, `aldi_be`, `lidl_be`, `jumbo_be`."
           },
           {
             "name": "category",
@@ -1581,10 +1583,10 @@
                   "type": "null"
                 }
               ],
-              "description": "Filter by retailer slug: albert_heijn, jumbo, aldi, lidl, ekoplaza, plus, dekamarkt, hoogvliet, vomar, dirk",
+              "description": "Retailer key: the same value as `retailer` in every response. Each host has its own: www.prijsprofeet.nl: `albert_heijn`, `jumbo`, `aldi`, `lidl`, `ekoplaza`, `plus`, `dekamarkt`, `hoogvliet`, `vomar`, `dirk`; www.prijsprofeet.be: `delhaize`, `albert_heijn_be`, `colruyt`, `carrefour`, `aldi_be`, `lidl_be`, `jumbo_be`.",
               "title": "Retailer"
             },
-            "description": "Filter by retailer slug: albert_heijn, jumbo, aldi, lidl, ekoplaza, plus, dekamarkt, hoogvliet, vomar, dirk"
+            "description": "Retailer key: the same value as `retailer` in every response. Each host has its own: www.prijsprofeet.nl: `albert_heijn`, `jumbo`, `aldi`, `lidl`, `ekoplaza`, `plus`, `dekamarkt`, `hoogvliet`, `vomar`, `dirk`; www.prijsprofeet.be: `delhaize`, `albert_heijn_be`, `colruyt`, `carrefour`, `aldi_be`, `lidl_be`, `jumbo_be`."
           },
           {
             "name": "page",
@@ -1696,10 +1698,10 @@
                   "type": "null"
                 }
               ],
-              "description": "Limit the lists to one or more retailers. Repeat the parameter to pass several: `?retailer=albert_heijn&retailer=jumbo`. Hyphenated slugs (`albert-heijn`) are accepted too.",
+              "description": "Retailer key: the same value as `retailer` in every response. Each host has its own: www.prijsprofeet.nl: `albert_heijn`, `jumbo`, `aldi`, `lidl`, `ekoplaza`, `plus`, `dekamarkt`, `hoogvliet`, `vomar`, `dirk`; www.prijsprofeet.be: `delhaize`, `albert_heijn_be`, `colruyt`, `carrefour`, `aldi_be`, `lidl_be`, `jumbo_be`. Repeat the parameter to pass several: `?retailer=albert_heijn&retailer=jumbo`. Hyphenated keys (`albert-heijn`) are accepted too.",
               "title": "Retailer"
             },
-            "description": "Limit the lists to one or more retailers. Repeat the parameter to pass several: `?retailer=albert_heijn&retailer=jumbo`. Hyphenated slugs (`albert-heijn`) are accepted too."
+            "description": "Retailer key: the same value as `retailer` in every response. Each host has its own: www.prijsprofeet.nl: `albert_heijn`, `jumbo`, `aldi`, `lidl`, `ekoplaza`, `plus`, `dekamarkt`, `hoogvliet`, `vomar`, `dirk`; www.prijsprofeet.be: `delhaize`, `albert_heijn_be`, `colruyt`, `carrefour`, `aldi_be`, `lidl_be`, `jumbo_be`. Repeat the parameter to pass several: `?retailer=albert_heijn&retailer=jumbo`. Hyphenated keys (`albert-heijn`) are accepted too."
           }
         ],
         "responses": {

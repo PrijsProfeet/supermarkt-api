@@ -12,6 +12,28 @@ Nieuwe velden, nieuwe ketens en betere dekking rollen we zonder aankondiging uit
 aan** (art. 10 van de [API-voorwaarden](https://www.prijsprofeet.nl/api-voorwaarden)):
 per e-mail aan betalende afnemers én hier.
 
+## 2026-10-01 (5)
+
+**De `retailer`-parameters zeggen nu welke sleutels ze per host aannemen.** De spec
+beschreef `retailer` per endpoint anders: `/search` noemde vier Nederlandse ketens,
+`/products/retailer/{retailer}` drie, `/shelf-prices` de tien Nederlandse, en de rest
+niets. Een Belgische sleutel stond nergens, terwijl die per host verschilt.
+
+Het is de **sleutel uit het `retailer`-veld van elk antwoord**, niet de URL-slug van de
+site:
+
+- `www.prijsprofeet.nl`: `albert_heijn`, `jumbo`, `aldi`, `lidl`, `ekoplaza`, `plus`,
+  `dekamarkt`, `hoogvliet`, `vomar`, `dirk`
+- `www.prijsprofeet.be`: `delhaize`, `albert_heijn_be`, `colruyt`, `carrefour`,
+  `aldi_be`, `lidl_be`, `jumbo_be`
+
+Dus `albert_heijn_be` op `.be`, ook al staat de pagina daar op
+`/aanbiedingen/albert-heijn/`. Alle acht `retailer`-parameters dragen nu dezelfde
+tekst, en die volgt de lijst met actieve ketens. Een sleutel die de host niet voert,
+staat op `/products` en `/search` in `retailer_filter.ignored`.
+
+**Alleen documentatie.** Er verandert geen endpoint, veld of antwoord.
+
 ## 2026-10-01 (4)
 
 **`current_only=true` op `/match/*` houdt nu ook de schapprijs.** De parameter
