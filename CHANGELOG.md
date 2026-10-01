@@ -12,6 +12,15 @@ Nieuwe velden, nieuwe ketens en betere dekking rollen we zonder aankondiging uit
 aan** (art. 10 van de [API-voorwaarden](https://www.prijsprofeet.nl/api-voorwaarden)):
 per e-mail aan betalende afnemers én hier.
 
+## 2026-10-01 (7)
+
+**`/shelf-prices` geeft nu ook `image_url`.** Een productfoto bij de schapprijs, waar
+de keten er een meelevert: PLUS, Ekoplaza, Colruyt en Delhaize. Bij de andere ketens
+is het veld `null`. Hetzelfde veld als op `/products` en `/search`.
+
+**Uitbreiding, geen nieuwe beperking.** Er komt een veld bij; er verdwijnt geen veld
+en er verandert geen waarde.
+
 ## 2026-10-01 (6)
 
 **`/shelf-prices` noemt nu de eenheid van `unit_price`.** Elke rij draagt een veld

@@ -3522,6 +3522,18 @@
             "title": "Brand",
             "description": "Brand, when stated"
           },
+          "image_url": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Image Url",
+            "description": "Product image. Published by PLUS, Ekoplaza, Colruyt and Delhaize; null for the other chains."
+          },
           "price": {
             "type": "number",
             "title": "Price",
