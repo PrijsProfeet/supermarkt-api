@@ -2059,7 +2059,7 @@
           "partners"
         ],
         "summary": "Partner Usage",
-        "description": "Partner checks their own API usage.\n\nRequires a valid partner API key in the X-API-Key header.\nReturns current rate limit usage and account info.",
+        "description": "Partner checks their own API usage.\n\nRequires a valid partner API key in the X-API-Key header.\nReturns current rate limit usage, account info and `daily_usage`: requests\nper Dutch calendar day over the last 30 days (oldest first), split by\nendpoint group (`search`, `products`, `deals`, `match`, `shelf_prices`,\n`price_history`, `forecast`, `overig`) and status class (`2xx`, `3xx`,\n`4xx`, `429` = over your rate limit, `403_plan` = paid data without a paid\nplan, `5xx`). `daily_usage` is `null` when the history cannot be read right\nnow, never an empty history.\n\n`plan` is the plan that is enforced: an expired trial reads `free`.",
         "operationId": "partner_usage_api_v1_partner_usage_get",
         "responses": {
           "200": {

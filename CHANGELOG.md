@@ -12,6 +12,21 @@ Nieuwe velden, nieuwe ketens en betere dekking rollen we zonder aankondiging uit
 aan** (art. 10 van de [API-voorwaarden](https://www.prijsprofeet.nl/api-voorwaarden)):
 per e-mail aan betalende afnemers én hier.
 
+## 2026-10-02
+
+**`/partner/usage` geeft nu je verbruik per dag over 30 dagen.** Het veld
+`daily_usage` telt je aanroepen per Nederlandse kalenderdag, oudste eerst, per
+endpointgroep (`search`, `products`, `deals`, `match`, `shelf_prices`,
+`price_history`, `forecast`, `overig`) en per statusklasse. Twee klassen zijn apart:
+`429` (je loopt tegen je limiet aan) en `403_plan` (je vraagt betaalde data zonder
+betaald plan). Kunnen we de historie even niet lezen, dan is het veld `null`, nooit
+een lege lijst.
+
+`plan` noemt voortaan het plan dat geldt: een verlopen trial leest `free`, en
+`/partner/usage` werkt na het verlopen gewoon door.
+
+**Uitbreiding, geen nieuwe beperking.** Er komt een veld bij; er verdwijnt geen veld.
+
 ## 2026-10-01 (7)
 
 **`/shelf-prices` geeft nu ook `image_url`.** Een productfoto bij de schapprijs, waar
