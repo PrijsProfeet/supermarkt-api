@@ -12,6 +12,18 @@ Nieuwe velden, nieuwe ketens en betere dekking rollen we zonder aankondiging uit
 aan** (art. 10 van de [API-voorwaarden](https://www.prijsprofeet.nl/api-voorwaarden)):
 per e-mail aan betalende afnemers én hier.
 
+## 2026-10-03
+
+**Je API-account: verbruik, keys en een Pro-proef op één plek.** Op
+[www.prijsprofeet.nl/api-account/](https://www.prijsprofeet.nl/api-account/) log je in
+met het e-mailadres van je key (niet met de key zelf). Je ziet er je verbruik van de
+laatste 30 dagen, maakt een nieuwe key (de oude werkt dan nog 24 uur door), trekt een
+key in, en vraagt vanaf een gratis key een Pro-proef aan. De beschrijving bovenaan
+`/docs` en in deze spec verwijst er nu naar.
+
+**Geen wijziging aan de API zelf.** Alleen de beschrijving in de spec veranderde; er
+verandert geen endpoint, veld of waarde.
+
 ## 2026-10-02
 
 **`/partner/usage` geeft nu je verbruik per dag over 30 dagen.** Het veld
