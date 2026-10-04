@@ -1338,9 +1338,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "type": "object",
-                  "additionalProperties": true,
-                  "title": "Response Match By Ean Api V1 Match Ean  Ean  Get"
+                  "$ref": "#/components/schemas/EanMatchResponse"
                 }
               }
             }
@@ -1414,9 +1412,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "type": "object",
-                  "additionalProperties": true,
-                  "title": "Response Match For Product Api V1 Match Product  Product Id  Get"
+                  "$ref": "#/components/schemas/ProductMatchResponse"
                 }
               }
             }
@@ -2290,6 +2286,36 @@
         "title": "DealGroup",
         "description": "A group of products with the same brand and promotion type"
       },
+      "EanMatchResponse": {
+        "properties": {
+          "ean": {
+            "type": "string",
+            "title": "Ean",
+            "description": "The EAN that was asked for"
+          },
+          "total_matches": {
+            "type": "integer",
+            "title": "Total Matches",
+            "description": "Number of rows in `matches`"
+          },
+          "matches": {
+            "items": {
+              "$ref": "#/components/schemas/MatchRow"
+            },
+            "type": "array",
+            "title": "Matches",
+            "description": "Sorted by price ascending"
+          }
+        },
+        "type": "object",
+        "required": [
+          "ean",
+          "total_matches",
+          "matches"
+        ],
+        "title": "EanMatchResponse",
+        "description": "Every product carrying one barcode, across retailers."
+      },
       "FilterStats": {
         "properties": {
           "retailers": {
@@ -2384,6 +2410,399 @@
         "title": "KeySignupRequest",
         "description": "The /api form. Three questions, all of them answerable in ten seconds."
       },
+      "MatchRow": {
+        "properties": {
+          "product_id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Product Id",
+            "description": "Answerable via /api/v1/products/{id}, or null: a shelf row whose SKU has no live product carries no id rather than one that 404s."
+          },
+          "name": {
+            "type": "string",
+            "title": "Name",
+            "description": "Product name as the retailer states it"
+          },
+          "brand": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Brand",
+            "description": "Brand, when stated"
+          },
+          "price": {
+            "type": "number",
+            "title": "Price",
+            "description": "EUR. The promotion price on an active/upcoming row, the regular price on a shelf/historical row."
+          },
+          "original_price": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Original Price",
+            "description": "Regular price next to a promotion price, when known"
+          },
+          "retailer": {
+            "type": "string",
+            "title": "Retailer",
+            "description": "Retailer slug"
+          },
+          "retailer_display": {
+            "type": "string",
+            "title": "Retailer Display",
+            "description": "Retailer name for display"
+          },
+          "savings_percentage": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Savings Percentage",
+            "description": "Rounded discount derived from price and original_price"
+          },
+          "is_current_deal": {
+            "type": "boolean",
+            "title": "Is Current Deal",
+            "description": "True on an `active` row only. A shelf price is payable today but is not a deal."
+          },
+          "ean": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Ean",
+            "description": "EAN/GTIN of this row"
+          },
+          "url": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Url",
+            "description": "The retailer's product page"
+          },
+          "match_level": {
+            "type": "string",
+            "title": "Match Level",
+            "description": "How the row was found. `exact_ean`: same barcode (every row on /match/ean). `fuzzy_text`: an approximation on name and brand, returned only by /match/product when the barcode yields fewer than three matches. Build on this field to tell an exact match from an approximation."
+          },
+          "confidence": {
+            "type": "number",
+            "title": "Confidence",
+            "description": "A fixed value per source, not a per-row score: 0.98 live promotion on EAN, 0.95 shelf price on EAN, 0.90 recent observation on EAN, 0.85 name match. Orders sources; do not threshold on it."
+          },
+          "promotion": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Promotion",
+            "description": "The retailer's promotion label, e.g. '1+1 gratis'"
+          },
+          "promotion_status": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Promotion Status",
+            "description": "`active`, `upcoming`, `shelf` (current regular price) or `historical` (most recent price seen in the last 60 days)."
+          },
+          "valid_from": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Valid From",
+            "description": "Promotion start (ISO date)"
+          },
+          "valid_until": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Valid Until",
+            "description": "Promotion end (ISO date)"
+          },
+          "valid_until_estimated": {
+            "anyOf": [
+              {
+                "type": "boolean"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Valid Until Estimated",
+            "description": "True when valid_until is OUR rolling estimate, not a date the retailer published (today only PLUS long-running promotions), false when the retailer stated it. Null means not assessed, which is every shelf and historical row: those carry no promotion window."
+          },
+          "unit_price": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Unit Price",
+            "description": "Price per unit"
+          },
+          "unit": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Unit",
+            "description": "Unit of unit_price: kg, L or stuk"
+          },
+          "quantity": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Quantity",
+            "description": "Pack size as the retailer states it. A GTIN does not identify a pack size, so read every price next to it."
+          },
+          "last_deal_price": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Last Deal Price",
+            "description": "On a shelf/historical row: the most recent promotion price seen for this retailer and pack in the last 60 days"
+          },
+          "last_deal_until": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Last Deal Until",
+            "description": "Last day of that promotion (ISO date)"
+          },
+          "price_changed_at": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Price Changed At",
+            "description": "Shelf rows only: since when this regular price has held, ISO 8601 with offset"
+          },
+          "approx": {
+            "type": "boolean",
+            "title": "Approx",
+            "description": "True marks an approximation, never the same product. Set only by matching tiers that run for the comparison on our own product pages; on the API it is false today."
+          },
+          "private_label_equivalent": {
+            "type": "boolean",
+            "title": "Private Label Equivalent",
+            "description": "True marks another chain's own house brand under the same name and pack (always with approx=true). Set only for the comparison on our own product pages; on the API it is false today."
+          }
+        },
+        "type": "object",
+        "required": [
+          "name",
+          "price",
+          "retailer",
+          "retailer_display",
+          "is_current_deal",
+          "match_level",
+          "confidence",
+          "approx",
+          "private_label_equivalent"
+        ],
+        "title": "MatchRow",
+        "description": "One retailer's row in a /match/* answer.\n\nMirrors `ProductMatch.to_dict()` field for field: a response model drops\nevery key it does not declare, so a field added there and not here would\nvanish from the API without an error (`test_match_rijschema.py`)."
+      },
+      "MatchSourceProduct": {
+        "properties": {
+          "product_id": {
+            "type": "string",
+            "title": "Product Id",
+            "description": "The product id that was asked for"
+          },
+          "error": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Error",
+            "description": "`not_found` when no live product has this id; every other field is then null and `matches` is empty."
+          },
+          "name": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Name"
+          },
+          "brand": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Brand"
+          },
+          "price": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Price"
+          },
+          "original_price": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Original Price"
+          },
+          "retailer": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Retailer"
+          },
+          "ean": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Ean"
+          },
+          "url": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Url"
+          },
+          "promotion": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Promotion"
+          },
+          "promotion_status": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Promotion Status"
+          }
+        },
+        "type": "object",
+        "required": [
+          "product_id"
+        ],
+        "title": "MatchSourceProduct",
+        "description": "The product a /match/product answer starts from."
+      },
       "ProductListResponse": {
         "properties": {
           "total": {
@@ -2430,6 +2849,43 @@
         ],
         "title": "ProductListResponse",
         "description": "Paginated product list response"
+      },
+      "ProductMatchResponse": {
+        "properties": {
+          "source_product": {
+            "$ref": "#/components/schemas/MatchSourceProduct"
+          },
+          "matches": {
+            "items": {
+              "$ref": "#/components/schemas/MatchRow"
+            },
+            "type": "array",
+            "title": "Matches",
+            "description": "Sorted by price ascending"
+          },
+          "total_matches": {
+            "type": "integer",
+            "title": "Total Matches",
+            "description": "Number of rows in `matches`"
+          },
+          "match_levels_used": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Match Levels Used",
+            "description": "The `match_level` values that produced rows"
+          }
+        },
+        "type": "object",
+        "required": [
+          "source_product",
+          "matches",
+          "total_matches",
+          "match_levels_used"
+        ],
+        "title": "ProductMatchResponse",
+        "description": "The same product at other retailers, for one product id."
       },
       "ProductResponse": {
         "properties": {

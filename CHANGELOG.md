@@ -12,6 +12,26 @@ Nieuwe velden, nieuwe ketens en betere dekking rollen we zonder aankondiging uit
 aan** (art. 10 van de [API-voorwaarden](https://www.prijsprofeet.nl/api-voorwaarden)):
 per e-mail aan betalende afnemers én hier.
 
+## 2026-10-04
+
+**`/match/ean` en `/match/product` hebben nu een beschreven rij, met `valid_until_estimated`.**
+De spec beschreef het antwoord als een open object, dus `match_level`, `confidence`,
+`approx` en `private_label_equivalent` stonden nergens uitgelegd (gevraagd door een
+partner). Elke match-rij is nu het schema `MatchRow`, met een beschrijving per veld.
+Bouw op `match_level` (`exact_ean` of `fuzzy_text`) om een barcode-treffer van een
+benadering te onderscheiden; `confidence` is een vaste waarde per bron en geen score
+per rij. `approx` en `private_label_equivalent` zijn op de API vandaag altijd `false`.
+
+Nieuw op elke match-rij: `valid_until_estimated`, met dezelfde betekenis als op
+`/products` en `/search`: `true` is een einddatum die wij schatten, `null` op schap- en
+historierijen, die geen actievenster hebben.
+
+`source_product` van `/match/product` draagt nu altijd het veld `error`: `null`, of
+`"not_found"` zoals voorheen.
+
+**Uitbreiding, geen nieuwe beperking.** Er komen velden bij; er verdwijnt geen veld en
+er verandert geen waarde.
+
 ## 2026-10-03
 
 **Je API-account: verbruik, keys en een Pro-proef op één plek.** Op
