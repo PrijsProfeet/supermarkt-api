@@ -12,6 +12,17 @@ Nieuwe velden, nieuwe ketens en betere dekking rollen we zonder aankondiging uit
 aan** (art. 10 van de [API-voorwaarden](https://www.prijsprofeet.nl/api-voorwaarden)):
 per e-mail aan betalende afnemers én hier.
 
+## 2026-10-05
+
+**Zonder key: maximaal 500 zoekopdrachten op een losse barcode per dag per IP.**
+`GET /api/v1/search` houdt zijn limiet van 120 per minuut, en telt daarnaast
+maximaal 500 zoekopdrachten per dag per IP-adres waarvan `q` alleen een barcode
+is (8 tot 14 cijfers). Zoeken op een woord en `q=*` tellen niet mee. Over de
+afgelopen twee weken zat geen enkele gebruiker zonder key boven de 360 per dag.
+De `429` zegt in `detail` waarom. Met een
+[gratis key](https://www.prijsprofeet.nl/api#gratis-key) geldt deze daglimiet
+niet; dan telt alleen de limiet per minuut van je plan.
+
 ## 2026-10-04
 
 **`/match/ean` en `/match/product` hebben nu een beschreven rij, met `valid_until_estimated`.**
