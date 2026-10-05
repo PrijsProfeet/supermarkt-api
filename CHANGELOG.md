@@ -12,6 +12,28 @@ Nieuwe velden, nieuwe ketens en betere dekking rollen we zonder aankondiging uit
 aan** (art. 10 van de [API-voorwaarden](https://www.prijsprofeet.nl/api-voorwaarden)):
 per e-mail aan betalende afnemers én hier.
 
+## 2026-10-05 (2)
+
+**Nieuw: `/products/changes`, alleen wat er sinds je vorige sync veranderde.**
+In plaats van elke nacht heel `/api/v1/products` door te bladeren, sync je één
+keer en volg je daarna `GET /api/v1/products/changes?cursor=…`. Elke wijziging
+is een `upsert` (nieuw of gewijzigd, met de actuele rij in `product`) of een
+`delete` (de actie staat er niet meer; `product` is `null`).
+
+1. Vraag zonder `cursor` en bewaar de `cursor` uit het antwoord.
+2. Sync één keer volledig via `/api/v1/products`.
+3. Vraag daarna met je bewaarde `cursor`, verwerk de wijzigingen in volgorde,
+   bewaar de nieuwe `cursor` en vraag direct door zolang `has_more` `true` is.
+
+Een wijziging staat er binnen ongeveer tien minuten in (`as_of` zegt wanneer we
+het laatst keken) en blijft 30 dagen bewaard: een oudere cursor krijgt een `410`,
+dan sync je opnieuw volledig. Een storing is een `503`, nooit een lege lijst.
+Gratis, zonder key, en per winkel: `www.prijsprofeet.be` geeft de Belgische
+wijzigingen, zoals elk ander endpoint.
+
+**Uitbreiding, geen nieuwe beperking.** Er komt een endpoint bij; aan
+`/products` verandert niets.
+
 ## 2026-10-05
 
 **Zonder key: maximaal 500 zoekopdrachten op een losse barcode per dag per IP.**

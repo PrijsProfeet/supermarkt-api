@@ -268,6 +268,97 @@
         ]
       }
     },
+    "/api/v1/products/changes": {
+      "get": {
+        "tags": [
+          "products"
+        ],
+        "summary": "List Product Changes",
+        "description": "What changed in `/api/v1/products` since your previous sync.\n\nInstead of paging through every promotion each night, sync once and then\nfollow this feed:\n\n1. Call without `cursor` and keep the `cursor` it returns.\n2. Do one full sync through `/api/v1/products`.\n3. From then on, call with your saved `cursor`. Apply each change in\n   order: `upsert` replaces the row with that `product_id`, `delete`\n   removes it. Save the new `cursor`, and call again right away while\n   `has_more` is true.\n\nA change reaches the feed within about ten minutes (`as_of` says when the\ncatalogue was last compared). Changes are kept for 30 days: an older\ncursor gets a **410**, and then you do a full sync again and start over\nfrom step 1. The same product can appear more than once; the last change\nwins. Scoped to the storefront you call, like every other endpoint.",
+        "operationId": "list_product_changes_api_v1_products_changes_get",
+        "parameters": [
+          {
+            "name": "cursor",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "integer",
+                  "minimum": 0
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "description": "The `cursor` from your previous call. Leave it out to get a starting cursor.",
+              "title": "Cursor"
+            },
+            "description": "The `cursor` from your previous call. Leave it out to get a starting cursor."
+          },
+          {
+            "name": "retailer",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "description": "Retailer key: the same value as `retailer` in every response. Each host has its own: www.prijsprofeet.nl: `albert_heijn`, `jumbo`, `aldi`, `lidl`, `ekoplaza`, `plus`, `dekamarkt`, `hoogvliet`, `vomar`, `dirk`; www.prijsprofeet.be: `delhaize`, `albert_heijn_be`, `colruyt`, `carrefour`, `aldi_be`, `lidl_be`, `jumbo_be`.",
+              "title": "Retailer"
+            },
+            "description": "Retailer key: the same value as `retailer` in every response. Each host has its own: www.prijsprofeet.nl: `albert_heijn`, `jumbo`, `aldi`, `lidl`, `ekoplaza`, `plus`, `dekamarkt`, `hoogvliet`, `vomar`, `dirk`; www.prijsprofeet.be: `delhaize`, `albert_heijn_be`, `colruyt`, `carrefour`, `aldi_be`, `lidl_be`, `jumbo_be`."
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "maximum": 500,
+              "minimum": 1,
+              "description": "Changes per call",
+              "default": 500,
+              "title": "Limit"
+            },
+            "description": "Changes per call"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProductChangesResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {},
+          {
+            "ApiKeyAuth": []
+          }
+        ]
+      }
+    },
     "/api/v1/products/{product_id}": {
       "get": {
         "tags": [
@@ -2802,6 +2893,107 @@
         ],
         "title": "MatchSourceProduct",
         "description": "The product a /match/product answer starts from."
+      },
+      "ProductChange": {
+        "properties": {
+          "seq": {
+            "type": "integer",
+            "title": "Seq",
+            "description": "Position in the feed"
+          },
+          "change": {
+            "type": "string",
+            "enum": [
+              "upsert",
+              "delete"
+            ],
+            "title": "Change",
+            "description": "`upsert`: new or changed, `product` holds the current row. `delete`: no longer listed (ended, expired or replaced), `product` is null."
+          },
+          "product_id": {
+            "type": "string",
+            "title": "Product Id",
+            "description": "The product that changed"
+          },
+          "retailer": {
+            "type": "string",
+            "title": "Retailer",
+            "description": "Retailer slug"
+          },
+          "product": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/ProductResponse"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "Current row on an upsert; null on a delete"
+          }
+        },
+        "type": "object",
+        "required": [
+          "seq",
+          "change",
+          "product_id",
+          "retailer"
+        ],
+        "title": "ProductChange",
+        "description": "One product that changed or disappeared after the cursor."
+      },
+      "ProductChangesResponse": {
+        "properties": {
+          "cursor": {
+            "type": "integer",
+            "title": "Cursor",
+            "description": "Pass this as `cursor` on the next call. Opaque; never compute with it."
+          },
+          "has_more": {
+            "type": "boolean",
+            "title": "Has More",
+            "description": "True when more changes are waiting: call again now"
+          },
+          "as_of": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "As Of",
+            "description": "When the feed last compared the catalogue (ISO 8601). Changes reach the feed within about ten minutes."
+          },
+          "changes": {
+            "items": {
+              "$ref": "#/components/schemas/ProductChange"
+            },
+            "type": "array",
+            "title": "Changes",
+            "description": "Changes, oldest first"
+          },
+          "retailer_filter": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/RetailerFilterNotice"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "Set only when a `retailer` value could not be applied."
+          }
+        },
+        "type": "object",
+        "required": [
+          "cursor",
+          "has_more",
+          "changes"
+        ],
+        "title": "ProductChangesResponse",
+        "description": "Changes to `/api/v1/products` since a cursor."
       },
       "ProductListResponse": {
         "properties": {
