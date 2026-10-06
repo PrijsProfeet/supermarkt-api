@@ -31,8 +31,9 @@ per e-mail aan betalende afnemers én hier.
 
 Beide alleen met een Business-key; Pro, proef en gratis krijgen een `403`.
 
-**Prijs.** Vanaf 1 december 2026 is Business €299 per maand voor nieuwe
-afnemers, op jaarcontract. Wie eerder tekent, houdt €249 voor het contractjaar.
+**Prijs.** Vanaf 1 december 2026 is Business €299 per maand, op jaarcontract.
+Wie vóór die datum tekent, betaalt €249 per maand tot het einde van het eerste
+contractjaar.
 Aan Gratis en Pro verandert niets. De
 [API-voorwaarden](https://www.prijsprofeet.nl/api-voorwaarden) zijn daarvoor
 bijgewerkt naar versie 1.12.
