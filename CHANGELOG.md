@@ -12,6 +12,18 @@ Nieuwe velden, nieuwe ketens en betere dekking rollen we zonder aankondiging uit
 aan** (art. 10 van de [API-voorwaarden](https://www.prijsprofeet.nl/api-voorwaarden)):
 per e-mail aan betalende afnemers én hier.
 
+## 2026-10-06 (2)
+
+**`/deals/popular`, `/deals/by-type` en `/deals/new` nemen nu ook `?retailer=`.**
+Dezelfde parameter als `/deals/top`: herhaal hem voor meerdere ketens
+(`?retailer=jumbo&retailer=plus`). Een onbekende keten geeft een `400` met de
+geldige waarden, geen lege lijst. Zonder de parameter verandert er niets.
+
+Daarnaast noemt de beschrijving van de API het aantal Nederlandse ketens nu
+"10+" in plaats van "10".
+
+Puur toegevoegd: geen veld en geen bestaand gedrag gewijzigd.
+
 ## 2026-10-06
 
 **`/match/product` vindt nu ook ketens zonder barcode-treffer, gemarkeerd met `approx: true`.**
