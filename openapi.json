@@ -1732,6 +1732,258 @@
         ]
       }
     },
+    "/api/v1/shelf-prices/history": {
+      "get": {
+        "tags": [
+          "shelf-prices"
+        ],
+        "summary": "Export the history of regular shelf prices (Business)",
+        "description": "Every move of a regular (non-promotional) price we observed, per SKU, since we started following that chain: the first chains in September 2026. Use it to backfill the months before your own integration started, then keep it current with `since`.\n\n**Access.** Business key in `X-API-Key`. Pro, trial and free keys get 403.\n\n**What a row says.** From `observed_at` on, this SKU cost `price` at this retailer. The first row of a SKU has `previous_price: null`: that is when we started watching it, not a price change. Every later row is a move from `previous_price` to `price`. `observed_at` is the night we first saw the price; the retailer may have changed it up to a day earlier.\n\n**Filters.** `retailer`, `shelf_id` (needs `retailer`), `ean` and `since` (inclusive, ISO 8601). Without filters you page through the whole archive of this storefront.\n\n**Order and paging.** Oldest first, then by `retailer` and `shelf_id`: the order is total, so `page`/`page_size` (up to 500) returns every row once. To stay current, call again with `since` set to the last `observed_at` you hold and drop rows you already have; the key of a row is `(retailer, shelf_id, observed_at)`. New rows arrive nightly, roughly 01:00-03:00 Dutch time.\n\n**Coverage.** The chains that publish regular prices; Lidl does not, so it has no history. Responses are cached for up to an hour.",
+        "operationId": "shelf_price_history_api_v1_shelf_prices_history_get",
+        "parameters": [
+          {
+            "name": "retailer",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "description": "Retailer key: the same value as `retailer` in every response. Each host has its own: www.prijsprofeet.nl: `albert_heijn`, `jumbo`, `aldi`, `lidl`, `ekoplaza`, `plus`, `dekamarkt`, `hoogvliet`, `vomar`, `dirk`; www.prijsprofeet.be: `delhaize`, `albert_heijn_be`, `colruyt`, `carrefour`, `aldi_be`, `lidl_be`, `jumbo_be`.",
+              "title": "Retailer"
+            },
+            "description": "Retailer key: the same value as `retailer` in every response. Each host has its own: www.prijsprofeet.nl: `albert_heijn`, `jumbo`, `aldi`, `lidl`, `ekoplaza`, `plus`, `dekamarkt`, `hoogvliet`, `vomar`, `dirk`; www.prijsprofeet.be: `delhaize`, `albert_heijn_be`, `colruyt`, `carrefour`, `aldi_be`, `lidl_be`, `jumbo_be`."
+          },
+          {
+            "name": "shelf_id",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "description": "The retailer's own SKU",
+              "title": "Shelf Id"
+            },
+            "description": "The retailer's own SKU"
+          },
+          {
+            "name": "ean",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string",
+                  "minLength": 8,
+                  "maxLength": 14
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Ean"
+            }
+          },
+          {
+            "name": "since",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string",
+                  "format": "date-time"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "description": "Only rows observed at or after this instant (inclusive). ISO 8601; without an offset it is read as UTC.",
+              "title": "Since"
+            },
+            "description": "Only rows observed at or after this instant (inclusive). ISO 8601; without an offset it is read as UTC."
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "minimum": 1,
+              "default": 1,
+              "title": "Page"
+            }
+          },
+          {
+            "name": "page_size",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "maximum": 500,
+              "minimum": 1,
+              "default": 100,
+              "title": "Page Size"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ShelfPriceHistoryResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "ApiKeyAuth": []
+          }
+        ]
+      }
+    },
+    "/api/v1/private-label-equivalents": {
+      "get": {
+        "tags": [
+          "private-label"
+        ],
+        "summary": "Private-label products that are the same across chains (Business)",
+        "description": "Which house-brand product at one chain is the same product at another: `AH Halfvolle melk 1 L` and `Jumbo Halfvolle melk 1 L` share no barcode, so no EAN join finds them. Each item is one claim: two current shelf rows at two chains.\n\n**Access.** Business key in `X-API-Key`. Pro, trial and free keys get 403.\n\n**The rule** (`rule`). The same name after removing brand, chain prefix and size; pack sizes within 10% in one unit; and none of the pre-registered differences (organic, 0%/light, ply count, cheese age). No similarity threshold: a near match is not a claim. Measured against hand-labelled pairs: 77 of 78 correct for the Netherlands (98.7%, 95% interval 93-100%), 27 of 27 for Belgium. \"The same\" means the same product in the same pack size.\n\n**Filters.** `retailer` (either side), `shelf_id` (needs `retailer`) to look up one SKU, and `q` for part of the name. Without filters you page through every claim of this storefront.\n\n**Coverage.** Regular shelf rows only, rebuilt nightly, with current prices. Chains without a brand field or without regular prices (Lidl, Carrefour) have no claims. Responses are cached for up to an hour.",
+        "operationId": "private_label_equivalents_api_v1_private_label_equivalents_get",
+        "parameters": [
+          {
+            "name": "retailer",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "description": "Retailer key: the same value as `retailer` in every response. Each host has its own: www.prijsprofeet.nl: `albert_heijn`, `jumbo`, `aldi`, `lidl`, `ekoplaza`, `plus`, `dekamarkt`, `hoogvliet`, `vomar`, `dirk`; www.prijsprofeet.be: `delhaize`, `albert_heijn_be`, `colruyt`, `carrefour`, `aldi_be`, `lidl_be`, `jumbo_be`.",
+              "title": "Retailer"
+            },
+            "description": "Retailer key: the same value as `retailer` in every response. Each host has its own: www.prijsprofeet.nl: `albert_heijn`, `jumbo`, `aldi`, `lidl`, `ekoplaza`, `plus`, `dekamarkt`, `hoogvliet`, `vomar`, `dirk`; www.prijsprofeet.be: `delhaize`, `albert_heijn_be`, `colruyt`, `carrefour`, `aldi_be`, `lidl_be`, `jumbo_be`."
+          },
+          {
+            "name": "shelf_id",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "description": "The retailer's own SKU",
+              "title": "Shelf Id"
+            },
+            "description": "The retailer's own SKU"
+          },
+          {
+            "name": "q",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string",
+                  "minLength": 2
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "description": "Part of the name",
+              "title": "Q"
+            },
+            "description": "Part of the name"
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "minimum": 1,
+              "default": 1,
+              "title": "Page"
+            }
+          },
+          {
+            "name": "page_size",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "maximum": 500,
+              "minimum": 1,
+              "default": 100,
+              "title": "Page Size"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PrivateLabelEquivalentsResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "ApiKeyAuth": []
+          }
+        ]
+      }
+    },
     "/api/v1/deals/top": {
       "get": {
         "tags": [
@@ -2956,6 +3208,195 @@
         ],
         "title": "MatchSourceProduct",
         "description": "The product a /match/product answer starts from."
+      },
+      "PrivateLabelClaim": {
+        "properties": {
+          "key": {
+            "type": "string",
+            "title": "Key",
+            "description": "The cleaned name both sides share"
+          },
+          "a": {
+            "$ref": "#/components/schemas/PrivateLabelSide"
+          },
+          "b": {
+            "$ref": "#/components/schemas/PrivateLabelSide"
+          }
+        },
+        "type": "object",
+        "required": [
+          "key",
+          "a",
+          "b"
+        ],
+        "title": "PrivateLabelClaim",
+        "description": "Two private-label SKUs at two chains that we call the same product."
+      },
+      "PrivateLabelEquivalentsResponse": {
+        "properties": {
+          "rule": {
+            "type": "string",
+            "title": "Rule",
+            "description": "How a claim is made: the same name after removing brand, chain prefix and size, pack sizes within 10% in one unit, and none of the pre-registered conflicts (organic, 0%/light, ply, cheese age)."
+          },
+          "total": {
+            "type": "integer",
+            "title": "Total",
+            "description": "Total matching claims"
+          },
+          "page": {
+            "type": "integer",
+            "title": "Page",
+            "description": "Current page number"
+          },
+          "page_size": {
+            "type": "integer",
+            "title": "Page Size",
+            "description": "Number of items per page"
+          },
+          "items": {
+            "items": {
+              "$ref": "#/components/schemas/PrivateLabelClaim"
+            },
+            "type": "array",
+            "title": "Items",
+            "description": "Claims"
+          }
+        },
+        "type": "object",
+        "required": [
+          "rule",
+          "total",
+          "page",
+          "page_size",
+          "items"
+        ],
+        "title": "PrivateLabelEquivalentsResponse",
+        "description": "Paginated private-label equivalence claims (#1099)."
+      },
+      "PrivateLabelSide": {
+        "properties": {
+          "retailer": {
+            "type": "string",
+            "title": "Retailer",
+            "description": "Retailer slug"
+          },
+          "shelf_id": {
+            "type": "string",
+            "title": "Shelf Id",
+            "description": "The retailer's own SKU identifier"
+          },
+          "ean": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Ean",
+            "description": "EAN/GTIN, when published"
+          },
+          "name": {
+            "type": "string",
+            "title": "Name",
+            "description": "Product name as the retailer states it"
+          },
+          "brand": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Brand",
+            "description": "The private-label brand"
+          },
+          "price": {
+            "type": "number",
+            "title": "Price",
+            "description": "Current regular price"
+          },
+          "currency": {
+            "type": "string",
+            "title": "Currency",
+            "description": "ISO currency code",
+            "default": "EUR"
+          },
+          "quantity": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Quantity",
+            "description": "Pack size as stated"
+          },
+          "unit": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Unit",
+            "description": "Unit of unit_price: kg, L or stuk"
+          },
+          "unit_price": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Unit Price",
+            "description": "Price per unit"
+          },
+          "product_url": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Product Url",
+            "description": "Link on the retailer's site"
+          },
+          "last_seen": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Last Seen",
+            "description": "When we last observed this row"
+          }
+        },
+        "type": "object",
+        "required": [
+          "retailer",
+          "shelf_id",
+          "name",
+          "price",
+          "last_seen"
+        ],
+        "title": "PrivateLabelSide",
+        "description": "One side of a private-label equivalence claim: a current shelf row."
       },
       "ProductChange": {
         "properties": {
@@ -4191,6 +4632,154 @@
           "results"
         ],
         "title": "SearchResponse"
+      },
+      "ShelfPriceHistoryItem": {
+        "properties": {
+          "retailer": {
+            "type": "string",
+            "title": "Retailer",
+            "description": "Retailer slug"
+          },
+          "shelf_id": {
+            "type": "string",
+            "title": "Shelf Id",
+            "description": "The retailer's own SKU identifier"
+          },
+          "ean": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Ean",
+            "description": "EAN/GTIN, when published"
+          },
+          "name": {
+            "type": "string",
+            "title": "Name",
+            "description": "Product name at the time of observation"
+          },
+          "brand": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Brand",
+            "description": "Brand, when stated"
+          },
+          "price": {
+            "type": "number",
+            "title": "Price",
+            "description": "Regular (non-promotional) price from here on"
+          },
+          "previous_price": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Previous Price",
+            "description": "The price before this move. Null on the first observation of a SKU: that row says we started watching, not that the price changed."
+          },
+          "currency": {
+            "type": "string",
+            "title": "Currency",
+            "description": "ISO currency code",
+            "default": "EUR"
+          },
+          "quantity": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Quantity",
+            "description": "Pack size as stated"
+          },
+          "unit_price": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Unit Price",
+            "description": "Derived price per standard unit (kg/L/piece)"
+          },
+          "observed_at": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Observed At",
+            "description": "The night we first saw this price. The retailer may have changed it up to a day earlier. ISO 8601 with the Dutch UTC offset."
+          }
+        },
+        "type": "object",
+        "required": [
+          "retailer",
+          "shelf_id",
+          "name",
+          "price",
+          "observed_at"
+        ],
+        "title": "ShelfPriceHistoryItem",
+        "description": "One statement from the shelf-price archive: from `observed_at` on, `price`.\n\nBusiness only (#920). The rows of one `(retailer, shelf_id)` are that SKU's\ncomplete series since we started watching it."
+      },
+      "ShelfPriceHistoryResponse": {
+        "properties": {
+          "total": {
+            "type": "integer",
+            "title": "Total",
+            "description": "Total matching rows"
+          },
+          "page": {
+            "type": "integer",
+            "title": "Page",
+            "description": "Current page number"
+          },
+          "page_size": {
+            "type": "integer",
+            "title": "Page Size",
+            "description": "Number of items per page"
+          },
+          "items": {
+            "items": {
+              "$ref": "#/components/schemas/ShelfPriceHistoryItem"
+            },
+            "type": "array",
+            "title": "Items",
+            "description": "Archive rows"
+          }
+        },
+        "type": "object",
+        "required": [
+          "total",
+          "page",
+          "page_size",
+          "items"
+        ],
+        "title": "ShelfPriceHistoryResponse",
+        "description": "Paginated shelf-price archive."
       },
       "ShelfPriceItem": {
         "properties": {

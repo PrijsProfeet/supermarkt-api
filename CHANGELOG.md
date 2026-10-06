@@ -12,6 +12,33 @@ Nieuwe velden, nieuwe ketens en betere dekking rollen we zonder aankondiging uit
 aan** (art. 10 van de [API-voorwaarden](https://www.prijsprofeet.nl/api-voorwaarden)):
 per e-mail aan betalende afnemers én hier.
 
+## 2026-10-06 (3)
+
+**Nieuw voor Business: de schapprijsreeks en de huismerk-equivalenten.**
+
+- `GET /api/v1/shelf-prices/history` geeft elke beweging van de reguliere
+  prijs per product, sinds we een keten volgen (de eerste sinds september
+  2026). De eerste rij van een product heeft `previous_price: null`: dan
+  begonnen we te kijken. Blader de hele reeks door om de maanden van vóór je
+  eigen integratie op te halen, en vraag daarna met `since` alleen wat er
+  bijkwam. De volgorde is totaal: oudste eerst, dan `retailer` en `shelf_id`.
+- `GET /api/v1/private-label-equivalents` geeft per paar twee huismerkproducten
+  van twee ketens die volgens onze gemeten regel hetzelfde product zijn:
+  dezelfde naam zonder merk, ketenprefix en maat, een verpakking die minder dan
+  10% verschilt, en geen van de vooraf vastgelegde verschillen (bio, 0%/light,
+  laags, kaasrijping). Gemeten precisie: 77 van 78 voor Nederland, 27 van 27
+  voor België.
+
+Beide alleen met een Business-key; Pro, proef en gratis krijgen een `403`.
+
+**Prijs.** Vanaf 1 december 2026 is Business €299 per maand voor nieuwe
+afnemers, op jaarcontract. Wie eerder tekent, houdt €249 voor het contractjaar.
+Aan Gratis en Pro verandert niets. De
+[API-voorwaarden](https://www.prijsprofeet.nl/api-voorwaarden) zijn daarvoor
+bijgewerkt naar versie 1.12.
+
+Puur toegevoegd: geen veld en geen bestaand gedrag gewijzigd.
+
 ## 2026-10-06 (2)
 
 **`/deals/popular`, `/deals/by-type` en `/deals/new` nemen nu ook `?retailer=`.**
