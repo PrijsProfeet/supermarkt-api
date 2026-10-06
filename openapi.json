@@ -1458,7 +1458,7 @@
           "matching"
         ],
         "summary": "Find matching products at other retailers",
-        "description": "Find the same product at other retailers using EAN matching.",
+        "description": "Find the same product at other retailers: the comparison our own product pages show. Exact EAN matches first; then, for chains still open, approximations marked `approx: true` -- name and pack size at chains that publish no barcode (Aldi, Hoogvliet and Vomar shelf prices), another chain's own house brand under the same name and pack (`private_label_equivalent: true`), and brand, name and pack for a product without a barcode. Below three barcode matches a name search fills chains without one, so a chain can carry an approximation and a search match. Measured precision per picked row: 89% (name), 92% (brand and name), 99% (house brand). Filter on `approx` to keep barcode matches only.",
         "operationId": "match_for_product_api_v1_match_product__product_id__get",
         "parameters": [
           {
@@ -2603,7 +2603,7 @@
           "match_level": {
             "type": "string",
             "title": "Match Level",
-            "description": "How the row was found. `exact_ean`: same barcode (every row on /match/ean). `fuzzy_text`: an approximation on name and brand, returned only by /match/product when the barcode yields fewer than three matches. Build on this field to tell an exact match from an approximation."
+            "description": "How the row was found. `exact_ean`: same barcode (every row on /match/ean). `fuzzy_text`: an approximation on name, brand and pack, returned only by /match/product. Build on this field to tell an exact match from an approximation."
           },
           "confidence": {
             "type": "number",
@@ -2745,12 +2745,12 @@
           "approx": {
             "type": "boolean",
             "title": "Approx",
-            "description": "True marks an approximation, never the same product. Set only by matching tiers that run for the comparison on our own product pages; on the API it is false today."
+            "description": "True marks an approximation, never the same product: a match on name and pack size (at a chain that publishes no barcode), on brand, name and pack, or another chain's house brand. Only on /match/product; always false on /match/ean."
           },
           "private_label_equivalent": {
             "type": "boolean",
             "title": "Private Label Equivalent",
-            "description": "True marks another chain's own house brand under the same name and pack (always with approx=true). Set only for the comparison on our own product pages; on the API it is false today."
+            "description": "True marks another chain's own house brand under the same name and pack (always with approx=true). Only on /match/product."
           }
         },
         "type": "object",

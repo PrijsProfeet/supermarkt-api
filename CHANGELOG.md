@@ -12,6 +12,34 @@ Nieuwe velden, nieuwe ketens en betere dekking rollen we zonder aankondiging uit
 aan** (art. 10 van de [API-voorwaarden](https://www.prijsprofeet.nl/api-voorwaarden)):
 per e-mail aan betalende afnemers én hier.
 
+## 2026-10-06
+
+**`/match/product` vindt nu ook ketens zonder barcode-treffer, gemarkeerd met `approx: true`.**
+`/match/product/{id}` draait nu dezelfde koppelingen als de Vergelijk-kaart op
+onze productpagina's. Naast de exacte EAN-treffers komen er rijen bij uit drie
+koppelingen:
+
+- naam en verpakking bij ketens die geen barcode publiceren (de schapprijzen
+  van Aldi, Hoogvliet en Vomar);
+- het huismerk van een andere keten onder dezelfde naam en verpakking;
+- merk, naam en verpakking voor een product zonder barcode.
+
+Zo'n rij heeft `approx: true` en `match_level: "fuzzy_text"`; een huismerk
+heeft daarnaast `private_label_equivalent: true`. Gemeten precisie per gekozen
+rij: 89% (naam), 92% (merk en naam), 99% (huismerk). Op 500 lopende
+Nederlandse acties krijgt 7,8% van de antwoorden een rij bij. Een schaprij
+waarvoor `/products/{id}` geen antwoord heeft, krijgt `product_id: null`, zoals
+op elke andere schaprij.
+
+De zoekkoppeling op naam werkt precies als voorheen, dus elke rij die je eerder
+kreeg blijft. Daardoor kan één keten nu twee rijen hebben: een benadering en
+een zoektreffer. Wil je alleen barcode-treffers, filter dan op `approx` is
+`false` en `match_level` is `exact_ean`. `/match/ean` verandert niet en geeft
+alleen exacte barcode-treffers.
+
+**Uitbreiding, geen nieuwe beperking.** Er verdwijnt geen rij en geen veld, en
+er verandert geen veldbetekenis.
+
 ## 2026-10-05 (2)
 
 **Nieuw: `/products/changes`, alleen wat er sinds je vorige sync veranderde.**
