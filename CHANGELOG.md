@@ -12,6 +12,14 @@ Nieuwe velden, nieuwe ketens en betere dekking rollen we zonder aankondiging uit
 aan** (art. 10 van de [API-voorwaarden](https://www.prijsprofeet.nl/api-voorwaarden)):
 per e-mail aan betalende afnemers én hier.
 
+## 2026-10-07 (2)
+
+**`/shelf-prices`: Hoogvliet's schapprijzen dragen een EAN.** Sinds Hoogvliets
+webshopwissel van 6 oktober heeft ~75% van zijn schaprijen een `ean`. De
+beschrijving noemt daarom alleen nog Aldi als keten zonder barcode. Ekoplaza's
+schaprijen blijven `ean: null`: die barcode halen we bewust niet op. Geen veld
+en geen gedrag veranderd.
+
 ## 2026-10-07
 
 **Hoogvliet levert EAN's.** Sinds Hoogvliet op 6 oktober 2026 van webshop
