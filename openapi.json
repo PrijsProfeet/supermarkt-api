@@ -1458,7 +1458,7 @@
           "matching"
         ],
         "summary": "Find matching products at other retailers",
-        "description": "Find the same product at other retailers: the comparison our own product pages show. Exact EAN matches first; then, for chains still open, approximations marked `approx: true` -- name and pack size at chains that publish no barcode (Aldi, Hoogvliet and Vomar shelf prices), another chain's own house brand under the same name and pack (`private_label_equivalent: true`), and brand, name and pack for a product without a barcode. Below three barcode matches a name search fills chains without one, so a chain can carry an approximation and a search match. Measured precision per picked row: 89% (name), 92% (brand and name), 99% (house brand). Filter on `approx` to keep barcode matches only.",
+        "description": "Find the same product at other retailers: the comparison our own product pages show. Exact EAN matches first; then, for chains still open, approximations marked `approx: true` -- name and pack size at chains that publish no barcode (Aldi shelf prices), another  chain's own house brand under the same name and pack (`private_label_equivalent: true`), and brand, name and pack for a product without a barcode. Below three barcode matches a name search fills chains without one, so a chain can carry an approximation and a search match. Measured precision per picked row: 89% (name), 92% (brand and name), 99% (house brand). Filter on `approx` to keep barcode matches only.",
         "operationId": "match_for_product_api_v1_match_product__product_id__get",
         "parameters": [
           {

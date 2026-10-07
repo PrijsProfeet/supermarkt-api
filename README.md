@@ -42,14 +42,14 @@ Ekoplaza · Hoogvliet · Jumbo · Lidl · PLUS · Vomar
 Delhaize · Jumbo · Lidl
 
 EAN-dekking verschilt per keten en is geen detail als je op product wilt koppelen.
-Bij **Aldi, Lidl, Hoogvliet en Vomar**, en in België bij **Aldi, Lidl, Carrefour, Jumbo
-en Delhaize**, publiceert de keten zelf geen EAN — daar bestaat hij domweg niet, en
-koppelen op naam is de enige optie, met de foutmarge die daarbij hoort. Carrefour en Jumbo
-lezen we in België uit de folder, zonder merk: daar koppelen we niet. Bij de overige ketens is de EAN er
-vrijwel altijd; het percentage per keten staat **gemeten** op
+Bij de meeste ketens staat er vrijwel altijd een EAN op een aanbieding. Bij een paar
+publiceert de keten er zelf geen; daar koppelen we op naam, merk en verpakking, met de
+foutmarge die daarbij hoort, en waar ook het merk ontbreekt koppelen we niet. Welke keten
+waar valt verandert als een keten van bron wisselt, dus dat staat hier bewust niet: het
+staat **gemeten** op
 [prijsprofeet.nl](https://www.prijsprofeet.nl/supermarkt-aanbiedingen-api/#ketens) en
 [prijsprofeet.be](https://www.prijsprofeet.be/supermarkt-aanbiedingen-api/#ketens), inclusief
-de datum van de meting en welke ketens een reguliere schapprijs leveren. Een lijst met cijfers hier zou binnen een week verouderen.
+de datum van de meting en welke ketens een reguliere schapprijs leveren.
 
 ## Beginnen
 

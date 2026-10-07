@@ -12,6 +12,15 @@ Nieuwe velden, nieuwe ketens en betere dekking rollen we zonder aankondiging uit
 aan** (art. 10 van de [API-voorwaarden](https://www.prijsprofeet.nl/api-voorwaarden)):
 per e-mail aan betalende afnemers én hier.
 
+## 2026-10-07
+
+**Hoogvliet levert EAN's.** Sinds Hoogvliet op 6 oktober 2026 van webshop
+wisselde, dragen ~95% van zijn aanbiedingen en ~75% van zijn schapprijzen een
+EAN, dus `/match/*` koppelt Hoogvliet nu exact op barcode in plaats van op
+naam. De beschrijving van `GET /api/v1/match/product/{product_id}` noemt
+daarom alleen nog Aldi's schapprijzen als bron zonder barcode. Geen veld en
+geen gedrag van de route veranderd.
+
 ## 2026-10-06 (3)
 
 **Nieuw voor Business: de schapprijsreeks en de huismerk-equivalenten.**
