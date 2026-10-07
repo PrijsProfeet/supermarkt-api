@@ -12,6 +12,14 @@ Nieuwe velden, nieuwe ketens en betere dekking rollen we zonder aankondiging uit
 aan** (art. 10 van de [API-voorwaarden](https://www.prijsprofeet.nl/api-voorwaarden)):
 per e-mail aan betalende afnemers én hier.
 
+## 2026-10-07 (3)
+
+**Nieuwe keten: Poiesz.** De noordelijke keten (Friesland, Groningen, Drenthe)
+staat sinds vandaag op `www.prijsprofeet.nl`, met `retailer: "poiesz"`. Zijn
+aanbiedingen en schapprijzen dragen een EAN (95% van de catalogus), dus
+`/match/*` koppelt Poiesz exact op barcode. De beschrijving van de
+`retailer`-parameter noemt Poiesz; verder geen veld en geen gedrag veranderd.
+
 ## 2026-10-07 (2)
 
 **`/shelf-prices`: Hoogvliet's schapprijzen dragen een EAN.** Sinds Hoogvliets
