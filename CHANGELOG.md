@@ -12,6 +12,17 @@ Nieuwe velden, nieuwe ketens en betere dekking rollen we zonder aankondiging uit
 aan** (art. 10 van de [API-voorwaarden](https://www.prijsprofeet.nl/api-voorwaarden)):
 per e-mail aan betalende afnemers én hier.
 
+## 2026-10-09
+
+**`private_label` herkent de gedeelde Superunie-merken.** Derlon, Bonbébé,
+Vismarine, Daily Chef, First Choice, Sum & Sam en Go Vega! zijn huismerken van
+inkooporganisatie Superunie en tellen nu als `private_label: true` bij de
+aangesloten ketens die we voeren: PLUS, Dirk, DekaMarkt, Hoogvliet, Vomar en
+Poiesz. Bij een andere keten blijven ze `false`. Lopende acties krijgen de vlag
+bij de eerstvolgende scrape van hun keten. Voor Business groeit
+`/private-label-equivalents` daardoor met ruim 1.500 paren (NL: van ~2.780 naar
+3.045 huismerkgroepen). Geen veld en geen gedrag van een route veranderd.
+
 ## 2026-10-07 (3)
 
 **Nieuwe keten: Poiesz.** De noordelijke keten (Friesland, Groningen, Drenthe)
