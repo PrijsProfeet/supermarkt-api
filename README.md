@@ -59,6 +59,7 @@ Geen key nodig voor zoeken, producten, aanbiedingen, categorieën en filterstati
 |---|---|
 | `GET /api/v1/search?q=` | Zoeken (fuzzy), gefilterd op categorie of dieetlabel |
 | `GET /api/v1/products` | Bulk ophalen, pagineerbaar |
+| `GET /api/v1/products/changes?cursor=` | Alleen wat er sinds je vorige sync veranderde: nieuw, gewijzigd of verdwenen |
 | `GET /api/v1/products/{id}` | Eén product, volledig |
 | `GET /api/v1/deals/top?retailer=` | Topaanbiedingen, gegroepeerd per merk, optioneel per keten |
 | `GET /api/v1/categories` | De categorieën, in groepen |
@@ -91,6 +92,7 @@ terugzien.
 | Vraag | Waar | Let op |
 |---|---|---|
 | Welke acties lopen er, allemaal? | `GET /api/v1/products/promotional/all`, eventueel met `?retailer=` | `total` is het aantal acties, niet de grootte van deze pagina: blader met `page` tot je ze allemaal hebt (`page_size` maximaal 100). `/search` sorteert op relevantie en is bedoeld om te zoeken, niet om een volledige lijst op te halen. |
+| Hoe houd ik mijn kopie actueel zonder elke nacht alles op te halen? | `GET /api/v1/products/changes` | Vraag eerst een startcursor op (aanroep zonder `cursor`), synchroniseer dan één keer volledig via `/api/v1/products`, en haal daarna alleen de wijzigingen op: `upsert` vervangt de rij met die `product_id`, `delete` haalt hem weg. Bewaar de `cursor` uit elk antwoord en vraag meteen opnieuw zolang `has_more` waar is. Een wijziging staat er binnen ongeveer tien minuten in en blijft 30 dagen bewaard; een oudere cursor geeft een `410` en dan synchroniseer je opnieuw volledig. Gratis, ook zonder key. |
 | Wat kost een product buiten de actie? | `GET /api/v1/shelf-prices` (Pro), of de `"shelf"`-rijen in `/match/ean/{ean}` | Niet elke keten publiceert een reguliere prijs; welke wel, staat [per keten gemeten](https://www.prijsprofeet.nl/supermarkt-aanbiedingen-api/#ketens). |
 | Wat betaal ik bij een actie op meer stuks? | `multi_buy_quantity` en `multi_buy_price` op elke actierij | `multi_buy_price` is het bedrag aan de kassa. `price` is de prijs per stuk, afgerond op de cent, dus vermenigvuldigen kan een cent afwijken. Bij Aldi (NL) is `price` zelf al het bundeltotaal. |
 | Mag ik varianten van één actie combineren? | `promo_group_id`; `GET /api/v1/products?promo_group_id=…` geeft alle deelnemers | `promo_group_mixable` is alleen `true` of `false` als de keten het zelf zegt. `null` betekent "niet vermeld", niet "nee". |
