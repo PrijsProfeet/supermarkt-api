@@ -176,6 +176,60 @@ Er is ook een browsbare Swagger-UI op
 browser te openen — geautomatiseerde clients worden daar geblokkeerd. **Dit bestand is
 de enige kopie die je machinaal kunt ophalen.**
 
+## Bèta: melding na de nachtrun
+
+Wil je weten wanneer de data van vannacht er staat, in plaats van op de gok te
+synchroniseren? Meld je aan in je
+[API-account](https://www.prijsprofeet.nl/api-account/), onder *Bèta*, en geef een
+https-URL op. Elke ochtend rond 07:05, na onze versheidsmeting, sturen we daar één
+POST naartoe:
+
+```json
+{
+  "type": "nachtrun.gemeten",
+  "test": false,
+  "day": "2026-10-10",
+  "chains": [
+    {"retailer": "albert_heijn", "name": "Albert Heijn", "country": "nl", "fresh": true},
+    {"retailer": "jumbo", "name": "Jumbo", "country": "nl", "fresh": false}
+  ]
+}
+```
+
+`fresh` is dezelfde versheidsmeting als op [status.prijsprofeet.nl](https://status.prijsprofeet.nl):
+de acties van die keten zijn vannacht ververst en compleet. De melding noemt elke keten van beide
+winkels; filter op `country` als je er maar één gebruikt.
+
+**Controleer de handtekening.** Elke melding draagt de headers `webhook-id`,
+`webhook-timestamp` en `webhook-signature`, volgens
+[Standard Webhooks](https://www.standardwebhooks.com/). Het geheim (`whsec_…`) staat in je
+account. Elke Standard Webhooks- of Svix-bibliotheek kan hem controleren, of zelf:
+
+```python
+import base64, hashlib, hmac
+
+def is_echt(secret: str, headers: dict, body: bytes) -> bool:
+    key = base64.b64decode(secret.removeprefix("whsec_"))
+    signed = f"{headers['webhook-id']}.{headers['webhook-timestamp']}.".encode() + body
+    expected = base64.b64encode(hmac.new(key, signed, hashlib.sha256).digest()).decode()
+    return any(
+        hmac.compare_digest(sig.partition(",")[2], expected)
+        for sig in headers["webhook-signature"].split()
+    )
+```
+
+Controleer ook dat `webhook-timestamp` niet ouder is dan een paar minuten.
+
+**Wat we verwachten:** een 2xx binnen 10 seconden. Een doorverwijzing volgen we niet.
+Lukt het niet, dan proberen we het na 1, 5 en 30 minuten opnieuw. Na 5 nachten op rij
+zonder geslaagde melding zetten we hem uit; je ziet dat in je account en zet hem daar
+weer aan. Met *Testmelding sturen* in je account krijg je meteen een melding met
+`"test": true`.
+
+Dit is een bètafunctie: hij valt buiten de SLA en kan veranderen zonder de aankondiging
+van 30 dagen ([voorwaarden, art. 10](https://www.prijsprofeet.nl/api-voorwaarden#beta)).
+Feedback geef je op de kaart in je account. Op dit moment voor Gratis en de Pro-proef.
+
 ## Wijzigingen
 
 Nieuwe velden, nieuwe ketens en betere dekking rollen we zonder aankondiging uit.
