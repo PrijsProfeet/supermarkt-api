@@ -12,6 +12,18 @@ Nieuwe velden, nieuwe ketens en betere dekking rollen we zonder aankondiging uit
 aan** (art. 10 van de [API-voorwaarden](https://www.prijsprofeet.nl/api-voorwaarden)):
 per e-mail aan betalende afnemers én hier.
 
+## 2026-10-09 (2)
+
+**Vijf nieuwe ketens op `www.prijsprofeet.nl`: SPAR, Nettorama, Gewoon Coop, MCD en
+Boon's Markt.** Sinds 8 oktober, met `retailer: "spar"`, `"nettorama"`,
+`"gewoon_coop"`, `"mcd"` en `"boons_markt"`. Hun aanbiedingen komen uit de folder van de
+keten: per actie een naam, prijs en geldigheid, maar **geen EAN, geen merk en geen
+productlink**. Ze staan dus in `/products` en `/search`, maar niet in de koppeling over
+ketens heen (`/match/*`). SPAR levert daarnaast schapprijzen mét EAN via
+`/api/v1/shelf-prices` (Pro); die vullen zich over een paar nachten, nu 68% met EAN. De
+parameter `retailer` noemt de vijf in `openapi.json`. Geen veld en geen gedrag van een
+route veranderd.
+
 ## 2026-10-09
 
 **`private_label` herkent de gedeelde Superunie-merken.** Derlon, Bonbébé,

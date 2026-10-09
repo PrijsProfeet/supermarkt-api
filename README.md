@@ -35,8 +35,9 @@ staat in `GET /api/v1/shelf-prices`, op Pro.
 
 ## Ketens
 
-**Nederland** (`www.prijsprofeet.nl/api/v1`): Albert Heijn · Aldi · DekaMarkt · Dirk ·
-Ekoplaza · Hoogvliet · Jumbo · Lidl · PLUS · Vomar
+**Nederland** (`www.prijsprofeet.nl/api/v1`): Albert Heijn · Aldi · Boon's Markt ·
+DekaMarkt · Dirk · Ekoplaza · Gewoon Coop · Hoogvliet · Jumbo · Lidl · MCD · Nettorama ·
+PLUS · Poiesz · SPAR · Vomar
 
 **België** (`www.prijsprofeet.be/api/v1`): Albert Heijn · Aldi · Carrefour · Colruyt ·
 Delhaize · Jumbo · Lidl
