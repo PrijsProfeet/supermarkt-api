@@ -1458,7 +1458,7 @@
           "matching"
         ],
         "summary": "Find matching products at other retailers",
-        "description": "Find the same product at other retailers: the comparison our own product pages show. Exact EAN matches first; then, for chains still open, approximations marked `approx: true` -- name and pack size at chains that publish no barcode (Aldi shelf prices), another  chain's own house brand under the same name and pack (`private_label_equivalent: true`), and brand, name and pack for a product without a barcode. Below three barcode matches a name search fills chains without one, so a chain can carry an approximation and a search match. Measured precision per picked row: 89% (name), 92% (brand and name), 99% (house brand). Filter on `approx` to keep barcode matches only.",
+        "description": "Find the same product at other retailers: the comparison our own product pages show. Exact EAN matches first; then, for chains still open, approximations marked `approx: true` -- name and pack size at chains that publish no barcode (Aldi shelf prices), another  chain's own house brand under the same name and pack (`private_label_equivalent: true`), and brand, name and pack for a product without a barcode. Below three barcode matches a name search fills chains without one, so a chain can carry an approximation and a search match. Measured precision per picked row: 89% (name), 92% (brand and name), 99% (house brand). Filter on `approx` to keep barcode matches only.\n\n**Cheaper house brand.** With `include_substitutes=true` the response also carries `substitutes`: house brands under the same name and pack size that cost less than this A-brand promotion. They are a different product and never appear in `matches`. Measured on hand-labelled pairs: 38 of 38 judged a useful alternative.",
         "operationId": "match_for_product_api_v1_match_product__product_id__get",
         "parameters": [
           {
@@ -1495,6 +1495,18 @@
               "title": "Current Only"
             },
             "description": "Only return matches you can actually buy today: `promotion_status` `active` (a running promotion) or `shelf` (the retailer's current regular price). Default false, so the response also carries promotions that start next week (`upcoming`) and prices a retailer charged recently (`historical`) — deliberate, but a min(price) over all of them returns a price that does not exist today. Note that `is_current_deal` is `true` on `active` rows only: a shelf price is payable today but is not a deal."
+          },
+          {
+            "name": "include_substitutes",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "boolean",
+              "description": "Also return cheaper house brands for this A-brand promotion in `substitutes` (a different product, never in `matches`)",
+              "default": false,
+              "title": "Include Substitutes"
+            },
+            "description": "Also return cheaper house brands for this A-brand promotion in `substitutes` (a different product, never in `matches`)"
           }
         ],
         "responses": {
@@ -3571,6 +3583,21 @@
             "type": "array",
             "title": "Match Levels Used",
             "description": "The `match_level` values that produced rows"
+          },
+          "substitutes": {
+            "anyOf": [
+              {
+                "items": {
+                  "$ref": "#/components/schemas/MatchRow"
+                },
+                "type": "array"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Substitutes",
+            "description": "Only with `include_substitutes=true`, otherwise null. Cheaper house brands for an A-brand on promotion: same name without the brand, same pack size (within 10%), at most one per chain (the source's own chain included), at most three, cheapest first. A DIFFERENT product, which is why these are never rows of `matches`. Empty when the source is not an A-brand on a running promotion, is beer, wine or spirits, or no cheaper house brand exists."
           }
         },
         "type": "object",

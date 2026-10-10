@@ -14,15 +14,6 @@ per e-mail aan betalende afnemers én hier.
 
 ## 2026-10-10 (3)
 
-**De API-documentatie is er ook in het Engels.** Dezelfde specificatie met Engelse
-beschrijvingen staat in [`openapi.en.json`](openapi.en.json) en als Swagger-UI op
-[prijsprofeet.nl/docs/en](https://www.prijsprofeet.nl/docs/en); de README heeft een
-Engelse versie in [`README.en.md`](README.en.md). Paden, velden en schema zijn
-identiek aan `openapi.json`. De API-voorwaarden blijven Nederlands en die tekst
-geldt. Geen veld en geen gedrag van een route veranderd.
-
-## 2026-10-10 (2)
-
 **Goedkoper huismerk bij `/match/product`, op verzoek.** Met `include_substitutes=true`
 draagt het antwoord een nieuw veld `substitutes`: huismerken met dezelfde naam en
 verpakking (hooguit 10% verschil) die minder kosten dan de lopende actie van het A-merk.
@@ -32,6 +23,15 @@ Zonder de parameter is `substitutes` `null`. Leeg bij een product dat geen A-mer
 actie is, bij bier, wijn en sterke drank, en als er geen goedkoper huismerk is. Gemeten
 op handgelabelde paren: 38 van 38 beoordeeld als nuttig alternatief. Geen veld weg en
 geen gedrag van een bestaande route veranderd.
+
+## 2026-10-10 (2)
+
+**De API-documentatie is er ook in het Engels.** Dezelfde specificatie met Engelse
+beschrijvingen staat in [`openapi.en.json`](openapi.en.json) en als Swagger-UI op
+[prijsprofeet.nl/docs/en](https://www.prijsprofeet.nl/docs/en); de README heeft een
+Engelse versie in [`README.en.md`](README.en.md). Paden, velden en schema zijn
+identiek aan `openapi.json`. De API-voorwaarden blijven Nederlands en die tekst
+geldt. Geen veld en geen gedrag van een route veranderd.
 
 ## 2026-10-10
 
