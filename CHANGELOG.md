@@ -12,6 +12,14 @@ Nieuwe velden, nieuwe ketens en betere dekking rollen we zonder aankondiging uit
 aan** (art. 10 van de [API-voorwaarden](https://www.prijsprofeet.nl/api-voorwaarden)):
 per e-mail aan betalende afnemers én hier.
 
+## 2026-10-10 (4)
+
+**De bèta *Melding na de nachtrun* staat open voor alle plannen.** Op Pro of Business
+accepteer je met het vinkje bij de aanmelding het bèta-artikel (art. 10) van versie 1.14
+van de voorwaarden nu al. Voor betaalde plannen gaat die versie anders pas op
+13 november 2026 in. De rest van versie 1.14 blijft die datum houden. Geen veld en geen
+gedrag van een route veranderd.
+
 ## 2026-10-10 (3)
 
 **Goedkoper huismerk bij `/match/product`, op verzoek.** Met `include_substitutes=true`

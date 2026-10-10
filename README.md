@@ -268,9 +268,10 @@ zonder geslaagde melding zetten we hem uit; je ziet dat in je account en zet hem
 weer aan. Met *Testmelding sturen* in je account krijg je meteen een melding met
 `"test": true`.
 
-Op dit moment voor Gratis en de Pro-proef. Pro en Business volgen zodra versie 1.14 van
-de voorwaarden ook voor betaalde plannen geldt: 30 dagen na de aankondiging
-([art. 16](https://www.prijsprofeet.nl/api-voorwaarden)), naar verwachting op 13 november 2026.
+Voor alle plannen. Op Pro of Business accepteer je met het vinkje bij de aanmelding het
+bèta-artikel van versie 1.14 nu al: voor betaalde plannen gaat die versie anders pas op
+13 november 2026 in, 30 dagen na de aankondiging
+([art. 16](https://www.prijsprofeet.nl/api-voorwaarden)).
 
 ## Wijzigingen
 

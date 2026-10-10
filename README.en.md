@@ -266,9 +266,10 @@ notification we switch it off; you'll see that in your account and can switch it
 there. *Testmelding sturen* (send test notification) in your account sends you a
 notification with `"test": true` right away.
 
-Currently for Free and the Pro trial. Pro and Business follow once version 1.14 of the
-terms also applies to paid plans: 30 days after the announcement
-([art. 16, in Dutch](https://www.prijsprofeet.nl/api-voorwaarden)), expected on 13 November 2026.
+Available on every plan. On Pro or Business, the checkbox at sign-up accepts the beta
+article of version 1.14 of the terms right away: for paid plans that version otherwise
+takes effect on 13 November 2026, 30 days after the announcement
+([art. 16, in Dutch](https://www.prijsprofeet.nl/api-voorwaarden)).
 
 ## Changes
 
