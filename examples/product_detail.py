@@ -1,9 +1,10 @@
 #!/usr/bin/env python3
 """Zoek een product en haal het volledige detail op.
 
-Laat en passant zien waarom je op de EAN wilt koppelen als die er is: bij
-Albert Heijn, Jumbo, Dirk en DekaMarkt is hij er vrijwel altijd, bij Aldi,
-Lidl, Hoogvliet en Vomar publiceert de keten er geen.
+Laat en passant zien waarom je op de EAN wilt koppelen als die er is: bij de
+meeste ketens staat hij er vrijwel altijd, bij een paar publiceert de keten er
+geen. Welke dat zijn staat gemeten op
+https://www.prijsprofeet.nl/supermarkt-aanbiedingen-api/#ketens.
 
     python3 examples/product_detail.py "pindakaas"
 """

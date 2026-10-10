@@ -20,7 +20,8 @@ USER_AGENT = "PrijsProfeetVoorbeeld/1.0 (+https://github.com/PrijsProfeet/superm
 # De API accepteert zowel 'albert-heijn' als 'albert_heijn' en geeft 400 op een
 # onbekende waarde — een typefout mag nooit lezen als "geen aanbiedingen".
 KETENS = (
-    "albert_heijn aldi dekamarkt dirk ekoplaza hoogvliet jumbo lidl plus vomar"
+    "albert_heijn aldi boons_markt dekamarkt dirk ekoplaza gewoon_coop hoogvliet "
+    "jumbo lidl mcd nettorama plus poiesz spar vomar"
 ).split()
 
 
