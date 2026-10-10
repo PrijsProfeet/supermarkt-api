@@ -9,7 +9,7 @@ scripts/maintenance/export_api_terms.py. Niet met de hand bewerken.
 
 # API-voorwaarden
 
-Versie 1.14, 9 oktober 2026
+Versie 1.14, 10 oktober 2026
 
 > **Samenvatting.** Je mag onze data gebruiken om je eigen product te bouwen. Je mag er geen kopie van onze database mee opbouwen, de ruwe data niet doorverkopen, en na afloop van een proefperiode of abonnement verwijder je de opgeslagen data. Prijsdata is indicatief; controleer bij de retailer.
 
@@ -133,7 +133,7 @@ Buiten die uren draait de bewaking gewoon door: een externe probe controleert el
 
 De API is in ontwikkeling: endpoints, velden en dekking veranderen. Bij een **breaking change** op een betaald endpoint informeren we betalende afnemers ten minste **30 dagen** vooraf per e-mail. Niet-brekende wijzigingen (nieuwe velden, nieuwe ketens, betere dekking) voeren we zonder aankondiging door.
 
-<a id="beta"></a>**Bètafuncties.** Sommige functies bieden we eerst als bèta aan, om ze met een paar afnemers te testen voordat ze voor iedereen beschikbaar zijn. Je meldt je per functie en per key aan in je API-account; voor sommige functies geven we eerst toestemming, en een bètafunctie kan beperkt zijn tot bepaalde plannen. Eindigt je plan, dan eindigt ook je toegang tot een bètafunctie die bij dat plan hoort. Een bètafunctie valt **niet** onder de beschikbaarheidsnorm van dit artikel en **niet** onder de aankondigingstermijn van 30 dagen: we kunnen hem op elk moment wijzigen, onderbreken of stoppen, en melden dat in je API-account. Je kunt je op elk moment weer uitschrijven; wat de functie voor je key veranderde, stopt dan. Stoppen we een bètafunctie, of nemen we hem op in de gewone API, dan blijft dat met datum zichtbaar in het archief van je account. Wordt een bètafunctie onderdeel van de gewone API en verandert daardoor iets aan een bestaand endpoint, dan geldt voor die wijziging gewoon de aankondigingstermijn van 30 dagen. Voor de rest gelden deze voorwaarden onverkort, artikel 6 (wat je met de data mag) in het bijzonder. Bij elke aanmelding bevestig je dat je dit artikel kent.
+<a id="beta"></a>**Bètafuncties.** Sommige functies bieden we eerst als bèta aan, om ze met een paar afnemers te testen voordat ze voor iedereen beschikbaar zijn. Je meldt je per functie en per key aan in je API-account; voor sommige functies geven we eerst toestemming, en een bètafunctie kan beperkt zijn tot bepaalde plannen. Eindigt je plan, dan eindigt ook je toegang tot een bètafunctie die bij dat plan hoort. Een bètafunctie valt **niet** onder de beschikbaarheidsnorm van dit artikel en **niet** onder de aankondigingstermijn van 30 dagen: we kunnen hem op elk moment wijzigen, onderbreken of stoppen, en melden dat in je API-account. Je kunt je op elk moment weer uitschrijven; wat de functie voor je key veranderde, stopt dan. Stoppen we een bètafunctie, of maken we hem voor iedereen beschikbaar (dan is het geen bèta meer en gelden de gewone regels van dit artikel), dan blijft dat met datum zichtbaar in het archief van je account. Verandert daardoor iets aan een endpoint dat je al gebruikt, dan geldt voor die wijziging gewoon de aankondigingstermijn van 30 dagen. Doe je mee aan een bètafunctie, dan mogen we je over die functie mailen, bijvoorbeeld om je feedback te vragen. Voor de rest gelden deze voorwaarden onverkort, artikel 6 (wat je met de data mag) in het bijzonder. Bij elke aanmelding bevestig je dat je dit artikel kent.
 
 ## 11. Prijzen, betaling en opzegging
 
