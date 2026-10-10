@@ -21,6 +21,18 @@ Engelse versie in [`README.en.md`](README.en.md). Paden, velden en schema zijn
 identiek aan `openapi.json`. De API-voorwaarden blijven Nederlands en die tekst
 geldt. Geen veld en geen gedrag van een route veranderd.
 
+## 2026-10-10 (2)
+
+**Goedkoper huismerk bij `/match/product`, op verzoek.** Met `include_substitutes=true`
+draagt het antwoord een nieuw veld `substitutes`: huismerken met dezelfde naam en
+verpakking (hooguit 10% verschil) die minder kosten dan de lopende actie van het A-merk.
+Hooguit één per keten, de keten van het product zelf inbegrepen, en hooguit drie,
+goedkoopste eerst. Het is een **ander product**, dus deze rijen staan nooit in `matches`.
+Zonder de parameter is `substitutes` `null`. Leeg bij een product dat geen A-merk in de
+actie is, bij bier, wijn en sterke drank, en als er geen goedkoper huismerk is. Gemeten
+op handgelabelde paren: 38 van 38 beoordeeld als nuttig alternatief. Geen veld weg en
+geen gedrag van een bestaande route veranderd.
+
 ## 2026-10-10
 
 **`/shelf-prices/history` (Business): ook een maatwissel bij gelijke prijs is een rij.**
