@@ -21,8 +21,8 @@ Belgische aanbiedingen haal je met dezelfde API en dezelfde key bij
 
 **Inhoud:** [Wat dit is](#wat-dit-is--en-wat-het-niet-is) ·
 [Ketens](#ketens) · [Beginnen](#beginnen) ·
-[Welk endpoint voor welke vraag](#welk-endpoint-voor-welke-vraag) ·
-[Gratis, Pro en Business](#gratis-pro-en-business) · [Limieten](#limieten) ·
+[Gratis, Pro en Business](#gratis-pro-en-business) ·
+[Welk endpoint voor welke vraag](#welk-endpoint-voor-welke-vraag) · [Limieten](#limieten) ·
 [User-Agent](#noem-jezelf-in-je-user-agent) · [OpenAPI](#openapi) · [Bèta](#bèta) ·
 [Wijzigingen](#wijzigingen) · [Vragen](#vragen-en-problemen) · [Voorwaarden](#voorwaarden)
 
@@ -81,7 +81,7 @@ De volledige lijst staat in [`openapi.json`](openapi.json); werkende voorbeelden
 | [`zoeken.py`](examples/zoeken.py) | `/search`, en alleen tonen wat vandaag loopt |
 | [`aanbiedingen_per_keten.py`](examples/aanbiedingen_per_keten.py) | `/deals/top` voor één keten |
 | [`product_detail.py`](examples/product_detail.py) | `/products/{id}` en waarom je op EAN koppelt |
-| [`matching.py`](examples/matching.py) | `/match/*` (Pro), met de veldnamen en de `min(price)`-valkuil |
+| [`matching.py`](examples/matching.py) | `/match/*` (Pro en Business), met de veldnamen en de `min(price)`-valkuil |
  ⚠️ De respons van `/match/*` staat in `openapi.json` als
 ongetypeerd object — de parameters zijn daar volledig beschreven, de veldnamen niet.
 Die staan in [`examples/matching.py`](examples/matching.py).
@@ -99,30 +99,6 @@ Wie blind de laagste prijs pakt, toont een prijs die vandaag niet bestaat. Filte
 erop, of gebruik `?current_only=true` waar dat wordt aangeboden. `shelf` komt alleen
 voor in de respons van `/api/v1/match/*` en heeft geen van/voor-prijs en geen
 `valid_from`/`valid_until`.
-
-## Welk endpoint voor welke vraag
-
-Bouw je een boodschappenplanner of prijsvergelijker, dan zit het antwoord vaak in een
-veld of endpoint dat je niet meteen verwacht. Dit zijn de vragen die we het vaakst
-terugzien.
-
-Achter elk endpoint staat welk plan je nodig hebt (zie
-[Gratis, Pro en Business](#gratis-pro-en-business)).
-
-| Vraag | Waar | Let op |
-|---|---|---|
-| Welke acties lopen er, allemaal? | `GET /api/v1/products/promotional/all`, eventueel met `?retailer=` (Gratis) | `total` is het aantal acties, niet de grootte van deze pagina: blader met `page` tot je ze allemaal hebt (`page_size` maximaal 100). `/search` sorteert op relevantie en is bedoeld om te zoeken, niet om een volledige lijst op te halen. |
-| Hoe houd ik mijn kopie actueel zonder elke nacht alles op te halen? | `GET /api/v1/products/changes` (Gratis) | Vraag eerst een startcursor op (aanroep zonder `cursor`), synchroniseer dan één keer volledig via `/api/v1/products`, en haal daarna alleen de wijzigingen op: `upsert` vervangt de rij met die `product_id`, `delete` haalt hem weg. Bewaar de `cursor` uit elk antwoord en vraag meteen opnieuw zolang `has_more` waar is. Een wijziging staat er binnen ongeveer tien minuten in en blijft 30 dagen bewaard; een oudere cursor geeft een `410` en dan synchroniseer je opnieuw volledig. Gratis, ook zonder key. |
-| Wat kost een product buiten de actie? | `GET /api/v1/shelf-prices` (Pro), of de `"shelf"`-rijen in `/match/ean/{ean}` | Niet elke keten publiceert een reguliere prijs; welke wel, staat [per keten gemeten](https://www.prijsprofeet.nl/supermarkt-aanbiedingen-api/#ketens). |
-| Wat betaal ik bij een actie op meer stuks? | `multi_buy_quantity` en `multi_buy_price` op elke actierij (Gratis) | `multi_buy_price` is het bedrag aan de kassa. `price` is de prijs per stuk, afgerond op de cent, dus vermenigvuldigen kan een cent afwijken. Bij Aldi (NL) is `price` zelf al het bundeltotaal. |
-| Mag ik varianten van één actie combineren? | `promo_group_id`; `GET /api/v1/products?promo_group_id=…` geeft alle deelnemers (Gratis) | `promo_group_mixable` is alleen `true` of `false` als de keten het zelf zegt. `null` betekent "niet vermeld", niet "nee". |
-| Geldt deze prijs nog in de winkel? | `valid_from`/`valid_until`, `extracted_at`, `valid_until_estimated`, `in_store_only`/`online_only`, `loyalty_price` (Gratis) | `valid_until` is de actieperiode, `extracted_at` wanneer wij de actie het laatst zagen. `valid_until_estimated: true` betekent dat wij de einddatum hebben ingeschat, omdat de keten er geen noemt. Een ledenprijs staat in `loyalty_price`, nooit in `price`. Op een schaprij: `price_changed_at` zegt sinds wanneer de prijs geldt. |
-| Is dit hetzelfde product bij een andere keten? | `GET /api/v1/match/ean/{ean}` (Pro), met `?current_only=true` voor wat je vandaag kunt kopen; voorbeeld in [`matching.py`](examples/matching.py) | Eén EAN kan bij een keten meerdere verpakkingen dekken: vergelijk ook `quantity` en `unit_price`. |
-| Wat kostte dit product eerder, en komt het terug in de actie? | `GET /api/v1/products/{id}/price-history` (Pro), `GET /api/v1/products/{id}/forecast` (Gratis) | De geschiedenis is een reeks per actieweek. Geeft `/forecast` `null`, dan zegt de header `X-Forecast-Reason` waarom. |
-| Hoe bewoog de reguliere prijs? | `GET /api/v1/shelf-prices/history` (Business) | Elke prijsbeweging per product, sinds we die keten volgen (de eerste sinds september 2026). |
-| Welk huismerk is hetzelfde als dat van een andere keten? | `GET /api/v1/private-label-equivalents` (Business) | Waar geen barcode ze koppelt: zelfde product én zelfde verpakking. |
-| Hoeveel van mijn limiet heb ik gebruikt? | `GET /api/v1/partner/usage` (elke key) | Ook per dag, en te zien in je [API-account](https://www.prijsprofeet.nl/api-account/). |
-| Welke velden staan alleen op productdetail? | `GET /api/v1/products/{id}` (Gratis) | `retailer_category`, `nutriscore` en `discount_percentage` staan niet in de zoekresultaten. |
 
 ## Gratis, Pro en Business
 
@@ -160,6 +136,31 @@ Gebruik je de Belgische data, link dan naar `https://www.prijsprofeet.be`. Staat
 product online, dan zetten we het graag op
 [Gebouwd met PrijsProfeet](https://www.prijsprofeet.nl/gebouwd-met-prijsprofeet/), met
 een gewone link naar je site.
+
+## Welk endpoint voor welke vraag
+
+Bouw je een boodschappenplanner of prijsvergelijker, dan zit het antwoord vaak in een
+veld of endpoint dat je niet meteen verwacht. Dit zijn de vragen die we het vaakst
+terugzien.
+
+Achter elk endpoint staat in welke plannen het zit (zie
+[Gratis, Pro en Business](#gratis-pro-en-business)). Een hoger plan heeft alles van een
+lager plan.
+
+| Vraag | Waar | Let op |
+|---|---|---|
+| Welke acties lopen er, allemaal? | `GET /api/v1/products/promotional/all`, eventueel met `?retailer=` (alle plannen) | `total` is het aantal acties, niet de grootte van deze pagina: blader met `page` tot je ze allemaal hebt (`page_size` maximaal 100). `/search` sorteert op relevantie en is bedoeld om te zoeken, niet om een volledige lijst op te halen. |
+| Hoe houd ik mijn kopie actueel zonder elke nacht alles op te halen? | `GET /api/v1/products/changes` (alle plannen) | Vraag eerst een startcursor op (aanroep zonder `cursor`), synchroniseer dan één keer volledig via `/api/v1/products`, en haal daarna alleen de wijzigingen op: `upsert` vervangt de rij met die `product_id`, `delete` haalt hem weg. Bewaar de `cursor` uit elk antwoord en vraag meteen opnieuw zolang `has_more` waar is. Een wijziging staat er binnen ongeveer tien minuten in en blijft 30 dagen bewaard; een oudere cursor geeft een `410` en dan synchroniseer je opnieuw volledig. Gratis, ook zonder key. |
+| Wat kost een product buiten de actie? | `GET /api/v1/shelf-prices`, of de `"shelf"`-rijen in `/match/ean/{ean}` (beide Pro en Business) | Niet elke keten publiceert een reguliere prijs; welke wel, staat [per keten gemeten](https://www.prijsprofeet.nl/supermarkt-aanbiedingen-api/#ketens). |
+| Wat betaal ik bij een actie op meer stuks? | `multi_buy_quantity` en `multi_buy_price` op elke actierij (alle plannen) | `multi_buy_price` is het bedrag aan de kassa. `price` is de prijs per stuk, afgerond op de cent, dus vermenigvuldigen kan een cent afwijken. Bij Aldi (NL) is `price` zelf al het bundeltotaal. |
+| Mag ik varianten van één actie combineren? | `promo_group_id`; `GET /api/v1/products?promo_group_id=…` geeft alle deelnemers (alle plannen) | `promo_group_mixable` is alleen `true` of `false` als de keten het zelf zegt. `null` betekent "niet vermeld", niet "nee". |
+| Geldt deze prijs nog in de winkel? | `valid_from`/`valid_until`, `extracted_at`, `valid_until_estimated`, `in_store_only`/`online_only`, `loyalty_price` (alle plannen) | `valid_until` is de actieperiode, `extracted_at` wanneer wij de actie het laatst zagen. `valid_until_estimated: true` betekent dat wij de einddatum hebben ingeschat, omdat de keten er geen noemt. Een ledenprijs staat in `loyalty_price`, nooit in `price`. Op een schaprij: `price_changed_at` zegt sinds wanneer de prijs geldt. |
+| Is dit hetzelfde product bij een andere keten? | `GET /api/v1/match/ean/{ean}` (Pro en Business), met `?current_only=true` voor wat je vandaag kunt kopen; voorbeeld in [`matching.py`](examples/matching.py) | Eén EAN kan bij een keten meerdere verpakkingen dekken: vergelijk ook `quantity` en `unit_price`. |
+| Wat kostte dit product eerder, en komt het terug in de actie? | `GET /api/v1/products/{id}/price-history` (Pro en Business), `GET /api/v1/products/{id}/forecast` (alle plannen) | De geschiedenis is een reeks per actieweek. Geeft `/forecast` `null`, dan zegt de header `X-Forecast-Reason` waarom. |
+| Hoe bewoog de reguliere prijs? | `GET /api/v1/shelf-prices/history` (Business) | Elke prijsbeweging per product, sinds we die keten volgen (de eerste sinds september 2026). |
+| Welk huismerk is hetzelfde als dat van een andere keten? | `GET /api/v1/private-label-equivalents` (Business) | Waar geen barcode ze koppelt: zelfde product én zelfde verpakking. |
+| Hoeveel van mijn limiet heb ik gebruikt? | `GET /api/v1/partner/usage` (elke key) | Ook per dag, en te zien in je [API-account](https://www.prijsprofeet.nl/api-account/). |
+| Welke velden staan alleen op productdetail? | `GET /api/v1/products/{id}` (alle plannen) | `retailer_category`, `nutriscore` en `discount_percentage` staan niet in de zoekresultaten. |
 
 ## Limieten
 
@@ -263,7 +264,9 @@ zonder geslaagde melding zetten we hem uit; je ziet dat in je account en zet hem
 weer aan. Met *Testmelding sturen* in je account krijg je meteen een melding met
 `"test": true`.
 
-Op dit moment voor Gratis en de Pro-proef.
+Op dit moment voor Gratis en de Pro-proef. Pro en Business volgen zodra versie 1.14 van
+de voorwaarden ook voor betaalde plannen geldt: 30 dagen na de aankondiging
+([art. 16](https://www.prijsprofeet.nl/api-voorwaarden)), naar verwachting op 13 november 2026.
 
 ## Wijzigingen
 
