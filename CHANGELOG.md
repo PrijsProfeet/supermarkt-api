@@ -12,6 +12,15 @@ Nieuwe velden, nieuwe ketens en betere dekking rollen we zonder aankondiging uit
 aan** (art. 10 van de [API-voorwaarden](https://www.prijsprofeet.nl/api-voorwaarden)):
 per e-mail aan betalende afnemers én hier.
 
+## 2026-10-10
+
+**`/shelf-prices/history` (Business): ook een maatwissel bij gelijke prijs is een rij.**
+Vanaf de nacht van 10 op 11 oktober schrijven we een rij als een product dezelfde
+gewone prijs houdt maar een andere verpakkingsmaat krijgt. Op zo'n rij is `price`
+gelijk aan `previous_price` en staat de nieuwe maat in `quantity`. Een andere spelling
+van dezelfde maat ("300 ml" en "0,3 l") geeft geen rij. Geen veld weg, geen bestaande
+rij veranderd.
+
 ## 2026-10-09 (2)
 
 **Vijf nieuwe ketens op `www.prijsprofeet.nl`: SPAR, Nettorama, Gewoon Coop, MCD en
