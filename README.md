@@ -293,10 +293,11 @@ Op elk gebruik van de API — met of zonder key — zijn de
 je mag de data gebruiken en tonen, maar niet doorverkopen of er de dataset mee
 namaken. De data is indicatief; controleer een prijs altijd bij de keten zelf.
 
-Elke versie van de voorwaarden staat ook in deze repo, in
-[`voorwaarden/api-voorwaarden.md`](voorwaarden/api-voorwaarden.md): de
-[geschiedenis van dat bestand](https://github.com/PrijsProfeet/supermarkt-api/commits/main/voorwaarden/api-voorwaarden.md)
-laat zien wat er op een eerdere datum gold. Bindend is de versie op de site.
+Elke versie van de voorwaarden staat ook in deze repo. De huidige staat in
+[`voorwaarden/api-voorwaarden.md`](voorwaarden/api-voorwaarden.md), de eerdere (1.0 tot
+en met 1.13) in [`voorwaarden/eerder/`](voorwaarden/eerder/), en vanaf 1.14 laat de
+[geschiedenis van het bestand](https://github.com/PrijsProfeet/supermarkt-api/commits/main/voorwaarden/api-voorwaarden.md)
+elke wijziging zien. Bindend is de versie op de site.
 
 De voorbeeldcode in deze repo staat onder de [MIT-licentie](LICENSE). Die licentie
 geldt voor de code, niet voor de data.
