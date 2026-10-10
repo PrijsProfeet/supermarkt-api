@@ -1,5 +1,7 @@
 # Supermarkt-API
 
+**Nederlands** · [English](README.en.md)
+
 Wekelijkse **supermarktaanbiedingen van meer dan twintig Nederlandse en Belgische
 ketens** via één REST-API, elke nacht ververst. Dit is de publieke documentatie, OpenAPI-specificatie en
 voorbeeldcode bij de API van [PrijsProfeet](https://www.prijsprofeet.nl).
@@ -191,7 +193,8 @@ key geldt de blokkade niet.
 ## OpenAPI
 
 [`openapi.json`](openapi.json) is de complete specificatie (OpenAPI 3.1)
-en is geschikt voor codegeneratie:
+en is geschikt voor codegeneratie. [`openapi.en.json`](openapi.en.json) is dezelfde
+specificatie met Engelse beschrijvingen:
 
 ```bash
 npx @openapitools/openapi-generator-cli generate \
@@ -200,7 +203,8 @@ npx @openapitools/openapi-generator-cli generate \
 ```
 
 Er is ook een browsbare Swagger-UI op
-[prijsprofeet.nl/docs](https://www.prijsprofeet.nl/docs), maar die is alleen in een
+[prijsprofeet.nl/docs](https://www.prijsprofeet.nl/docs) (Engels:
+[/docs/en](https://www.prijsprofeet.nl/docs/en)), maar die is alleen in een
 browser te openen — geautomatiseerde clients worden daar geblokkeerd. **Dit bestand is
 de enige kopie die je machinaal kunt ophalen.**
 

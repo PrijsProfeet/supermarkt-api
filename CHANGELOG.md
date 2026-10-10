@@ -12,6 +12,15 @@ Nieuwe velden, nieuwe ketens en betere dekking rollen we zonder aankondiging uit
 aan** (art. 10 van de [API-voorwaarden](https://www.prijsprofeet.nl/api-voorwaarden)):
 per e-mail aan betalende afnemers én hier.
 
+## 2026-10-10 (2)
+
+**De API-documentatie is er ook in het Engels.** Dezelfde specificatie met Engelse
+beschrijvingen staat in [`openapi.en.json`](openapi.en.json) en als Swagger-UI op
+[prijsprofeet.nl/docs/en](https://www.prijsprofeet.nl/docs/en); de README heeft een
+Engelse versie in [`README.en.md`](README.en.md). Paden, velden en schema zijn
+identiek aan `openapi.json`. De API-voorwaarden blijven Nederlands en die tekst
+geldt. Geen veld en geen gedrag van een route veranderd.
+
 ## 2026-10-10
 
 **`/shelf-prices/history` (Business): ook een maatwissel bij gelijke prijs is een rij.**

@@ -2,7 +2,7 @@
   "openapi": "3.1.0",
   "info": {
     "title": "PrijsProfeet API",
-    "description": "Realtime supermarktaanbiedingen van 10+ Nederlandse en 7 Belgische supermarkten, genormaliseerd naar één JSON-schema, plus cross-retailer prijsvergelijking.\n\n**De host bepaalt het land.** `www.prijsprofeet.nl/api/v1` geeft de Nederlandse ketens, `www.prijsprofeet.be/api/v1` de Belgische: dezelfde paden, hetzelfde schema, en één key werkt op beide. Een keten van het andere land komt nooit terug; noem je hem op `/products` of `/search` in `retailer=`, dan staat hij in `retailer_filter.ignored`.\n\nExacte matching gaat op EAN. Niet elke keten publiceert die: levert `/match/*` geen EAN-match op, dan volgt een benadering op naam, merk en categorie (indicatief, geen productidentiteit). De actuele EAN-dekking per keten staat op [prijsprofeet.nl/supermarkt-aanbiedingen-api](https://www.prijsprofeet.nl/supermarkt-aanbiedingen-api/#ketens).\n\n**Geen API-key nodig** voor de publieke endpoints (zoeken, productdetail, aanbiedingen, categorieën). Zonder key gelden limieten *per endpoint, per IP*: 120/min op zoeken en productdetail, 30/min op de lijst- en bulk-endpoints.\n\n**Gratis key: 150/min op je key in plaats van je IP.** Zelf aan te vragen op [prijsprofeet.nl/api](https://www.prijsprofeet.nl/api#gratis-key) — mailadres, klik op de link, key. Bouw je server-side, dan deelt je hele gebruikersbestand anders één IP-limiet.\n\nEen `X-API-Key` is *verplicht* voor cross-retailer EAN-matching (`/match/*`) en prijsgeschiedenis (`/price-history`). Die zitten in het Pro-plan — zie [prijsprofeet.nl/api](https://www.prijsprofeet.nl/api).\n\n**Let op — de goedkoopste match is niet altijd te koop.** `/match/*` geeft ook acties terug die pas *volgende week* beginnen (ongeveer een kwart van de catalogus) en rijen met de prijs die een keten *recent* rekende. Dat is opzet — \"volgende week bij Jumbo goedkoper\" is precies wat je gebruiker wil weten. Maar een `min(price)` over alle matches levert dan een prijs op die vandaag niet bestaat. Elke match draagt `is_current_deal` (`true`/`false`), `promotion_status` (`active` | `upcoming` | `shelf` | `historical`) en `valid_from`/`valid_until`: filter of label daarop. Vandaag te betalen zijn `active` (een lopende actie) en `shelf` (de actuele reguliere prijs); `current_only=true` houdt precies die twee over. `is_current_deal` is alleen `true` op een actie.\n\n**Noem jezelf in je User-Agent.** Niet verplicht, wel netjes — en het is de enige manier waarop we je kunnen bereiken bij een breaking change. Conventie (zoals GitHub): `NaamVanJeApp/1.0 (+https://jouw-site.nl)` of `NaamVanJeApp/1.0 (jij@voorbeeld.nl)`.\n\n**Let op — `bot` in je User-Agent.** Verzoeken *zonder* API-key waarvan de User-Agent `bot`, `crawler`, `spider` of `slurp` bevat krijgen een `403`. Dat is anti-scrapebescherming, geen storing. Kies een naam zonder die woorden — of pak een gratis key, dan geldt de blokkade niet.\n\n**Al een key?** In je [API-account](https://www.prijsprofeet.nl/api-account/) zie je je verbruik, maak je een nieuwe key en vraag je een Pro-proef aan. Je logt in met je e-mailadres, niet met je key.\n\nOp elk gebruik van deze API — met of zonder key — zijn de [API-voorwaarden](https://www.prijsprofeet.nl/api-voorwaarden) van toepassing.\n\n**English:** [/docs/en](https://www.prijsprofeet.nl/docs/en).",
+    "description": "Real-time supermarket promotions from 10+ Dutch and 7 Belgian supermarkets, normalised to one JSON schema, plus cross-retailer price comparison.\n\n**The host determines the country.** `www.prijsprofeet.nl/api/v1` returns the Dutch chains, `www.prijsprofeet.be/api/v1` the Belgian ones: the same paths, the same schema, and one key works on both. A chain from the other country is never returned; if you name it in `retailer=` on `/products` or `/search`, it appears in `retailer_filter.ignored`.\n\nExact matching is on EAN. Not every chain publishes one: if `/match/*` finds no EAN match, an approximation on name, brand and category follows (indicative, not product identity). Current EAN coverage per chain is listed on [prijsprofeet.nl/supermarkt-aanbiedingen-api](https://www.prijsprofeet.nl/supermarkt-aanbiedingen-api/#ketens) (in Dutch).\n\n**No API key needed** for the public endpoints (search, product detail, promotions, categories). Without a key, limits apply *per endpoint, per IP*: 120/min on search and product detail, 30/min on the list and bulk endpoints.\n\n**Free key: 150/min on your key instead of your IP.** Request one yourself at [prijsprofeet.nl/api](https://www.prijsprofeet.nl/api#gratis-key) — email address, click the link, key. If you build server-side, your entire user base would otherwise share one IP limit.\n\nAn `X-API-Key` is *required* for cross-retailer EAN matching (`/match/*`) and price history (`/price-history`). These are part of the Pro plan — see [prijsprofeet.nl/api](https://www.prijsprofeet.nl/api).\n\n**Note — the cheapest match is not always for sale.** `/match/*` also returns promotions that only start *next week* (roughly a quarter of the catalogue) and rows with the price a chain charged *recently*. That is intentional — \"cheaper at Jumbo next week\" is exactly what your user wants to know. But a `min(price)` over all matches then yields a price that does not exist today. Every match carries `is_current_deal` (`true`/`false`), `promotion_status` (`active` | `upcoming` | `shelf` | `historical`) and `valid_from`/`valid_until`: filter or label on those. Payable today are `active` (a running promotion) and `shelf` (the current regular price); `current_only=true` keeps exactly those two. `is_current_deal` is only `true` on a promotion.\n\n**Name yourself in your User-Agent.** Not required, but courteous — and it is the only way we can reach you about a breaking change. Convention (as on GitHub): `YourApp/1.0 (+https://your-site.com)` or `YourApp/1.0 (you@example.com)`.\n\n**Note — `bot` in your User-Agent.** Requests *without* an API key whose User-Agent contains `bot`, `crawler`, `spider` or `slurp` get a `403`. That is anti-scraping protection, not an outage. Pick a name without those words — or get a free key, and the block does not apply.\n\n**Already have a key?** In your [API account](https://www.prijsprofeet.nl/api-account/) you can see your usage, create a new key and request a Pro trial. You log in with your email address, not with your key.\n\nAll use of this API — with or without a key — is subject to the [API terms](https://www.prijsprofeet.nl/api-voorwaarden) (in Dutch).\n\n**Nederlands:** [/docs](https://www.prijsprofeet.nl/docs).",
     "termsOfService": "https://www.prijsprofeet.nl/api-voorwaarden",
     "version": "1.0.0"
   },
@@ -145,10 +145,10 @@
                   "type": "null"
                 }
               ],
-              "description": "Alleen acties die op of ná deze dag beginnen (YYYY-MM-DD)",
+              "description": "Only promotions starting on or after this date (YYYY-MM-DD)",
               "title": "Min Valid From"
             },
-            "description": "Alleen acties die op of ná deze dag beginnen (YYYY-MM-DD)"
+            "description": "Only promotions starting on or after this date (YYYY-MM-DD)"
           },
           {
             "name": "max_valid_from",
@@ -163,10 +163,10 @@
                   "type": "null"
                 }
               ],
-              "description": "Alleen acties die op of vóór deze dag beginnen (YYYY-MM-DD)",
+              "description": "Only promotions that start on or before this day (YYYY-MM-DD)",
               "title": "Max Valid From"
             },
-            "description": "Alleen acties die op of vóór deze dag beginnen (YYYY-MM-DD)"
+            "description": "Only promotions that start on or before this day (YYYY-MM-DD)"
           },
           {
             "name": "promo_group_id",
@@ -181,10 +181,10 @@
                   "type": "null"
                 }
               ],
-              "description": "Alleen producten uit deze actiegroep (zie `promo_group_id` op een product): alle deelnemers aan één gezamenlijke actie",
+              "description": "Only products from this promotion group (see `promo_group_id` on a product): all participants in one joint promotion",
               "title": "Promo Group Id"
             },
-            "description": "Alleen producten uit deze actiegroep (zie `promo_group_id` op een product): alle deelnemers aan één gezamenlijke actie"
+            "description": "Only products from this promotion group (see `promo_group_id` on a product): all participants in one joint promotion"
           },
           {
             "name": "sort_by",
@@ -192,11 +192,11 @@
             "required": false,
             "schema": {
               "type": "string",
-              "description": "Sorteerveld. Toegestaan: extracted_at, price, name, product_id, valid_from",
+              "description": "Sort field. Allowed: extracted_at, price, name, product_id, valid_from",
               "default": "extracted_at",
               "title": "Sort By"
             },
-            "description": "Sorteerveld. Toegestaan: extracted_at, price, name, product_id, valid_from"
+            "description": "Sort field. Allowed: extracted_at, price, name, product_id, valid_from"
           },
           {
             "name": "sort_order",
@@ -815,10 +815,10 @@
                   "type": "null"
                 }
               ],
-              "description": "Alleen acties die op of ná deze dag beginnen (YYYY-MM-DD)",
+              "description": "Only promotions starting on or after this date (YYYY-MM-DD)",
               "title": "Min Valid From"
             },
-            "description": "Alleen acties die op of ná deze dag beginnen (YYYY-MM-DD)"
+            "description": "Only promotions starting on or after this date (YYYY-MM-DD)"
           },
           {
             "name": "max_valid_from",
@@ -833,10 +833,10 @@
                   "type": "null"
                 }
               ],
-              "description": "Alleen acties die op of vóór deze dag beginnen (YYYY-MM-DD)",
+              "description": "Only promotions that start on or before this day (YYYY-MM-DD)",
               "title": "Max Valid From"
             },
-            "description": "Alleen acties die op of vóór deze dag beginnen (YYYY-MM-DD)"
+            "description": "Only promotions that start on or before this day (YYYY-MM-DD)"
           },
           {
             "name": "page",
@@ -902,7 +902,7 @@
           "search"
         ],
         "summary": "Search Products",
-        "description": "Search products using Elasticsearch with fuzzy matching.\n\nAll products are promotions (scraped from bonus/aanbieding pages).\n\nFeatures:\n- Fuzzy search (handles typos)\n- Dutch language analysis\n- Relevance scoring\n- Fast performance\n- Filter by promotion status (active/upcoming/expired)\n- Filter by promotion type (percentage, multi_buy, one_plus_one, etc.)\n- Filter by minimum savings percentage\n- Sort by savings, unit price, or regular price\n- Filter by unified category\n- Filter by dietary tags (bio, glutenvrij, lactosevrij, vegan)\n- Filter by house brand vs A-merk (private_label)\n\nExample: `/api/v1/search?q=kaas&category=zuivel-eieren&promotion_status=active`\nExample: `/api/v1/search?q=*&promotion_type=multi_buy&min_savings=20&sort_by=savings_percentage:desc`\nExample: `/api/v1/search?q=melk&dietary=vegan,lactosevrij`\nExample: `/api/v1/search?q=*&category=zuivel-eieren&private_label=true`",
+        "description": "Search products using Elasticsearch with fuzzy matching.\n\nAll products are promotions (scraped from promotion pages).\n\nFeatures:\n- Fuzzy search (handles typos)\n- Dutch language analysis\n- Relevance scoring\n- Fast performance\n- Filter by promotion status (active/upcoming/expired)\n- Filter by promotion type (percentage, multi_buy, one_plus_one, etc.)\n- Filter by minimum savings percentage\n- Sort by savings, unit price, or regular price\n- Filter by unified category\n- Filter by dietary tags (bio, glutenvrij, lactosevrij, vegan)\n- Filter by house brand vs A-merk (private_label)\n\nExample: `/api/v1/search?q=kaas&category=zuivel-eieren&promotion_status=active`\nExample: `/api/v1/search?q=*&promotion_type=multi_buy&min_savings=20&sort_by=savings_percentage:desc`\nExample: `/api/v1/search?q=melk&dietary=vegan,lactosevrij`\nExample: `/api/v1/search?q=*&category=zuivel-eieren&private_label=true`",
         "operationId": "search_products_api_v1_search_get",
         "parameters": [
           {
@@ -1027,10 +1027,10 @@
                   "type": "null"
                 }
               ],
-              "description": "Filter on the retailer's own house brand: true for huismerken only, false for A-merken only. Omit for no filter. A chain with no reliable brand signal (Lidl, Vomar) carries no rows on either side of this filter, rather than a guessed one.",
+              "description": "Filter on the retailer's own house brand: true for private labels only, false for national brands only. Omit for no filter. A chain with no reliable brand signal (Lidl, Vomar) carries no rows on either side of this filter, rather than a guessed one.",
               "title": "Private Label"
             },
-            "description": "Filter on the retailer's own house brand: true for huismerken only, false for A-merken only. Omit for no filter. A chain with no reliable brand signal (Lidl, Vomar) carries no rows on either side of this filter, rather than a guessed one."
+            "description": "Filter on the retailer's own house brand: true for private labels only, false for national brands only. Omit for no filter. A chain with no reliable brand signal (Lidl, Vomar) carries no rows on either side of this filter, rather than a guessed one."
           },
           {
             "name": "min_price",
@@ -1101,10 +1101,10 @@
                   "type": "null"
                 }
               ],
-              "description": "Sorteerveld, optioneel met richting: `veld` of `veld:asc` / `veld:desc`. Toegestaan: price, savings_percentage, product_id, savings_amount, original_price, discount_percentage, extracted_at, valid_until.",
+              "description": "Sort field, optionally with a direction: `field` or `field:asc` / `field:desc`. Allowed: price, savings_percentage, product_id, savings_amount, original_price, discount_percentage, extracted_at, valid_until.",
               "title": "Sort By"
             },
-            "description": "Sorteerveld, optioneel met richting: `veld` of `veld:asc` / `veld:desc`. Toegestaan: price, savings_percentage, product_id, savings_amount, original_price, discount_percentage, extracted_at, valid_until."
+            "description": "Sort field, optionally with a direction: `field` or `field:asc` / `field:desc`. Allowed: price, savings_percentage, product_id, savings_amount, original_price, discount_percentage, extracted_at, valid_until."
           },
           {
             "name": "page",
@@ -1334,10 +1334,10 @@
                   "type": "null"
                 }
               ],
-              "description": "Filter on house brand: true for huismerken, false for A-merken",
+              "description": "Filter on private label: true for private-label (house-brand) products, false for national brands",
               "title": "Private Label"
             },
-            "description": "Filter on house brand: true for huismerken, false for A-merken"
+            "description": "Filter on private label: true for private-label (house-brand) products, false for national brands"
           }
         ],
         "responses": {
@@ -2570,7 +2570,7 @@
           "promo_weeks"
         ],
         "title": "BrandHub",
-        "description": "De merkpagina die deze zoekopdracht beantwoordt.\n\nBewust een EIGEN veld en niet een rij in `results`: `/api/v1/search` is de\nsleutelloze publieke API en partners parsen die lijst als producten. Er een\nander soort object in schuiven zou hun integratie breken voor een puur\ncosmetische winst aan onze kant."
+        "description": "The brand page that answers this search.\n\nDeliberately a SEPARATE field and not a row in `results`: `/api/v1/search` is the\nkeyless public API and partners parse that list as products. Pushing a\ndifferent kind of object into it would break their integration for a purely\ncosmetic gain on our side."
       },
       "CategoriesResponse": {
         "properties": {
@@ -3651,7 +3651,7 @@
               }
             ],
             "title": "Original Price",
-            "description": "Price before the promotion (the 'van' in van/voor)"
+            "description": "Price before the promotion (the 'was' price)"
           },
           "discount_percentage": {
             "anyOf": [
@@ -3797,7 +3797,7 @@
               }
             ],
             "title": "Private Label",
-            "description": "Whether this is a retailer's own brand (huismerk)"
+            "description": "Whether this is a retailer's own brand (private label)"
           },
           "nutriscore": {
             "anyOf": [
@@ -4098,7 +4098,7 @@
               }
             ],
             "title": "Title",
-            "description": "Altijd `null`: dit veld wordt op deze route nooit gevuld. Vervalt op of na 29 oktober 2026.",
+            "description": "Always `null`: this field is never filled on this route. Will be removed on or after 29 October 2026.",
             "deprecated": true
           },
           "brand": {
@@ -4274,7 +4274,7 @@
               }
             ],
             "title": "Promotional Labels",
-            "description": "Altijd `null`: dit veld wordt op deze route nooit gevuld. Vervalt op of na 29 oktober 2026.",
+            "description": "Always `null`: this field is never filled on this route. Will be removed on or after 29 October 2026.",
             "deprecated": true
           },
           "promotion": {
@@ -4287,7 +4287,7 @@
               }
             ],
             "title": "Promotion",
-            "description": "Altijd `null`: dit veld wordt op deze route nooit gevuld. Vervalt op of na 29 oktober 2026.",
+            "description": "Always `null`: this field is never filled on this route. Will be removed on or after 29 October 2026.",
             "deprecated": true
           },
           "promotion_status": {
@@ -4500,7 +4500,7 @@
               }
             ],
             "title": "Match Type",
-            "description": "Altijd `null`: dit veld wordt op deze route nooit gevuld. Vervalt op of na 29 oktober 2026.",
+            "description": "Always `null`: this field is never filled on this route. Will be removed on or after 29 October 2026.",
             "deprecated": true
           },
           "match_confidence": {
@@ -4513,7 +4513,7 @@
               }
             ],
             "title": "Match Confidence",
-            "description": "Altijd `null`: dit veld wordt op deze route nooit gevuld. Vervalt op of na 29 oktober 2026.",
+            "description": "Always `null`: this field is never filled on this route. Will be removed on or after 29 October 2026.",
             "deprecated": true
           }
         },
@@ -5051,18 +5051,18 @@
         "type": "apiKey",
         "in": "header",
         "name": "X-API-Key",
-        "description": "Partner key, sent as the `X-API-Key` header. Required on `/match/*` and `/price-history`, which additionally need a paid plan (trial, pro or business). Optional everywhere else — the Gratis tier needs no key — but sending it raises your rate limit from the anonymous per-endpoint caps to your plan's. Request one at /api."
+        "description": "Partner key, sent as the `X-API-Key` header. Required on `/match/*` and `/price-history`, which additionally need a paid plan (trial, pro or business). Optional everywhere else — the Free tier needs no key — but sending it raises your rate limit from the anonymous per-endpoint caps to your plan's. Request one at /api."
       }
     }
   },
   "servers": [
     {
       "url": "https://www.prijsprofeet.nl",
-      "description": "Nederlandse ketens"
+      "description": "Dutch chains"
     },
     {
       "url": "https://www.prijsprofeet.be",
-      "description": "Belgische ketens"
+      "description": "Belgian chains"
     }
   ]
 }
