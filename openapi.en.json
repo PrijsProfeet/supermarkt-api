@@ -2546,6 +2546,54 @@
           }
         ]
       }
+    },
+    "/api/v1/reports": {
+      "post": {
+        "tags": [
+          "reports"
+        ],
+        "summary": "Report a data error",
+        "description": "Report that a price, pack size, name, promotion or comparison is wrong. Free,\nno key needed. The report lands with us, the party that can fix the data.\n\nName **one** row: a `product_id` (as returned by `/search` or `/products`, the\ndated id or its `base_product_id`), or a shelf row as `retailer` + `shelf_id`\n(from `/shelf-prices`). To report the row of another chain on a product's\ncomparison, send that product's `product_id` plus `compared_retailer`; a\n`match` report needs it.\n\nThere is deliberately no free-text field: every value is a choice or a price,\nso a report carries no personal data. Keep your key on your server; a key in an\napp or in browser JavaScript is a leaked key.\n\nWe check every report against the data as we show it now and against the same\nproduct at the other chains. `status` is `resolved` when our data has already\nmoved past it (the promotion ended, or we now show the price you saw), and\n`open` otherwise. Nothing is corrected automatically.\n\nWithout a key: 10 reports an hour and 30 a day per IP address.",
+        "operationId": "create_report_api_v1_reports_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ReportRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "202": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ReportResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {},
+          {
+            "ApiKeyAuth": []
+          }
+        ]
+      }
     }
   },
   "components": {
@@ -4551,6 +4599,162 @@
           "score"
         ],
         "title": "ProductSearchResult"
+      },
+      "ReportRequest": {
+        "properties": {
+          "product_id": {
+            "anyOf": [
+              {
+                "type": "string",
+                "maxLength": 200
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Product Id"
+          },
+          "retailer": {
+            "anyOf": [
+              {
+                "type": "string",
+                "maxLength": 40
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Retailer"
+          },
+          "shelf_id": {
+            "anyOf": [
+              {
+                "type": "string",
+                "maxLength": 120
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Shelf Id"
+          },
+          "compared_retailer": {
+            "anyOf": [
+              {
+                "type": "string",
+                "maxLength": 40
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Compared Retailer",
+            "description": "The chain whose row on this product's comparison is wrong."
+          },
+          "field": {
+            "type": "string",
+            "enum": [
+              "price",
+              "quantity",
+              "name",
+              "promo_ended",
+              "match"
+            ],
+            "title": "Field",
+            "description": "What is wrong: the price, the pack size, the name, the promotion no longer runs, or the comparison shows another product."
+          },
+          "seen_price": {
+            "anyOf": [
+              {
+                "type": "number",
+                "maximum": 1000.0,
+                "exclusiveMinimum": 0.0
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Seen Price",
+            "description": "The price the reporter saw, in euro."
+          },
+          "seen_where": {
+            "anyOf": [
+              {
+                "type": "string",
+                "enum": [
+                  "store",
+                  "webshop",
+                  "folder"
+                ]
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Seen Where"
+          },
+          "match_problem": {
+            "anyOf": [
+              {
+                "type": "string",
+                "enum": [
+                  "different_product",
+                  "different_pack"
+                ]
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Match Problem"
+          },
+          "shown_price": {
+            "anyOf": [
+              {
+                "type": "number",
+                "maximum": 1000.0,
+                "exclusiveMinimum": 0.0
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Shown Price",
+            "description": "The price you showed the reporter, if you show ours."
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "field"
+        ],
+        "title": "ReportRequest",
+        "description": "A data error report. Choices and prices only, no free text."
+      },
+      "ReportResponse": {
+        "properties": {
+          "id": {
+            "type": "string",
+            "title": "Id",
+            "description": "The report's id. Reports on the same row share one."
+          },
+          "status": {
+            "type": "string",
+            "enum": [
+              "open",
+              "confirmed",
+              "resolved",
+              "rejected"
+            ],
+            "title": "Status"
+          }
+        },
+        "type": "object",
+        "required": [
+          "id",
+          "status"
+        ],
+        "title": "ReportResponse"
       },
       "RetailerFilterNotice": {
         "properties": {

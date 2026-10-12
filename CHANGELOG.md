@@ -12,6 +12,20 @@ Nieuwe velden, nieuwe ketens en betere dekking rollen we zonder aankondiging uit
 aan** (art. 10 van de [API-voorwaarden](https://www.prijsprofeet.nl/api-voorwaarden)):
 per e-mail aan betalende afnemers én hier.
 
+## 2026-10-12
+
+**Nieuw: een datafout melden met `POST /api/v1/reports`.** Ziet een gebruiker van je app
+een prijs, verpakkingsmaat, naam of vergelijking die niet klopt, of loopt een actie niet
+meer, dan stuur je dat rechtstreeks naar ons: wij kunnen het repareren. Gratis en zonder
+key. Je noemt één rij (een `product_id`, of een schaprij als `retailer` + `shelf_id`;
+met `compared_retailer` de rij van een andere keten op de vergelijking) en kiest in
+`field` wat er mis is. Er is bewust geen vrij tekstveld, dus een melding bevat geen
+persoonsgegevens. We toetsen elke melding meteen tegen onze actuele data en tegen
+hetzelfde product bij de andere ketens; is onze data al bijgewerkt, dan is `status`
+`resolved`. Zonder key 10 meldingen per uur en 30 per dag per IP-adres, met een key de
+limiet van je plan. Houd je key op je server. Geen veld en geen gedrag van een bestaande
+route veranderd.
+
 ## 2026-10-10 (4)
 
 **De bèta *Melding na de nachtrun* staat open voor alle plannen.** Op Pro of Business
