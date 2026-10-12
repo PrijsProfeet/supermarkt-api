@@ -12,6 +12,14 @@ Nieuwe velden, nieuwe ketens en betere dekking rollen we zonder aankondiging uit
 aan** (art. 10 van de [API-voorwaarden](https://www.prijsprofeet.nl/api-voorwaarden)):
 per e-mail aan betalende afnemers én hier.
 
+## 2026-10-12 (3)
+
+**Drie ketens erbij op `www.prijsprofeet.nl`: Boni, Coop en Dagwinkel** (`boni`, `coop`,
+`dagwinkel`). Alle drie komen uit hun weekfolder: geen merk, geen EAN en geen productlink,
+dus ze staan nooit op een vergelijking, net als Vomar en Nettorama. Hun acties staan in
+`/products`, `/search` en `/deals`; `retailer=boni` werkt vanaf nu. Geen veld en geen
+gedrag van een route veranderd.
+
 ## 2026-10-12 (2)
 
 **`POST /api/v1/reports` is bèta, en er is een meldformulier.** De velden en hun waarden
