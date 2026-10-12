@@ -12,6 +12,16 @@ Nieuwe velden, nieuwe ketens en betere dekking rollen we zonder aankondiging uit
 aan** (art. 10 van de [API-voorwaarden](https://www.prijsprofeet.nl/api-voorwaarden)):
 per e-mail aan betalende afnemers én hier.
 
+## 2026-10-12 (2)
+
+**`POST /api/v1/reports` is bèta, en er is een meldformulier.** De velden en hun waarden
+kunnen na echt gebruik nog veranderen; elke wijziging staat hier. Geen eigen server, of
+een app? Laat je knop "Klopt er iets niet?" dan ons formulier openen:
+`https://www.prijsprofeet.nl/melden/?product_id=<id>&bron=<je partner-id>`
+(`www.prijsprofeet.be` voor Belgische data). Je gebruiker kiest daar wat er niet klopt,
+zonder key op het toestel en zonder account. `bron` gebruiken we alleen voor statistiek.
+Geen veld en geen gedrag van een route veranderd.
+
 ## 2026-10-12
 
 **Nieuw: een datafout melden met `POST /api/v1/reports`.** Ziet een gebruiker van je app
