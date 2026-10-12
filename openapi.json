@@ -2556,14 +2556,14 @@
         "description": "**Beta.** The fields and their values may still change after real use; every\nchange is announced in the changelog.\n\nReport that a price, pack size, name, promotion or comparison is wrong. Free,\nno key needed. The report lands with us, the party that can fix the data.\n\nName **one** row: a `product_id` (as returned by `/search` or `/products`, the\ndated id or its `base_product_id`), or a shelf row as `retailer` + `shelf_id`\n(from `/shelf-prices`). To report the row of another chain on a product's\ncomparison, send that product's `product_id` plus `compared_retailer`; a\n`match` report needs it.\n\nThere is deliberately no free-text field: every value is a choice or a price,\nso a report carries no personal data. Keep your key on your server; a key in an\napp or in browser JavaScript is a leaked key.\n\nWe check every report against the data as we show it now and against the same\nproduct at the other chains. `status` is `resolved` when our data has already\nmoved past it (the promotion ended, or we now show the price you saw), and\n`open` otherwise. Nothing is corrected automatically.\n\nWithout a key: 10 reports an hour and 30 a day per IP address.\n\nNo backend of your own, or a native app? Open our hosted form instead:\n`https://www.prijsprofeet.nl/melden/?product_id=<id>&bron=<your partner id>`\n(`www.prijsprofeet.be` for Belgian data). The user picks what is wrong there;\nno key on the device and no account. `bron` is used for statistics only.",
         "operationId": "create_report_api_v1_reports_post",
         "requestBody": {
+          "required": true,
           "content": {
             "application/json": {
               "schema": {
                 "$ref": "#/components/schemas/ReportRequest"
               }
             }
-          },
-          "required": true
+          }
         },
         "responses": {
           "202": {
@@ -2572,6 +2572,116 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/ReportResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {},
+          {
+            "ApiKeyAuth": []
+          }
+        ]
+      },
+      "get": {
+        "tags": [
+          "reports"
+        ],
+        "summary": "Your own reports",
+        "description": "**Beta.** Every report sent with your key, newest first. Needs a key: without one there is nothing to tell whose reports are yours. Only the reports for this storefront (`www.prijsprofeet.be` for Belgian rows).",
+        "operationId": "list_reports_api_v1_reports_get",
+        "parameters": [
+          {
+            "name": "page",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "minimum": 1,
+              "default": 1,
+              "title": "Page"
+            }
+          },
+          {
+            "name": "page_size",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "maximum": 100,
+              "minimum": 1,
+              "default": 20,
+              "title": "Page Size"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ReportList"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {},
+          {
+            "ApiKeyAuth": []
+          }
+        ]
+      }
+    },
+    "/api/v1/reports/{report_id}": {
+      "get": {
+        "tags": [
+          "reports"
+        ],
+        "summary": "Status of a report",
+        "description": "**Beta.** Where a report stands, for whoever holds its id (the id from `POST /api/v1/reports`; it cannot be guessed). Free, no key needed. Use it to tell your user that the error they reported is fixed. Ask the storefront you reported on: a Dutch report is not found on `www.prijsprofeet.be`.",
+        "operationId": "report_status_api_v1_reports__report_id__get",
+        "parameters": [
+          {
+            "name": "report_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Report Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ReportStatus"
                 }
               }
             }
@@ -4600,6 +4710,37 @@
         ],
         "title": "ProductSearchResult"
       },
+      "ReportList": {
+        "properties": {
+          "reports": {
+            "items": {
+              "$ref": "#/components/schemas/ReportStatus"
+            },
+            "type": "array",
+            "title": "Reports"
+          },
+          "total": {
+            "type": "integer",
+            "title": "Total"
+          },
+          "page": {
+            "type": "integer",
+            "title": "Page"
+          },
+          "page_size": {
+            "type": "integer",
+            "title": "Page Size"
+          }
+        },
+        "type": "object",
+        "required": [
+          "reports",
+          "total",
+          "page",
+          "page_size"
+        ],
+        "title": "ReportList"
+      },
       "ReportRequest": {
         "properties": {
           "product_id": {
@@ -4736,7 +4877,7 @@
           "id": {
             "type": "string",
             "title": "Id",
-            "description": "The report's id. Reports on the same row share one."
+            "description": "The report's id. Reports on the same row share one. Ask its status with `GET /api/v1/reports/{id}`."
           },
           "status": {
             "type": "string",
@@ -4755,6 +4896,115 @@
           "status"
         ],
         "title": "ReportResponse"
+      },
+      "ReportStatus": {
+        "properties": {
+          "id": {
+            "type": "string",
+            "title": "Id"
+          },
+          "status": {
+            "type": "string",
+            "enum": [
+              "open",
+              "confirmed",
+              "resolved",
+              "rejected"
+            ],
+            "title": "Status",
+            "description": "`open`: we have not looked yet. `confirmed`: it is wrong, a fix is on its way. `resolved`: our data is right now, because we fixed it or because it had already moved on. `rejected`: we found no error."
+          },
+          "field": {
+            "type": "string",
+            "enum": [
+              "price",
+              "quantity",
+              "name",
+              "promo_ended",
+              "match"
+            ],
+            "title": "Field"
+          },
+          "product_id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Product Id",
+            "description": "The stable product id."
+          },
+          "retailer": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Retailer",
+            "description": "For a shelf row."
+          },
+          "shelf_id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Shelf Id",
+            "description": "For a shelf row."
+          },
+          "compared_retailer": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Compared Retailer"
+          },
+          "reported_at": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Reported At",
+            "description": "First report on this row, ISO 8601 in Dutch time."
+          },
+          "resolved_at": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Resolved At",
+            "description": "When it was resolved or rejected; `null` while open."
+          }
+        },
+        "type": "object",
+        "required": [
+          "id",
+          "status",
+          "field"
+        ],
+        "title": "ReportStatus",
+        "description": "Where a report stands. Reports on the same row and field are one item."
       },
       "RetailerFilterNotice": {
         "properties": {
