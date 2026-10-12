@@ -12,7 +12,7 @@ Nieuwe velden, nieuwe ketens en betere dekking rollen we zonder aankondiging uit
 aan** (art. 10 van de [API-voorwaarden](https://www.prijsprofeet.nl/api-voorwaarden)):
 per e-mail aan betalende afnemers én hier.
 
-## 2026-10-12 (3)
+## 2026-10-12 (4)
 
 **Drie ketens erbij op `www.prijsprofeet.nl`: Boni, Coop en Dagwinkel** (`boni`, `coop`,
 `dagwinkel`). Alle drie komen uit hun weekfolder: geen merk, geen EAN en geen productlink,
