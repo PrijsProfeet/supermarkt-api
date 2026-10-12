@@ -14,14 +14,6 @@ per e-mail aan betalende afnemers én hier.
 
 ## 2026-10-12 (4)
 
-**Drie ketens erbij op `www.prijsprofeet.nl`: Boni, Coop en Dagwinkel** (`boni`, `coop`,
-`dagwinkel`). Alle drie komen uit hun weekfolder: geen merk, geen EAN en geen productlink,
-dus ze staan nooit op een vergelijking, net als Vomar en Nettorama. Hun acties staan in
-`/products`, `/search` en `/deals`; `retailer=boni` werkt vanaf nu. Geen veld en geen
-gedrag van een route veranderd.
-
-## 2026-10-12 (3)
-
 **De status van een melding opvragen (bèta).** Met het `id` dat `POST /api/v1/reports`
 teruggeeft vraag je met `GET /api/v1/reports/{id}` later op waar de melding staat:
 `open`, `confirmed` (het klopt niet, de reparatie volgt), `resolved` (onze data klopt nu)
@@ -30,6 +22,14 @@ gebruiker laten weten dat de fout die hij meldde is opgelost. Gratis en zonder k
 id is niet te raden. Vraag het op bij de winkel waar je meldde: een Nederlandse melding
 staat niet op `www.prijsprofeet.be`. Met een key geeft `GET /api/v1/reports` al je eigen
 meldingen, nieuwste eerst. Geen veld en geen gedrag van een bestaande route veranderd.
+
+## 2026-10-12 (3)
+
+**Drie ketens erbij op `www.prijsprofeet.nl`: Boni, Coop en Dagwinkel** (`boni`, `coop`,
+`dagwinkel`). Alle drie komen uit hun weekfolder: geen merk, geen EAN en geen productlink,
+dus ze staan nooit op een vergelijking, net als Vomar en Nettorama. Hun acties staan in
+`/products`, `/search` en `/deals`; `retailer=boni` werkt vanaf nu. Geen veld en geen
+gedrag van een route veranderd.
 
 ## 2026-10-12 (2)
 
