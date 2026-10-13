@@ -260,12 +260,14 @@ het antwoord aan een gebruiker toont. De
 ## Bèta
 
 Bètafuncties vallen buiten de SLA en kunnen veranderen zonder de aankondiging van 30
-dagen ([voorwaarden, art. 10](https://www.prijsprofeet.nl/api-voorwaarden#beta)). Je zet
-ze aan in je [API-account](https://www.prijsprofeet.nl/api-account/), onder *Bèta*, en
-geeft daar ook feedback. Nu in bèta:
+dagen ([voorwaarden, art. 10](https://www.prijsprofeet.nl/api-voorwaarden#beta)). Je
+vindt ze in je [API-account](https://www.prijsprofeet.nl/api-account/), onder *Bèta*: daar
+zet je ze aan als dat nodig is, en geef je feedback. Nu in bèta:
 
 - [Melding na de nachtrun](#melding-na-de-nachtrun): één webhook per ochtend zodra de
   data van vannacht er staat.
+- [Datafouten melden](#datafouten-melden): laat je gebruikers een prijs of vergelijking
+  melden die niet klopt. Geen aanmelding nodig.
 
 ### Melding na de nachtrun
 
@@ -321,6 +323,39 @@ Voor alle plannen. Op Pro of Business accepteer je met het vinkje bij de aanmeld
 bèta-artikel van versie 1.14 nu al: voor betaalde plannen gaat die versie anders pas op
 13 november 2026 in, 30 dagen na de aankondiging
 ([art. 16](https://www.prijsprofeet.nl/api-voorwaarden)).
+
+### Datafouten melden
+
+Ziet een gebruiker van je app een prijs, verpakkingsmaat, naam of vergelijking die niet
+klopt, of loopt een actie niet meer? Laat hem dat bij ons melden: wij kunnen de bron
+repareren, en dan klopt het voor iedereen. Gratis, zonder key en zonder aanmelding.
+
+**Een knop in je app.** Laat een knop "Klopt er iets niet?" ons formulier openen:
+
+```
+https://www.prijsprofeet.nl/melden/?product_id=<product_id>&bron=<je partner-id>
+```
+
+(`www.prijsprofeet.be` voor Belgische data.) Je gebruiker kiest daar wat er mis is; we
+vragen geen naam of e-mailadres. `bron` gebruiken we alleen voor statistiek. Zo staat er
+geen key op het toestel.
+
+**Vanaf je server.** Liever alles in je eigen interface? Stuur de melding naar
+`POST /api/v1/reports`. Je noemt één rij (een `product_id`, of een schaprij als
+`retailer` + `shelf_id`; met `compared_retailer` de rij van een andere keten op de
+vergelijking) en kiest in `field` wat er mis is. De toegestane waarden staan in de
+[OpenAPI-spec](openapi.json). Er is bewust geen vrij tekstveld, dus een melding bevat
+geen persoonsgegevens. Zonder key 10 meldingen per uur en 30 per dag per IP-adres, met
+een key de limiet van je plan.
+
+**De status opvragen.** Met het `id` uit het antwoord geeft `GET /api/v1/reports/{id}`
+de stand: `open`, `confirmed` (het klopt niet, de reparatie volgt), `resolved` (onze data
+klopt nu) of `rejected` (geen fout gevonden), met `reported_at` en `resolved_at`. Vraag
+het op bij de winkel waar je meldde. Met een key geeft `GET /api/v1/reports` al je eigen
+meldingen, nieuwste eerst.
+
+Voor iedereen, ook zonder key. De velden en hun waarden kunnen na echt gebruik nog
+veranderen; elke wijziging staat in [`CHANGELOG.md`](CHANGELOG.md).
 
 ## Wijzigingen
 
