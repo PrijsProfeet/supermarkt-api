@@ -18,8 +18,8 @@ Belgische aanbiedingen haal je met dezelfde API en dezelfde key bij
 `https://www.prijsprofeet.be/api/v1/…`: de host bepaalt het land.
 
 > **Wijzigingen volgen?** Zet deze repo op *Watch → Releases* — de knop rechtsboven,
-> dan **Custom → Releases**. Elke wijziging die voor een integratie uitmaakt krijgt
-> hier een release, met dezelfde tekst als het [changelog](CHANGELOG.md).
+> dan **Custom → Releases**. Je krijgt één release per week met alle wijzigingen uit het
+> [changelog](CHANGELOG.md), en meteen een release als je iets moet doen (**Actie nodig**).
 
 **Inhoud:** [Wat dit is](#wat-dit-is--en-wat-het-niet-is) ·
 [Ketens](#ketens) · [Beginnen](#beginnen) ·

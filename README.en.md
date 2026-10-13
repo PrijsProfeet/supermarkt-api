@@ -18,8 +18,8 @@ Belgian promotions come from the same API with the same key at
 `https://www.prijsprofeet.be/api/v1/…`: the host decides the country.
 
 > **Want to follow changes?** Set this repo to *Watch → Releases* — the button at the top
-> right, then **Custom → Releases**. Every change that matters to an integration gets a
-> release here, with the same text as the [changelog](CHANGELOG.md).
+> right, then **Custom → Releases**. You get one release a week with every change from the
+> [changelog](CHANGELOG.md), and a release right away when you need to act (**Actie nodig**).
 
 **Contents:** [What this is](#what-this-is--and-what-it-isnt) ·
 [Chains](#chains) · [Getting started](#getting-started) ·

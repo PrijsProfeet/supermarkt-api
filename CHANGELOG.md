@@ -4,13 +4,32 @@ Wijzigingen aan de publieke API van [PrijsProfeet](https://www.prijsprofeet.nl/a
 De meest recente staan ook op [/api](https://www.prijsprofeet.nl/api#wat-is-nieuw);
 dit is het volledige archief.
 
-Elke wijziging krijgt hier een **GitHub Release**. Zet de repo op *Watch → Releases*
-als je bericht wilt krijgen zonder een pagina in de gaten te houden.
+Elke wijziging staat hier op de dag zelf. Een **GitHub Release** komt één keer per week,
+op maandag, met alle wijzigingen sinds de vorige release. Een wijziging waarvoor je iets
+moet doen krijgt meteen een eigen release. Zet de repo op *Watch → Releases* als je
+bericht wilt krijgen zonder een pagina in de gaten te houden.
+
+Sinds 2026-10-13 draagt elke sectie in de kop een van drie labels:
+
+- **Actie nodig**: een aankondiging of wijziging waarvoor je iets aan je integratie moet
+  doen. Altijd meteen een eigen release.
+- **Uitbreiding**: iets nieuws of beters; bestaande velden en gedrag blijven gelijk.
+- **Alleen documentatie**: tekst, voorbeelden of de spec-beschrijving; de API zelf
+  verandert niet.
 
 Nieuwe velden, nieuwe ketens en betere dekking rollen we zonder aankondiging uit.
 **Breaking changes op een betaald endpoint kondigen we minimaal 30 dagen van tevoren
 aan** (art. 10 van de [API-voorwaarden](https://www.prijsprofeet.nl/api-voorwaarden)):
 per e-mail aan betalende afnemers én hier.
+
+## 2026-10-13 · Alleen documentatie
+
+**Releases komen voortaan één keer per week.** Tot nu toe kreeg elke wijziging een eigen
+GitHub Release, soms vier op één dag, en de meeste vroegen niets van je. Vanaf nu staat
+elke wijziging hier nog steeds op de dag zelf, maar volgt de release op maandag, met alles
+van die week. Een wijziging waarvoor je iets aan je integratie moet doen (**Actie nodig**)
+krijgt meteen een eigen release. Elke nieuwe sectie draagt vanaf vandaag een label in de
+kop: **Actie nodig**, **Uitbreiding** of **Alleen documentatie**. De API zelf verandert niet.
 
 ## 2026-10-12 (4)
 

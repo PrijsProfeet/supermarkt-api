@@ -1,0 +1,80 @@
+# Eén release per week, met alles wat sinds de vorige release in de changelog kwam.
+#
+# CHANGELOG.md en openapi.json blijven per wijziging meteen bijgewerkt. Alleen de
+# GitHub Release (en dus de melding aan wie de repo volgt) komt hier één keer per
+# week. Een wijziging met het label "Actie nodig" krijgt daarnaast meteen een eigen
+# release, met de hand; deze workflow neemt die sectie daarna niet opnieuw mee,
+# want hij kijkt alleen naar wat sinds de nieuwste release-tag is bijgekomen.
+
+name: Wekelijkse release
+
+on:
+  schedule:
+    # Maandag 07:00 UTC (08:00 of 09:00 in Nederland).
+    - cron: "0 7 * * 1"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: weekly-release
+  cancel-in-progress: false
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Release met de nieuwe changelogsecties
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          last_tag="$(gh release list --limit 1 --exclude-drafts --json tagName --jq '.[0].tagName // ""')"
+          if [ -z "$last_tag" ]; then
+            echo "::error::Geen eerdere release gevonden; maak de eerste met de hand."
+            exit 1
+          fi
+          git show "${last_tag}:CHANGELOG.md" > /tmp/vorige.md
+          python3 - "$last_tag" <<'PY'
+          import os
+          import re
+          import sys
+
+          def sections(text):
+              """Kop -> sectietekst, in de volgorde van het bestand."""
+              parts = re.split(r"(?m)^## ", text)[1:]
+              return [("## " + p).rstrip() for p in parts]
+
+          def heading(section):
+              return section.splitlines()[0].strip()
+
+          vorige = {heading(s) for s in sections(open("/tmp/vorige.md", encoding="utf-8").read())}
+          nieuw = [s for s in sections(open("CHANGELOG.md", encoding="utf-8").read()) if heading(s) not in vorige]
+          if not nieuw:
+              print(f"Niets nieuw sinds {sys.argv[1]}; geen release.")
+              sys.exit(0)
+          with open("/tmp/release.md", "w", encoding="utf-8") as f:
+              f.write("\n\n".join(nieuw) + "\n")
+          with open(os.environ["GITHUB_ENV"], "a", encoding="utf-8") as f:
+              f.write(f"AANTAL={len(nieuw)}\n")
+          print(f"{len(nieuw)} nieuwe sectie(s) sinds {sys.argv[1]}.")
+          PY
+          if [ ! -f /tmp/release.md ]; then
+            exit 0
+          fi
+          tag="$(date -u +%F)"
+          n=1
+          while gh release view "$tag" >/dev/null 2>&1; do
+            n=$((n + 1))
+            tag="$(date -u +%F).${n}"
+          done
+          gh release create "$tag" \
+            --target "$GITHUB_SHA" \
+            --title "Week tot $(date -u +%F): ${AANTAL} wijziging(en)" \
+            --notes-file /tmp/release.md
+          echo "Release ${tag} gemaakt."
