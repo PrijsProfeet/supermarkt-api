@@ -25,7 +25,7 @@ Belgian promotions come from the same API with the same key at
 [Chains](#chains) · [Getting started](#getting-started) ·
 [Free, Pro and Business](#free-pro-and-business) ·
 [Which endpoint for which question](#which-endpoint-for-which-question) · [Limits](#limits) ·
-[User-Agent](#name-yourself-in-your-user-agent) · [OpenAPI](#openapi) · [Beta](#beta) ·
+[User-Agent](#name-yourself-in-your-user-agent) · [OpenAPI](#openapi) · [MCP](#mcp-connector) · [Beta](#beta) ·
 [Changes](#changes) · [Questions](#questions-and-problems) · [Terms](#terms)
 
 ## What this is — and what it isn't
@@ -206,6 +206,54 @@ There is also a browsable Swagger UI at
 [prijsprofeet.nl/docs/en](https://www.prijsprofeet.nl/docs/en), but it can only be opened
 in a browser — automated clients are blocked there. **This file is the only copy you can
 fetch programmatically.**
+
+## MCP connector
+
+Besides the REST API there is an **MCP server** for AI assistants and agents, with no
+key and no registration.
+
+| | |
+|---|---|
+| Netherlands | `https://www.prijsprofeet.nl/api/v1/mcp` |
+| Belgium | `https://www.prijsprofeet.be/api/v1/mcp` |
+| Transport | Streamable HTTP |
+| Authentication | none |
+
+The host decides the country, as with the API. To add it as a user in Claude or
+ChatGPT, see the steps (in Dutch) at
+[prijsprofeet.nl/chatgpt-en-claude](https://www.prijsprofeet.nl/chatgpt-en-claude/); in
+Claude it is listed in the connector directory.
+
+**What it is for.** The connector answers a user's question: where a product is on
+offer this week, where it is cheapest right now, what it normally costs. The answer is
+short text (in Dutch) with a link to the page it came from, not raw rows, not EANs and
+not full price series. **If you are building your own product or app, use the
+[REST API](#getting-started)**; the connector is not a keyless route to the same data.
+
+**Tools**
+
+| Tool | What |
+|---|---|
+| `search` | Search by product or brand name. Returns brand pages and products, each with an `id`. An EAN is not accepted as a query. |
+| `fetch` | Fetch a result by its `id`. |
+
+| Id | Returns |
+|---|---|
+| `merk:{slug}` | A brand's current offers, per supermarket |
+| `product:{id}` | Price, validity, lowest promotional price of the past six months, and the price at other supermarkets |
+| `schap:{zoekterm}` | Per supermarket the cheapest regular price, also without a promotion |
+
+Use the ids that `search` returns; building them yourself works, but the format may
+change. An ended promotion returns an answer saying so (with the regular price if the
+chain still charges one), an unknown id returns an error.
+
+**Limits.** Clients other than Claude and ChatGPT share a daily limit. When it is used
+up, the answer says so and points to the API. If you need more, the API with a (free)
+key is the way.
+
+**Attribution.** Every answer carries a source line with a link; keep it when you show
+the answer to a user. The [API terms](https://www.prijsprofeet.nl/api-voorwaarden) apply
+here too.
 
 ## Beta
 
