@@ -366,9 +366,15 @@ Zet de repo op *Watch → Releases* als je dat wilt volgen.
 
 ## Vragen en problemen
 
-- **Werkt iets niet, of klopt data niet?** Open een [issue](../../issues). Een
-  verkeerd geclassificeerd product of een rare prijs is een prima issue — meldingen
-  van gebruikers hebben de dataset al meermaals verbeterd.
+- **Klopt de prijs of de vergelijking van één product niet?** Meld het op de
+  productpagina via de link "Klopt er iets niet?", of rechtstreeks via
+  `https://www.prijsprofeet.nl/melden/?product_id=<product_id>` (zie
+  [Datafouten melden](#datafouten-melden)). Zo komt de melding meteen bij de rij
+  terecht en wordt hij de volgende ochtend getoetst. Meldingen van gebruikers
+  hebben de dataset al meermaals verbeterd.
+- **Werkt iets niet, of zit de fout breder dan één product?** Bijvoorbeeld een
+  keten die ontbreekt of een hele categorie die verkeerd staat: open een
+  [issue](../../issues).
 - **"Hoe pak ik X aan?"** Gebruik [Discussions](../../discussions).
 - **Welk plan past?** De plannen en prijzen staan op [prijsprofeet.nl/api](https://www.prijsprofeet.nl/api);
   een proef of Business vraag je daar aan. Iets anders zakelijks: info@prijsprofeet.nl.
