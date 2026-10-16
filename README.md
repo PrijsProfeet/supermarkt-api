@@ -241,7 +241,8 @@ naar dezelfde data.
 
 | Id | Geeft |
 |---|---|
-| `merk:{slug}` | De lopende aanbiedingen van een merk, per supermarkt |
+| `merk:{slug}` | De aanbiedingen van een merk, eerst de lopende, dan de komende, elk goedkoopste eerst |
+| `merk:{slug}:{n}` | Pagina `n` daarvan; het antwoord noemt het id van de volgende pagina zolang er meer zijn |
 | `product:{id}` | Prijs, geldigheid, laagste actieprijs van de afgelopen zes maanden, en de prijs bij andere supermarkten |
 | `schap:{zoekterm}` | Per supermarkt de goedkoopste gewone prijs, ook zonder actie |
 

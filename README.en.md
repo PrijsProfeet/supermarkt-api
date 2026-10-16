@@ -239,7 +239,8 @@ not full price series. **If you are building your own product or app, use the
 
 | Id | Returns |
 |---|---|
-| `merk:{slug}` | A brand's current offers, per supermarket |
+| `merk:{slug}` | A brand's offers, running ones first, then upcoming ones, each cheapest first |
+| `merk:{slug}:{n}` | Page `n` of those; the answer names the id of the next page as long as there are more |
 | `product:{id}` | Price, validity, lowest promotional price of the past six months, and the price at other supermarkets |
 | `schap:{zoekterm}` | Per supermarket the cheapest regular price, also without a promotion |
 
