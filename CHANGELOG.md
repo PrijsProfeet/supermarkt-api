@@ -22,6 +22,18 @@ Nieuwe velden, nieuwe ketens en betere dekking rollen we zonder aankondiging uit
 aan** (art. 10 van de [API-voorwaarden](https://www.prijsprofeet.nl/api-voorwaarden)):
 per e-mail aan betalende afnemers én hier.
 
+## 2026-10-17 · Uitbreiding
+
+**De API-pagina, de gids, je key en je API-account zijn er ook in het Engels.**
+[www.prijsprofeet.nl/en/api](https://www.prijsprofeet.nl/en/api) en
+[/en/supermarket-api/](https://www.prijsprofeet.nl/en/supermarket-api/) bestaan op beide
+winkels, net als de Nederlandse pagina's. Vraag je daar een gratis key aan, dan krijg je
+de mail, de pagina met je key en je [API-account](https://www.prijsprofeet.nl/api-account/)
+in het Engels; in het account wissel je de taal. Daarvoor heeft
+`POST /api/v1/partner/signup` een optioneel veld `lang` (`nl` of `en`, standaard `nl`).
+Zonder dat veld verandert er niets. De API-voorwaarden blijven Nederlands, en alleen die
+versie is geldend.
+
 ## 2026-10-13 · Alleen documentatie
 
 **Releases komen voortaan één keer per week.** Tot nu toe kreeg elke wijziging een eigen

@@ -2976,6 +2976,16 @@
             ],
             "title": "Site Url",
             "description": "Where the data will appear (optional)"
+          },
+          "lang": {
+            "type": "string",
+            "enum": [
+              "nl",
+              "en"
+            ],
+            "title": "Lang",
+            "description": "Language of the mail and the key page: `en` from /en/api",
+            "default": "nl"
           }
         },
         "type": "object",
