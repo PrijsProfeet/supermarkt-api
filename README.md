@@ -128,13 +128,22 @@ die wij er zagen. Welke ketens een schapprijs leveren, staat
 ### Bronvermelding
 
 Op Gratis en tijdens een proef vermeld je PrijsProfeet met een link, op elk scherm
-waar onze data staat. Dit is genoeg:
+waar onze data staat. Kies het fragment bij de data die je gebruikt en de taal van je
+product; dit is genoeg:
 
 ```html
+<!-- Nederlandse data -->
 Aanbiedingen via <a href="https://www.prijsprofeet.nl">PrijsProfeet</a>
+
+<!-- Belgische data, Nederlandstalig product -->
+Promoties via <a href="https://www.prijsprofeet.be">PrijsProfeet</a>
+
+<!-- Belgische data, Franstalig product -->
+Promotions via <a href="https://www.prijsprofeet.be/fr/">PrijsProfeet</a>
 ```
 
-Gebruik je de Belgische data, link dan naar `https://www.prijsprofeet.be`. Staat je
+Dezelfde fragmenten, met een kopieerknop, staan in
+[je API-account](https://www.prijsprofeet.nl/api-account/#bronvermelding). Staat je
 product online, dan zetten we het graag op
 [Gebouwd met PrijsProfeet](https://www.prijsprofeet.nl/gebouwd-met-prijsprofeet/), met
 een gewone link naar je site.

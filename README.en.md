@@ -129,14 +129,23 @@ Which chains provide a shelf price is
 ### Attribution
 
 On Free and during a trial you credit PrijsProfeet with a link, on every screen that
-shows our data. This is enough:
+shows our data. Pick the snippet for the data you use and the language of your
+product; this is enough:
 
 ```html
+<!-- Dutch data -->
 Aanbiedingen via <a href="https://www.prijsprofeet.nl">PrijsProfeet</a>
+
+<!-- Belgian data, Dutch-language product -->
+Promoties via <a href="https://www.prijsprofeet.be">PrijsProfeet</a>
+
+<!-- Belgian data, French-language product -->
+Promotions via <a href="https://www.prijsprofeet.be/fr/">PrijsProfeet</a>
 ```
 
-If you use the Belgian data, link to `https://www.prijsprofeet.be`. If your product is
-online, we're happy to list it on
+The same snippets, with a copy button, are in
+[your API account](https://www.prijsprofeet.nl/api-account/?lang=en#bronvermelding). If
+your product is online, we're happy to list it on
 [Gebouwd met PrijsProfeet](https://www.prijsprofeet.nl/gebouwd-met-prijsprofeet/) (in Dutch),
 with a regular link to your site.
 
