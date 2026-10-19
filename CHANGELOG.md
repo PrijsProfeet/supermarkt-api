@@ -22,6 +22,17 @@ Nieuwe velden, nieuwe ketens en betere dekking rollen we zonder aankondiging uit
 aan** (art. 10 van de [API-voorwaarden](https://www.prijsprofeet.nl/api-voorwaarden)):
 per e-mail aan betalende afnemers én hier.
 
+## 2026-10-19 (2) · Uitbreiding
+
+**Drie nieuwe categorieën: `bier`, `wijn` en `sterke-drank`.** `unified_category` op een
+rij kan nu ook `bier`, `wijn` of `sterke-drank` zijn. Aperitieven, premixen en
+alcoholvrije gin rekenen we tot sterke drank, seltzers en cider tot bier, port en sherry
+tot wijn. `category=bier-wijn-sterke-drank` op `/api/v1/search` blijft alle drank geven,
+de drie soorten inbegrepen, en in `/api/v1/categories` telt die categorie ze mee. Met
+`category=wijn` krijg je alleen wijn. Wat we niet kunnen indelen, zoals een wijn met alleen
+een domeinnaam, houdt `bier-wijn-sterke-drank`. Vergelijk je zelf `unified_category` op
+een rij met `bier-wijn-sterke-drank`, neem dan ook de drie soorten mee.
+
 ## 2026-10-19 · Uitbreiding
 
 **`/search` leest `huismerk` en `bio` als filter.** Staat `huismerk` of `huismerken` in
