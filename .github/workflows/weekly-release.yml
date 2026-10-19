@@ -41,7 +41,6 @@ jobs:
           fi
           git show "${last_tag}:CHANGELOG.md" > /tmp/vorige.md
           python3 - "$last_tag" <<'PY'
-          import os
           import re
           import sys
 
@@ -60,13 +59,13 @@ jobs:
               sys.exit(0)
           with open("/tmp/release.md", "w", encoding="utf-8") as f:
               f.write("\n\n".join(nieuw) + "\n")
-          with open(os.environ["GITHUB_ENV"], "a", encoding="utf-8") as f:
-              f.write(f"AANTAL={len(nieuw)}\n")
           print(f"{len(nieuw)} nieuwe sectie(s) sinds {sys.argv[1]}.")
           PY
           if [ ! -f /tmp/release.md ]; then
             exit 0
           fi
+          # Geteld uit het bestand: $GITHUB_ENV geldt pas in de volgende stap.
+          aantal="$(grep -c '^## ' /tmp/release.md)"
           tag="$(date -u +%F)"
           n=1
           while gh release view "$tag" >/dev/null 2>&1; do
@@ -75,6 +74,6 @@ jobs:
           done
           gh release create "$tag" \
             --target "$GITHUB_SHA" \
-            --title "Week tot $(date -u +%F): ${AANTAL} wijziging(en)" \
+            --title "Week tot $(date -u +%F): ${aantal} wijziging(en)" \
             --notes-file /tmp/release.md
           echo "Release ${tag} gemaakt."
