@@ -22,6 +22,18 @@ Nieuwe velden, nieuwe ketens en betere dekking rollen we zonder aankondiging uit
 aan** (art. 10 van de [API-voorwaarden](https://www.prijsprofeet.nl/api-voorwaarden)):
 per e-mail aan betalende afnemers én hier.
 
+## 2026-10-19 · Uitbreiding
+
+**`/search` leest `huismerk` en `bio` als filter.** Staat `huismerk` of `huismerken` in
+`q`, dan zetten `GET /api/v1/search` en `GET /api/v1/filter-stats` `private_label=true`
+aan; `bio`, `biologisch` en `biologische` zetten de dieettag `bio` aan. Het woord valt uit
+de zoekopdracht en de rest wordt gezocht met het filter erbij: `huismerk melk` zoekt melk
+onder de huismerken, `huismerk` alleen geeft alle huismerkacties. Tot nu toe zochten deze
+woorden in de productnaam (`huismerk` vond niets). Het nieuwe veld `keyword_filters` zegt
+welke woorden een filter werden (`words`) en wat er overbleef (`query`, `*` als er niets
+over was). Een `private_label` die je zelf meestuurt wint. Zonder zo'n woord verandert er
+niets.
+
 ## 2026-10-17 · Uitbreiding
 
 **De API-pagina, de gids, je key en je API-account zijn er ook in het Engels.**

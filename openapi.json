@@ -2996,6 +2996,50 @@
         "title": "KeySignupRequest",
         "description": "The /api form. Three questions, all of them answerable in ten seconds."
       },
+      "KeywordFilters": {
+        "properties": {
+          "words": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Words",
+            "description": "The words from `q` that were read as a filter, as typed."
+          },
+          "query": {
+            "type": "string",
+            "title": "Query",
+            "description": "What was searched after removing those words; `*` when nothing was left."
+          },
+          "private_label": {
+            "anyOf": [
+              {
+                "type": "boolean"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Private Label",
+            "description": "`true` when a word turned on the house-brand filter."
+          },
+          "dietary": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Dietary",
+            "description": "Dietary tags a word turned on (`bio`)."
+          }
+        },
+        "type": "object",
+        "required": [
+          "words",
+          "query"
+        ],
+        "title": "KeywordFilters",
+        "description": "Words in the query that were read as a filter."
+      },
       "MatchRow": {
         "properties": {
           "product_id": {
@@ -5101,6 +5145,17 @@
             "type": "array",
             "title": "Unmatched Terms",
             "description": "Words from `query` that match nothing on their own, so the results answer only the rest of the query. Empty when every word contributed. Only ever populated for multi-word queries that fell back to fuzzy matching — an exact-phase result requires the whole query, so it cannot have dropped a word."
+          },
+          "keyword_filters": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/KeywordFilters"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "Set when words in `q` name a filter rather than a product: `huismerk`/`huismerken` turn on `private_label=true`, `bio`/`biologisch` the dietary tag `bio`. Those words are removed from the search and the rest is searched with the filter added (`huismerk melk`). Null when no such word occurs."
           },
           "brand_hub": {
             "anyOf": [
