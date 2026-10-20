@@ -5146,6 +5146,12 @@
             "title": "Unmatched Terms",
             "description": "Words from `query` that match nothing on their own, so the results answer only the rest of the query. Empty when every word contributed. Only ever populated for multi-word queries that fell back to fuzzy matching — an exact-phase result requires the whole query, so it cannot have dropped a word."
           },
+          "approximate": {
+            "type": "boolean",
+            "title": "Approximate",
+            "description": "True when no result contains every word of `query` and the results come from fuzzy matching, ranked by relevance. Re-sorting such results by price puts the loosest matches first. False when every result contains the whole query.",
+            "default": false
+          },
           "keyword_filters": {
             "anyOf": [
               {

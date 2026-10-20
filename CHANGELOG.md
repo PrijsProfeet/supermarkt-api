@@ -22,6 +22,15 @@ Nieuwe velden, nieuwe ketens en betere dekking rollen we zonder aankondiging uit
 aan** (art. 10 van de [API-voorwaarden](https://www.prijsprofeet.nl/api-voorwaarden)):
 per e-mail aan betalende afnemers én hier.
 
+## 2026-10-20 · Uitbreiding
+
+**`/search` zegt of de resultaten een benadering zijn.** Het nieuwe veld `approximate` op
+`GET /api/v1/search` is `true` als geen resultaat alle woorden van `q` bevat. De
+resultaten komen dan uit de fuzzy fase, gerangschikt op relevantie, en elk resultaat hoeft
+maar een deel van de woorden te dragen. Sorteer je zulke resultaten zelf op prijs, dan
+komen de losste treffers bovenaan. Bevat elk resultaat de hele zoekopdracht, dan is het
+`false`. Er verandert verder niets.
+
 ## 2026-10-19 (2) · Uitbreiding
 
 **Drie nieuwe categorieën: `bier`, `wijn` en `sterke-drank`.** `unified_category` op een
