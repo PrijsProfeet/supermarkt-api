@@ -22,6 +22,15 @@ Nieuwe velden, nieuwe ketens en betere dekking rollen we zonder aankondiging uit
 aan** (art. 10 van de [API-voorwaarden](https://www.prijsprofeet.nl/api-voorwaarden)):
 per e-mail aan betalende afnemers én hier.
 
+## 2026-10-20 (2) · Uitbreiding
+
+**Een keten erbij op `www.prijsprofeet.nl`: Amazing Oriental** (`amazing_oriental`), de
+Aziatische supermarkt. Elke actie draagt een merk en een productlink, maar geen EAN, dus
+een vergelijking komt alleen via merk en naam (`approx`). Geen schapprijzen. De acties
+staan in `/products`, `/search` en `/deals`; `retailer=amazing_oriental` werkt vanaf de
+eerste nachtrun. Het is de twintigste Nederlandse keten. Geen veld en geen gedrag van een
+route veranderd.
+
 ## 2026-10-20 · Uitbreiding
 
 **`/search` zegt of de resultaten een benadering zijn.** Het nieuwe veld `approximate` op

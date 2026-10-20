@@ -2,7 +2,7 @@
   "openapi": "3.1.0",
   "info": {
     "title": "PrijsProfeet API",
-    "description": "Real-time supermarket promotions from 10+ Dutch and 7 Belgian supermarkets, normalised to one JSON schema, plus cross-retailer price comparison.\n\n**The host determines the country.** `www.prijsprofeet.nl/api/v1` returns the Dutch chains, `www.prijsprofeet.be/api/v1` the Belgian ones: the same paths, the same schema, and one key works on both. A chain from the other country is never returned; if you name it in `retailer=` on `/products` or `/search`, it appears in `retailer_filter.ignored`.\n\nExact matching is on EAN. Not every chain publishes one: if `/match/*` finds no EAN match, an approximation on name, brand and category follows (indicative, not product identity). Current EAN coverage per chain is listed on [prijsprofeet.nl/supermarkt-aanbiedingen-api](https://www.prijsprofeet.nl/supermarkt-aanbiedingen-api/#ketens) (in Dutch).\n\n**No API key needed** for the public endpoints (search, product detail, promotions, categories). Without a key, limits apply *per endpoint, per IP*: 120/min on search and product detail, 30/min on the list and bulk endpoints.\n\n**Free key: 150/min on your key instead of your IP.** Request one yourself at [prijsprofeet.nl/api](https://www.prijsprofeet.nl/api#gratis-key) — email address, click the link, key. If you build server-side, your entire user base would otherwise share one IP limit.\n\nAn `X-API-Key` is *required* for cross-retailer EAN matching (`/match/*`) and price history (`/price-history`). These are part of the Pro plan — see [prijsprofeet.nl/api](https://www.prijsprofeet.nl/api).\n\n**Note — the cheapest match is not always for sale.** `/match/*` also returns promotions that only start *next week* (roughly a quarter of the catalogue) and rows with the price a chain charged *recently*. That is intentional — \"cheaper at Jumbo next week\" is exactly what your user wants to know. But a `min(price)` over all matches then yields a price that does not exist today. Every match carries `is_current_deal` (`true`/`false`), `promotion_status` (`active` | `upcoming` | `shelf` | `historical`) and `valid_from`/`valid_until`: filter or label on those. Payable today are `active` (a running promotion) and `shelf` (the current regular price); `current_only=true` keeps exactly those two. `is_current_deal` is only `true` on a promotion.\n\n**Name yourself in your User-Agent.** Not required, but courteous — and it is the only way we can reach you about a breaking change. Convention (as on GitHub): `YourApp/1.0 (+https://your-site.com)` or `YourApp/1.0 (you@example.com)`.\n\n**Note — `bot` in your User-Agent.** Requests *without* an API key whose User-Agent contains `bot`, `crawler`, `spider` or `slurp` get a `403`. That is anti-scraping protection, not an outage. Pick a name without those words — or get a free key, and the block does not apply.\n\n**Already have a key?** In your [API account](https://www.prijsprofeet.nl/api-account/) you can see your usage, create a new key and request a Pro trial. You log in with your email address, not with your key.\n\nAll use of this API — with or without a key — is subject to the [API terms](https://www.prijsprofeet.nl/api-voorwaarden) (in Dutch).\n\n**Nederlands:** [/docs](https://www.prijsprofeet.nl/docs).",
+    "description": "Real-time supermarket promotions from 20+ Dutch and 7 Belgian supermarkets, normalised to one JSON schema, plus cross-retailer price comparison.\n\n**The host determines the country.** `www.prijsprofeet.nl/api/v1` returns the Dutch chains, `www.prijsprofeet.be/api/v1` the Belgian ones: the same paths, the same schema, and one key works on both. A chain from the other country is never returned; if you name it in `retailer=` on `/products` or `/search`, it appears in `retailer_filter.ignored`.\n\nExact matching is on EAN. Not every chain publishes one: if `/match/*` finds no EAN match, an approximation on name, brand and category follows (indicative, not product identity). Current EAN coverage per chain is listed on [prijsprofeet.nl/supermarkt-aanbiedingen-api](https://www.prijsprofeet.nl/supermarkt-aanbiedingen-api/#ketens) (in Dutch).\n\n**No API key needed** for the public endpoints (search, product detail, promotions, categories). Without a key, limits apply *per endpoint, per IP*: 120/min on search and product detail, 30/min on the list and bulk endpoints.\n\n**Free key: 150/min on your key instead of your IP.** Request one yourself at [prijsprofeet.nl/api](https://www.prijsprofeet.nl/api#gratis-key) — email address, click the link, key. If you build server-side, your entire user base would otherwise share one IP limit.\n\nAn `X-API-Key` is *required* for cross-retailer EAN matching (`/match/*`) and price history (`/price-history`). These are part of the Pro plan — see [prijsprofeet.nl/api](https://www.prijsprofeet.nl/api).\n\n**Note — the cheapest match is not always for sale.** `/match/*` also returns promotions that only start *next week* (roughly a quarter of the catalogue) and rows with the price a chain charged *recently*. That is intentional — \"cheaper at Jumbo next week\" is exactly what your user wants to know. But a `min(price)` over all matches then yields a price that does not exist today. Every match carries `is_current_deal` (`true`/`false`), `promotion_status` (`active` | `upcoming` | `shelf` | `historical`) and `valid_from`/`valid_until`: filter or label on those. Payable today are `active` (a running promotion) and `shelf` (the current regular price); `current_only=true` keeps exactly those two. `is_current_deal` is only `true` on a promotion.\n\n**Name yourself in your User-Agent.** Not required, but courteous — and it is the only way we can reach you about a breaking change. Convention (as on GitHub): `YourApp/1.0 (+https://your-site.com)` or `YourApp/1.0 (you@example.com)`.\n\n**Note — `bot` in your User-Agent.** Requests *without* an API key whose User-Agent contains `bot`, `crawler`, `spider` or `slurp` get a `403`. That is anti-scraping protection, not an outage. Pick a name without those words — or get a free key, and the block does not apply.\n\n**Already have a key?** In your [API account](https://www.prijsprofeet.nl/api-account/) you can see your usage, create a new key and request a Pro trial. You log in with your email address, not with your key.\n\nAll use of this API — with or without a key — is subject to the [API terms](https://www.prijsprofeet.nl/api-voorwaarden) (in Dutch).\n\n**Nederlands:** [/docs](https://www.prijsprofeet.nl/docs).",
     "termsOfService": "https://www.prijsprofeet.nl/api-voorwaarden",
     "version": "1.0.0"
   },
@@ -55,10 +55,10 @@
                   "type": "null"
                 }
               ],
-              "description": "Retailer key: the same value as `retailer` in every response. Each host has its own: www.prijsprofeet.nl: `albert_heijn`, `jumbo`, `aldi`, `lidl`, `ekoplaza`, `plus`, `poiesz`, `spar`, `nettorama`, `boni`, `coop`, `gewoon_coop`, `mcd`, `boons_markt`, `dagwinkel`, `dekamarkt`, `hoogvliet`, `vomar`, `dirk`; www.prijsprofeet.be: `delhaize`, `albert_heijn_be`, `colruyt`, `carrefour`, `aldi_be`, `lidl_be`, `jumbo_be`.",
+              "description": "Retailer key: the same value as `retailer` in every response. Each host has its own: www.prijsprofeet.nl: `albert_heijn`, `jumbo`, `aldi`, `lidl`, `ekoplaza`, `plus`, `poiesz`, `spar`, `nettorama`, `boni`, `coop`, `gewoon_coop`, `mcd`, `boons_markt`, `dagwinkel`, `amazing_oriental`, `dekamarkt`, `hoogvliet`, `vomar`, `dirk`; www.prijsprofeet.be: `delhaize`, `albert_heijn_be`, `colruyt`, `carrefour`, `aldi_be`, `lidl_be`, `jumbo_be`.",
               "title": "Retailer"
             },
-            "description": "Retailer key: the same value as `retailer` in every response. Each host has its own: www.prijsprofeet.nl: `albert_heijn`, `jumbo`, `aldi`, `lidl`, `ekoplaza`, `plus`, `poiesz`, `spar`, `nettorama`, `boni`, `coop`, `gewoon_coop`, `mcd`, `boons_markt`, `dagwinkel`, `dekamarkt`, `hoogvliet`, `vomar`, `dirk`; www.prijsprofeet.be: `delhaize`, `albert_heijn_be`, `colruyt`, `carrefour`, `aldi_be`, `lidl_be`, `jumbo_be`."
+            "description": "Retailer key: the same value as `retailer` in every response. Each host has its own: www.prijsprofeet.nl: `albert_heijn`, `jumbo`, `aldi`, `lidl`, `ekoplaza`, `plus`, `poiesz`, `spar`, `nettorama`, `boni`, `coop`, `gewoon_coop`, `mcd`, `boons_markt`, `dagwinkel`, `amazing_oriental`, `dekamarkt`, `hoogvliet`, `vomar`, `dirk`; www.prijsprofeet.be: `delhaize`, `albert_heijn_be`, `colruyt`, `carrefour`, `aldi_be`, `lidl_be`, `jumbo_be`."
           },
           {
             "name": "folder_id",
@@ -309,10 +309,10 @@
                   "type": "null"
                 }
               ],
-              "description": "Retailer key: the same value as `retailer` in every response. Each host has its own: www.prijsprofeet.nl: `albert_heijn`, `jumbo`, `aldi`, `lidl`, `ekoplaza`, `plus`, `poiesz`, `spar`, `nettorama`, `boni`, `coop`, `gewoon_coop`, `mcd`, `boons_markt`, `dagwinkel`, `dekamarkt`, `hoogvliet`, `vomar`, `dirk`; www.prijsprofeet.be: `delhaize`, `albert_heijn_be`, `colruyt`, `carrefour`, `aldi_be`, `lidl_be`, `jumbo_be`.",
+              "description": "Retailer key: the same value as `retailer` in every response. Each host has its own: www.prijsprofeet.nl: `albert_heijn`, `jumbo`, `aldi`, `lidl`, `ekoplaza`, `plus`, `poiesz`, `spar`, `nettorama`, `boni`, `coop`, `gewoon_coop`, `mcd`, `boons_markt`, `dagwinkel`, `amazing_oriental`, `dekamarkt`, `hoogvliet`, `vomar`, `dirk`; www.prijsprofeet.be: `delhaize`, `albert_heijn_be`, `colruyt`, `carrefour`, `aldi_be`, `lidl_be`, `jumbo_be`.",
               "title": "Retailer"
             },
-            "description": "Retailer key: the same value as `retailer` in every response. Each host has its own: www.prijsprofeet.nl: `albert_heijn`, `jumbo`, `aldi`, `lidl`, `ekoplaza`, `plus`, `poiesz`, `spar`, `nettorama`, `boni`, `coop`, `gewoon_coop`, `mcd`, `boons_markt`, `dagwinkel`, `dekamarkt`, `hoogvliet`, `vomar`, `dirk`; www.prijsprofeet.be: `delhaize`, `albert_heijn_be`, `colruyt`, `carrefour`, `aldi_be`, `lidl_be`, `jumbo_be`."
+            "description": "Retailer key: the same value as `retailer` in every response. Each host has its own: www.prijsprofeet.nl: `albert_heijn`, `jumbo`, `aldi`, `lidl`, `ekoplaza`, `plus`, `poiesz`, `spar`, `nettorama`, `boni`, `coop`, `gewoon_coop`, `mcd`, `boons_markt`, `dagwinkel`, `amazing_oriental`, `dekamarkt`, `hoogvliet`, `vomar`, `dirk`; www.prijsprofeet.be: `delhaize`, `albert_heijn_be`, `colruyt`, `carrefour`, `aldi_be`, `lidl_be`, `jumbo_be`."
           },
           {
             "name": "limit",
@@ -558,10 +558,10 @@
                   "type": "null"
                 }
               ],
-              "description": "Retailer key: the same value as `retailer` in every response. Each host has its own: www.prijsprofeet.nl: `albert_heijn`, `jumbo`, `aldi`, `lidl`, `ekoplaza`, `plus`, `poiesz`, `spar`, `nettorama`, `boni`, `coop`, `gewoon_coop`, `mcd`, `boons_markt`, `dagwinkel`, `dekamarkt`, `hoogvliet`, `vomar`, `dirk`; www.prijsprofeet.be: `delhaize`, `albert_heijn_be`, `colruyt`, `carrefour`, `aldi_be`, `lidl_be`, `jumbo_be`.",
+              "description": "Retailer key: the same value as `retailer` in every response. Each host has its own: www.prijsprofeet.nl: `albert_heijn`, `jumbo`, `aldi`, `lidl`, `ekoplaza`, `plus`, `poiesz`, `spar`, `nettorama`, `boni`, `coop`, `gewoon_coop`, `mcd`, `boons_markt`, `dagwinkel`, `amazing_oriental`, `dekamarkt`, `hoogvliet`, `vomar`, `dirk`; www.prijsprofeet.be: `delhaize`, `albert_heijn_be`, `colruyt`, `carrefour`, `aldi_be`, `lidl_be`, `jumbo_be`.",
               "title": "Retailer"
             },
-            "description": "Retailer key: the same value as `retailer` in every response. Each host has its own: www.prijsprofeet.nl: `albert_heijn`, `jumbo`, `aldi`, `lidl`, `ekoplaza`, `plus`, `poiesz`, `spar`, `nettorama`, `boni`, `coop`, `gewoon_coop`, `mcd`, `boons_markt`, `dagwinkel`, `dekamarkt`, `hoogvliet`, `vomar`, `dirk`; www.prijsprofeet.be: `delhaize`, `albert_heijn_be`, `colruyt`, `carrefour`, `aldi_be`, `lidl_be`, `jumbo_be`."
+            "description": "Retailer key: the same value as `retailer` in every response. Each host has its own: www.prijsprofeet.nl: `albert_heijn`, `jumbo`, `aldi`, `lidl`, `ekoplaza`, `plus`, `poiesz`, `spar`, `nettorama`, `boni`, `coop`, `gewoon_coop`, `mcd`, `boons_markt`, `dagwinkel`, `amazing_oriental`, `dekamarkt`, `hoogvliet`, `vomar`, `dirk`; www.prijsprofeet.be: `delhaize`, `albert_heijn_be`, `colruyt`, `carrefour`, `aldi_be`, `lidl_be`, `jumbo_be`."
           },
           {
             "name": "page",
@@ -712,10 +712,10 @@
             "required": true,
             "schema": {
               "type": "string",
-              "description": "Retailer key: the same value as `retailer` in every response. Each host has its own: www.prijsprofeet.nl: `albert_heijn`, `jumbo`, `aldi`, `lidl`, `ekoplaza`, `plus`, `poiesz`, `spar`, `nettorama`, `boni`, `coop`, `gewoon_coop`, `mcd`, `boons_markt`, `dagwinkel`, `dekamarkt`, `hoogvliet`, `vomar`, `dirk`; www.prijsprofeet.be: `delhaize`, `albert_heijn_be`, `colruyt`, `carrefour`, `aldi_be`, `lidl_be`, `jumbo_be`.",
+              "description": "Retailer key: the same value as `retailer` in every response. Each host has its own: www.prijsprofeet.nl: `albert_heijn`, `jumbo`, `aldi`, `lidl`, `ekoplaza`, `plus`, `poiesz`, `spar`, `nettorama`, `boni`, `coop`, `gewoon_coop`, `mcd`, `boons_markt`, `dagwinkel`, `amazing_oriental`, `dekamarkt`, `hoogvliet`, `vomar`, `dirk`; www.prijsprofeet.be: `delhaize`, `albert_heijn_be`, `colruyt`, `carrefour`, `aldi_be`, `lidl_be`, `jumbo_be`.",
               "title": "Retailer"
             },
-            "description": "Retailer key: the same value as `retailer` in every response. Each host has its own: www.prijsprofeet.nl: `albert_heijn`, `jumbo`, `aldi`, `lidl`, `ekoplaza`, `plus`, `poiesz`, `spar`, `nettorama`, `boni`, `coop`, `gewoon_coop`, `mcd`, `boons_markt`, `dagwinkel`, `dekamarkt`, `hoogvliet`, `vomar`, `dirk`; www.prijsprofeet.be: `delhaize`, `albert_heijn_be`, `colruyt`, `carrefour`, `aldi_be`, `lidl_be`, `jumbo_be`."
+            "description": "Retailer key: the same value as `retailer` in every response. Each host has its own: www.prijsprofeet.nl: `albert_heijn`, `jumbo`, `aldi`, `lidl`, `ekoplaza`, `plus`, `poiesz`, `spar`, `nettorama`, `boni`, `coop`, `gewoon_coop`, `mcd`, `boons_markt`, `dagwinkel`, `amazing_oriental`, `dekamarkt`, `hoogvliet`, `vomar`, `dirk`; www.prijsprofeet.be: `delhaize`, `albert_heijn_be`, `colruyt`, `carrefour`, `aldi_be`, `lidl_be`, `jumbo_be`."
           },
           {
             "name": "page",
@@ -797,10 +797,10 @@
                   "type": "null"
                 }
               ],
-              "description": "Retailer key: the same value as `retailer` in every response. Each host has its own: www.prijsprofeet.nl: `albert_heijn`, `jumbo`, `aldi`, `lidl`, `ekoplaza`, `plus`, `poiesz`, `spar`, `nettorama`, `boni`, `coop`, `gewoon_coop`, `mcd`, `boons_markt`, `dagwinkel`, `dekamarkt`, `hoogvliet`, `vomar`, `dirk`; www.prijsprofeet.be: `delhaize`, `albert_heijn_be`, `colruyt`, `carrefour`, `aldi_be`, `lidl_be`, `jumbo_be`.",
+              "description": "Retailer key: the same value as `retailer` in every response. Each host has its own: www.prijsprofeet.nl: `albert_heijn`, `jumbo`, `aldi`, `lidl`, `ekoplaza`, `plus`, `poiesz`, `spar`, `nettorama`, `boni`, `coop`, `gewoon_coop`, `mcd`, `boons_markt`, `dagwinkel`, `amazing_oriental`, `dekamarkt`, `hoogvliet`, `vomar`, `dirk`; www.prijsprofeet.be: `delhaize`, `albert_heijn_be`, `colruyt`, `carrefour`, `aldi_be`, `lidl_be`, `jumbo_be`.",
               "title": "Retailer"
             },
-            "description": "Retailer key: the same value as `retailer` in every response. Each host has its own: www.prijsprofeet.nl: `albert_heijn`, `jumbo`, `aldi`, `lidl`, `ekoplaza`, `plus`, `poiesz`, `spar`, `nettorama`, `boni`, `coop`, `gewoon_coop`, `mcd`, `boons_markt`, `dagwinkel`, `dekamarkt`, `hoogvliet`, `vomar`, `dirk`; www.prijsprofeet.be: `delhaize`, `albert_heijn_be`, `colruyt`, `carrefour`, `aldi_be`, `lidl_be`, `jumbo_be`."
+            "description": "Retailer key: the same value as `retailer` in every response. Each host has its own: www.prijsprofeet.nl: `albert_heijn`, `jumbo`, `aldi`, `lidl`, `ekoplaza`, `plus`, `poiesz`, `spar`, `nettorama`, `boni`, `coop`, `gewoon_coop`, `mcd`, `boons_markt`, `dagwinkel`, `amazing_oriental`, `dekamarkt`, `hoogvliet`, `vomar`, `dirk`; www.prijsprofeet.be: `delhaize`, `albert_heijn_be`, `colruyt`, `carrefour`, `aldi_be`, `lidl_be`, `jumbo_be`."
           },
           {
             "name": "min_valid_from",
@@ -937,10 +937,10 @@
                   "type": "null"
                 }
               ],
-              "description": "Retailer key: the same value as `retailer` in every response. Each host has its own: www.prijsprofeet.nl: `albert_heijn`, `jumbo`, `aldi`, `lidl`, `ekoplaza`, `plus`, `poiesz`, `spar`, `nettorama`, `boni`, `coop`, `gewoon_coop`, `mcd`, `boons_markt`, `dagwinkel`, `dekamarkt`, `hoogvliet`, `vomar`, `dirk`; www.prijsprofeet.be: `delhaize`, `albert_heijn_be`, `colruyt`, `carrefour`, `aldi_be`, `lidl_be`, `jumbo_be`. Several at once: comma-separated.",
+              "description": "Retailer key: the same value as `retailer` in every response. Each host has its own: www.prijsprofeet.nl: `albert_heijn`, `jumbo`, `aldi`, `lidl`, `ekoplaza`, `plus`, `poiesz`, `spar`, `nettorama`, `boni`, `coop`, `gewoon_coop`, `mcd`, `boons_markt`, `dagwinkel`, `amazing_oriental`, `dekamarkt`, `hoogvliet`, `vomar`, `dirk`; www.prijsprofeet.be: `delhaize`, `albert_heijn_be`, `colruyt`, `carrefour`, `aldi_be`, `lidl_be`, `jumbo_be`. Several at once: comma-separated.",
               "title": "Retailer"
             },
-            "description": "Retailer key: the same value as `retailer` in every response. Each host has its own: www.prijsprofeet.nl: `albert_heijn`, `jumbo`, `aldi`, `lidl`, `ekoplaza`, `plus`, `poiesz`, `spar`, `nettorama`, `boni`, `coop`, `gewoon_coop`, `mcd`, `boons_markt`, `dagwinkel`, `dekamarkt`, `hoogvliet`, `vomar`, `dirk`; www.prijsprofeet.be: `delhaize`, `albert_heijn_be`, `colruyt`, `carrefour`, `aldi_be`, `lidl_be`, `jumbo_be`. Several at once: comma-separated."
+            "description": "Retailer key: the same value as `retailer` in every response. Each host has its own: www.prijsprofeet.nl: `albert_heijn`, `jumbo`, `aldi`, `lidl`, `ekoplaza`, `plus`, `poiesz`, `spar`, `nettorama`, `boni`, `coop`, `gewoon_coop`, `mcd`, `boons_markt`, `dagwinkel`, `amazing_oriental`, `dekamarkt`, `hoogvliet`, `vomar`, `dirk`; www.prijsprofeet.be: `delhaize`, `albert_heijn_be`, `colruyt`, `carrefour`, `aldi_be`, `lidl_be`, `jumbo_be`. Several at once: comma-separated."
           },
           {
             "name": "category",
@@ -1262,10 +1262,10 @@
                   "type": "null"
                 }
               ],
-              "description": "Retailer key: the same value as `retailer` in every response. Each host has its own: www.prijsprofeet.nl: `albert_heijn`, `jumbo`, `aldi`, `lidl`, `ekoplaza`, `plus`, `poiesz`, `spar`, `nettorama`, `boni`, `coop`, `gewoon_coop`, `mcd`, `boons_markt`, `dagwinkel`, `dekamarkt`, `hoogvliet`, `vomar`, `dirk`; www.prijsprofeet.be: `delhaize`, `albert_heijn_be`, `colruyt`, `carrefour`, `aldi_be`, `lidl_be`, `jumbo_be`.",
+              "description": "Retailer key: the same value as `retailer` in every response. Each host has its own: www.prijsprofeet.nl: `albert_heijn`, `jumbo`, `aldi`, `lidl`, `ekoplaza`, `plus`, `poiesz`, `spar`, `nettorama`, `boni`, `coop`, `gewoon_coop`, `mcd`, `boons_markt`, `dagwinkel`, `amazing_oriental`, `dekamarkt`, `hoogvliet`, `vomar`, `dirk`; www.prijsprofeet.be: `delhaize`, `albert_heijn_be`, `colruyt`, `carrefour`, `aldi_be`, `lidl_be`, `jumbo_be`.",
               "title": "Retailer"
             },
-            "description": "Retailer key: the same value as `retailer` in every response. Each host has its own: www.prijsprofeet.nl: `albert_heijn`, `jumbo`, `aldi`, `lidl`, `ekoplaza`, `plus`, `poiesz`, `spar`, `nettorama`, `boni`, `coop`, `gewoon_coop`, `mcd`, `boons_markt`, `dagwinkel`, `dekamarkt`, `hoogvliet`, `vomar`, `dirk`; www.prijsprofeet.be: `delhaize`, `albert_heijn_be`, `colruyt`, `carrefour`, `aldi_be`, `lidl_be`, `jumbo_be`."
+            "description": "Retailer key: the same value as `retailer` in every response. Each host has its own: www.prijsprofeet.nl: `albert_heijn`, `jumbo`, `aldi`, `lidl`, `ekoplaza`, `plus`, `poiesz`, `spar`, `nettorama`, `boni`, `coop`, `gewoon_coop`, `mcd`, `boons_markt`, `dagwinkel`, `amazing_oriental`, `dekamarkt`, `hoogvliet`, `vomar`, `dirk`; www.prijsprofeet.be: `delhaize`, `albert_heijn_be`, `colruyt`, `carrefour`, `aldi_be`, `lidl_be`, `jumbo_be`."
           },
           {
             "name": "category",
@@ -1682,10 +1682,10 @@
                   "type": "null"
                 }
               ],
-              "description": "Retailer key: the same value as `retailer` in every response. Each host has its own: www.prijsprofeet.nl: `albert_heijn`, `jumbo`, `aldi`, `lidl`, `ekoplaza`, `plus`, `poiesz`, `spar`, `nettorama`, `boni`, `coop`, `gewoon_coop`, `mcd`, `boons_markt`, `dagwinkel`, `dekamarkt`, `hoogvliet`, `vomar`, `dirk`; www.prijsprofeet.be: `delhaize`, `albert_heijn_be`, `colruyt`, `carrefour`, `aldi_be`, `lidl_be`, `jumbo_be`.",
+              "description": "Retailer key: the same value as `retailer` in every response. Each host has its own: www.prijsprofeet.nl: `albert_heijn`, `jumbo`, `aldi`, `lidl`, `ekoplaza`, `plus`, `poiesz`, `spar`, `nettorama`, `boni`, `coop`, `gewoon_coop`, `mcd`, `boons_markt`, `dagwinkel`, `amazing_oriental`, `dekamarkt`, `hoogvliet`, `vomar`, `dirk`; www.prijsprofeet.be: `delhaize`, `albert_heijn_be`, `colruyt`, `carrefour`, `aldi_be`, `lidl_be`, `jumbo_be`.",
               "title": "Retailer"
             },
-            "description": "Retailer key: the same value as `retailer` in every response. Each host has its own: www.prijsprofeet.nl: `albert_heijn`, `jumbo`, `aldi`, `lidl`, `ekoplaza`, `plus`, `poiesz`, `spar`, `nettorama`, `boni`, `coop`, `gewoon_coop`, `mcd`, `boons_markt`, `dagwinkel`, `dekamarkt`, `hoogvliet`, `vomar`, `dirk`; www.prijsprofeet.be: `delhaize`, `albert_heijn_be`, `colruyt`, `carrefour`, `aldi_be`, `lidl_be`, `jumbo_be`."
+            "description": "Retailer key: the same value as `retailer` in every response. Each host has its own: www.prijsprofeet.nl: `albert_heijn`, `jumbo`, `aldi`, `lidl`, `ekoplaza`, `plus`, `poiesz`, `spar`, `nettorama`, `boni`, `coop`, `gewoon_coop`, `mcd`, `boons_markt`, `dagwinkel`, `amazing_oriental`, `dekamarkt`, `hoogvliet`, `vomar`, `dirk`; www.prijsprofeet.be: `delhaize`, `albert_heijn_be`, `colruyt`, `carrefour`, `aldi_be`, `lidl_be`, `jumbo_be`."
           },
           {
             "name": "page",
@@ -1766,10 +1766,10 @@
                   "type": "null"
                 }
               ],
-              "description": "Retailer key: the same value as `retailer` in every response. Each host has its own: www.prijsprofeet.nl: `albert_heijn`, `jumbo`, `aldi`, `lidl`, `ekoplaza`, `plus`, `poiesz`, `spar`, `nettorama`, `boni`, `coop`, `gewoon_coop`, `mcd`, `boons_markt`, `dagwinkel`, `dekamarkt`, `hoogvliet`, `vomar`, `dirk`; www.prijsprofeet.be: `delhaize`, `albert_heijn_be`, `colruyt`, `carrefour`, `aldi_be`, `lidl_be`, `jumbo_be`.",
+              "description": "Retailer key: the same value as `retailer` in every response. Each host has its own: www.prijsprofeet.nl: `albert_heijn`, `jumbo`, `aldi`, `lidl`, `ekoplaza`, `plus`, `poiesz`, `spar`, `nettorama`, `boni`, `coop`, `gewoon_coop`, `mcd`, `boons_markt`, `dagwinkel`, `amazing_oriental`, `dekamarkt`, `hoogvliet`, `vomar`, `dirk`; www.prijsprofeet.be: `delhaize`, `albert_heijn_be`, `colruyt`, `carrefour`, `aldi_be`, `lidl_be`, `jumbo_be`.",
               "title": "Retailer"
             },
-            "description": "Retailer key: the same value as `retailer` in every response. Each host has its own: www.prijsprofeet.nl: `albert_heijn`, `jumbo`, `aldi`, `lidl`, `ekoplaza`, `plus`, `poiesz`, `spar`, `nettorama`, `boni`, `coop`, `gewoon_coop`, `mcd`, `boons_markt`, `dagwinkel`, `dekamarkt`, `hoogvliet`, `vomar`, `dirk`; www.prijsprofeet.be: `delhaize`, `albert_heijn_be`, `colruyt`, `carrefour`, `aldi_be`, `lidl_be`, `jumbo_be`."
+            "description": "Retailer key: the same value as `retailer` in every response. Each host has its own: www.prijsprofeet.nl: `albert_heijn`, `jumbo`, `aldi`, `lidl`, `ekoplaza`, `plus`, `poiesz`, `spar`, `nettorama`, `boni`, `coop`, `gewoon_coop`, `mcd`, `boons_markt`, `dagwinkel`, `amazing_oriental`, `dekamarkt`, `hoogvliet`, `vomar`, `dirk`; www.prijsprofeet.be: `delhaize`, `albert_heijn_be`, `colruyt`, `carrefour`, `aldi_be`, `lidl_be`, `jumbo_be`."
           },
           {
             "name": "shelf_id",
@@ -1901,10 +1901,10 @@
                   "type": "null"
                 }
               ],
-              "description": "Retailer key: the same value as `retailer` in every response. Each host has its own: www.prijsprofeet.nl: `albert_heijn`, `jumbo`, `aldi`, `lidl`, `ekoplaza`, `plus`, `poiesz`, `spar`, `nettorama`, `boni`, `coop`, `gewoon_coop`, `mcd`, `boons_markt`, `dagwinkel`, `dekamarkt`, `hoogvliet`, `vomar`, `dirk`; www.prijsprofeet.be: `delhaize`, `albert_heijn_be`, `colruyt`, `carrefour`, `aldi_be`, `lidl_be`, `jumbo_be`.",
+              "description": "Retailer key: the same value as `retailer` in every response. Each host has its own: www.prijsprofeet.nl: `albert_heijn`, `jumbo`, `aldi`, `lidl`, `ekoplaza`, `plus`, `poiesz`, `spar`, `nettorama`, `boni`, `coop`, `gewoon_coop`, `mcd`, `boons_markt`, `dagwinkel`, `amazing_oriental`, `dekamarkt`, `hoogvliet`, `vomar`, `dirk`; www.prijsprofeet.be: `delhaize`, `albert_heijn_be`, `colruyt`, `carrefour`, `aldi_be`, `lidl_be`, `jumbo_be`.",
               "title": "Retailer"
             },
-            "description": "Retailer key: the same value as `retailer` in every response. Each host has its own: www.prijsprofeet.nl: `albert_heijn`, `jumbo`, `aldi`, `lidl`, `ekoplaza`, `plus`, `poiesz`, `spar`, `nettorama`, `boni`, `coop`, `gewoon_coop`, `mcd`, `boons_markt`, `dagwinkel`, `dekamarkt`, `hoogvliet`, `vomar`, `dirk`; www.prijsprofeet.be: `delhaize`, `albert_heijn_be`, `colruyt`, `carrefour`, `aldi_be`, `lidl_be`, `jumbo_be`."
+            "description": "Retailer key: the same value as `retailer` in every response. Each host has its own: www.prijsprofeet.nl: `albert_heijn`, `jumbo`, `aldi`, `lidl`, `ekoplaza`, `plus`, `poiesz`, `spar`, `nettorama`, `boni`, `coop`, `gewoon_coop`, `mcd`, `boons_markt`, `dagwinkel`, `amazing_oriental`, `dekamarkt`, `hoogvliet`, `vomar`, `dirk`; www.prijsprofeet.be: `delhaize`, `albert_heijn_be`, `colruyt`, `carrefour`, `aldi_be`, `lidl_be`, `jumbo_be`."
           },
           {
             "name": "shelf_id",
@@ -2049,10 +2049,10 @@
                   "type": "null"
                 }
               ],
-              "description": "Retailer key: the same value as `retailer` in every response. Each host has its own: www.prijsprofeet.nl: `albert_heijn`, `jumbo`, `aldi`, `lidl`, `ekoplaza`, `plus`, `poiesz`, `spar`, `nettorama`, `boni`, `coop`, `gewoon_coop`, `mcd`, `boons_markt`, `dagwinkel`, `dekamarkt`, `hoogvliet`, `vomar`, `dirk`; www.prijsprofeet.be: `delhaize`, `albert_heijn_be`, `colruyt`, `carrefour`, `aldi_be`, `lidl_be`, `jumbo_be`. Repeat the parameter to pass several: `?retailer=albert_heijn&retailer=jumbo`. Hyphenated keys (`albert-heijn`) are accepted too.",
+              "description": "Retailer key: the same value as `retailer` in every response. Each host has its own: www.prijsprofeet.nl: `albert_heijn`, `jumbo`, `aldi`, `lidl`, `ekoplaza`, `plus`, `poiesz`, `spar`, `nettorama`, `boni`, `coop`, `gewoon_coop`, `mcd`, `boons_markt`, `dagwinkel`, `amazing_oriental`, `dekamarkt`, `hoogvliet`, `vomar`, `dirk`; www.prijsprofeet.be: `delhaize`, `albert_heijn_be`, `colruyt`, `carrefour`, `aldi_be`, `lidl_be`, `jumbo_be`. Repeat the parameter to pass several: `?retailer=albert_heijn&retailer=jumbo`. Hyphenated keys (`albert-heijn`) are accepted too.",
               "title": "Retailer"
             },
-            "description": "Retailer key: the same value as `retailer` in every response. Each host has its own: www.prijsprofeet.nl: `albert_heijn`, `jumbo`, `aldi`, `lidl`, `ekoplaza`, `plus`, `poiesz`, `spar`, `nettorama`, `boni`, `coop`, `gewoon_coop`, `mcd`, `boons_markt`, `dagwinkel`, `dekamarkt`, `hoogvliet`, `vomar`, `dirk`; www.prijsprofeet.be: `delhaize`, `albert_heijn_be`, `colruyt`, `carrefour`, `aldi_be`, `lidl_be`, `jumbo_be`. Repeat the parameter to pass several: `?retailer=albert_heijn&retailer=jumbo`. Hyphenated keys (`albert-heijn`) are accepted too."
+            "description": "Retailer key: the same value as `retailer` in every response. Each host has its own: www.prijsprofeet.nl: `albert_heijn`, `jumbo`, `aldi`, `lidl`, `ekoplaza`, `plus`, `poiesz`, `spar`, `nettorama`, `boni`, `coop`, `gewoon_coop`, `mcd`, `boons_markt`, `dagwinkel`, `amazing_oriental`, `dekamarkt`, `hoogvliet`, `vomar`, `dirk`; www.prijsprofeet.be: `delhaize`, `albert_heijn_be`, `colruyt`, `carrefour`, `aldi_be`, `lidl_be`, `jumbo_be`. Repeat the parameter to pass several: `?retailer=albert_heijn&retailer=jumbo`. Hyphenated keys (`albert-heijn`) are accepted too."
           }
         ],
         "responses": {
@@ -2234,10 +2234,10 @@
                   "type": "null"
                 }
               ],
-              "description": "Retailer key: the same value as `retailer` in every response. Each host has its own: www.prijsprofeet.nl: `albert_heijn`, `jumbo`, `aldi`, `lidl`, `ekoplaza`, `plus`, `poiesz`, `spar`, `nettorama`, `boni`, `coop`, `gewoon_coop`, `mcd`, `boons_markt`, `dagwinkel`, `dekamarkt`, `hoogvliet`, `vomar`, `dirk`; www.prijsprofeet.be: `delhaize`, `albert_heijn_be`, `colruyt`, `carrefour`, `aldi_be`, `lidl_be`, `jumbo_be`. Repeat the parameter to pass several, like `/deals/top`.",
+              "description": "Retailer key: the same value as `retailer` in every response. Each host has its own: www.prijsprofeet.nl: `albert_heijn`, `jumbo`, `aldi`, `lidl`, `ekoplaza`, `plus`, `poiesz`, `spar`, `nettorama`, `boni`, `coop`, `gewoon_coop`, `mcd`, `boons_markt`, `dagwinkel`, `amazing_oriental`, `dekamarkt`, `hoogvliet`, `vomar`, `dirk`; www.prijsprofeet.be: `delhaize`, `albert_heijn_be`, `colruyt`, `carrefour`, `aldi_be`, `lidl_be`, `jumbo_be`. Repeat the parameter to pass several, like `/deals/top`.",
               "title": "Retailer"
             },
-            "description": "Retailer key: the same value as `retailer` in every response. Each host has its own: www.prijsprofeet.nl: `albert_heijn`, `jumbo`, `aldi`, `lidl`, `ekoplaza`, `plus`, `poiesz`, `spar`, `nettorama`, `boni`, `coop`, `gewoon_coop`, `mcd`, `boons_markt`, `dagwinkel`, `dekamarkt`, `hoogvliet`, `vomar`, `dirk`; www.prijsprofeet.be: `delhaize`, `albert_heijn_be`, `colruyt`, `carrefour`, `aldi_be`, `lidl_be`, `jumbo_be`. Repeat the parameter to pass several, like `/deals/top`."
+            "description": "Retailer key: the same value as `retailer` in every response. Each host has its own: www.prijsprofeet.nl: `albert_heijn`, `jumbo`, `aldi`, `lidl`, `ekoplaza`, `plus`, `poiesz`, `spar`, `nettorama`, `boni`, `coop`, `gewoon_coop`, `mcd`, `boons_markt`, `dagwinkel`, `amazing_oriental`, `dekamarkt`, `hoogvliet`, `vomar`, `dirk`; www.prijsprofeet.be: `delhaize`, `albert_heijn_be`, `colruyt`, `carrefour`, `aldi_be`, `lidl_be`, `jumbo_be`. Repeat the parameter to pass several, like `/deals/top`."
           }
         ],
         "responses": {
@@ -2316,10 +2316,10 @@
                   "type": "null"
                 }
               ],
-              "description": "Retailer key: the same value as `retailer` in every response. Each host has its own: www.prijsprofeet.nl: `albert_heijn`, `jumbo`, `aldi`, `lidl`, `ekoplaza`, `plus`, `poiesz`, `spar`, `nettorama`, `boni`, `coop`, `gewoon_coop`, `mcd`, `boons_markt`, `dagwinkel`, `dekamarkt`, `hoogvliet`, `vomar`, `dirk`; www.prijsprofeet.be: `delhaize`, `albert_heijn_be`, `colruyt`, `carrefour`, `aldi_be`, `lidl_be`, `jumbo_be`. Repeat the parameter to pass several, like `/deals/top`.",
+              "description": "Retailer key: the same value as `retailer` in every response. Each host has its own: www.prijsprofeet.nl: `albert_heijn`, `jumbo`, `aldi`, `lidl`, `ekoplaza`, `plus`, `poiesz`, `spar`, `nettorama`, `boni`, `coop`, `gewoon_coop`, `mcd`, `boons_markt`, `dagwinkel`, `amazing_oriental`, `dekamarkt`, `hoogvliet`, `vomar`, `dirk`; www.prijsprofeet.be: `delhaize`, `albert_heijn_be`, `colruyt`, `carrefour`, `aldi_be`, `lidl_be`, `jumbo_be`. Repeat the parameter to pass several, like `/deals/top`.",
               "title": "Retailer"
             },
-            "description": "Retailer key: the same value as `retailer` in every response. Each host has its own: www.prijsprofeet.nl: `albert_heijn`, `jumbo`, `aldi`, `lidl`, `ekoplaza`, `plus`, `poiesz`, `spar`, `nettorama`, `boni`, `coop`, `gewoon_coop`, `mcd`, `boons_markt`, `dagwinkel`, `dekamarkt`, `hoogvliet`, `vomar`, `dirk`; www.prijsprofeet.be: `delhaize`, `albert_heijn_be`, `colruyt`, `carrefour`, `aldi_be`, `lidl_be`, `jumbo_be`. Repeat the parameter to pass several, like `/deals/top`."
+            "description": "Retailer key: the same value as `retailer` in every response. Each host has its own: www.prijsprofeet.nl: `albert_heijn`, `jumbo`, `aldi`, `lidl`, `ekoplaza`, `plus`, `poiesz`, `spar`, `nettorama`, `boni`, `coop`, `gewoon_coop`, `mcd`, `boons_markt`, `dagwinkel`, `amazing_oriental`, `dekamarkt`, `hoogvliet`, `vomar`, `dirk`; www.prijsprofeet.be: `delhaize`, `albert_heijn_be`, `colruyt`, `carrefour`, `aldi_be`, `lidl_be`, `jumbo_be`. Repeat the parameter to pass several, like `/deals/top`."
           }
         ],
         "responses": {
@@ -2387,10 +2387,10 @@
                   "type": "null"
                 }
               ],
-              "description": "Retailer key: the same value as `retailer` in every response. Each host has its own: www.prijsprofeet.nl: `albert_heijn`, `jumbo`, `aldi`, `lidl`, `ekoplaza`, `plus`, `poiesz`, `spar`, `nettorama`, `boni`, `coop`, `gewoon_coop`, `mcd`, `boons_markt`, `dagwinkel`, `dekamarkt`, `hoogvliet`, `vomar`, `dirk`; www.prijsprofeet.be: `delhaize`, `albert_heijn_be`, `colruyt`, `carrefour`, `aldi_be`, `lidl_be`, `jumbo_be`. Repeat the parameter to pass several, like `/deals/top`.",
+              "description": "Retailer key: the same value as `retailer` in every response. Each host has its own: www.prijsprofeet.nl: `albert_heijn`, `jumbo`, `aldi`, `lidl`, `ekoplaza`, `plus`, `poiesz`, `spar`, `nettorama`, `boni`, `coop`, `gewoon_coop`, `mcd`, `boons_markt`, `dagwinkel`, `amazing_oriental`, `dekamarkt`, `hoogvliet`, `vomar`, `dirk`; www.prijsprofeet.be: `delhaize`, `albert_heijn_be`, `colruyt`, `carrefour`, `aldi_be`, `lidl_be`, `jumbo_be`. Repeat the parameter to pass several, like `/deals/top`.",
               "title": "Retailer"
             },
-            "description": "Retailer key: the same value as `retailer` in every response. Each host has its own: www.prijsprofeet.nl: `albert_heijn`, `jumbo`, `aldi`, `lidl`, `ekoplaza`, `plus`, `poiesz`, `spar`, `nettorama`, `boni`, `coop`, `gewoon_coop`, `mcd`, `boons_markt`, `dagwinkel`, `dekamarkt`, `hoogvliet`, `vomar`, `dirk`; www.prijsprofeet.be: `delhaize`, `albert_heijn_be`, `colruyt`, `carrefour`, `aldi_be`, `lidl_be`, `jumbo_be`. Repeat the parameter to pass several, like `/deals/top`."
+            "description": "Retailer key: the same value as `retailer` in every response. Each host has its own: www.prijsprofeet.nl: `albert_heijn`, `jumbo`, `aldi`, `lidl`, `ekoplaza`, `plus`, `poiesz`, `spar`, `nettorama`, `boni`, `coop`, `gewoon_coop`, `mcd`, `boons_markt`, `dagwinkel`, `amazing_oriental`, `dekamarkt`, `hoogvliet`, `vomar`, `dirk`; www.prijsprofeet.be: `delhaize`, `albert_heijn_be`, `colruyt`, `carrefour`, `aldi_be`, `lidl_be`, `jumbo_be`. Repeat the parameter to pass several, like `/deals/top`."
           }
         ],
         "responses": {
