@@ -22,6 +22,20 @@ Nieuwe velden, nieuwe ketens en betere dekking rollen we zonder aankondiging uit
 aan** (art. 10 van de [API-voorwaarden](https://www.prijsprofeet.nl/api-voorwaarden)):
 per e-mail aan betalende afnemers én hier.
 
+## 2026-10-23 · Uitbreiding
+
+**`/shelf-prices` neemt een lijst EAN's, `price_changed_since` en `max_age_days`.**
+`ean` op `GET /api/v1/shelf-prices` neemt nu één EAN of er tot 100, gescheiden door
+komma's: je ververst je eigen producten met een paar aanroepen in plaats van één per
+product. `price_changed_since` (ISO 8601) geeft alleen rijen waarvan de prijs sindsdien
+veranderde, dus met `ean` haal je alleen op wat er in jouw lijst bewoog;
+`price_changed_at` beweegt alleen bij een echte prijswijziging. `max_age_days` (1 tot 60,
+standaard 60) laat rijen weg die we langer niet zagen, want een keten die SKU-id's
+vernieuwt laat de oude rij achter tot hij verloopt. Een ongeldige EAN in de lijst geeft een
+422 met die EAN. Een enkele `ean` werkt zoals voorheen; in de spec vervalt alleen de
+lengtebeperking op `ean`. Het blijft opvragen wat je product nodig heeft: alle EAN's
+langslopen is nog steeds het aflopen van de catalogus (art. 6 van de voorwaarden).
+
 ## 2026-10-20 (2) · Uitbreiding
 
 **Een keten erbij op `www.prijsprofeet.nl`: Amazing Oriental** (`amazing_oriental`), de

@@ -1627,7 +1627,7 @@
           "shelf-prices"
         ],
         "summary": "Search current regular (non-promotional) shelf prices",
-        "description": "Search the regular assortment by name and/or EAN, filtered by retailer: the price a retailer charges when a SKU is NOT on offer, including the many products that never are. `/match/*` only answers for an EAN you already hold; this is where you start without one.\n\n**Access.** Pro, Business or trial key in `X-API-Key`; a free key gets 403. Your plan's rate limit applies.\n\n**Filters.** Give at least one of `q`, `ean` or `retailer`. Without any, the endpoint pages through the whole collection, which is rarely what you want. `q` is matched as one phrase against the product name, case-insensitively. A phrase of 4+ characters matches anywhere in the name (`brood` finds `volkorenbrood`); a shorter one only as a whole word.\n\n**Order and paging.** Most recently observed first, then by `retailer` and `shelf_id`. The order is total, so paging with `page`/`page_size` returns every row exactly once while the data does not change. It changes nightly (roughly 01:00-02:30 Dutch time), so run a full sync outside that window. `total` is the number of matching rows.\n\n**Coverage.** Nine of the ten chains. Lidl publishes no regular prices and returns nothing. Aldi publishes no barcode, so `ean` is always null there: search by name. Ekoplaza's rows carry `ean: null` as well: the barcode costs a request per product, and Ekoplaza's organic range is almost never sold elsewhere. Prices are national per chain: there is no store level, and no loyalty-card or personal-offer prices. A row that has not been seen for 60 days drops out. See /api for the current breakdown per chain.\n\n**Freshness.** Current price only, not a history. `price_changed_at` says since when this price holds (regular prices move rarely, about 0.2% of SKUs a day); `last_seen` says when we last observed the row, normally last night. Responses are cached for up to an hour.",
+        "description": "Search the regular assortment by name and/or EAN, filtered by retailer: the price a retailer charges when a SKU is NOT on offer, including the many products that never are. `/match/*` only answers for an EAN you already hold; this is where you start without one.\n\n**Access.** Pro, Business or trial key in `X-API-Key`; a free key gets 403. Your plan's rate limit applies.\n\n**Filters.** Give at least one of `q`, `ean` or `retailer`. Without any, the endpoint pages through the whole collection, which is rarely what you want. `ean` takes one EAN or up to 100 separated by commas, so refreshing your own list of products takes a few requests instead of one per product. `price_changed_since` (ISO 8601) returns only rows whose price moved since then, so combined with `ean` you fetch just what changed in your own list. `max_age_days` (1-60, default 60) leaves out rows we have not seen for longer: a chain that reissues SKU ids leaves the old row behind until it expires. `q` is matched as one phrase against the product name, case-insensitively. A phrase of 4+ characters matches anywhere in the name (`brood` finds `volkorenbrood`); a shorter one only as a whole word.\n\n**Order and paging.** Most recently observed first, then by `retailer` and `shelf_id`. The order is total, so paging with `page`/`page_size` returns every row exactly once while the data does not change. It changes nightly (roughly 01:00-02:30 Dutch time), so run a full sync outside that window. `total` is the number of matching rows.\n\n**Coverage.** Nine of the ten chains. Lidl publishes no regular prices and returns nothing. Aldi publishes no barcode, so `ean` is always null there: search by name. Ekoplaza's rows carry `ean: null` as well: the barcode costs a request per product, and Ekoplaza's organic range is almost never sold elsewhere. Prices are national per chain: there is no store level, and no loyalty-card or personal-offer prices. A row that has not been seen for 60 days drops out. See /api for the current breakdown per chain.\n\n**Freshness.** Current price only, not a history. `price_changed_at` says since when this price holds (regular prices move rarely, about 0.2% of SKUs a day); `last_seen` says when we last observed the row, normally last night. Responses are cached for up to an hour.",
         "operationId": "search_shelf_prices_api_v1_shelf_prices_get",
         "parameters": [
           {
@@ -1656,18 +1656,16 @@
             "schema": {
               "anyOf": [
                 {
-                  "type": "string",
-                  "minLength": 8,
-                  "maxLength": 14
+                  "type": "string"
                 },
                 {
                   "type": "null"
                 }
               ],
-              "description": "Exact EAN/GTIN match",
+              "description": "Exact EAN/GTIN match: one EAN, or up to 100 separated by commas",
               "title": "Ean"
             },
-            "description": "Exact EAN/GTIN match"
+            "description": "Exact EAN/GTIN match: one EAN, or up to 100 separated by commas"
           },
           {
             "name": "retailer",
@@ -1686,6 +1684,39 @@
               "title": "Retailer"
             },
             "description": "Retailer key: the same value as `retailer` in every response. Each host has its own: www.prijsprofeet.nl: `albert_heijn`, `jumbo`, `aldi`, `lidl`, `ekoplaza`, `plus`, `poiesz`, `spar`, `nettorama`, `boni`, `coop`, `gewoon_coop`, `mcd`, `boons_markt`, `dagwinkel`, `amazing_oriental`, `dekamarkt`, `hoogvliet`, `vomar`, `dirk`; www.prijsprofeet.be: `delhaize`, `albert_heijn_be`, `colruyt`, `carrefour`, `aldi_be`, `lidl_be`, `jumbo_be`."
+          },
+          {
+            "name": "price_changed_since",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string",
+                  "format": "date-time"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "description": "Only rows whose price changed at or after this moment (ISO 8601; without a timezone it is read as UTC). `price_changed_at` moves on a real price change only, not on every nightly observation.",
+              "title": "Price Changed Since"
+            },
+            "description": "Only rows whose price changed at or after this moment (ISO 8601; without a timezone it is read as UTC). `price_changed_at` moves on a real price change only, not on every nightly observation."
+          },
+          {
+            "name": "max_age_days",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "maximum": 60,
+              "minimum": 1,
+              "description": "Leave out rows whose `last_seen` is older than this many days",
+              "default": 60,
+              "title": "Max Age Days"
+            },
+            "description": "Leave out rows whose `last_seen` is older than this many days"
           },
           {
             "name": "page",
