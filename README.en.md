@@ -25,7 +25,7 @@ Belgian promotions come from the same API with the same key at
 [Chains](#chains) · [Getting started](#getting-started) ·
 [Free, Pro and Business](#free-pro-and-business) ·
 [Which endpoint for which question](#which-endpoint-for-which-question) · [Limits](#limits) ·
-[User-Agent](#name-yourself-in-your-user-agent) · [OpenAPI](#openapi) · [MCP](#mcp-connector) · [Beta](#beta) ·
+[User-Agent](#name-yourself-in-your-user-agent) · [OpenAPI](#openapi) · [MCP](#mcp-connector) · [Datasets](#datasets) · [Beta](#beta) ·
 [Changes](#changes) · [Questions](#questions-and-problems) · [Terms](#terms)
 
 ## What this is — and what it isn't
@@ -264,6 +264,16 @@ key is the way.
 **Attribution.** Every answer carries a source line with a link; keep it when you show
 the answer to a user. The [API terms](https://www.prijsprofeet.nl/api-voorwaarden) apply
 here too.
+
+## Datasets
+
+Prefer a file over an API? The [PrijsProfeet Datasets](https://www.prijsprofeet.nl/en/datasets/)
+are fixed snapshots of our Dutch price data as CSV: shelf prices with every price change,
+and promotions with label and validity, with a datasheet and a licence. A dataset is a
+copy you may keep under the licence; the API gives access and asks you to delete the data
+when your plan ends ([terms](https://www.prijsprofeet.nl/api-voorwaarden)). There is a
+[free sample](https://www.prijsprofeet.nl/en/datasets/#voorbeeld) and a special rate for
+universities and research institutions.
 
 ## Beta
 

@@ -25,7 +25,7 @@ Belgische aanbiedingen haal je met dezelfde API en dezelfde key bij
 [Ketens](#ketens) · [Beginnen](#beginnen) ·
 [Gratis, Pro en Business](#gratis-pro-en-business) ·
 [Welk endpoint voor welke vraag](#welk-endpoint-voor-welke-vraag) · [Limieten](#limieten) ·
-[User-Agent](#noem-jezelf-in-je-user-agent) · [OpenAPI](#openapi) · [MCP](#mcp-connector) · [Bèta](#bèta) ·
+[User-Agent](#noem-jezelf-in-je-user-agent) · [OpenAPI](#openapi) · [MCP](#mcp-connector) · [Datasets](#datasets) · [Bèta](#bèta) ·
 [Wijzigingen](#wijzigingen) · [Vragen](#vragen-en-problemen) · [Voorwaarden](#voorwaarden)
 
 ## Wat dit is — en wat het niet is
@@ -266,6 +266,16 @@ is de API met een (gratis) key de weg.
 **Bronvermelding.** Elk antwoord bevat een bronregel met link; laat die staan als je
 het antwoord aan een gebruiker toont. De
 [API-voorwaarden](https://www.prijsprofeet.nl/api-voorwaarden) gelden ook hier.
+
+## Datasets
+
+Liever een bestand dan een API? De [PrijsProfeet Datasets](https://www.prijsprofeet.nl/datasets/)
+zijn vaste momentopnames van onze Nederlandse prijsdata als CSV: schapprijzen met elke
+prijswijziging, acties met label en geldigheid, met een datasheet en een licentie.
+Een dataset is een kopie die je onder de licentie mag bewaren; de API geeft toegang en
+vraagt je data te verwijderen als je plan stopt ([voorwaarden](https://www.prijsprofeet.nl/api-voorwaarden)).
+Er is een [gratis voorbeeld](https://www.prijsprofeet.nl/datasets/#voorbeeld) en een
+speciaal tarief voor universiteiten en onderzoeksinstellingen.
 
 ## Bèta
 
