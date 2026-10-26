@@ -22,6 +22,19 @@ Nieuwe velden, nieuwe ketens en betere dekking rollen we zonder aankondiging uit
 aan** (art. 10 van de [API-voorwaarden](https://www.prijsprofeet.nl/api-voorwaarden)):
 per e-mail aan betalende afnemers én hier.
 
+## 2026-10-26 · Uitbreiding
+
+**Nieuwe categorie: `maaltijden` (verse maaltijden).** `unified_category` op een rij kan
+nu ook `maaltijden` zijn: verse en kant-en-klare maaltijden, bowls en maaltijdsalades.
+Waar een keten een eigen maaltijdcategorie heeft, volgen we die; babyvoeding,
+maaltijdmixen en diepvriesmaaltijden houden hun categorie. `category=maaltijden` op
+`GET /api/v1/search` geeft alleen deze rijen, en `/api/v1/categories` telt ze mee.
+Broodbeleg-salades (eiersalade, Johma, tonijnsalade) staan nu bij `kaas` in plaats van
+verspreid over `groente-fruit` en `snoep-koek-chips`, en kooksauzen zoals Chicken Tonight
+bij `soepen-conserven-sauzen`. Op 26 oktober zijn ongeveer 530 van de ruim 20.000
+producten opnieuw ingedeeld; filter je zelf op `unified_category`, dan kunnen rijen van
+categorie wisselen.
+
 ## 2026-10-23 · Uitbreiding
 
 **`/shelf-prices` neemt een lijst EAN's, `price_changed_since` en `max_age_days`.**
