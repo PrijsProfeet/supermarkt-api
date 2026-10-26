@@ -25,7 +25,7 @@ Belgische aanbiedingen haal je met dezelfde API en dezelfde key bij
 [Ketens](#ketens) · [Beginnen](#beginnen) ·
 [Gratis, Pro en Business](#gratis-pro-en-business) ·
 [Welk endpoint voor welke vraag](#welk-endpoint-voor-welke-vraag) · [Limieten](#limieten) ·
-[User-Agent](#noem-jezelf-in-je-user-agent) · [OpenAPI](#openapi) · [MCP](#mcp-connector) · [Datasets](#datasets) · [Bèta](#bèta) ·
+[User-Agent](#noem-jezelf-in-je-user-agent) · [OpenAPI](#openapi) · [MCP](#mcp-connector) · [Datasets](#datasets) · [Bèta](#bèta) · [Datafouten melden](#datafouten-melden) ·
 [Wijzigingen](#wijzigingen) · [Vragen](#vragen-en-problemen) · [Voorwaarden](#voorwaarden)
 
 ## Wat dit is — en wat het niet is
@@ -286,8 +286,9 @@ zet je ze aan als dat nodig is, en geef je feedback. Nu in bèta:
 
 - [Melding na de nachtrun](#melding-na-de-nachtrun): één webhook per ochtend zodra de
   data van vannacht er staat.
-- [Datafouten melden](#datafouten-melden): laat je gebruikers een prijs of vergelijking
-  melden die niet klopt. Geen aanmelding nodig.
+
+[Datafouten melden](#datafouten-melden) zat tot 26 oktober 2026 ook in de bèta en is nu
+onderdeel van de gewone API.
 
 ### Melding na de nachtrun
 
@@ -344,7 +345,7 @@ bèta-artikel van versie 1.14 nu al: voor betaalde plannen gaat die versie ander
 13 november 2026 in, 30 dagen na de aankondiging
 ([art. 16](https://www.prijsprofeet.nl/api-voorwaarden)).
 
-### Datafouten melden
+## Datafouten melden
 
 Ziet een gebruiker van je app een prijs, verpakkingsmaat, naam of vergelijking die niet
 klopt, of loopt een actie niet meer? Laat hem dat bij ons melden: wij kunnen de bron
@@ -374,8 +375,8 @@ klopt nu) of `rejected` (geen fout gevonden), met `reported_at` en `resolved_at`
 het op bij de winkel waar je meldde. Met een key geeft `GET /api/v1/reports` al je eigen
 meldingen, nieuwste eerst.
 
-Voor iedereen, ook zonder key. De velden en hun waarden kunnen na echt gebruik nog
-veranderen; elke wijziging staat in [`CHANGELOG.md`](CHANGELOG.md).
+Voor iedereen, ook zonder key. Een breaking change aan deze routes kondigen we aan zoals
+bij elk ander endpoint (zie [Wijzigingen](#wijzigingen)).
 
 ## Wijzigingen
 

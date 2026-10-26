@@ -22,6 +22,13 @@ Nieuwe velden, nieuwe ketens en betere dekking rollen we zonder aankondiging uit
 aan** (art. 10 van de [API-voorwaarden](https://www.prijsprofeet.nl/api-voorwaarden)):
 per e-mail aan betalende afnemers én hier.
 
+## 2026-10-26 · Alleen documentatie
+
+**Datafouten melden is uit de bèta.** `POST /api/v1/reports`, `GET /api/v1/reports`,
+`GET /api/v1/reports/{id}` en het formulier `/melden/` zijn onderdeel van de gewone API.
+De velden, waarden en limieten zijn ongewijzigd; de beschrijving in de spec zegt niet meer
+"Beta". Een breaking change aan deze routes kondigen we voortaan aan volgens art. 10.
+
 ## 2026-10-26 · Uitbreiding
 
 **Nieuwe categorie: `maaltijden` (verse maaltijden).** `unified_category` op een rij kan
