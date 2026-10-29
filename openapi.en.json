@@ -4358,19 +4358,6 @@
             ],
             "title": "Name"
           },
-          "title": {
-            "anyOf": [
-              {
-                "type": "string"
-              },
-              {
-                "type": "null"
-              }
-            ],
-            "title": "Title",
-            "description": "Always `null`: this field is never filled on this route. Will be removed on or after 29 October 2026.",
-            "deprecated": true
-          },
           "brand": {
             "anyOf": [
               {
@@ -4530,35 +4517,6 @@
               }
             ],
             "title": "Promotional Keywords"
-          },
-          "promotional_labels": {
-            "anyOf": [
-              {
-                "items": {
-                  "type": "string"
-                },
-                "type": "array"
-              },
-              {
-                "type": "null"
-              }
-            ],
-            "title": "Promotional Labels",
-            "description": "Always `null`: this field is never filled on this route. Will be removed on or after 29 October 2026.",
-            "deprecated": true
-          },
-          "promotion": {
-            "anyOf": [
-              {
-                "type": "string"
-              },
-              {
-                "type": "null"
-              }
-            ],
-            "title": "Promotion",
-            "description": "Always `null`: this field is never filled on this route. Will be removed on or after 29 October 2026.",
-            "deprecated": true
           },
           "promotion_status": {
             "anyOf": [
@@ -4759,32 +4717,6 @@
           "score": {
             "type": "number",
             "title": "Score"
-          },
-          "match_type": {
-            "anyOf": [
-              {
-                "type": "string"
-              },
-              {
-                "type": "null"
-              }
-            ],
-            "title": "Match Type",
-            "description": "Always `null`: this field is never filled on this route. Will be removed on or after 29 October 2026.",
-            "deprecated": true
-          },
-          "match_confidence": {
-            "anyOf": [
-              {
-                "type": "number"
-              },
-              {
-                "type": "null"
-              }
-            ],
-            "title": "Match Confidence",
-            "description": "Always `null`: this field is never filled on this route. Will be removed on or after 29 October 2026.",
-            "deprecated": true
           }
         },
         "type": "object",

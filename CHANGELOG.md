@@ -22,6 +22,14 @@ Nieuwe velden, nieuwe ketens en betere dekking rollen we zonder aankondiging uit
 aan** (art. 10 van de [API-voorwaarden](https://www.prijsprofeet.nl/api-voorwaarden)):
 per e-mail aan betalende afnemers én hier.
 
+## 2026-10-29 · Actie nodig
+
+**Verwijderd: vijf altijd-lege velden uit `/search`.** Zoals aangekondigd op 28 september
+zijn `title`, `promotion`, `promotional_labels`, `match_type` en `match_confidence`
+verwijderd uit `GET /api/v1/search` en de OpenAPI-specificaties. Ze droegen altijd `null`;
+de sleutels worden nu weggelaten. Gebruik `promotional_keywords` voor de actietekst en
+`promotion_type` voor het mechanisme.
+
 ## 2026-10-26 · Alleen documentatie
 
 **Datafouten melden is uit de bèta.** `POST /api/v1/reports`, `GET /api/v1/reports`,

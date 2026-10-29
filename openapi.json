@@ -4358,19 +4358,6 @@
             ],
             "title": "Name"
           },
-          "title": {
-            "anyOf": [
-              {
-                "type": "string"
-              },
-              {
-                "type": "null"
-              }
-            ],
-            "title": "Title",
-            "description": "Altijd `null`: dit veld wordt op deze route nooit gevuld. Vervalt op of na 29 oktober 2026.",
-            "deprecated": true
-          },
           "brand": {
             "anyOf": [
               {
@@ -4530,35 +4517,6 @@
               }
             ],
             "title": "Promotional Keywords"
-          },
-          "promotional_labels": {
-            "anyOf": [
-              {
-                "items": {
-                  "type": "string"
-                },
-                "type": "array"
-              },
-              {
-                "type": "null"
-              }
-            ],
-            "title": "Promotional Labels",
-            "description": "Altijd `null`: dit veld wordt op deze route nooit gevuld. Vervalt op of na 29 oktober 2026.",
-            "deprecated": true
-          },
-          "promotion": {
-            "anyOf": [
-              {
-                "type": "string"
-              },
-              {
-                "type": "null"
-              }
-            ],
-            "title": "Promotion",
-            "description": "Altijd `null`: dit veld wordt op deze route nooit gevuld. Vervalt op of na 29 oktober 2026.",
-            "deprecated": true
           },
           "promotion_status": {
             "anyOf": [
@@ -4759,32 +4717,6 @@
           "score": {
             "type": "number",
             "title": "Score"
-          },
-          "match_type": {
-            "anyOf": [
-              {
-                "type": "string"
-              },
-              {
-                "type": "null"
-              }
-            ],
-            "title": "Match Type",
-            "description": "Altijd `null`: dit veld wordt op deze route nooit gevuld. Vervalt op of na 29 oktober 2026.",
-            "deprecated": true
-          },
-          "match_confidence": {
-            "anyOf": [
-              {
-                "type": "number"
-              },
-              {
-                "type": "null"
-              }
-            ],
-            "title": "Match Confidence",
-            "description": "Altijd `null`: dit veld wordt op deze route nooit gevuld. Vervalt op of na 29 oktober 2026.",
-            "deprecated": true
           }
         },
         "type": "object",
