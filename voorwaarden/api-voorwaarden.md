@@ -9,7 +9,7 @@ scripts/maintenance/export_api_terms.py. Niet met de hand bewerken.
 
 # API-voorwaarden
 
-Versie 1.14, 10 oktober 2026
+Versie 1.15, 4 november 2026
 
 > **Samenvatting.** Je mag onze data gebruiken om je eigen product te bouwen. Je mag er geen kopie van onze database mee opbouwen, de ruwe data niet doorverkopen, en na afloop van een proefperiode of abonnement verwijder je de opgeslagen data. Prijsdata is indicatief; controleer bij de retailer.
 
@@ -21,7 +21,7 @@ We mogen deze overeenkomst, met alle rechten en plichten, overdragen aan een rec
 
 ## 2. Waarop deze voorwaarden van toepassing zijn
 
-Deze voorwaarden gelden voor **alle** toegang tot de API op `prijsprofeet.nl/api/v1/*` en `prijsprofeet.be/api/v1/*`, met of zonder API-key, betaald of gratis. Ze gelden niet voor het gewone gebruik van de website; daarvoor geldt onze [disclaimer](https://www.prijsprofeet.nl/disclaimer). Waar deze voorwaarden afwijken van de disclaimer, gaan deze voorwaarden voor als het om de API gaat.
+Deze voorwaarden gelden voor **alle** toegang tot de API op `prijsprofeet.nl/api/v1/*`, `prijsprofeet.be/api/v1/*` en `prijsprofeet.de/api/v1/*`, met of zonder API-key, betaald of gratis. Ze gelden niet voor het gewone gebruik van de website; daarvoor geldt onze [disclaimer](https://www.prijsprofeet.nl/disclaimer). Waar deze voorwaarden afwijken van de disclaimer, gaan deze voorwaarden voor als het om de API gaat.
 
 Ons [privacybeleid](https://www.prijsprofeet.nl/privacy) geldt **wél voor allebei**: artikel 8 daarvan beschrijft precies welke gegevens we van API-afnemers verwerken en hoe lang we ze bewaren. Zie ook artikel 15 hieronder.
 
@@ -86,7 +86,7 @@ Niet toegestaan is:
 
 Wat je uit normaal gebruik hebt bewaard mag je houden en tonen zolang je plan loopt; artikel 7 zegt wat er bij het einde van je plan mee gebeurt.
 
-**Bronvermelding, alleen voor Gratis en Proef.** Gebruik je de API zonder key of tijdens een proefperiode, en zien jouw gebruikers de data, dan vermeld je zichtbaar **PrijsProfeet** als bron met een link naar `prijsprofeet.nl`, of naar `prijsprofeet.be` als je de Belgische data gebruikt, op elk scherm of elke pagina waar die data staat. Wie niets betaalt, betaalt in bronvermelding.
+**Bronvermelding, alleen voor Gratis en Proef.** Gebruik je de API zonder key of tijdens een proefperiode, en zien jouw gebruikers de data, dan vermeld je zichtbaar **PrijsProfeet** als bron met een link naar `prijsprofeet.nl`, naar `prijsprofeet.be` als je de Belgische data gebruikt of naar `prijsprofeet.de` als je de Duitse data gebruikt, op elk scherm of elke pagina waar die data staat. Wie niets betaalt, betaalt in bronvermelding.
 
 **Pro en Business zijn hiervan vrijgesteld**: je mag de data zonder bronvermelding in je eigen product verwerken.
 
@@ -125,7 +125,7 @@ Bouw je hierop een dienst voor eindgebruikers, dan neem je zelf een passend voor
 
 Voor Gratis, Proef en Pro geven we **geen beschikbaarheidsgarantie**. We doen ons best, maar onderhoud, storingen en uitval kunnen voorkomen.
 
-Voor **Business** streven we naar **99,5% beschikbaarheid per kalendermaand** op elke host die je gebruikt (`prijsprofeet.nl`, `prijsprofeet.be`), gemeten met onze eigen monitoring. Elke host wordt apart gemeten; gebruik je er twee, dan geldt de norm voor elk van beide en niet voor een gemiddelde. Halen we de norm op een host die je gebruikt niet, dan krijg je op verzoek een creditering naar rato van de maandprijs. Die creditering is het **enige** middel dat je bij het niet halen van de norm hebt. **Releases en onderhoud tellen gewoon mee**: gaat de API tijdens een update of onderhoud onderuit, dan is dat een storing zoals elke andere. Buiten de meting vallen alleen: **overmacht**, aanvallen op de infrastructuur, storingen bij onze hosting- of CDN-leverancier, en storingen of wijzigingen bij de supermarkten waarvan wij de data betrekken.
+Voor **Business** streven we naar **99,5% beschikbaarheid per kalendermaand** op elke host die je gebruikt (`prijsprofeet.nl`, `prijsprofeet.be`), gemeten met onze eigen monitoring. Elke host wordt apart gemeten; gebruik je er twee, dan geldt de norm voor elk van beide en niet voor een gemiddelde. `prijsprofeet.de` valt nog niet onder deze norm. Halen we de norm op een host die je gebruikt niet, dan krijg je op verzoek een creditering naar rato van de maandprijs. Die creditering is het **enige** middel dat je bij het niet halen van de norm hebt. **Releases en onderhoud tellen gewoon mee**: gaat de API tijdens een update of onderhoud onderuit, dan is dat een storing zoals elke andere. Buiten de meting vallen alleen: **overmacht**, aanvallen op de infrastructuur, storingen bij onze hosting- of CDN-leverancier, en storingen of wijzigingen bij de supermarkten waarvan wij de data betrekken.
 
 **Support** loopt via [info@prijsprofeet.nl](mailto:info@prijsprofeet.nl). We zijn bereikbaar op **werkdagen van 09:00 tot 17:00** (Europe/Amsterdam) en reageren op een storingsmelding die binnen dat venster binnenkomt **binnen één werkdag**. Business-afnemers krijgen daarbij voorrang. Dit is het enige supportkanaal; een melding via een ander kanaal start de termijn niet.
 
