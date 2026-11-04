@@ -22,6 +22,17 @@ Nieuwe velden, nieuwe ketens en betere dekking rollen we zonder aankondiging uit
 aan** (art. 10 van de [API-voorwaarden](https://www.prijsprofeet.nl/api-voorwaarden)):
 per e-mail aan betalende afnemers én hier.
 
+## 2026-11-04 · Uitbreiding
+
+**Duitse aanbiedingen: Aldi Süd op `www.prijsprofeet.de/api/v1`.** Dezelfde key en
+hetzelfde schema als op `.nl` en `.be`. Duitsland levert per keten: noem precies één keten
+in `retailer=aldi_sued` op `GET /api/v1/search`, `/products` of `/products/changes`, of
+gebruik `GET /api/v1/products/retailer/aldi_sued`. Andere routes en vragen zonder die keten
+geven een 403. `image_url` is alleen gevuld als de foto op de site van de keten zelf staat.
+De specificaties hebben `https://www.prijsprofeet.de` als extra server, en de
+ketenlijst bij `retailer` noemt per host welke sleutels gelden. Voor `.nl` en `.be`
+verandert er niets.
+
 ## 2026-10-29 · Actie nodig
 
 **Verwijderd: vijf altijd-lege velden uit `/search`.** Zoals aangekondigd op 28 september

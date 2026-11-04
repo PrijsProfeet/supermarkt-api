@@ -15,7 +15,9 @@ curl -H 'User-Agent: MyApp/1.0 (you@example.com)' \
 ```
 
 Belgian promotions come from the same API with the same key at
-`https://www.prijsprofeet.be/api/v1/…`: the host decides the country.
+`https://www.prijsprofeet.be/api/v1/…`: the host decides the country. German offers
+are on `https://www.prijsprofeet.de/api/v1/…`, for now from Aldi Süd only (see
+[Chains](#chains)).
 
 > **Want to follow changes?** Set this repo to *Watch → Releases* — the button at the top
 > right, then **Custom → Releases**. You get one release a week with every change from the
@@ -50,6 +52,11 @@ PLUS · Poiesz · SPAR · Vomar
 
 **Belgium** (`www.prijsprofeet.be/api/v1`): Albert Heijn · Aldi · Carrefour · Colruyt ·
 Delhaize · Jumbo · Lidl
+
+**Germany** (`www.prijsprofeet.de/api/v1`): Aldi Süd. Germany is served per retailer: name
+exactly one retailer in `retailer=aldi_sued` on `/search`, `/products` or `/products/changes`,
+or use `/products/retailer/aldi_sued`. Other routes and requests without that retailer
+return a 403. A product photo is only included as a link to the retailer itself.
 
 EAN coverage differs per chain, and that is no detail if you want to match on product.
 At most chains a promotion almost always carries an EAN. A few chains publish none

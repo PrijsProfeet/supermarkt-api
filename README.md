@@ -15,7 +15,9 @@ curl -H 'User-Agent: MijnApp/1.0 (jij@voorbeeld.nl)' \
 ```
 
 Belgische aanbiedingen haal je met dezelfde API en dezelfde key bij
-`https://www.prijsprofeet.be/api/v1/…`: de host bepaalt het land.
+`https://www.prijsprofeet.be/api/v1/…`: de host bepaalt het land. Duitse aanbiedingen
+staan op `https://www.prijsprofeet.de/api/v1/…`, voorlopig alleen van Aldi Süd (zie
+[Ketens](#ketens)).
 
 > **Wijzigingen volgen?** Zet deze repo op *Watch → Releases* — de knop rechtsboven,
 > dan **Custom → Releases**. Je krijgt één release per week met alle wijzigingen uit het
@@ -51,6 +53,11 @@ PLUS · Poiesz · SPAR · Vomar
 
 **België** (`www.prijsprofeet.be/api/v1`): Albert Heijn · Aldi · Carrefour · Colruyt ·
 Delhaize · Jumbo · Lidl
+
+**Duitsland** (`www.prijsprofeet.de/api/v1`): Aldi Süd. Duitsland levert per keten: noem
+precies één keten in `retailer=aldi_sued` op `/search`, `/products` of `/products/changes`,
+of gebruik `/products/retailer/aldi_sued`. Andere routes en vragen zonder die keten geven
+een 403. Een productfoto komt alleen mee als link naar de keten zelf.
 
 EAN-dekking verschilt per keten en is geen detail als je op product wilt koppelen.
 Bij de meeste ketens staat er vrijwel altijd een EAN op een aanbieding. Bij een paar
