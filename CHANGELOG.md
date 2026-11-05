@@ -22,6 +22,18 @@ Nieuwe velden, nieuwe ketens en betere dekking rollen we zonder aankondiging uit
 aan** (art. 10 van de [API-voorwaarden](https://www.prijsprofeet.nl/api-voorwaarden)):
 per e-mail aan betalende afnemers én hier.
 
+## 2026-11-05 · Uitbreiding
+
+**Bèta: receptregels naar schapproducten, `POST /api/v1/match/ingredients`.** Stuur tot 50
+regels van een recept of boodschappenlijst (`"500 g spaghetti"`, of een object met `name`,
+`value` en `unitCode`) en krijg per regel per keten het passende product met de gewone
+schapprijs, plus twee alternatieven. Per keten staat een totaal naast het aantal gevonden
+regels. Antwoorden blijven geldig tot `valid_until`, na de nachtrun. Voor Pro en Business,
+alleen op `www.prijsprofeet.nl`, 10.000 verschillende regels per key per dag. Aanmelden in je
+[API-account](https://www.prijsprofeet.nl/api-account/), onder *Bèta*; zie
+[de README](README.md#receptregels-naar-schapproducten). De regels worden nergens bewaard of
+gelogd.
+
 ## 2026-11-04 · Uitbreiding
 
 **Duitse aanbiedingen: Aldi Süd op `www.prijsprofeet.de/api/v1`.** Dezelfde key en

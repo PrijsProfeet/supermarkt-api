@@ -177,6 +177,7 @@ lower plan.
 | What did this product cost before, and will it be on promotion again? | `GET /api/v1/products/{id}/price-history` (Pro and Business), `GET /api/v1/products/{id}/forecast` (all plans) | The history is a series per promotion week. If `/forecast` returns `null`, the `X-Forecast-Reason` header says why. |
 | How did the regular price move? | `GET /api/v1/shelf-prices/history` (Business) | Every price movement per product, since we started tracking that chain (the first since September 2026). |
 | Which private label is the same as another chain's? | `GET /api/v1/private-label-equivalents` (Business) | Where no barcode links them: same product and same pack size. |
+| What does this recipe cost at each chain? | `POST /api/v1/match/ingredients` (beta; Pro and Business) | See [Recipe lines to shelf products](#recipe-lines-to-shelf-products). Always read the total per chain next to `lines_found` and `lines_total`. |
 | How much of my limit have I used? | `GET /api/v1/partner/usage` (any key) | Also per day, and visible in your [API account](https://www.prijsprofeet.nl/api-account/). |
 | Which fields are only on product detail? | `GET /api/v1/products/{id}` (all plans) | `retailer_category`, `nutriscore` and `discount_percentage` are not in the search results. |
 
@@ -291,6 +292,8 @@ give feedback there too. Currently in beta:
 
 - [Notification after the nightly run](#notification-after-the-nightly-run): one webhook
   per morning as soon as last night's data is in.
+- [Recipe lines to shelf products](#recipe-lines-to-shelf-products): send the lines of a
+  recipe or shopping list and get the matching product at each chain.
 
 ### Notification after the nightly run
 
@@ -345,6 +348,83 @@ Available on every plan. On Pro or Business, the checkbox at sign-up accepts the
 article of version 1.14 of the terms right away: for paid plans that version otherwise
 takes effect on 13 November 2026, 30 days after the announcement
 ([art. 16, in Dutch](https://www.prijsprofeet.nl/api-voorwaarden)).
+
+### Recipe lines to shelf products
+
+Want to know what the ingredients of a recipe or a shopping list cost at each chain? Send
+the lines in one request. For each line and chain you get the product that fits best, at
+its regular shelf price, plus two alternatives:
+
+```bash
+curl -X POST https://www.prijsprofeet.nl/api/v1/match/ingredients \
+  -H "X-API-Key: $PRIJSPROFEET_KEY" -H "Content-Type: application/json" \
+  -d '{"lines": ["2 uien", "500 g spaghetti", {"name": "tenen knoflook", "value": 4, "unitCode": "H87"}]}'
+```
+
+```json
+{
+  "country": "nl",
+  "valid_until": "2026-11-06T04:30:00+01:00",
+  "lines_counted": 3,
+  "lines": [
+    {
+      "index": 0,
+      "line": "2 uien",
+      "status": "found",
+      "optional": false,
+      "interpreted": {"terms": ["uien"], "amount": {"value": 2.0, "unit": "stuk"}, "organic": false},
+      "retailers": {
+        "albert_heijn": [
+          {"name": "AH Gele uien", "brand": "AH", "quantity": "3 stuks", "price": 0.89,
+           "unit_price": 0.3, "unit": "stuk", "packs": 1, "line_price": 0.89,
+           "shelf_id": "525847", "ean": "8718907615778", "product_url": "…", "image_url": "…"}
+        ]
+      }
+    }
+  ],
+  "retailers": [
+    {"retailer": "albert_heijn", "name": "Albert Heijn", "lines_found": 3, "lines_total": 3, "total_price": 2.72}
+  ],
+  "retailers_without_shelf_prices": ["lidl"]
+}
+```
+
+Shortened to one line and one chain; prices of 5 November 2026.
+
+**Lines are Dutch.** A line is text (`"500 g spaghetti"`, `"1 blik tomatenblokjes"`) or an
+object shaped like schema.org `PropertyValue`: `name`, `value`, `unitCode`, plus optional
+`note` (not searched) and `optional`. As `unitCode` use `GRM`, `KGM`, `MLT`, `LTR` or `H87`
+(pieces), or the kitchen measures `el`, `tl` and `snufje`. Put any other measure in the name
+with `H87`: `{"name": "tenen knoflook", "value": 4, "unitCode": "H87"}`. An unknown
+`unitCode` returns a `422` that names the line.
+
+**How we count.** For a weight, volume or number we pick the pack closest to the amount
+asked, rounded up to whole packs (`packs`). A kitchen measure (`el`, `teen`, `takje`,
+`snufje`) says nothing about what you buy: then we take the smallest pack once, and
+`amount` is `null`. So "4 tenen knoflook" is one pack of garlic. Without the word "tenen"
+we read 4 pieces of garlic.
+
+**The total** per chain is the sum of `line_price` over the lines found. Always read it next
+to `lines_found` out of `lines_total`: a total over 7 of 12 lines is not a basket price.
+Optional lines and what is not for sale (`"status": "not_for_sale"`, such as tap water) do
+not count. Chains without shelf prices are in `retailers_without_shelf_prices`.
+
+**Limits.** At most 50 lines per request and 10,000 distinct lines per key per day. The
+same line twice in one request counts once; it appears twice in the answer and the total.
+Whether you send lines in one request or one by one makes no difference to the daily limit.
+One request is faster, though, and the per-minute limit counts requests.
+
+**Caching.** Prices are refreshed every night. An answer stays valid until `valid_until`:
+cache it until then, per recipe. That way you pay per recipe, not per visitor.
+
+**Privacy.** A list can say something about a person. Send the lines only in the body, from
+your server. We do not store them and they appear in no log. We only count how many.
+
+Only on `www.prijsprofeet.nl`: the matching is measured on Dutch lines. For Pro and
+Business, and for a Pro trial. Sign up in your
+[API account](https://www.prijsprofeet.nl/api-account/), under *Bèta*. This feature needs
+permission: after you sign up, we switch it on for you. Without sign-up the route returns a
+`403`.
 
 ## Changes
 

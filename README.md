@@ -177,6 +177,7 @@ lager plan.
 | Wat kostte dit product eerder, en komt het terug in de actie? | `GET /api/v1/products/{id}/price-history` (Pro en Business), `GET /api/v1/products/{id}/forecast` (alle plannen) | De geschiedenis is een reeks per actieweek. Geeft `/forecast` `null`, dan zegt de header `X-Forecast-Reason` waarom. |
 | Hoe bewoog de reguliere prijs? | `GET /api/v1/shelf-prices/history` (Business) | Elke prijsbeweging per product, sinds we die keten volgen (de eerste sinds september 2026). |
 | Welk huismerk is hetzelfde als dat van een andere keten? | `GET /api/v1/private-label-equivalents` (Business) | Waar geen barcode ze koppelt: zelfde product én zelfde verpakking. |
+| Wat kost dit recept bij elke keten? | `POST /api/v1/match/ingredients` (bèta; Pro en Business) | Zie [Receptregels naar schapproducten](#receptregels-naar-schapproducten). Lees het totaal per keten altijd naast `lines_found` en `lines_total`. |
 | Hoeveel van mijn limiet heb ik gebruikt? | `GET /api/v1/partner/usage` (elke key) | Ook per dag, en te zien in je [API-account](https://www.prijsprofeet.nl/api-account/). |
 | Welke velden staan alleen op productdetail? | `GET /api/v1/products/{id}` (alle plannen) | `retailer_category`, `nutriscore` en `discount_percentage` staan niet in de zoekresultaten. |
 
@@ -293,6 +294,8 @@ zet je ze aan als dat nodig is, en geef je feedback. Nu in bèta:
 
 - [Melding na de nachtrun](#melding-na-de-nachtrun): één webhook per ochtend zodra de
   data van vannacht er staat.
+- [Receptregels naar schapproducten](#receptregels-naar-schapproducten): stuur de regels
+  van een recept of boodschappenlijst en krijg per keten het passende product.
 
 [Datafouten melden](#datafouten-melden) zat tot 26 oktober 2026 ook in de bèta en is nu
 onderdeel van de gewone API.
@@ -351,6 +354,85 @@ Voor alle plannen. Op Pro of Business accepteer je met het vinkje bij de aanmeld
 bèta-artikel van versie 1.14 nu al: voor betaalde plannen gaat die versie anders pas op
 13 november 2026 in, 30 dagen na de aankondiging
 ([art. 16](https://www.prijsprofeet.nl/api-voorwaarden)).
+
+### Receptregels naar schapproducten
+
+Wil je weten wat de ingrediënten van een recept of een boodschappenlijst per keten kosten?
+Stuur de regels in één verzoek. Je krijgt per regel per keten het product
+dat er het best bij past, met de gewone schapprijs, plus twee alternatieven:
+
+```bash
+curl -X POST https://www.prijsprofeet.nl/api/v1/match/ingredients \
+  -H "X-API-Key: $PRIJSPROFEET_KEY" -H "Content-Type: application/json" \
+  -d '{"lines": ["2 uien", "500 g spaghetti", {"name": "tenen knoflook", "value": 4, "unitCode": "H87"}]}'
+```
+
+```json
+{
+  "country": "nl",
+  "valid_until": "2026-11-06T04:30:00+01:00",
+  "lines_counted": 3,
+  "lines": [
+    {
+      "index": 0,
+      "line": "2 uien",
+      "status": "found",
+      "optional": false,
+      "interpreted": {"terms": ["uien"], "amount": {"value": 2.0, "unit": "stuk"}, "organic": false},
+      "retailers": {
+        "albert_heijn": [
+          {"name": "AH Gele uien", "brand": "AH", "quantity": "3 stuks", "price": 0.89,
+           "unit_price": 0.3, "unit": "stuk", "packs": 1, "line_price": 0.89,
+           "shelf_id": "525847", "ean": "8718907615778", "product_url": "…", "image_url": "…"}
+        ]
+      }
+    }
+  ],
+  "retailers": [
+    {"retailer": "albert_heijn", "name": "Albert Heijn", "lines_found": 3, "lines_total": 3, "total_price": 2.72}
+  ],
+  "retailers_without_shelf_prices": ["lidl"]
+}
+```
+
+Ingekort tot één regel en één keten; prijzen van 5 november 2026.
+
+**Een regel** is tekst (`"500 g spaghetti"`, `"1 blik tomatenblokjes"`) of een object in de
+vorm van schema.org `PropertyValue`: `name`, `value`, `unitCode`, plus optioneel `note`
+(wordt niet doorzocht) en `optional`. Als `unitCode` gebruik je `GRM`, `KGM`, `MLT`, `LTR`
+of `H87` (stuks), of de keukenmaten `el`, `tl` en `snufje`. Een andere maat zet je in de
+naam met `H87`: `{"name": "tenen knoflook", "value": 4, "unitCode": "H87"}`. Een onbekende
+`unitCode` geeft een `422` die de regel noemt.
+
+**Hoe we rekenen.** Bij een gewicht, volume of aantal kiezen we de verpakking die het
+dichtst bij de gevraagde hoeveelheid ligt, naar boven afgerond op hele verpakkingen
+(`packs`). Een keukenmaat (`el`, `teen`, `takje`, `snufje`) zegt niets over wat je koopt:
+dan nemen we één keer de kleinste verpakking, en `amount` is `null`. "4 tenen knoflook" is
+dus één verpakking knoflook. Zonder het woord "tenen" lezen we 4 stuks knoflook.
+
+**Het totaal** per keten is de som van `line_price` over de gevonden regels. Lees het altijd
+naast `lines_found` van `lines_total`: een totaal over 7 van 12 regels is geen mandjesprijs.
+Optionele regels en wat niet te koop is (`"status": "not_for_sale"`, zoals kraanwater) tellen
+niet mee. Ketens zonder schapprijzen staan in `retailers_without_shelf_prices`.
+
+**Limieten.** Hooguit 50 regels per verzoek en 10.000 verschillende regels per key per
+dag. Staat dezelfde regel twee keer in één verzoek, dan telt hij één keer; in het antwoord
+en het totaal staat hij twee keer. Of je regels in één verzoek stuurt of los, voor de
+daglimiet maakt het niet uit. In één verzoek is wel sneller, en de limiet per minuut telt
+verzoeken.
+
+**Cachen.** De prijzen worden elke nacht ververst. Een antwoord blijft geldig tot
+`valid_until`: cache het tot dan, per recept. Zo betaal je per recept en niet per bezoeker.
+
+**Privacy.** Een lijst kan iets over iemand zeggen. Stuur de regels alleen in de body,
+vanaf je server. We bewaren ze niet en ze staan in geen enkele log. We tellen alleen het
+aantal.
+
+Alleen op `www.prijsprofeet.nl`: de matching is gemeten op Nederlandse regels. Voor Pro en
+Business, en voor een Pro-proef. Aanmelden doe je in je
+[API-account](https://www.prijsprofeet.nl/api-account/), onder *Bèta*. Deze functie vraagt
+toestemming: na je aanmelding zetten we hem voor je aan. Zonder aanmelding geeft de route een
+`403`.
 
 ## Datafouten melden
 

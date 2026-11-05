@@ -1621,6 +1621,53 @@
         ]
       }
     },
+    "/api/v1/match/ingredients": {
+      "post": {
+        "tags": [
+          "matching"
+        ],
+        "summary": "Receptregels naar schapproducten per keten (bèta)",
+        "description": "Per receptregel het passende product met de gewone schapprijs bij elke\nNederlandse keten, plus per keten een totaal naast het aantal gevonden\nregels. Bèta: aanmelden in het API-account. Alleen op www.prijsprofeet.nl.\nDe regels worden nergens opgeslagen of gelogd.",
+        "operationId": "match_ingredients_api_v1_match_ingredients_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/IngredientMatchRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/IngredientMatchResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "ApiKeyAuth": []
+          }
+        ]
+      }
+    },
     "/api/v1/shelf-prices": {
       "get": {
         "tags": [
@@ -2979,6 +3026,388 @@
         },
         "type": "object",
         "title": "HTTPValidationError"
+      },
+      "IngredientAmount": {
+        "properties": {
+          "value": {
+            "type": "number",
+            "title": "Value"
+          },
+          "unit": {
+            "type": "string",
+            "title": "Unit",
+            "description": "kg, L of stuk"
+          }
+        },
+        "type": "object",
+        "required": [
+          "value",
+          "unit"
+        ],
+        "title": "IngredientAmount"
+      },
+      "IngredientInterpretation": {
+        "properties": {
+          "terms": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Terms"
+          },
+          "amount": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/IngredientAmount"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "null bij een keukenmaat (el, teen, snufje): dan de kleinste verpakking"
+          },
+          "organic": {
+            "type": "boolean",
+            "title": "Organic"
+          }
+        },
+        "type": "object",
+        "required": [
+          "terms",
+          "amount",
+          "organic"
+        ],
+        "title": "IngredientInterpretation"
+      },
+      "IngredientItem": {
+        "properties": {
+          "name": {
+            "type": "string",
+            "title": "Name",
+            "description": "Het ingrediënt, eventueel met maat erin"
+          },
+          "value": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Value",
+            "description": "De hoeveelheid"
+          },
+          "unitCode": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Unitcode",
+            "description": "GRM, KGM, MLT, LTR, H87 (stuks), el, tl of snufje"
+          },
+          "note": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Note",
+            "description": "Toelichting; wordt niet doorzocht"
+          },
+          "optional": {
+            "type": "boolean",
+            "title": "Optional",
+            "description": "Telt niet mee in het totaal",
+            "default": false
+          }
+        },
+        "type": "object",
+        "required": [
+          "name"
+        ],
+        "title": "IngredientItem",
+        "description": "Een regel als object (schema.org `PropertyValue`)."
+      },
+      "IngredientLineResult": {
+        "properties": {
+          "index": {
+            "type": "integer",
+            "title": "Index"
+          },
+          "line": {
+            "type": "string",
+            "title": "Line"
+          },
+          "status": {
+            "type": "string",
+            "enum": [
+              "found",
+              "not_found",
+              "not_for_sale",
+              "not_understood"
+            ],
+            "title": "Status"
+          },
+          "optional": {
+            "type": "boolean",
+            "title": "Optional"
+          },
+          "interpreted": {
+            "$ref": "#/components/schemas/IngredientInterpretation"
+          },
+          "retailers": {
+            "additionalProperties": {
+              "items": {
+                "$ref": "#/components/schemas/IngredientPick"
+              },
+              "type": "array"
+            },
+            "type": "object",
+            "title": "Retailers",
+            "description": "Per keten het hoofdproduct en hooguit twee alternatieven"
+          }
+        },
+        "type": "object",
+        "required": [
+          "index",
+          "line",
+          "status",
+          "optional",
+          "interpreted",
+          "retailers"
+        ],
+        "title": "IngredientLineResult"
+      },
+      "IngredientMatchRequest": {
+        "properties": {
+          "lines": {
+            "items": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "$ref": "#/components/schemas/IngredientItem"
+                }
+              ]
+            },
+            "type": "array",
+            "maxItems": 50,
+            "minItems": 1,
+            "title": "Lines",
+            "description": "Hooguit 50 regels: tekst (\"500 g spaghetti\") of een object met name, value en unitCode"
+          }
+        },
+        "type": "object",
+        "required": [
+          "lines"
+        ],
+        "title": "IngredientMatchRequest"
+      },
+      "IngredientMatchResponse": {
+        "properties": {
+          "country": {
+            "type": "string",
+            "title": "Country"
+          },
+          "valid_until": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Valid Until",
+            "description": "Tot wanneer deze prijzen gelden (na de nachtrun verversen)"
+          },
+          "lines_counted": {
+            "type": "integer",
+            "title": "Lines Counted",
+            "description": "Verschillende regels, zoals ze tegen de daglimiet tellen"
+          },
+          "lines": {
+            "items": {
+              "$ref": "#/components/schemas/IngredientLineResult"
+            },
+            "type": "array",
+            "title": "Lines"
+          },
+          "retailers": {
+            "items": {
+              "$ref": "#/components/schemas/RetailerTotal"
+            },
+            "type": "array",
+            "title": "Retailers"
+          },
+          "retailers_without_shelf_prices": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Retailers Without Shelf Prices"
+          }
+        },
+        "type": "object",
+        "required": [
+          "country",
+          "valid_until",
+          "lines_counted",
+          "lines",
+          "retailers",
+          "retailers_without_shelf_prices"
+        ],
+        "title": "IngredientMatchResponse"
+      },
+      "IngredientPick": {
+        "properties": {
+          "name": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Name"
+          },
+          "brand": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Brand"
+          },
+          "quantity": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Quantity"
+          },
+          "price": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Price"
+          },
+          "unit_price": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Unit Price"
+          },
+          "unit": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Unit"
+          },
+          "packs": {
+            "type": "integer",
+            "title": "Packs",
+            "description": "Hoeveel verpakkingen de regel nodig heeft"
+          },
+          "line_price": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Line Price",
+            "description": "price × packs"
+          },
+          "shelf_id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Shelf Id"
+          },
+          "ean": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Ean"
+          },
+          "product_url": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Product Url"
+          },
+          "image_url": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Image Url"
+          }
+        },
+        "type": "object",
+        "required": [
+          "name",
+          "brand",
+          "quantity",
+          "price",
+          "unit_price",
+          "unit",
+          "packs",
+          "line_price",
+          "shelf_id",
+          "ean",
+          "product_url",
+          "image_url"
+        ],
+        "title": "IngredientPick"
       },
       "KeySignupRequest": {
         "properties": {
@@ -5049,6 +5478,41 @@
         ],
         "title": "RetailerFilterNotice",
         "description": "Reported when a `retailer` request could not be honoured as asked.\n\nA `retailer` naming a chain this storefront does not carry is dropped, and\nthe query falls back to every chain we do carry. Without this field that is\ninvisible: the caller asked to narrow and received the opposite, with a\nplausible-looking 200 and nothing to tell them apart."
+      },
+      "RetailerTotal": {
+        "properties": {
+          "retailer": {
+            "type": "string",
+            "title": "Retailer"
+          },
+          "name": {
+            "type": "string",
+            "title": "Name"
+          },
+          "lines_found": {
+            "type": "integer",
+            "title": "Lines Found"
+          },
+          "lines_total": {
+            "type": "integer",
+            "title": "Lines Total",
+            "description": "Regels die een product vragen: niet optioneel en te koop"
+          },
+          "total_price": {
+            "type": "number",
+            "title": "Total Price",
+            "description": "Som van line_price over lines_found; lees hem naast de dekking"
+          }
+        },
+        "type": "object",
+        "required": [
+          "retailer",
+          "name",
+          "lines_found",
+          "lines_total",
+          "total_price"
+        ],
+        "title": "RetailerTotal"
       },
       "SearchResponse": {
         "properties": {
