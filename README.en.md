@@ -290,64 +290,11 @@ Beta features fall outside the SLA and may change without the 30-day notice
 them on in your [API account](https://www.prijsprofeet.nl/api-account/), under *Bèta*, and
 give feedback there too. Currently in beta:
 
-- [Notification after the nightly run](#notification-after-the-nightly-run): one webhook
-  per morning as soon as last night's data is in.
 - [Recipe lines to shelf products](#recipe-lines-to-shelf-products): send the lines of a
   recipe or shopping list and get the matching product at each chain.
 
-### Notification after the nightly run
-
-Want to know when last night's data is in, instead of syncing on a guess? Sign up in your
-[API account](https://www.prijsprofeet.nl/api-account/), under *Bèta*, and provide an
-https URL. Every morning around 07:05, after our freshness measurement, we send one POST
-there:
-
-```json
-{
-  "type": "nachtrun.gemeten",
-  "test": false,
-  "day": "2026-10-10",
-  "chains": [
-    {"retailer": "albert_heijn", "name": "Albert Heijn", "country": "nl", "fresh": true},
-    {"retailer": "jumbo", "name": "Jumbo", "country": "nl", "fresh": false}
-  ]
-}
-```
-
-`fresh` is the same freshness measurement as on [status.prijsprofeet.nl](https://status.prijsprofeet.nl):
-that chain's promotions were refreshed last night and are complete. The notification lists
-every chain of both storefronts; filter on `country` if you only use one.
-
-**Verify the signature.** Every notification carries the headers `webhook-id`,
-`webhook-timestamp` and `webhook-signature`, following
-[Standard Webhooks](https://www.standardwebhooks.com/). The secret (`whsec_…`) is in your
-account. Any Standard Webhooks or Svix library can verify it, or do it yourself:
-
-```python
-import base64, hashlib, hmac
-
-def is_echt(secret: str, headers: dict, body: bytes) -> bool:
-    key = base64.b64decode(secret.removeprefix("whsec_"))
-    signed = f"{headers['webhook-id']}.{headers['webhook-timestamp']}.".encode() + body
-    expected = base64.b64encode(hmac.new(key, signed, hashlib.sha256).digest()).decode()
-    return any(
-        hmac.compare_digest(sig.partition(",")[2], expected)
-        for sig in headers["webhook-signature"].split()
-    )
-```
-
-Also check that `webhook-timestamp` is no older than a few minutes.
-
-**What we expect:** a 2xx within 10 seconds. We don't follow redirects. If it fails, we
-retry after 1, 5 and 30 minutes. After 5 consecutive nights without a successful
-notification we switch it off; you'll see that in your account and can switch it back on
-there. *Testmelding sturen* (send test notification) in your account sends you a
-notification with `"test": true` right away.
-
-Available on every plan. On Pro or Business, the checkbox at sign-up accepts the beta
-article of version 1.14 of the terms right away: for paid plans that version otherwise
-takes effect on 13 November 2026, 30 days after the announcement
-([art. 16, in Dutch](https://www.prijsprofeet.nl/api-voorwaarden)).
+The [notification after the nightly run](#notification-after-the-nightly-run) was in beta
+until 5 November 2026 and is now part of the regular API.
 
 ### Recipe lines to shelf products
 
@@ -425,6 +372,58 @@ Business, and for a Pro trial. Sign up in your
 [API account](https://www.prijsprofeet.nl/api-account/), under *Bèta*. This feature needs
 permission: after you sign up, we switch it on for you. Without sign-up the route returns a
 `403`.
+
+## Notification after the nightly run
+
+Want to know when last night's data is in, instead of syncing on a guess? Switch it on in your
+[API account](https://www.prijsprofeet.nl/api-account/), with your key, and provide an
+https URL. Every morning around 07:05, after our freshness measurement, we send one POST
+there:
+
+```json
+{
+  "type": "nachtrun.gemeten",
+  "test": false,
+  "day": "2026-10-10",
+  "chains": [
+    {"retailer": "albert_heijn", "name": "Albert Heijn", "country": "nl", "fresh": true},
+    {"retailer": "jumbo", "name": "Jumbo", "country": "nl", "fresh": false}
+  ]
+}
+```
+
+`fresh` is the same freshness measurement as on [status.prijsprofeet.nl](https://status.prijsprofeet.nl):
+that chain's promotions were refreshed last night and are complete. The notification lists
+every chain of both storefronts; filter on `country` if you only use one.
+
+**Verify the signature.** Every notification carries the headers `webhook-id`,
+`webhook-timestamp` and `webhook-signature`, following
+[Standard Webhooks](https://www.standardwebhooks.com/). The secret (`whsec_…`) is in your
+account. Any Standard Webhooks or Svix library can verify it, or do it yourself:
+
+```python
+import base64, hashlib, hmac
+
+def is_echt(secret: str, headers: dict, body: bytes) -> bool:
+    key = base64.b64decode(secret.removeprefix("whsec_"))
+    signed = f"{headers['webhook-id']}.{headers['webhook-timestamp']}.".encode() + body
+    expected = base64.b64encode(hmac.new(key, signed, hashlib.sha256).digest()).decode()
+    return any(
+        hmac.compare_digest(sig.partition(",")[2], expected)
+        for sig in headers["webhook-signature"].split()
+    )
+```
+
+Also check that `webhook-timestamp` is no older than a few minutes.
+
+**What we expect:** a 2xx within 10 seconds. We don't follow redirects. If it fails, we
+retry after 1, 5 and 30 minutes. After 5 consecutive nights without a successful
+notification we switch it off; you'll see that in your account and can switch it back on
+there. *Testmelding sturen* (send test notification) in your account sends you a
+notification with `"test": true` right away.
+
+Available on every plan. Since 5 November 2026 the notification is no longer a beta: we
+announce a breaking change 30 days in advance ([art. 10, in Dutch](https://www.prijsprofeet.nl/api-voorwaarden)).
 
 ## Changes
 

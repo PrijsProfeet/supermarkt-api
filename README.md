@@ -292,68 +292,12 @@ dagen ([voorwaarden, art. 10](https://www.prijsprofeet.nl/api-voorwaarden#beta))
 vindt ze in je [API-account](https://www.prijsprofeet.nl/api-account/), onder *Bèta*: daar
 zet je ze aan als dat nodig is, en geef je feedback. Nu in bèta:
 
-- [Melding na de nachtrun](#melding-na-de-nachtrun): één webhook per ochtend zodra de
-  data van vannacht er staat.
 - [Receptregels naar schapproducten](#receptregels-naar-schapproducten): stuur de regels
   van een recept of boodschappenlijst en krijg per keten het passende product.
 
-[Datafouten melden](#datafouten-melden) zat tot 26 oktober 2026 ook in de bèta en is nu
-onderdeel van de gewone API.
-
-### Melding na de nachtrun
-
-Wil je weten wanneer de data van vannacht er staat, in plaats van op de gok te
-synchroniseren? Meld je aan in je
-[API-account](https://www.prijsprofeet.nl/api-account/), onder *Bèta*, en geef een
-https-URL op. Elke ochtend rond 07:05, na onze versheidsmeting, sturen we daar één
-POST naartoe:
-
-```json
-{
-  "type": "nachtrun.gemeten",
-  "test": false,
-  "day": "2026-10-10",
-  "chains": [
-    {"retailer": "albert_heijn", "name": "Albert Heijn", "country": "nl", "fresh": true},
-    {"retailer": "jumbo", "name": "Jumbo", "country": "nl", "fresh": false}
-  ]
-}
-```
-
-`fresh` is dezelfde versheidsmeting als op [status.prijsprofeet.nl](https://status.prijsprofeet.nl):
-de acties van die keten zijn vannacht ververst en compleet. De melding noemt elke keten van beide
-winkels; filter op `country` als je er maar één gebruikt.
-
-**Controleer de handtekening.** Elke melding draagt de headers `webhook-id`,
-`webhook-timestamp` en `webhook-signature`, volgens
-[Standard Webhooks](https://www.standardwebhooks.com/). Het geheim (`whsec_…`) staat in je
-account. Elke Standard Webhooks- of Svix-bibliotheek kan hem controleren, of zelf:
-
-```python
-import base64, hashlib, hmac
-
-def is_echt(secret: str, headers: dict, body: bytes) -> bool:
-    key = base64.b64decode(secret.removeprefix("whsec_"))
-    signed = f"{headers['webhook-id']}.{headers['webhook-timestamp']}.".encode() + body
-    expected = base64.b64encode(hmac.new(key, signed, hashlib.sha256).digest()).decode()
-    return any(
-        hmac.compare_digest(sig.partition(",")[2], expected)
-        for sig in headers["webhook-signature"].split()
-    )
-```
-
-Controleer ook dat `webhook-timestamp` niet ouder is dan een paar minuten.
-
-**Wat we verwachten:** een 2xx binnen 10 seconden. Een doorverwijzing volgen we niet.
-Lukt het niet, dan proberen we het na 1, 5 en 30 minuten opnieuw. Na 5 nachten op rij
-zonder geslaagde melding zetten we hem uit; je ziet dat in je account en zet hem daar
-weer aan. Met *Testmelding sturen* in je account krijg je meteen een melding met
-`"test": true`.
-
-Voor alle plannen. Op Pro of Business accepteer je met het vinkje bij de aanmelding het
-bèta-artikel van versie 1.14 nu al: voor betaalde plannen gaat die versie anders pas op
-13 november 2026 in, 30 dagen na de aankondiging
-([art. 16](https://www.prijsprofeet.nl/api-voorwaarden)).
+[Melding na de nachtrun](#melding-na-de-nachtrun) zat tot 5 november 2026 in de bèta,
+[Datafouten melden](#datafouten-melden) tot 26 oktober 2026. Beide zijn nu onderdeel van
+de gewone API.
 
 ### Receptregels naar schapproducten
 
@@ -433,6 +377,59 @@ Business, en voor een Pro-proef. Aanmelden doe je in je
 [API-account](https://www.prijsprofeet.nl/api-account/), onder *Bèta*. Deze functie vraagt
 toestemming: na je aanmelding zetten we hem voor je aan. Zonder aanmelding geeft de route een
 `403`.
+
+## Melding na de nachtrun
+
+Wil je weten wanneer de data van vannacht er staat, in plaats van op de gok te
+synchroniseren? Zet hem aan in je
+[API-account](https://www.prijsprofeet.nl/api-account/), bij je key, en geef een
+https-URL op. Elke ochtend rond 07:05, na onze versheidsmeting, sturen we daar één
+POST naartoe:
+
+```json
+{
+  "type": "nachtrun.gemeten",
+  "test": false,
+  "day": "2026-10-10",
+  "chains": [
+    {"retailer": "albert_heijn", "name": "Albert Heijn", "country": "nl", "fresh": true},
+    {"retailer": "jumbo", "name": "Jumbo", "country": "nl", "fresh": false}
+  ]
+}
+```
+
+`fresh` is dezelfde versheidsmeting als op [status.prijsprofeet.nl](https://status.prijsprofeet.nl):
+de acties van die keten zijn vannacht ververst en compleet. De melding noemt elke keten van beide
+winkels; filter op `country` als je er maar één gebruikt.
+
+**Controleer de handtekening.** Elke melding draagt de headers `webhook-id`,
+`webhook-timestamp` en `webhook-signature`, volgens
+[Standard Webhooks](https://www.standardwebhooks.com/). Het geheim (`whsec_…`) staat in je
+account. Elke Standard Webhooks- of Svix-bibliotheek kan hem controleren, of zelf:
+
+```python
+import base64, hashlib, hmac
+
+def is_echt(secret: str, headers: dict, body: bytes) -> bool:
+    key = base64.b64decode(secret.removeprefix("whsec_"))
+    signed = f"{headers['webhook-id']}.{headers['webhook-timestamp']}.".encode() + body
+    expected = base64.b64encode(hmac.new(key, signed, hashlib.sha256).digest()).decode()
+    return any(
+        hmac.compare_digest(sig.partition(",")[2], expected)
+        for sig in headers["webhook-signature"].split()
+    )
+```
+
+Controleer ook dat `webhook-timestamp` niet ouder is dan een paar minuten.
+
+**Wat we verwachten:** een 2xx binnen 10 seconden. Een doorverwijzing volgen we niet.
+Lukt het niet, dan proberen we het na 1, 5 en 30 minuten opnieuw. Na 5 nachten op rij
+zonder geslaagde melding zetten we hem uit; je ziet dat in je account en zet hem daar
+weer aan. Met *Testmelding sturen* in je account krijg je meteen een melding met
+`"test": true`.
+
+Voor alle plannen. Sinds 5 november 2026 is de melding geen bèta meer: een breaking
+change kondigen we 30 dagen van tevoren aan ([art. 10](https://www.prijsprofeet.nl/api-voorwaarden)).
 
 ## Datafouten melden
 
