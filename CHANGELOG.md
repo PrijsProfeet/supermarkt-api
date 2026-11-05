@@ -22,6 +22,15 @@ Nieuwe velden, nieuwe ketens en betere dekking rollen we zonder aankondiging uit
 aan** (art. 10 van de [API-voorwaarden](https://www.prijsprofeet.nl/api-voorwaarden)):
 per e-mail aan betalende afnemers én hier.
 
+## 2026-11-05 · Alleen documentatie
+
+**De melding na de nachtrun is uit de bèta.** De webhook van elke ochtend rond 07:05 is
+nu onderdeel van de gewone API. Payload, handtekening en herhaalpogingen zijn
+ongewijzigd. Aan- en uitzetten doe je in je
+[API-account](https://www.prijsprofeet.nl/api-account/), bij je key; een URL en geheim die
+je al had blijven staan, je hoeft niets te doen. Een breaking change kondigen we voortaan
+aan volgens art. 10. Zie [de README](README.md#melding-na-de-nachtrun).
+
 ## 2026-11-05 · Uitbreiding
 
 **Bèta: receptregels naar schapproducten, `POST /api/v1/match/ingredients`.** Stuur tot 50
