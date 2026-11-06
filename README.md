@@ -3,8 +3,8 @@
 **Nederlands** · [English](README.en.md)
 
 Wekelijkse **supermarktaanbiedingen van meer dan twintig Nederlandse en Belgische
-ketens** via één REST-API, elke nacht ververst. Dit is de publieke documentatie, OpenAPI-specificatie en
-voorbeeldcode bij de API van [PrijsProfeet](https://www.prijsprofeet.nl).
+ketens**, en van Aldi Süd in Duitsland, via één REST-API, elke nacht ververst. Dit is
+de publieke documentatie, OpenAPI-specificatie en voorbeeldcode bij de API van [PrijsProfeet](https://www.prijsprofeet.nl).
 
 Geen enkele Nederlandse of Belgische supermarkt biedt een officiële publieke API. Deze wel — en
 het grootste deel ervan werkt **zonder key en zonder registratie**.
@@ -47,9 +47,9 @@ staat in `GET /api/v1/shelf-prices`, en dat is een betaald endpoint: zie
 
 ## Ketens
 
-**Nederland** (`www.prijsprofeet.nl/api/v1`): Albert Heijn · Aldi · Boon's Markt ·
-DekaMarkt · Dirk · Ekoplaza · Gewoon Coop · Hoogvliet · Jumbo · Lidl · MCD · Nettorama ·
-PLUS · Poiesz · SPAR · Vomar
+**Nederland** (`www.prijsprofeet.nl/api/v1`): Albert Heijn · Aldi · Amazing Oriental ·
+Boni · Boon's Markt · Coop · Dagwinkel · DekaMarkt · Dirk · Ekoplaza · Gewoon Coop ·
+Hoogvliet · Jumbo · Lidl · MCD · Nettorama · PLUS · Poiesz · SPAR · Vomar
 
 **België** (`www.prijsprofeet.be/api/v1`): Albert Heijn · Aldi · Carrefour · Colruyt ·
 Delhaize · Jumbo · Lidl
@@ -240,7 +240,7 @@ zonder registratie.
 Het land komt uit de host, net als bij de API. Wie hem als gebruiker in Claude of
 ChatGPT wil toevoegen: de stappen staan op
 [prijsprofeet.nl/chatgpt-en-claude](https://www.prijsprofeet.nl/chatgpt-en-claude/), en
-in Claude staat hij in de connectordirectory.
+hij staat in de directory van Claude (Nederland) en ChatGPT (Nederland en België).
 
 **Waar hij voor is.** De connector beantwoordt de vraag van een gebruiker: waar een
 product deze week in de aanbieding is, waar het nu het goedkoopst is, wat het normaal

@@ -2,9 +2,9 @@
 
 [Nederlands](README.md) · **English**
 
-Weekly **supermarket promotions from more than twenty Dutch and Belgian chains** through
-a single REST API, refreshed every night. This is the public documentation, OpenAPI
-specification and example code for the API of [PrijsProfeet](https://www.prijsprofeet.nl).
+Weekly **supermarket promotions from more than twenty Dutch and Belgian chains**, and from
+Aldi Süd in Germany, through a single REST API, refreshed every night. This is the
+public documentation, OpenAPI specification and example code for the API of [PrijsProfeet](https://www.prijsprofeet.nl).
 
 Not a single Dutch or Belgian supermarket offers an official public API. This one does —
 and most of it works **without a key and without registration**.
@@ -46,9 +46,9 @@ that is a paid endpoint: see [Free, Pro and Business](#free-pro-and-business).
 
 ## Chains
 
-**Netherlands** (`www.prijsprofeet.nl/api/v1`): Albert Heijn · Aldi · Boon's Markt ·
-DekaMarkt · Dirk · Ekoplaza · Gewoon Coop · Hoogvliet · Jumbo · Lidl · MCD · Nettorama ·
-PLUS · Poiesz · SPAR · Vomar
+**Netherlands** (`www.prijsprofeet.nl/api/v1`): Albert Heijn · Aldi · Amazing Oriental ·
+Boni · Boon's Markt · Coop · Dagwinkel · DekaMarkt · Dirk · Ekoplaza · Gewoon Coop ·
+Hoogvliet · Jumbo · Lidl · MCD · Nettorama · PLUS · Poiesz · SPAR · Vomar
 
 **Belgium** (`www.prijsprofeet.be/api/v1`): Albert Heijn · Aldi · Carrefour · Colruyt ·
 Delhaize · Jumbo · Lidl
@@ -238,8 +238,8 @@ key and no registration.
 
 The host decides the country, as with the API. To add it as a user in Claude or
 ChatGPT, see the steps (in Dutch) at
-[prijsprofeet.nl/chatgpt-en-claude](https://www.prijsprofeet.nl/chatgpt-en-claude/); in
-Claude it is listed in the connector directory.
+[prijsprofeet.nl/chatgpt-en-claude](https://www.prijsprofeet.nl/chatgpt-en-claude/); it
+is listed in the directory of Claude (Netherlands) and ChatGPT (Netherlands and Belgium).
 
 **What it is for.** The connector answers a user's question: where a product is on
 offer this week, where it is cheapest right now, what it normally costs. The answer is
