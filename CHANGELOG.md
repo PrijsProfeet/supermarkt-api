@@ -22,6 +22,13 @@ Nieuwe velden, nieuwe ketens en betere dekking rollen we zonder aankondiging uit
 aan** (art. 10 van de [API-voorwaarden](https://www.prijsprofeet.nl/api-voorwaarden)):
 per e-mail aan betalende afnemers én hier.
 
+## 2026-11-06 · Uitbreiding
+
+**Een gratis key vraag je aan via het formulier op [/api](https://www.prijsprofeet.nl/api#gratis-key).**
+`POST /api/v1/partner/signup` vraagt nu een `turnstile_token`: de controle tegen spam van
+Cloudflare, die het formulier zelf invult. Een aanvraag uit een script krijgt een 400.
+Voor keys die er al zijn, en voor elk ander endpoint, verandert niets.
+
 ## 2026-11-05 · Alleen documentatie
 
 **De melding na de nachtrun is uit de bèta.** De webhook van elke ochtend rond 07:05 is

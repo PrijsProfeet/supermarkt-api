@@ -3446,12 +3446,19 @@
             "title": "Lang",
             "description": "Language of the mail and the key page: `en` from /en/api",
             "default": "nl"
+          },
+          "turnstile_token": {
+            "type": "string",
+            "maxLength": 2048,
+            "title": "Turnstile Token",
+            "description": "Cloudflare Turnstile token from the form on /api. A key is requested through that form; a script cannot request one."
           }
         },
         "type": "object",
         "required": [
           "email",
-          "project_name"
+          "project_name",
+          "turnstile_token"
         ],
         "title": "KeySignupRequest",
         "description": "The /api form. Three questions, all of them answerable in ten seconds."
