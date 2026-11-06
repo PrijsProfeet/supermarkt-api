@@ -57,7 +57,8 @@ Delhaize · Jumbo · Lidl
 **Duitsland** (`www.prijsprofeet.de/api/v1`): Aldi Süd. Duitsland levert per keten: noem
 precies één keten in `retailer=aldi_sued` op `/search`, `/products` of `/products/changes`,
 of gebruik `/products/retailer/aldi_sued`. Andere routes en vragen zonder die keten geven
-een 403. Een productfoto komt alleen mee als link naar de keten zelf.
+een 403. Een productfoto komt alleen mee als link naar de keten zelf. De pagina voor
+ontwikkelaars staat op [prijsprofeet.de/en/api](https://www.prijsprofeet.de/en/api) (Engels).
 
 EAN-dekking verschilt per keten en is geen detail als je op product wilt koppelen.
 Bij de meeste ketens staat er vrijwel altijd een EAN op een aanbieding. Bij een paar

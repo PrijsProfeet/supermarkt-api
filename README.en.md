@@ -56,7 +56,8 @@ Delhaize · Jumbo · Lidl
 **Germany** (`www.prijsprofeet.de/api/v1`): Aldi Süd. Germany is served per retailer: name
 exactly one retailer in `retailer=aldi_sued` on `/search`, `/products` or `/products/changes`,
 or use `/products/retailer/aldi_sued`. Other routes and requests without that retailer
-return a 403. A product photo is only included as a link to the retailer itself.
+return a 403. A product photo is only included as a link to the retailer itself. The
+developer page is at [prijsprofeet.de/en/api](https://www.prijsprofeet.de/en/api).
 
 EAN coverage differs per chain, and that is no detail if you want to match on product.
 At most chains a promotion almost always carries an EAN. A few chains publish none
