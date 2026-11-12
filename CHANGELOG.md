@@ -22,6 +22,31 @@ Nieuwe velden, nieuwe ketens en betere dekking rollen we zonder aankondiging uit
 aan** (art. 10 van de [API-voorwaarden](https://www.prijsprofeet.nl/api-voorwaarden)):
 per e-mail aan betalende afnemers én hier.
 
+## 2026-11-12 · Uitbreiding
+
+**Een ongeldige key valt niet meer stil terug op de limieten zonder key.** Op een gratis
+endpoint wordt een onbekende of ingetrokken `X-API-Key` nog steeds bediend zoals zonder key,
+maar het antwoord draagt nu de header `X-PrijsProfeet-Notice`. Zo zie je een typfout in je
+key voordat je tegen de lagere limieten aanloopt. Kan je key door een storing bij ons niet
+worden opgezocht, dan geeft een endpoint dat een key vraagt een `503` met `Retry-After`,
+niet meer de `403` "Invalid API key".
+
+**MCP-connector.** `search` (en `fetch` met `schap:`) neemt geen kale EAN meer aan; het
+antwoord legt uit dat je op naam zoekt en verwijst naar de API voor barcodes. Een `GET` op
+de connector geeft een `405` in plaats van een stroom die nooit iets stuurt; stuur JSON-RPC
+met `POST`. De gangbare MCP-SDK's gaan daar zonder meer mee om.
+
+## 2026-11-12 · Alleen documentatie
+
+**De specificatie beschrijft de foutantwoorden.** Elke operatie noemt nu wat je kunt
+terugkrijgen, met één foutmodel `Error` (`detail` staat er altijd, `error` en `retry_after`
+soms): `429` en `503` met `Retry-After` overal, `401` en `403` waar een key verplicht is.
+`GET /api/v1/partner/usage` en `GET /api/v1/reports` staan nu als key-verplicht, wat ze
+altijd al waren. `pp_uid` en `include_all_retailers` op `/search` staan niet meer in de spec:
+die zijn voor de site, en zonder cookie deden ze niets. De server `www.prijsprofeet.de` zegt
+welke keten en routes hij levert. De API zelf verandert niet; genereer je een client, dan
+kan hij er na opnieuw genereren anders uitzien.
+
 ## 2026-11-06 · Uitbreiding
 
 **Een gratis key vraag je aan via het formulier op [/api](https://www.prijsprofeet.nl/api#gratis-key).**

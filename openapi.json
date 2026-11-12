@@ -23,6 +23,52 @@
                 "schema": {}
               }
             }
+          },
+          "403": {
+            "description": "Kan zonder key voorkomen: de antiscrapebescherming weigert op de meeste routes een User-Agent met `bot`, `crawler`, `spider` of `slurp`, en `www.prijsprofeet.de` weigert een route of keten die die winkel niet levert.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "Te veel verzoeken. Wacht het aantal seconden uit `Retry-After`.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            },
+            "headers": {
+              "Retry-After": {
+                "description": "Seconden tot een nieuwe poging zin heeft.",
+                "schema": {
+                  "type": "integer"
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "Tijdelijke storing bij ons. Probeer het opnieuw na `Retry-After`, als die er staat.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            },
+            "headers": {
+              "Retry-After": {
+                "description": "Seconden tot een nieuwe poging zin heeft.",
+                "schema": {
+                  "type": "integer"
+                }
+              }
+            }
           }
         },
         "security": [
@@ -258,6 +304,52 @@
                 }
               }
             }
+          },
+          "403": {
+            "description": "Kan zonder key voorkomen: de antiscrapebescherming weigert op de meeste routes een User-Agent met `bot`, `crawler`, `spider` of `slurp`, en `www.prijsprofeet.de` weigert een route of keten die die winkel niet levert.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "Te veel verzoeken. Wacht het aantal seconden uit `Retry-After`.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            },
+            "headers": {
+              "Retry-After": {
+                "description": "Seconden tot een nieuwe poging zin heeft.",
+                "schema": {
+                  "type": "integer"
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "Tijdelijke storing bij ons. Probeer het opnieuw na `Retry-After`, als die er staat.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            },
+            "headers": {
+              "Retry-After": {
+                "description": "Seconden tot een nieuwe poging zin heeft.",
+                "schema": {
+                  "type": "integer"
+                }
+              }
+            }
           }
         },
         "security": [
@@ -349,6 +441,52 @@
                 }
               }
             }
+          },
+          "403": {
+            "description": "Kan zonder key voorkomen: de antiscrapebescherming weigert op de meeste routes een User-Agent met `bot`, `crawler`, `spider` of `slurp`, en `www.prijsprofeet.de` weigert een route of keten die die winkel niet levert.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "Te veel verzoeken. Wacht het aantal seconden uit `Retry-After`.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            },
+            "headers": {
+              "Retry-After": {
+                "description": "Seconden tot een nieuwe poging zin heeft.",
+                "schema": {
+                  "type": "integer"
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "Tijdelijke storing bij ons. Probeer het opnieuw na `Retry-After`, als die er staat.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            },
+            "headers": {
+              "Retry-After": {
+                "description": "Seconden tot een nieuwe poging zin heeft.",
+                "schema": {
+                  "type": "integer"
+                }
+              }
+            }
           }
         },
         "security": [
@@ -395,6 +533,52 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Kan zonder key voorkomen: de antiscrapebescherming weigert op de meeste routes een User-Agent met `bot`, `crawler`, `spider` of `slurp`, en `www.prijsprofeet.de` weigert een route of keten die die winkel niet levert.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "Te veel verzoeken. Wacht het aantal seconden uit `Retry-After`.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            },
+            "headers": {
+              "Retry-After": {
+                "description": "Seconden tot een nieuwe poging zin heeft.",
+                "schema": {
+                  "type": "integer"
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "Tijdelijke storing bij ons. Probeer het opnieuw na `Retry-After`, als die er staat.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            },
+            "headers": {
+              "Retry-After": {
+                "description": "Seconden tot een nieuwe poging zin heeft.",
+                "schema": {
+                  "type": "integer"
                 }
               }
             }
@@ -449,6 +633,62 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Geen `X-API-Key` meegestuurd.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "De key is onbekend of ingetrokken, of je plan omvat dit endpoint niet.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "Te veel verzoeken. Wacht het aantal seconden uit `Retry-After`.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            },
+            "headers": {
+              "Retry-After": {
+                "description": "Seconden tot een nieuwe poging zin heeft.",
+                "schema": {
+                  "type": "integer"
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "Tijdelijke storing bij ons. Probeer het opnieuw na `Retry-After`, als die er staat.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            },
+            "headers": {
+              "Retry-After": {
+                "description": "Seconden tot een nieuwe poging zin heeft.",
+                "schema": {
+                  "type": "integer"
                 }
               }
             }
@@ -514,6 +754,52 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Kan zonder key voorkomen: de antiscrapebescherming weigert op de meeste routes een User-Agent met `bot`, `crawler`, `spider` of `slurp`, en `www.prijsprofeet.de` weigert een route of keten die die winkel niet levert.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "Te veel verzoeken. Wacht het aantal seconden uit `Retry-After`.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            },
+            "headers": {
+              "Retry-After": {
+                "description": "Seconden tot een nieuwe poging zin heeft.",
+                "schema": {
+                  "type": "integer"
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "Tijdelijke storing bij ons. Probeer het opnieuw na `Retry-After`, als die er staat.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            },
+            "headers": {
+              "Retry-After": {
+                "description": "Seconden tot een nieuwe poging zin heeft.",
+                "schema": {
+                  "type": "integer"
                 }
               }
             }
@@ -611,6 +897,52 @@
                 }
               }
             }
+          },
+          "403": {
+            "description": "Kan zonder key voorkomen: de antiscrapebescherming weigert op de meeste routes een User-Agent met `bot`, `crawler`, `spider` of `slurp`, en `www.prijsprofeet.de` weigert een route of keten die die winkel niet levert.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "Te veel verzoeken. Wacht het aantal seconden uit `Retry-After`.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            },
+            "headers": {
+              "Retry-After": {
+                "description": "Seconden tot een nieuwe poging zin heeft.",
+                "schema": {
+                  "type": "integer"
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "Tijdelijke storing bij ons. Probeer het opnieuw na `Retry-After`, als die er staat.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            },
+            "headers": {
+              "Retry-After": {
+                "description": "Seconden tot een nieuwe poging zin heeft.",
+                "schema": {
+                  "type": "integer"
+                }
+              }
+            }
           }
         },
         "security": [
@@ -684,6 +1016,52 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Kan zonder key voorkomen: de antiscrapebescherming weigert op de meeste routes een User-Agent met `bot`, `crawler`, `spider` of `slurp`, en `www.prijsprofeet.de` weigert een route of keten die die winkel niet levert.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "Te veel verzoeken. Wacht het aantal seconden uit `Retry-After`.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            },
+            "headers": {
+              "Retry-After": {
+                "description": "Seconden tot een nieuwe poging zin heeft.",
+                "schema": {
+                  "type": "integer"
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "Tijdelijke storing bij ons. Probeer het opnieuw na `Retry-After`, als die er staat.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            },
+            "headers": {
+              "Retry-After": {
+                "description": "Seconden tot een nieuwe poging zin heeft.",
+                "schema": {
+                  "type": "integer"
                 }
               }
             }
@@ -762,6 +1140,52 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Kan zonder key voorkomen: de antiscrapebescherming weigert op de meeste routes een User-Agent met `bot`, `crawler`, `spider` of `slurp`, en `www.prijsprofeet.de` weigert een route of keten die die winkel niet levert.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "Te veel verzoeken. Wacht het aantal seconden uit `Retry-After`.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            },
+            "headers": {
+              "Retry-After": {
+                "description": "Seconden tot een nieuwe poging zin heeft.",
+                "schema": {
+                  "type": "integer"
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "Tijdelijke storing bij ons. Probeer het opnieuw na `Retry-After`, als die er staat.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            },
+            "headers": {
+              "Retry-After": {
+                "description": "Seconden tot een nieuwe poging zin heeft.",
+                "schema": {
+                  "type": "integer"
                 }
               }
             }
@@ -883,6 +1307,52 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Kan zonder key voorkomen: de antiscrapebescherming weigert op de meeste routes een User-Agent met `bot`, `crawler`, `spider` of `slurp`, en `www.prijsprofeet.de` weigert een route of keten die die winkel niet levert.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "Te veel verzoeken. Wacht het aantal seconden uit `Retry-After`.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            },
+            "headers": {
+              "Retry-After": {
+                "description": "Seconden tot een nieuwe poging zin heeft.",
+                "schema": {
+                  "type": "integer"
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "Tijdelijke storing bij ons. Probeer het opnieuw na `Retry-After`, als die er staat.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            },
+            "headers": {
+              "Retry-After": {
+                "description": "Seconden tot een nieuwe poging zin heeft.",
+                "schema": {
+                  "type": "integer"
                 }
               }
             }
@@ -1132,36 +1602,6 @@
               "title": "Page Size"
             },
             "description": "Results per page"
-          },
-          {
-            "name": "include_all_retailers",
-            "in": "query",
-            "required": false,
-            "schema": {
-              "type": "boolean",
-              "description": "Ignore the caller's stored retailer preference and search every retailer. Only meaningful for browser callers carrying a `pp_uid` cookie — an API-key caller has no stored preference, so this is a no-op for integrations.",
-              "default": false,
-              "title": "Include All Retailers"
-            },
-            "description": "Ignore the caller's stored retailer preference and search every retailer. Only meaningful for browser callers carrying a `pp_uid` cookie — an API-key caller has no stored preference, so this is a no-op for integrations."
-          },
-          {
-            "name": "pp_uid",
-            "in": "cookie",
-            "required": false,
-            "schema": {
-              "anyOf": [
-                {
-                  "type": "string"
-                },
-                {
-                  "type": "null"
-                }
-              ],
-              "description": "Anonymous user ID cookie",
-              "title": "Pp Uid"
-            },
-            "description": "Anonymous user ID cookie"
           }
         ],
         "responses": {
@@ -1181,6 +1621,52 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Kan zonder key voorkomen: de antiscrapebescherming weigert op de meeste routes een User-Agent met `bot`, `crawler`, `spider` of `slurp`, en `www.prijsprofeet.de` weigert een route of keten die die winkel niet levert.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "Te veel verzoeken. Wacht het aantal seconden uit `Retry-After`.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            },
+            "headers": {
+              "Retry-After": {
+                "description": "Seconden tot een nieuwe poging zin heeft.",
+                "schema": {
+                  "type": "integer"
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "Tijdelijke storing bij ons. Probeer het opnieuw na `Retry-After`, als die er staat.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            },
+            "headers": {
+              "Retry-After": {
+                "description": "Seconden tot een nieuwe poging zin heeft.",
+                "schema": {
+                  "type": "integer"
                 }
               }
             }
@@ -1209,6 +1695,52 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/CategoriesResponse"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Kan zonder key voorkomen: de antiscrapebescherming weigert op de meeste routes een User-Agent met `bot`, `crawler`, `spider` of `slurp`, en `www.prijsprofeet.de` weigert een route of keten die die winkel niet levert.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "Te veel verzoeken. Wacht het aantal seconden uit `Retry-After`.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            },
+            "headers": {
+              "Retry-After": {
+                "description": "Seconden tot een nieuwe poging zin heeft.",
+                "schema": {
+                  "type": "integer"
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "Tijdelijke storing bij ons. Probeer het opnieuw na `Retry-After`, als die er staat.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            },
+            "headers": {
+              "Retry-After": {
+                "description": "Seconden tot een nieuwe poging zin heeft.",
+                "schema": {
+                  "type": "integer"
                 }
               }
             }
@@ -1360,6 +1892,52 @@
                 }
               }
             }
+          },
+          "403": {
+            "description": "Kan zonder key voorkomen: de antiscrapebescherming weigert op de meeste routes een User-Agent met `bot`, `crawler`, `spider` of `slurp`, en `www.prijsprofeet.de` weigert een route of keten die die winkel niet levert.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "Te veel verzoeken. Wacht het aantal seconden uit `Retry-After`.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            },
+            "headers": {
+              "Retry-After": {
+                "description": "Seconden tot een nieuwe poging zin heeft.",
+                "schema": {
+                  "type": "integer"
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "Tijdelijke storing bij ons. Probeer het opnieuw na `Retry-After`, als die er staat.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            },
+            "headers": {
+              "Retry-After": {
+                "description": "Seconden tot een nieuwe poging zin heeft.",
+                "schema": {
+                  "type": "integer"
+                }
+              }
+            }
           }
         },
         "security": [
@@ -1440,6 +2018,62 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Geen `X-API-Key` meegestuurd.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "De key is onbekend of ingetrokken, of je plan omvat dit endpoint niet.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "Te veel verzoeken. Wacht het aantal seconden uit `Retry-After`.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            },
+            "headers": {
+              "Retry-After": {
+                "description": "Seconden tot een nieuwe poging zin heeft.",
+                "schema": {
+                  "type": "integer"
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "Tijdelijke storing bij ons. Probeer het opnieuw na `Retry-After`, als die er staat.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            },
+            "headers": {
+              "Retry-After": {
+                "description": "Seconden tot een nieuwe poging zin heeft.",
+                "schema": {
+                  "type": "integer"
                 }
               }
             }
@@ -1529,6 +2163,62 @@
                 }
               }
             }
+          },
+          "401": {
+            "description": "Geen `X-API-Key` meegestuurd.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "De key is onbekend of ingetrokken, of je plan omvat dit endpoint niet.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "Te veel verzoeken. Wacht het aantal seconden uit `Retry-After`.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            },
+            "headers": {
+              "Retry-After": {
+                "description": "Seconden tot een nieuwe poging zin heeft.",
+                "schema": {
+                  "type": "integer"
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "Tijdelijke storing bij ons. Probeer het opnieuw na `Retry-After`, als die er staat.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            },
+            "headers": {
+              "Retry-After": {
+                "description": "Seconden tot een nieuwe poging zin heeft.",
+                "schema": {
+                  "type": "integer"
+                }
+              }
+            }
           }
         },
         "security": [
@@ -1583,6 +2273,62 @@
                 }
               }
             }
+          },
+          "401": {
+            "description": "Geen `X-API-Key` meegestuurd.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "De key is onbekend of ingetrokken, of je plan omvat dit endpoint niet.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "Te veel verzoeken. Wacht het aantal seconden uit `Retry-After`.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            },
+            "headers": {
+              "Retry-After": {
+                "description": "Seconden tot een nieuwe poging zin heeft.",
+                "schema": {
+                  "type": "integer"
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "Tijdelijke storing bij ons. Probeer het opnieuw na `Retry-After`, als die er staat.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            },
+            "headers": {
+              "Retry-After": {
+                "description": "Seconden tot een nieuwe poging zin heeft.",
+                "schema": {
+                  "type": "integer"
+                }
+              }
+            }
           }
         },
         "security": [
@@ -1609,6 +2355,62 @@
                   "additionalProperties": true,
                   "type": "object",
                   "title": "Response Get Ean Stats Api V1 Match Stats Get"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Geen `X-API-Key` meegestuurd.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "De key is onbekend of ingetrokken, of je plan omvat dit endpoint niet.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "Te veel verzoeken. Wacht het aantal seconden uit `Retry-After`.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            },
+            "headers": {
+              "Retry-After": {
+                "description": "Seconden tot een nieuwe poging zin heeft.",
+                "schema": {
+                  "type": "integer"
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "Tijdelijke storing bij ons. Probeer het opnieuw na `Retry-After`, als die er staat.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            },
+            "headers": {
+              "Retry-After": {
+                "description": "Seconden tot een nieuwe poging zin heeft.",
+                "schema": {
+                  "type": "integer"
                 }
               }
             }
@@ -1656,6 +2458,62 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Geen `X-API-Key` meegestuurd.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "De key is onbekend of ingetrokken, of je plan omvat dit endpoint niet.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "Te veel verzoeken. Wacht het aantal seconden uit `Retry-After`.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            },
+            "headers": {
+              "Retry-After": {
+                "description": "Seconden tot een nieuwe poging zin heeft.",
+                "schema": {
+                  "type": "integer"
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "Tijdelijke storing bij ons. Probeer het opnieuw na `Retry-After`, als die er staat.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            },
+            "headers": {
+              "Retry-After": {
+                "description": "Seconden tot een nieuwe poging zin heeft.",
+                "schema": {
+                  "type": "integer"
                 }
               }
             }
@@ -1813,6 +2671,62 @@
                 }
               }
             }
+          },
+          "401": {
+            "description": "Geen `X-API-Key` meegestuurd.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "De key is onbekend of ingetrokken, of je plan omvat dit endpoint niet.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "Te veel verzoeken. Wacht het aantal seconden uit `Retry-After`.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            },
+            "headers": {
+              "Retry-After": {
+                "description": "Seconden tot een nieuwe poging zin heeft.",
+                "schema": {
+                  "type": "integer"
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "Tijdelijke storing bij ons. Probeer het opnieuw na `Retry-After`, als die er staat.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            },
+            "headers": {
+              "Retry-After": {
+                "description": "Seconden tot een nieuwe poging zin heeft.",
+                "schema": {
+                  "type": "integer"
+                }
+              }
+            }
           }
         },
         "security": [
@@ -1948,6 +2862,62 @@
                 }
               }
             }
+          },
+          "401": {
+            "description": "Geen `X-API-Key` meegestuurd.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "De key is onbekend of ingetrokken, of je plan omvat dit endpoint niet.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "Te veel verzoeken. Wacht het aantal seconden uit `Retry-After`.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            },
+            "headers": {
+              "Retry-After": {
+                "description": "Seconden tot een nieuwe poging zin heeft.",
+                "schema": {
+                  "type": "integer"
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "Tijdelijke storing bij ons. Probeer het opnieuw na `Retry-After`, als die er staat.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            },
+            "headers": {
+              "Retry-After": {
+                "description": "Seconden tot een nieuwe poging zin heeft.",
+                "schema": {
+                  "type": "integer"
+                }
+              }
+            }
           }
         },
         "security": [
@@ -2065,6 +3035,62 @@
                 }
               }
             }
+          },
+          "401": {
+            "description": "Geen `X-API-Key` meegestuurd.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "De key is onbekend of ingetrokken, of je plan omvat dit endpoint niet.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "Te veel verzoeken. Wacht het aantal seconden uit `Retry-After`.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            },
+            "headers": {
+              "Retry-After": {
+                "description": "Seconden tot een nieuwe poging zin heeft.",
+                "schema": {
+                  "type": "integer"
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "Tijdelijke storing bij ons. Probeer het opnieuw na `Retry-After`, als die er staat.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            },
+            "headers": {
+              "Retry-After": {
+                "description": "Seconden tot een nieuwe poging zin heeft.",
+                "schema": {
+                  "type": "integer"
+                }
+              }
+            }
           }
         },
         "security": [
@@ -2150,6 +3176,52 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Kan zonder key voorkomen: de antiscrapebescherming weigert op de meeste routes een User-Agent met `bot`, `crawler`, `spider` of `slurp`, en `www.prijsprofeet.de` weigert een route of keten die die winkel niet levert.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "Te veel verzoeken. Wacht het aantal seconden uit `Retry-After`.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            },
+            "headers": {
+              "Retry-After": {
+                "description": "Seconden tot een nieuwe poging zin heeft.",
+                "schema": {
+                  "type": "integer"
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "Tijdelijke storing bij ons. Probeer het opnieuw na `Retry-After`, als die er staat.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            },
+            "headers": {
+              "Retry-After": {
+                "description": "Seconden tot een nieuwe poging zin heeft.",
+                "schema": {
+                  "type": "integer"
                 }
               }
             }
@@ -2239,6 +3311,52 @@
                 }
               }
             }
+          },
+          "403": {
+            "description": "Kan zonder key voorkomen: de antiscrapebescherming weigert op de meeste routes een User-Agent met `bot`, `crawler`, `spider` of `slurp`, en `www.prijsprofeet.de` weigert een route of keten die die winkel niet levert.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "Te veel verzoeken. Wacht het aantal seconden uit `Retry-After`.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            },
+            "headers": {
+              "Retry-After": {
+                "description": "Seconden tot een nieuwe poging zin heeft.",
+                "schema": {
+                  "type": "integer"
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "Tijdelijke storing bij ons. Probeer het opnieuw na `Retry-After`, als die er staat.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            },
+            "headers": {
+              "Retry-After": {
+                "description": "Seconden tot een nieuwe poging zin heeft.",
+                "schema": {
+                  "type": "integer"
+                }
+              }
+            }
           }
         },
         "security": [
@@ -2263,6 +3381,52 @@
             "content": {
               "application/json": {
                 "schema": {}
+              }
+            }
+          },
+          "403": {
+            "description": "Kan zonder key voorkomen: de antiscrapebescherming weigert op de meeste routes een User-Agent met `bot`, `crawler`, `spider` of `slurp`, en `www.prijsprofeet.de` weigert een route of keten die die winkel niet levert.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "Te veel verzoeken. Wacht het aantal seconden uit `Retry-After`.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            },
+            "headers": {
+              "Retry-After": {
+                "description": "Seconden tot een nieuwe poging zin heeft.",
+                "schema": {
+                  "type": "integer"
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "Tijdelijke storing bij ons. Probeer het opnieuw na `Retry-After`, als die er staat.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            },
+            "headers": {
+              "Retry-After": {
+                "description": "Seconden tot een nieuwe poging zin heeft.",
+                "schema": {
+                  "type": "integer"
+                }
               }
             }
           }
@@ -2333,6 +3497,52 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Kan zonder key voorkomen: de antiscrapebescherming weigert op de meeste routes een User-Agent met `bot`, `crawler`, `spider` of `slurp`, en `www.prijsprofeet.de` weigert een route of keten die die winkel niet levert.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "Te veel verzoeken. Wacht het aantal seconden uit `Retry-After`.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            },
+            "headers": {
+              "Retry-After": {
+                "description": "Seconden tot een nieuwe poging zin heeft.",
+                "schema": {
+                  "type": "integer"
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "Tijdelijke storing bij ons. Probeer het opnieuw na `Retry-After`, als die er staat.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            },
+            "headers": {
+              "Retry-After": {
+                "description": "Seconden tot een nieuwe poging zin heeft.",
+                "schema": {
+                  "type": "integer"
                 }
               }
             }
@@ -2418,6 +3628,52 @@
                 }
               }
             }
+          },
+          "403": {
+            "description": "Kan zonder key voorkomen: de antiscrapebescherming weigert op de meeste routes een User-Agent met `bot`, `crawler`, `spider` of `slurp`, en `www.prijsprofeet.de` weigert een route of keten die die winkel niet levert.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "Te veel verzoeken. Wacht het aantal seconden uit `Retry-After`.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            },
+            "headers": {
+              "Retry-After": {
+                "description": "Seconden tot een nieuwe poging zin heeft.",
+                "schema": {
+                  "type": "integer"
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "Tijdelijke storing bij ons. Probeer het opnieuw na `Retry-After`, als die er staat.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            },
+            "headers": {
+              "Retry-After": {
+                "description": "Seconden tot een nieuwe poging zin heeft.",
+                "schema": {
+                  "type": "integer"
+                }
+              }
+            }
           }
         },
         "security": [
@@ -2489,6 +3745,52 @@
                 }
               }
             }
+          },
+          "403": {
+            "description": "Kan zonder key voorkomen: de antiscrapebescherming weigert op de meeste routes een User-Agent met `bot`, `crawler`, `spider` of `slurp`, en `www.prijsprofeet.de` weigert een route of keten die die winkel niet levert.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "Te veel verzoeken. Wacht het aantal seconden uit `Retry-After`.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            },
+            "headers": {
+              "Retry-After": {
+                "description": "Seconden tot een nieuwe poging zin heeft.",
+                "schema": {
+                  "type": "integer"
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "Tijdelijke storing bij ons. Probeer het opnieuw na `Retry-After`, als die er staat.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            },
+            "headers": {
+              "Retry-After": {
+                "description": "Seconden tot een nieuwe poging zin heeft.",
+                "schema": {
+                  "type": "integer"
+                }
+              }
+            }
           }
         },
         "security": [
@@ -2535,6 +3837,52 @@
                 }
               }
             }
+          },
+          "403": {
+            "description": "Kan zonder key voorkomen: de antiscrapebescherming weigert op de meeste routes een User-Agent met `bot`, `crawler`, `spider` of `slurp`, en `www.prijsprofeet.de` weigert een route of keten die die winkel niet levert.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "Te veel verzoeken. Wacht het aantal seconden uit `Retry-After`.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            },
+            "headers": {
+              "Retry-After": {
+                "description": "Seconden tot een nieuwe poging zin heeft.",
+                "schema": {
+                  "type": "integer"
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "Tijdelijke storing bij ons. Probeer het opnieuw na `Retry-After`, als die er staat.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            },
+            "headers": {
+              "Retry-After": {
+                "description": "Seconden tot een nieuwe poging zin heeft.",
+                "schema": {
+                  "type": "integer"
+                }
+              }
+            }
           }
         },
         "security": [
@@ -2561,10 +3909,65 @@
                 "schema": {}
               }
             }
+          },
+          "401": {
+            "description": "Geen `X-API-Key` meegestuurd.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "De key is onbekend of ingetrokken, of je plan omvat dit endpoint niet.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "Te veel verzoeken. Wacht het aantal seconden uit `Retry-After`.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            },
+            "headers": {
+              "Retry-After": {
+                "description": "Seconden tot een nieuwe poging zin heeft.",
+                "schema": {
+                  "type": "integer"
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "Tijdelijke storing bij ons. Probeer het opnieuw na `Retry-After`, als die er staat.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            },
+            "headers": {
+              "Retry-After": {
+                "description": "Seconden tot een nieuwe poging zin heeft.",
+                "schema": {
+                  "type": "integer"
+                }
+              }
+            }
           }
         },
         "security": [
-          {},
           {
             "ApiKeyAuth": []
           }
@@ -2615,6 +4018,52 @@
                 }
               }
             }
+          },
+          "403": {
+            "description": "Kan zonder key voorkomen: de antiscrapebescherming weigert op de meeste routes een User-Agent met `bot`, `crawler`, `spider` of `slurp`, en `www.prijsprofeet.de` weigert een route of keten die die winkel niet levert.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "Te veel verzoeken. Wacht het aantal seconden uit `Retry-After`.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            },
+            "headers": {
+              "Retry-After": {
+                "description": "Seconden tot een nieuwe poging zin heeft.",
+                "schema": {
+                  "type": "integer"
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "Tijdelijke storing bij ons. Probeer het opnieuw na `Retry-After`, als die er staat.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            },
+            "headers": {
+              "Retry-After": {
+                "description": "Seconden tot een nieuwe poging zin heeft.",
+                "schema": {
+                  "type": "integer"
+                }
+              }
+            }
           }
         },
         "security": [
@@ -2660,6 +4109,52 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Kan zonder key voorkomen: de antiscrapebescherming weigert op de meeste routes een User-Agent met `bot`, `crawler`, `spider` of `slurp`, en `www.prijsprofeet.de` weigert een route of keten die die winkel niet levert.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "Te veel verzoeken. Wacht het aantal seconden uit `Retry-After`.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            },
+            "headers": {
+              "Retry-After": {
+                "description": "Seconden tot een nieuwe poging zin heeft.",
+                "schema": {
+                  "type": "integer"
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "Tijdelijke storing bij ons. Probeer het opnieuw na `Retry-After`, als die er staat.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            },
+            "headers": {
+              "Retry-After": {
+                "description": "Seconden tot een nieuwe poging zin heeft.",
+                "schema": {
+                  "type": "integer"
                 }
               }
             }
@@ -2724,10 +4219,65 @@
                 }
               }
             }
+          },
+          "401": {
+            "description": "Geen `X-API-Key` meegestuurd.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "De key is onbekend of ingetrokken, of je plan omvat dit endpoint niet.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "Te veel verzoeken. Wacht het aantal seconden uit `Retry-After`.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            },
+            "headers": {
+              "Retry-After": {
+                "description": "Seconden tot een nieuwe poging zin heeft.",
+                "schema": {
+                  "type": "integer"
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "Tijdelijke storing bij ons. Probeer het opnieuw na `Retry-After`, als die er staat.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            },
+            "headers": {
+              "Retry-After": {
+                "description": "Seconden tot een nieuwe poging zin heeft.",
+                "schema": {
+                  "type": "integer"
+                }
+              }
+            }
           }
         },
         "security": [
-          {},
           {
             "ApiKeyAuth": []
           }
@@ -2770,6 +4320,52 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Kan zonder key voorkomen: de antiscrapebescherming weigert op de meeste routes een User-Agent met `bot`, `crawler`, `spider` of `slurp`, en `www.prijsprofeet.de` weigert een route of keten die die winkel niet levert.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "Te veel verzoeken. Wacht het aantal seconden uit `Retry-After`.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            },
+            "headers": {
+              "Retry-After": {
+                "description": "Seconden tot een nieuwe poging zin heeft.",
+                "schema": {
+                  "type": "integer"
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "Tijdelijke storing bij ons. Probeer het opnieuw na `Retry-After`, als die er staat.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            },
+            "headers": {
+              "Retry-After": {
+                "description": "Seconden tot een nieuwe poging zin heeft.",
+                "schema": {
+                  "type": "integer"
                 }
               }
             }
@@ -6030,6 +7626,30 @@
           "type"
         ],
         "title": "ValidationError"
+      },
+      "Error": {
+        "type": "object",
+        "title": "Error",
+        "required": [
+          "detail"
+        ],
+        "properties": {
+          "detail": {
+            "type": "string",
+            "description": "Wat er misging en wat je kunt doen."
+          },
+          "error": {
+            "type": "string",
+            "description": "Korte naam van de fout, bijvoorbeeld `Forbidden`."
+          },
+          "retry_after": {
+            "type": [
+              "integer",
+              "null"
+            ],
+            "description": "Bij een 429: seconden tot een nieuwe poging."
+          }
+        }
       }
     },
     "securitySchemes": {
@@ -6037,7 +7657,7 @@
         "type": "apiKey",
         "in": "header",
         "name": "X-API-Key",
-        "description": "Partner key, sent as the `X-API-Key` header. Required on `/match/*` and `/price-history`, which additionally need a paid plan (trial, pro or business). Optional everywhere else — the Gratis tier needs no key — but sending it raises your rate limit from the anonymous per-endpoint caps to your plan's. Request one at /api."
+        "description": "Partner key, sent as the `X-API-Key` header. Required on the endpoints marked with a lock; most of those also need a paid plan (trial, pro or business). Optional everywhere else — the Gratis tier needs no key — but sending it raises your rate limit from the anonymous per-endpoint caps to your plan's. An unknown key on an optional endpoint is served as keyless, with an `X-PrijsProfeet-Notice` header. Request one at /api."
       }
     }
   },
@@ -6052,7 +7672,7 @@
     },
     {
       "url": "https://www.prijsprofeet.de",
-      "description": "Duitse ketens"
+      "description": "Duitse ketens; alleen `aldi_sued`, met precies één `retailer=` op `/api/v1/products`, `/api/v1/products/changes`, `/api/v1/search`, of `/api/v1/products/retailer/{keten}`"
     }
   ]
 }

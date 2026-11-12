@@ -92,9 +92,8 @@ De volledige lijst staat in [`openapi.json`](openapi.json); werkende voorbeelden
 | [`aanbiedingen_per_keten.py`](examples/aanbiedingen_per_keten.py) | `/deals/top` voor één keten |
 | [`product_detail.py`](examples/product_detail.py) | `/products/{id}` en waarom je op EAN koppelt |
 | [`matching.py`](examples/matching.py) | `/match/*` (Pro en Business), met de veldnamen en de `min(price)`-valkuil |
- ⚠️ De respons van `/match/*` staat in `openapi.json` als
-ongetypeerd object — de parameters zijn daar volledig beschreven, de veldnamen niet.
-Die staan in [`examples/matching.py`](examples/matching.py).
+Roep de API aan vanaf je server. Vanuit de browser op een ander domein lukt het niet:
+de API stuurt geen CORS-headers voor andere sites, en een key hoort ook niet in de browser.
 
 ⚠️ **Let op `promotion_status`.** Er zijn vier waarden:
 
@@ -194,6 +193,12 @@ lager plan.
 Een gratis key is dus altijd ruimer dan helemaal geen key. Dat is bewust: wie zich
 identificeert hoort er niet op achteruit te gaan. Een `429` draagt `Retry-After`.
 
+Klopt je key niet (onbekend of ingetrokken), dan behandelen we een verzoek op een gratis
+endpoint als een verzoek zonder key, met de lagere limieten, en het antwoord draagt de
+header `X-PrijsProfeet-Notice`. Zie je ineens 429's, kijk dan eerst daarnaar. Een endpoint
+dat een key vraagt geeft bij een foute key een `403`. Kan je key door een storing bij ons
+niet worden opgezocht, dan krijg je een `503` met `Retry-After`.
+
 ## Noem jezelf in je User-Agent
 
 Niet verplicht, wel netjes — en zonder key is het de enige manier waarop we je kunnen
@@ -205,7 +210,7 @@ MijnApp/1.0 (jij@voorbeeld.nl)
 ```
 
 ⚠️ **Zet er geen `bot`, `crawler`, `spider` of `slurp` in.** Verzoeken *zonder* key met
-zo'n User-Agent krijgen een `403`. Dat is anti-scrapebescherming, geen storing. Met een
+zo'n User-Agent kunnen een `403` krijgen. Dat is anti-scrapebescherming, geen storing. Met een
 key geldt de blokkade niet.
 
 ## OpenAPI
@@ -235,13 +240,15 @@ zonder registratie.
 |---|---|
 | Nederland | `https://www.prijsprofeet.nl/api/v1/mcp` |
 | België | `https://www.prijsprofeet.be/api/v1/mcp` |
-| Transport | Streamable HTTP |
+| Duitsland | `https://www.prijsprofeet.de/api/v1/mcp` |
+| Transport | Streamable HTTP, alleen POST (een GET geeft een `405`) |
 | Authenticatie | geen |
 
 Het land komt uit de host, net als bij de API. Wie hem als gebruiker in Claude of
 ChatGPT wil toevoegen: de stappen staan op
 [prijsprofeet.nl/chatgpt-en-claude](https://www.prijsprofeet.nl/chatgpt-en-claude/), en
-hij staat in de directory van Claude (Nederland) en ChatGPT (Nederland en België).
+hij staat in de directory van Claude (Nederland, België en Duitsland) en ChatGPT
+(Nederland en België).
 
 **Waar hij voor is.** De connector beantwoordt de vraag van een gebruiker: waar een
 product deze week in de aanbieding is, waar het nu het goedkoopst is, wat het normaal
