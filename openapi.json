@@ -20,7 +20,9 @@
             "description": "Successful Response",
             "content": {
               "application/json": {
-                "schema": {}
+                "schema": {
+                  "$ref": "#/components/schemas/HealthResponse"
+                }
               }
             }
           },
@@ -619,10 +621,9 @@
                 "schema": {
                   "type": "array",
                   "items": {
-                    "type": "object",
-                    "additionalProperties": true
+                    "$ref": "#/components/schemas/PriceHistoryEntry"
                   },
-                  "title": "Response Get Price History Api V1 Products  Product Id  Price History Get"
+                  "title": "Response 200 Get Price History Api V1 Products  Product Id  Price History Get"
                 }
               }
             }
@@ -728,14 +729,13 @@
                 "schema": {
                   "anyOf": [
                     {
-                      "type": "object",
-                      "additionalProperties": true
+                      "$ref": "#/components/schemas/ForecastResponse"
                     },
                     {
                       "type": "null"
                     }
                   ],
-                  "title": "Response Get Forecast Api V1 Products  Product Id  Forecast Get"
+                  "title": "Response 200 Get Forecast Api V1 Products  Product Id  Forecast Get"
                 }
               }
             },
@@ -2257,9 +2257,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "type": "object",
-                  "additionalProperties": true,
-                  "title": "Response Compare Prices Api V1 Match Compare  Ean  Get"
+                  "$ref": "#/components/schemas/PriceComparison"
                 }
               }
             }
@@ -2352,9 +2350,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "additionalProperties": true,
-                  "type": "object",
-                  "title": "Response Get Ean Stats Api V1 Match Stats Get"
+                  "$ref": "#/components/schemas/EanCoverageStats"
                 }
               }
             }
@@ -3294,10 +3290,9 @@
                 "schema": {
                   "type": "array",
                   "items": {
-                    "type": "object",
-                    "additionalProperties": true
+                    "$ref": "#/components/schemas/DealProduct"
                   },
-                  "title": "Response Get Brand Deals Api V1 Deals Brand  Brand  Get"
+                  "title": "Response 200 Get Brand Deals Api V1 Deals Brand  Brand  Get"
                 }
               }
             }
@@ -3380,7 +3375,9 @@
             "description": "Successful Response",
             "content": {
               "application/json": {
-                "schema": {}
+                "schema": {
+                  "$ref": "#/components/schemas/DealsSummary"
+                }
               }
             }
           },
@@ -3487,7 +3484,13 @@
             "description": "Successful Response",
             "content": {
               "application/json": {
-                "schema": {}
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/DealProduct"
+                  },
+                  "title": "Response 200 Popular Deals Endpoint Api V1 Deals Popular Get"
+                }
               }
             }
           },
@@ -3571,10 +3574,10 @@
             "required": true,
             "schema": {
               "type": "string",
-              "description": "Promotion keyword, e.g. '1+1'",
+              "description": "A mechanism or a word from the promotion label. A term that names a mechanism returns every promotion of that `promotion_type`: '1+1' and '2e halve prijs' are `one_plus_one`, '3 voor 5' is `multi_buy`, '25% korting' is `percentage`. Any other term matches one word of the label exactly as the retailer writes it (e.g. 'OP=OP'). A term that matches nothing returns an empty list.",
               "title": "Type"
             },
-            "description": "Promotion keyword, e.g. '1+1'"
+            "description": "A mechanism or a word from the promotion label. A term that names a mechanism returns every promotion of that `promotion_type`: '1+1' and '2e halve prijs' are `one_plus_one`, '3 voor 5' is `multi_buy`, '25% korting' is `percentage`. Any other term matches one word of the label exactly as the retailer writes it (e.g. 'OP=OP'). A term that matches nothing returns an empty list."
           },
           {
             "name": "limit",
@@ -3615,7 +3618,13 @@
             "description": "Successful Response",
             "content": {
               "application/json": {
-                "schema": {}
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/DealProduct"
+                  },
+                  "title": "Response 200 Deals By Type Endpoint Api V1 Deals By Type Get"
+                }
               }
             }
           },
@@ -3732,7 +3741,13 @@
             "description": "Successful Response",
             "content": {
               "application/json": {
-                "schema": {}
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/DealProduct"
+                  },
+                  "title": "Response 200 New Deals Endpoint Api V1 Deals New Get"
+                }
               }
             }
           },
@@ -3824,7 +3839,9 @@
             "description": "Successful Response",
             "content": {
               "application/json": {
-                "schema": {}
+                "schema": {
+                  "$ref": "#/components/schemas/KeySignupAccepted"
+                }
               }
             }
           },
@@ -3906,7 +3923,9 @@
             "description": "Successful Response",
             "content": {
               "application/json": {
-                "schema": {}
+                "schema": {
+                  "$ref": "#/components/schemas/PartnerUsage"
+                }
               }
             }
           },
@@ -4002,9 +4021,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "type": "object",
-                  "additionalProperties": true,
-                  "title": "Response Sla Public Api V1 Sla Summary Get"
+                  "$ref": "#/components/schemas/SlaSummary"
                 }
               }
             }
@@ -4466,6 +4483,85 @@
         ],
         "title": "CategoryInfo"
       },
+      "ComparedRetailer": {
+        "properties": {
+          "retailer": {
+            "type": "string",
+            "title": "Retailer"
+          },
+          "product_id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Product Id"
+          },
+          "name": {
+            "type": "string",
+            "title": "Name"
+          },
+          "price": {
+            "type": "number",
+            "title": "Price"
+          },
+          "original_price": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Original Price"
+          },
+          "url": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Url"
+          },
+          "promotion": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Promotion"
+          },
+          "promotion_status": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Promotion Status",
+            "description": "`active`, `upcoming`, `shelf` or `historical`"
+          }
+        },
+        "type": "object",
+        "required": [
+          "retailer",
+          "name",
+          "price"
+        ],
+        "title": "ComparedRetailer"
+      },
       "DealGroup": {
         "properties": {
           "brand": {
@@ -4535,6 +4631,348 @@
         ],
         "title": "DealGroup",
         "description": "A group of products with the same brand and promotion type"
+      },
+      "DealProduct": {
+        "properties": {
+          "product_id": {
+            "type": "string",
+            "title": "Product Id"
+          },
+          "name": {
+            "type": "string",
+            "title": "Name"
+          },
+          "brand": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Brand"
+          },
+          "price": {
+            "type": "number",
+            "title": "Price",
+            "description": "Promotion price per item"
+          },
+          "original_price": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Original Price",
+            "description": "Price before the promotion"
+          },
+          "savings_percentage": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Savings Percentage"
+          },
+          "savings_amount": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Savings Amount"
+          },
+          "promotion_type": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Promotion Type",
+            "description": "Mechanism, one value of the `promotion_type` vocabulary"
+          },
+          "promotional_keywords": {
+            "anyOf": [
+              {
+                "items": {
+                  "type": "string"
+                },
+                "type": "array"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Promotional Keywords"
+          },
+          "image_url": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Image Url"
+          },
+          "product_url": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Product Url",
+            "description": "The retailer's product page"
+          },
+          "retailer": {
+            "type": "string",
+            "title": "Retailer"
+          },
+          "quantity": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Quantity",
+            "description": "Pack size as the retailer states it"
+          },
+          "valid_from": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Valid From",
+            "description": "First day (ISO date)"
+          },
+          "valid_until": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Valid Until",
+            "description": "Last day (ISO date)"
+          },
+          "is_lowest_price": {
+            "anyOf": [
+              {
+                "type": "boolean"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Is Lowest Price",
+            "description": "Not on /deals/brand: lowest price in our history for this product"
+          },
+          "weeks_at_lowest": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Weeks At Lowest",
+            "description": "Not on /deals/brand"
+          },
+          "avg_price_4w": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Avg Price 4W",
+            "description": "Not on /deals/brand: average price over the last four weeks"
+          },
+          "is_new_this_week": {
+            "anyOf": [
+              {
+                "type": "boolean"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Is New This Week",
+            "description": "Not on /deals/brand"
+          },
+          "promotion_status": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Promotion Status",
+            "description": "Only on /deals/brand"
+          },
+          "unified_category": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Unified Category",
+            "description": "Only on /deals/brand"
+          }
+        },
+        "type": "object",
+        "required": [
+          "product_id",
+          "name",
+          "price",
+          "retailer"
+        ],
+        "title": "DealProduct",
+        "description": "One promotion as the /deals list endpoints return it. A field the row does\nnot carry is left out, not sent as null."
+      },
+      "DealsSummary": {
+        "properties": {
+          "total_products": {
+            "type": "integer",
+            "title": "Total Products",
+            "description": "Running promotions in this storefront"
+          },
+          "retailer_count": {
+            "type": "integer",
+            "title": "Retailer Count"
+          },
+          "max_discount_pct": {
+            "type": "integer",
+            "title": "Max Discount Pct"
+          },
+          "last_updated": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Last Updated",
+            "description": "Latest scrape (ISO 8601)"
+          },
+          "expiring_today": {
+            "type": "integer",
+            "title": "Expiring Today",
+            "description": "Promotions whose last day is today"
+          }
+        },
+        "type": "object",
+        "required": [
+          "total_products",
+          "retailer_count",
+          "max_discount_pct",
+          "expiring_today"
+        ],
+        "title": "DealsSummary"
+      },
+      "EanCoverageRow": {
+        "properties": {
+          "total_products": {
+            "type": "integer",
+            "title": "Total Products"
+          },
+          "with_ean": {
+            "type": "integer",
+            "title": "With Ean"
+          },
+          "ean_coverage": {
+            "type": "number",
+            "title": "Ean Coverage",
+            "description": "Percentage of rows with an EAN"
+          }
+        },
+        "type": "object",
+        "required": [
+          "total_products",
+          "with_ean",
+          "ean_coverage"
+        ],
+        "title": "EanCoverageRow"
+      },
+      "EanCoverageStats": {
+        "properties": {
+          "by_retailer": {
+            "additionalProperties": {
+              "$ref": "#/components/schemas/EanCoverageRow"
+            },
+            "type": "object",
+            "title": "By Retailer",
+            "description": "Per active retailer of this storefront"
+          },
+          "total": {
+            "$ref": "#/components/schemas/EanCoverageTotal"
+          }
+        },
+        "type": "object",
+        "required": [
+          "by_retailer",
+          "total"
+        ],
+        "title": "EanCoverageStats"
+      },
+      "EanCoverageTotal": {
+        "properties": {
+          "products": {
+            "type": "integer",
+            "title": "Products"
+          },
+          "with_ean": {
+            "type": "integer",
+            "title": "With Ean"
+          },
+          "coverage_percent": {
+            "type": "number",
+            "title": "Coverage Percent"
+          }
+        },
+        "type": "object",
+        "required": [
+          "products",
+          "with_ean",
+          "coverage_percent"
+        ],
+        "title": "EanCoverageTotal"
       },
       "EanMatchResponse": {
         "properties": {
@@ -4610,6 +5048,109 @@
         "title": "FilterStats",
         "description": "Statistics for filter dropdowns (faceted search)"
       },
+      "ForecastResponse": {
+        "properties": {
+          "tier": {
+            "type": "string",
+            "title": "Tier",
+            "description": "`sterk` or `matig`"
+          },
+          "label": {
+            "type": "string",
+            "title": "Label",
+            "description": "Display text for `tier`"
+          },
+          "prob": {
+            "type": "integer",
+            "title": "Prob",
+            "description": "Probability in percent"
+          },
+          "start": {
+            "type": "string",
+            "title": "Start",
+            "description": "Start of the predicted window (ISO date)"
+          },
+          "end": {
+            "type": "string",
+            "title": "End",
+            "description": "End of the predicted window (ISO date)"
+          },
+          "low": {
+            "type": "number",
+            "title": "Low",
+            "description": "Lowest promotion price seen"
+          },
+          "high": {
+            "type": "number",
+            "title": "High",
+            "description": "Median promotion price seen"
+          },
+          "span": {
+            "type": "integer",
+            "title": "Span",
+            "description": "Months of history the forecast reads"
+          },
+          "promoCount": {
+            "type": "integer",
+            "title": "Promocount",
+            "description": "Promotions in that history"
+          },
+          "retailer": {
+            "type": "string",
+            "title": "Retailer"
+          },
+          "recentPromos": {
+            "type": "integer",
+            "title": "Recentpromos",
+            "description": "Promotions in the last 180 days"
+          },
+          "backtestHitRate": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Backtesthitrate",
+            "description": "How often this product's own past rhythm came true"
+          },
+          "probSource": {
+            "type": "string",
+            "title": "Probsource",
+            "description": "`table` or `fallback`"
+          },
+          "retailerDisplay": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Retailerdisplay"
+          }
+        },
+        "type": "object",
+        "required": [
+          "tier",
+          "label",
+          "prob",
+          "start",
+          "end",
+          "low",
+          "high",
+          "span",
+          "promoCount",
+          "retailer",
+          "recentPromos",
+          "probSource"
+        ],
+        "title": "ForecastResponse",
+        "description": "\"Profeet voorspelt\": when this product is likely on promotion again."
+      },
       "HTTPValidationError": {
         "properties": {
           "detail": {
@@ -4622,6 +5163,51 @@
         },
         "type": "object",
         "title": "HTTPValidationError"
+      },
+      "HealthResponse": {
+        "properties": {
+          "status": {
+            "type": "string",
+            "title": "Status",
+            "description": "Always `healthy`"
+          },
+          "services": {
+            "$ref": "#/components/schemas/HealthServices"
+          }
+        },
+        "type": "object",
+        "required": [
+          "status",
+          "services"
+        ],
+        "title": "HealthResponse",
+        "description": "Liveness only: always 200. Use /api/v1/ready to know whether the API can\nactually serve a request."
+      },
+      "HealthServices": {
+        "properties": {
+          "api": {
+            "type": "string",
+            "title": "Api",
+            "description": "Always `operational`"
+          },
+          "mongodb": {
+            "type": "string",
+            "title": "Mongodb",
+            "description": "`healthy`, or the reason it is not"
+          },
+          "redis": {
+            "type": "string",
+            "title": "Redis",
+            "description": "`healthy`, or the reason it is not"
+          }
+        },
+        "type": "object",
+        "required": [
+          "api",
+          "mongodb",
+          "redis"
+        ],
+        "title": "HealthServices"
       },
       "IngredientAmount": {
         "properties": {
@@ -5004,6 +5590,24 @@
           "image_url"
         ],
         "title": "IngredientPick"
+      },
+      "KeySignupAccepted": {
+        "properties": {
+          "success": {
+            "type": "boolean",
+            "title": "Success"
+          },
+          "message": {
+            "type": "string",
+            "title": "Message"
+          }
+        },
+        "type": "object",
+        "required": [
+          "success",
+          "message"
+        ],
+        "title": "KeySignupAccepted"
       },
       "KeySignupRequest": {
         "properties": {
@@ -5495,6 +6099,236 @@
         ],
         "title": "MatchSourceProduct",
         "description": "The product a /match/product answer starts from."
+      },
+      "PartnerUsage": {
+        "properties": {
+          "partner_id": {
+            "type": "string",
+            "title": "Partner Id"
+          },
+          "partner_name": {
+            "type": "string",
+            "title": "Partner Name"
+          },
+          "plan": {
+            "type": "string",
+            "title": "Plan",
+            "description": "The enforced plan: an expired trial reads `free`"
+          },
+          "rate_limit": {
+            "type": "string",
+            "title": "Rate Limit"
+          },
+          "current_window_requests": {
+            "type": "integer",
+            "title": "Current Window Requests"
+          },
+          "current_window_remaining": {
+            "type": "integer",
+            "title": "Current Window Remaining"
+          },
+          "is_active": {
+            "type": "boolean",
+            "title": "Is Active"
+          },
+          "created_at": {
+            "type": "string",
+            "title": "Created At"
+          },
+          "expires_at": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Expires At"
+          },
+          "daily_usage": {
+            "anyOf": [
+              {
+                "items": {
+                  "$ref": "#/components/schemas/UsageDay"
+                },
+                "type": "array"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Daily Usage",
+            "description": "Last 30 days, oldest first; null when it cannot be read now"
+          }
+        },
+        "type": "object",
+        "required": [
+          "partner_id",
+          "partner_name",
+          "plan",
+          "rate_limit",
+          "current_window_requests",
+          "current_window_remaining",
+          "is_active",
+          "created_at"
+        ],
+        "title": "PartnerUsage"
+      },
+      "PriceComparison": {
+        "properties": {
+          "ean": {
+            "type": "string",
+            "title": "Ean"
+          },
+          "found": {
+            "type": "boolean",
+            "title": "Found"
+          },
+          "product_name": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Product Name"
+          },
+          "retailers": {
+            "items": {
+              "$ref": "#/components/schemas/ComparedRetailer"
+            },
+            "type": "array",
+            "title": "Retailers"
+          },
+          "best_deal": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/ComparedRetailer"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "max_savings": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Max Savings",
+            "description": "Absent when not found"
+          },
+          "savings_percent": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Savings Percent",
+            "description": "Absent when not found"
+          }
+        },
+        "type": "object",
+        "required": [
+          "ean",
+          "found",
+          "retailers"
+        ],
+        "title": "PriceComparison",
+        "description": "The lowest price per retailer for one barcode. Read `promotion_status`:\nthe lowest row can be a historical price."
+      },
+      "PriceHistoryEntry": {
+        "properties": {
+          "date": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Date",
+            "description": "First day of that week's row (ISO date)"
+          },
+          "price": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Price"
+          },
+          "original_price": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Original Price"
+          },
+          "is_promotional": {
+            "type": "boolean",
+            "title": "Is Promotional"
+          },
+          "promotion_type": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Promotion Type",
+            "description": "Mechanism, only on a promotional row"
+          },
+          "promotion_text": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Promotion Text",
+            "description": "The retailer's own label"
+          },
+          "retailer": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Retailer"
+          }
+        },
+        "type": "object",
+        "required": [
+          "is_promotional"
+        ],
+        "title": "PriceHistoryEntry",
+        "description": "One week of one product in the promotion archive."
       },
       "PrivateLabelClaim": {
         "properties": {
@@ -7562,6 +8396,231 @@
         "title": "ShelfPriceListResponse",
         "description": "Paginated shelf-price search response."
       },
+      "SlaMonth": {
+        "properties": {
+          "month": {
+            "type": "string",
+            "title": "Month",
+            "description": "`YYYY-MM`"
+          },
+          "host": {
+            "type": "string",
+            "title": "Host"
+          },
+          "measured": {
+            "type": "boolean",
+            "title": "Measured"
+          },
+          "closed": {
+            "anyOf": [
+              {
+                "type": "boolean"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Closed"
+          },
+          "partial": {
+            "anyOf": [
+              {
+                "type": "boolean"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Partial",
+            "description": "True for a running month or the month the probe started"
+          },
+          "measured_from": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Measured From"
+          },
+          "measured_to": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Measured To"
+          },
+          "availability": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Availability"
+          },
+          "availability_pct": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Availability Pct"
+          },
+          "target_pct": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Target Pct"
+          },
+          "met": {
+            "anyOf": [
+              {
+                "type": "boolean"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Met"
+          },
+          "downtime_minutes": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Downtime Minutes"
+          },
+          "samples": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/SlaSamples"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "step_seconds": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Step Seconds"
+          },
+          "probe": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Probe"
+          },
+          "note": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Note",
+            "description": "Only when `measured` is false"
+          }
+        },
+        "additionalProperties": true,
+        "type": "object",
+        "required": [
+          "month",
+          "host",
+          "measured"
+        ],
+        "title": "SlaMonth",
+        "description": "One calendar month for one host. Months frozen before 2026-10 may carry\nextra fields (`maintenance_minutes`)."
+      },
+      "SlaSamples": {
+        "properties": {
+          "expected": {
+            "type": "integer",
+            "title": "Expected"
+          },
+          "good": {
+            "type": "integer",
+            "title": "Good"
+          },
+          "bad": {
+            "type": "integer",
+            "title": "Bad"
+          },
+          "missing": {
+            "type": "integer",
+            "title": "Missing"
+          }
+        },
+        "type": "object",
+        "required": [
+          "expected",
+          "good",
+          "bad",
+          "missing"
+        ],
+        "title": "SlaSamples"
+      },
+      "SlaSummary": {
+        "properties": {
+          "target_pct": {
+            "type": "number",
+            "title": "Target Pct"
+          },
+          "host": {
+            "type": "string",
+            "title": "Host"
+          },
+          "months": {
+            "items": {
+              "$ref": "#/components/schemas/SlaMonth"
+            },
+            "type": "array",
+            "title": "Months",
+            "description": "Newest first"
+          }
+        },
+        "type": "object",
+        "required": [
+          "target_pct",
+          "host",
+          "months"
+        ],
+        "title": "SlaSummary"
+      },
       "TopDealsResponse": {
         "properties": {
           "top_by_percentage": {
@@ -7586,6 +8645,37 @@
         ],
         "title": "TopDealsResponse",
         "description": "Response with top deals by percentage and amount"
+      },
+      "UsageDay": {
+        "properties": {
+          "date": {
+            "type": "string",
+            "title": "Date",
+            "description": "Dutch calendar day (ISO date)"
+          },
+          "requests": {
+            "type": "integer",
+            "title": "Requests"
+          },
+          "by_group": {
+            "additionalProperties": {
+              "additionalProperties": {
+                "type": "integer"
+              },
+              "type": "object"
+            },
+            "type": "object",
+            "title": "By Group",
+            "description": "Endpoint group, then status class, then count"
+          }
+        },
+        "type": "object",
+        "required": [
+          "date",
+          "requests",
+          "by_group"
+        ],
+        "title": "UsageDay"
       },
       "ValidationError": {
         "properties": {

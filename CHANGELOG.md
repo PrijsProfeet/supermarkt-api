@@ -24,6 +24,13 @@ per e-mail aan betalende afnemers én hier.
 
 ## 2026-11-12 · Uitbreiding
 
+**`GET /api/v1/deals/by-type` volgt de term.** Tot vandaag gaf elk `type` de 1+1-acties
+(ook `type=korting`). Een term die een mechanisme noemt geeft nu alle acties van die
+`promotion_type`: `1+1` en `2e halve prijs` zijn `one_plus_one`, `3 voor 5` is `multi_buy`,
+`25% korting` is `percentage`. Een andere term zoekt één woord uit het label, precies zoals
+de keten het schrijft (bijvoorbeeld `OP=OP`). Wat niets vindt, geeft een lege lijst. Voor
+`type=1+1` verandert er niets.
+
 **Een ongeldige key valt niet meer stil terug op de limieten zonder key.** Op een gratis
 endpoint wordt een onbekende of ingetrokken `X-API-Key` nog steeds bediend zoals zonder key,
 maar het antwoord draagt nu de header `X-PrijsProfeet-Notice`. Zo zie je een typfout in je
@@ -37,6 +44,13 @@ de connector geeft een `405` in plaats van een stroom die nooit iets stuurt; stu
 met `POST`. De gangbare MCP-SDK's gaan daar zonder meer mee om.
 
 ## 2026-11-12 · Alleen documentatie
+
+**Elk succesantwoord heeft nu een model in de spec.** Veertien antwoorden stonden er als
+ongetypeerd object in, waaronder `/products/{id}/price-history` (`PriceHistoryEntry`),
+`/products/{id}/forecast` (`ForecastResponse`, of `null`), `/match/compare/{ean}`
+(`PriceComparison`), `/match/stats` (`EanCoverageStats`), `/partner/usage` (`PartnerUsage`) en
+de `/deals`-lijsten (`DealProduct`). De antwoorden zelf veranderen niet; een gegenereerde
+client krijgt na opnieuw genereren getypeerde velden in plaats van `dict`.
 
 **De specificatie beschrijft de foutantwoorden.** Elke operatie noemt nu wat je kunt
 terugkrijgen, met één foutmodel `Error` (`detail` staat er altijd, `error` en `retry_after`
