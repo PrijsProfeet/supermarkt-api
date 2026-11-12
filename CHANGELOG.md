@@ -24,6 +24,13 @@ per e-mail aan betalende afnemers én hier.
 
 ## 2026-11-12 · Uitbreiding
 
+**`GET /api/v1/match/compare/{ean}`: de beste deal is te betalen.** Per keten toont de
+vergelijking nu eerst een lopende actie of de schapprijs, dan pas een komende actie of een
+prijs uit het archief. `best_deal`, `max_savings` en `savings_percent` tellen alleen rijen
+die je vandaag kunt kopen (`active`, `shelf`); `best_deal` is `null` als die er niet zijn.
+Tot vandaag kon `best_deal` een actie zijn die pas volgende week begint. Een `500` noemt de
+interne fout niet meer.
+
 **`GET /api/v1/deals/by-type` volgt de term.** Tot vandaag gaf elk `type` de 1+1-acties
 (ook `type=korting`). Een term die een mechanisme noemt geeft nu alle acties van die
 `promotion_type`: `1+1` en `2e halve prijs` zijn `one_plus_one`, `3 voor 5` is `multi_buy`,

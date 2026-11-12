@@ -6245,7 +6245,7 @@
           "retailers"
         ],
         "title": "PriceComparison",
-        "description": "The lowest price per retailer for one barcode. Read `promotion_status`:\nthe lowest row can be a historical price."
+        "description": "One row per retailer for one barcode: a running promotion or the shelf\nprice first, then an upcoming promotion, then an archived price.\n`best_deal`, `max_savings` and `savings_percent` only count rows you can buy\ntoday (`active`, `shelf`); `best_deal` is null when there are none."
       },
       "PriceHistoryEntry": {
         "properties": {
