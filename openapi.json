@@ -14,7 +14,7 @@
         ],
         "summary": "Health Check",
         "description": "Health check endpoint - verifies all services are operational",
-        "operationId": "health_check_api_v1_health_get",
+        "operationId": "get_health",
         "responses": {
           "200": {
             "description": "Successful Response",
@@ -88,7 +88,7 @@
         ],
         "summary": "List Products",
         "description": "List all products with optional filters and pagination.\n\n- **retailer**: Filter by retailer name\n- **folder_id**: Filter by folder ID\n- **is_promotional**: Filter promotional products only\n- **min_price**: Minimum price (inclusive)\n- **max_price**: Maximum price (inclusive)\n- **min_valid_from**: Only promotions starting on or after this date (YYYY-MM-DD)\n- **max_valid_from**: Only promotions starting on or before this date (YYYY-MM-DD)\n- **promo_group_id**: Only the products taking part in this joint promotion\n- **sort_by**: Sort field (extracted_at, price, name, product_id, valid_from)\n- **sort_order**: Sort order (asc or desc)\n- **page**: Page number (starts at 1)\n- **page_size**: Number of items per page (max 100)",
-        "operationId": "list_products_api_v1_products_get",
+        "operationId": "list_products",
         "parameters": [
           {
             "name": "retailer",
@@ -369,7 +369,7 @@
         ],
         "summary": "List Product Changes",
         "description": "What changed in `/api/v1/products` since your previous sync.\n\nInstead of paging through every promotion each night, sync once and then\nfollow this feed:\n\n1. Call without `cursor` and keep the `cursor` it returns.\n2. Do one full sync through `/api/v1/products`.\n3. From then on, call with your saved `cursor`. Apply each change in\n   order: `upsert` replaces the row with that `product_id`, `delete`\n   removes it. Save the new `cursor`, and call again right away while\n   `has_more` is true.\n\nA change reaches the feed within about ten minutes (`as_of` says when the\ncatalogue was last compared). Changes are kept for 30 days: an older\ncursor gets a **410**, and then you do a full sync again and start over\nfrom step 1. The same product can appear more than once; the last change\nwins. Scoped to the storefront you call, like every other endpoint.",
-        "operationId": "list_product_changes_api_v1_products_changes_get",
+        "operationId": "list_product_changes",
         "parameters": [
           {
             "name": "cursor",
@@ -506,7 +506,7 @@
         ],
         "summary": "Get Product",
         "description": "Get a specific product by ID.\n\n- **product_id**: the `product_id` of a promotion, or the stable\n  `base_product_id` published on every product response. A `product_id`\n  embeds the promotion week, so a re-promoted article gets a new one every\n  week; the base id is the key to store and to deduplicate on. Passing a\n  base id returns the promotion that is running now.",
-        "operationId": "get_product_api_v1_products__product_id__get",
+        "operationId": "get_product",
         "parameters": [
           {
             "name": "product_id",
@@ -601,7 +601,7 @@
         ],
         "summary": "Get Price History",
         "description": "Get price history for a product from the price_history collection.",
-        "operationId": "get_price_history_api_v1_products__product_id__price_history_get",
+        "operationId": "get_price_history",
         "parameters": [
           {
             "name": "product_id",
@@ -623,7 +623,7 @@
                   "items": {
                     "$ref": "#/components/schemas/PriceHistoryEntry"
                   },
-                  "title": "Response 200 Get Price History Api V1 Products  Product Id  Price History Get"
+                  "title": "Response 200 Get Price History"
                 }
               }
             }
@@ -709,7 +709,7 @@
         ],
         "summary": "Get Forecast",
         "description": "Server-side backtested price forecast (\"Profeet voorspelt\").\n\nReturns the forecast dict, or null (HTTP 200) when there is none; the\n`X-Forecast-Reason` header then says why.",
-        "operationId": "get_forecast_api_v1_products__product_id__forecast_get",
+        "operationId": "get_forecast",
         "parameters": [
           {
             "name": "product_id",
@@ -735,7 +735,7 @@
                       "type": "null"
                     }
                   ],
-                  "title": "Response 200 Get Forecast Api V1 Products  Product Id  Forecast Get"
+                  "title": "Response 200 Get Forecast"
                 }
               }
             },
@@ -820,7 +820,7 @@
         ],
         "summary": "Search Products",
         "description": "Search products by name.\n\n- **query**: Search query (product name)\n- **retailer**: Optional retailer filter\n- **page**: Page number (starts at 1)\n- **page_size**: Number of items per page (max 100)",
-        "operationId": "search_products_api_v1_products_search__query__get",
+        "operationId": "search_products_by_path",
         "parameters": [
           {
             "name": "query",
@@ -960,7 +960,7 @@
         ],
         "summary": "Get Products By Folder",
         "description": "Get all products from a specific folder.\n\n- **folder_id**: Folder identifier\n- **page**: Page number (starts at 1)\n- **page_size**: Number of items per page (max 1000)",
-        "operationId": "get_products_by_folder_api_v1_products_folder__folder_id__get",
+        "operationId": "list_products_by_folder",
         "parameters": [
           {
             "name": "folder_id",
@@ -1082,7 +1082,7 @@
         ],
         "summary": "Get Products By Retailer",
         "description": "Get all products for a specific retailer.\n\nA key this host does not carry answers an empty list, with the key in\n`retailer_filter.ignored`.\n\n- **page**: Page number (starts at 1)\n- **page_size**: Number of items per page (max 100)",
-        "operationId": "get_products_by_retailer_api_v1_products_retailer__retailer__get",
+        "operationId": "list_products_by_retailer",
         "parameters": [
           {
             "name": "retailer",
@@ -1206,7 +1206,7 @@
         ],
         "summary": "Get Promotional Products",
         "description": "Get all promotional products, cheapest first.\n\n- **retailer**: Optional retailer filter\n- **min_valid_from**: Only promotions starting on or after this date (YYYY-MM-DD)\n- **max_valid_from**: Only promotions starting on or before this date (YYYY-MM-DD)\n- **page**: Page number (starts at 1)\n- **page_size**: Number of items per page (max 100)\n\n`total` is the number of promotions matching the filter, not the size of\nthis page: divide it by `page_size` to know how many pages to fetch. There\nis no result cap — paging to the last page returns the whole set, and the\nordering is stable across pages, so a full walk yields every promotion once.",
-        "operationId": "get_promotional_products_api_v1_products_promotional_all_get",
+        "operationId": "list_promotions",
         "parameters": [
           {
             "name": "retailer",
@@ -1373,7 +1373,7 @@
         ],
         "summary": "Search Products",
         "description": "Search products using Elasticsearch with fuzzy matching.\n\nAll products are promotions (scraped from bonus/aanbieding pages).\n\nFeatures:\n- Fuzzy search (handles typos)\n- Dutch language analysis\n- Relevance scoring\n- Fast performance\n- Filter by promotion status (active/upcoming/expired)\n- Filter by promotion type (percentage, multi_buy, one_plus_one, etc.)\n- Filter by minimum savings percentage\n- Sort by savings, unit price, or regular price\n- Filter by unified category\n- Filter by dietary tags (bio, glutenvrij, lactosevrij, vegan)\n- Filter by house brand vs A-merk (private_label)\n\nExample: `/api/v1/search?q=kaas&category=zuivel-eieren&promotion_status=active`\nExample: `/api/v1/search?q=*&promotion_type=multi_buy&min_savings=20&sort_by=savings_percentage:desc`\nExample: `/api/v1/search?q=melk&dietary=vegan,lactosevrij`\nExample: `/api/v1/search?q=*&category=zuivel-eieren&private_label=true`",
-        "operationId": "search_products_api_v1_search_get",
+        "operationId": "search_products",
         "parameters": [
           {
             "name": "q",
@@ -1687,7 +1687,7 @@
         ],
         "summary": "Get Categories",
         "description": "Get all available product categories with product counts.\n\nReturns unified category slugs, Dutch display names, product counts, and group.\nUse the slug value with the `category` parameter in /search.\n\nExample: `/api/v1/categories`",
-        "operationId": "get_categories_api_v1_categories_get",
+        "operationId": "list_categories",
         "responses": {
           "200": {
             "description": "Successful Response",
@@ -1761,7 +1761,7 @@
         ],
         "summary": "Get Filter Stats",
         "description": "Get counts for filter dropdowns (faceted search).\n\nReturns counts for each retailer, promotion status, and category.\nWhen a search query is provided, counts reflect matching products only.\nUsed to display dynamic counts in filter dropdowns.\n\nExample: `/api/v1/filter-stats?q=spinazie&category=groente-fruit`",
-        "operationId": "get_filter_stats_api_v1_filter_stats_get",
+        "operationId": "get_filter_stats",
         "parameters": [
           {
             "name": "q",
@@ -1955,7 +1955,7 @@
         ],
         "summary": "Find products by EAN across retailers",
         "description": "Find products with the same EAN barcode at different retailers. **A GTIN does not identify a pack size**, and this endpoint is deliberately ungated — it has to answer \"everything carrying this barcode\". A chain files the single, the multipack and the tray under one EAN: 5000112658620 carries an Albert Heijn can at EUR 0.85, its 8-pack at EUR 5.19 and its 20-pack at EUR 13.19. So a min(price) over the rows can return the price of a different product. Gate on the `quantity` field, which is on every match, or call /match/product/{product_id}, which applies that gate for you. **`product_id` is `null` on a `shelf` row unless /products/{id} can actually answer it.** A shelf row is keyed on the retailer's own SKU, and that SKU often has no live product — it may never have been on promotion, or only in the past, and this endpoint serves live products only. Rather than hand you an id that 404s, the field is empty. The price, `ean`, `quantity` and `url` are still there: key on `ean`, which is also the key that works across retailers. **`promotion_status` can be `active`, `upcoming`, `shelf` or `historical`.** `shelf` is a retailer's current regular price; `historical` is the most recent price we observed there in the last 60 days when nothing more current is known — treat both as \"what you'd pay there roughly now\", not as a live promo. **`last_deal_price`/`last_deal_until` are the most recent promotion we saw for that retailer and pack in the last 60 days**, on a `shelf` or `historical` row: the promo price and its last day, next to the regular price in `price`. They are `null` when there was no such promotion, and always `null` for a retailer that publishes no strikethrough price on its promotions (e.g. Aldi, Lidl), because without one we cannot tell a promotion from a regular price.",
-        "operationId": "match_by_ean_api_v1_match_ean__ean__get",
+        "operationId": "match_by_ean",
         "parameters": [
           {
             "name": "ean",
@@ -2093,7 +2093,7 @@
         ],
         "summary": "Find matching products at other retailers",
         "description": "Find the same product at other retailers: the comparison our own product pages show. Exact EAN matches first; then, for chains still open, approximations marked `approx: true` -- name and pack size at chains that publish no barcode (Aldi shelf prices), another  chain's own house brand under the same name and pack (`private_label_equivalent: true`), and brand, name and pack for a product without a barcode. Below three barcode matches a name search fills chains without one, so a chain can carry an approximation and a search match. Measured precision per picked row: 89% (name), 92% (brand and name), 99% (house brand). Filter on `approx` to keep barcode matches only.\n\n**Cheaper house brand.** With `include_substitutes=true` the response also carries `substitutes`: house brands under the same name and pack size that cost less than this A-brand promotion. They are a different product and never appear in `matches`. Measured on hand-labelled pairs: 38 of 38 judged a useful alternative.",
-        "operationId": "match_for_product_api_v1_match_product__product_id__get",
+        "operationId": "match_by_product",
         "parameters": [
           {
             "name": "product_id",
@@ -2235,7 +2235,7 @@
         ],
         "summary": "Compare prices for a product across retailers",
         "description": "Get price comparison with best deal and savings information.",
-        "operationId": "compare_prices_api_v1_match_compare__ean__get",
+        "operationId": "compare_prices",
         "parameters": [
           {
             "name": "ean",
@@ -2343,7 +2343,7 @@
         ],
         "summary": "Get EAN coverage statistics",
         "description": "Get statistics on EAN availability across retailers.",
-        "operationId": "get_ean_stats_api_v1_match_stats_get",
+        "operationId": "get_ean_coverage",
         "responses": {
           "200": {
             "description": "Successful Response",
@@ -2426,7 +2426,7 @@
         ],
         "summary": "Receptregels naar schapproducten per keten (bèta)",
         "description": "Per receptregel het passende product met de gewone schapprijs bij elke\nNederlandse keten, plus per keten een totaal naast het aantal gevonden\nregels. Bèta: aanmelden in het API-account. Alleen op www.prijsprofeet.nl.\nDe regels worden nergens opgeslagen of gelogd.",
-        "operationId": "match_ingredients_api_v1_match_ingredients_post",
+        "operationId": "match_ingredients",
         "requestBody": {
           "content": {
             "application/json": {
@@ -2529,7 +2529,7 @@
         ],
         "summary": "Search current regular (non-promotional) shelf prices",
         "description": "Search the regular assortment by name and/or EAN, filtered by retailer: the price a retailer charges when a SKU is NOT on offer, including the many products that never are. `/match/*` only answers for an EAN you already hold; this is where you start without one.\n\n**Access.** Pro, Business or trial key in `X-API-Key`; a free key gets 403. Your plan's rate limit applies.\n\n**Filters.** Give at least one of `q`, `ean` or `retailer`. Without any, the endpoint pages through the whole collection, which is rarely what you want. `ean` takes one EAN or up to 100 separated by commas, so refreshing your own list of products takes a few requests instead of one per product. `price_changed_since` (ISO 8601) returns only rows whose price moved since then, so combined with `ean` you fetch just what changed in your own list. `max_age_days` (1-60, default 60) leaves out rows we have not seen for longer: a chain that reissues SKU ids leaves the old row behind until it expires. `q` is matched as one phrase against the product name, case-insensitively. A phrase of 4+ characters matches anywhere in the name (`brood` finds `volkorenbrood`); a shorter one only as a whole word.\n\n**Order and paging.** Most recently observed first, then by `retailer` and `shelf_id`. The order is total, so paging with `page`/`page_size` returns every row exactly once while the data does not change. It changes nightly (roughly 01:00-02:30 Dutch time), so run a full sync outside that window. `total` is the number of matching rows.\n\n**Coverage.** Nine of the ten chains. Lidl publishes no regular prices and returns nothing. Aldi publishes no barcode, so `ean` is always null there: search by name. Ekoplaza's rows carry `ean: null` as well: the barcode costs a request per product, and Ekoplaza's organic range is almost never sold elsewhere. Prices are national per chain: there is no store level, and no loyalty-card or personal-offer prices. A row that has not been seen for 60 days drops out. See /api for the current breakdown per chain.\n\n**Freshness.** Current price only, not a history. `price_changed_at` says since when this price holds (regular prices move rarely, about 0.2% of SKUs a day); `last_seen` says when we last observed the row, normally last night. Responses are cached for up to an hour.",
-        "operationId": "search_shelf_prices_api_v1_shelf_prices_get",
+        "operationId": "search_shelf_prices",
         "parameters": [
           {
             "name": "q",
@@ -2739,7 +2739,7 @@
         ],
         "summary": "Export the history of regular shelf prices (Business)",
         "description": "Every move of a regular (non-promotional) price we observed, per SKU, since we started following that chain: the first chains in September 2026. Use it to backfill the months before your own integration started, then keep it current with `since`.\n\n**Access.** Business key in `X-API-Key`. Pro, trial and free keys get 403.\n\n**What a row says.** From `observed_at` on, this SKU cost `price` at this retailer. The first row of a SKU has `previous_price: null`: that is when we started watching it, not a price change. Every later row is a move from `previous_price` to `price`, or a change of pack size at the same price: then `price` equals `previous_price` and `quantity` is the new size. `observed_at` is the night we first saw the price; the retailer may have changed it up to a day earlier.\n\n**Filters.** `retailer`, `shelf_id` (needs `retailer`), `ean` and `since` (inclusive, ISO 8601). Without filters you page through the whole archive of this storefront.\n\n**Order and paging.** Oldest first, then by `retailer` and `shelf_id`: the order is total, so `page`/`page_size` (up to 500) returns every row once. To stay current, call again with `since` set to the last `observed_at` you hold and drop rows you already have; the key of a row is `(retailer, shelf_id, observed_at)`. New rows arrive nightly, roughly 01:00-03:00 Dutch time.\n\n**Coverage.** The chains that publish regular prices; Lidl does not, so it has no history. Responses are cached for up to an hour.",
-        "operationId": "shelf_price_history_api_v1_shelf_prices_history_get",
+        "operationId": "list_shelf_price_history",
         "parameters": [
           {
             "name": "retailer",
@@ -2930,7 +2930,7 @@
         ],
         "summary": "Private-label products that are the same across chains (Business)",
         "description": "Which house-brand product at one chain is the same product at another: `AH Halfvolle melk 1 L` and `Jumbo Halfvolle melk 1 L` share no barcode, so no EAN join finds them. Each item is one claim: two current shelf rows at two chains.\n\n**Access.** Business key in `X-API-Key`. Pro, trial and free keys get 403.\n\n**The rule** (`rule`). The same name after removing brand, chain prefix and size; pack sizes within 10% in one unit; and none of the pre-registered differences (organic, 0%/light, ply count, cheese age). No similarity threshold: a near match is not a claim. Measured against hand-labelled pairs: 77 of 78 correct for the Netherlands (98.7%, 95% interval 93-100%), 27 of 27 for Belgium. \"The same\" means the same product in the same pack size.\n\n**Filters.** `retailer` (either side), `shelf_id` (needs `retailer`) to look up one SKU, and `q` for part of the name. Without filters you page through every claim of this storefront.\n\n**Coverage.** Regular shelf rows only, rebuilt nightly, with current prices. Chains without a brand field or without regular prices (Lidl, Carrefour) have no claims. Responses are cached for up to an hour.",
-        "operationId": "private_label_equivalents_api_v1_private_label_equivalents_get",
+        "operationId": "list_private_label_equivalents",
         "parameters": [
           {
             "name": "retailer",
@@ -3103,7 +3103,7 @@
         ],
         "summary": "Get Top Deals Endpoint",
         "description": "Get top promotional deals grouped by brand.\n\nReturns two lists:\n- **top_by_percentage**: Best deals by savings percentage (e.g., 50% off)\n- **top_by_amount**: Best deals by absolute savings (e.g., save EUR 5.00)\n\nProducts are grouped by brand + promotion_type to avoid showing\n15 variants of the same Calve sauce.\n\nPass **retailer** (repeatable) to scope the lists to the shops you actually\nvisit — e.g. only the three supermarkets on your street.\n\nEach group carries a `representative_product` with `name`, `price`,\n`original_price`, `savings_percentage`, `image_url`, `product_url` and\n`valid_from`/`valid_until`. Cache the response by all means, but check\n`valid_until` before you render it: promotion weeks roll over mid-week and a\ncached deal can expire between two of your refreshes.",
-        "operationId": "get_top_deals_endpoint_api_v1_deals_top_get",
+        "operationId": "list_top_deals",
         "parameters": [
           {
             "name": "limit",
@@ -3238,7 +3238,7 @@
         ],
         "summary": "Get Brand Deals",
         "description": "Get all deals for a specific brand.\n\nUse this to show all variants when a user clicks on a deal group.",
-        "operationId": "get_brand_deals_api_v1_deals_brand__brand__get",
+        "operationId": "list_brand_deals",
         "parameters": [
           {
             "name": "brand",
@@ -3292,7 +3292,7 @@
                   "items": {
                     "$ref": "#/components/schemas/DealProduct"
                   },
-                  "title": "Response 200 Get Brand Deals Api V1 Deals Brand  Brand  Get"
+                  "title": "Response 200 List Brand Deals"
                 }
               }
             }
@@ -3369,7 +3369,7 @@
         ],
         "summary": "Deals Summary Endpoint",
         "description": "Aggregate stats: total products, retailer count, max discount, last updated.",
-        "operationId": "deals_summary_endpoint_api_v1_deals_summary_get",
+        "operationId": "get_deals_summary",
         "responses": {
           "200": {
             "description": "Successful Response",
@@ -3443,7 +3443,7 @@
         ],
         "summary": "Popular Deals Endpoint",
         "description": "Most-clicked products from the last 7 days.",
-        "operationId": "popular_deals_endpoint_api_v1_deals_popular_get",
+        "operationId": "list_popular_deals",
         "parameters": [
           {
             "name": "limit",
@@ -3489,7 +3489,7 @@
                   "items": {
                     "$ref": "#/components/schemas/DealProduct"
                   },
-                  "title": "Response 200 Popular Deals Endpoint Api V1 Deals Popular Get"
+                  "title": "Response 200 List Popular Deals"
                 }
               }
             }
@@ -3566,7 +3566,7 @@
         ],
         "summary": "Deals By Type Endpoint",
         "description": "Products matching a promotion type keyword.",
-        "operationId": "deals_by_type_endpoint_api_v1_deals_by_type_get",
+        "operationId": "list_deals_by_type",
         "parameters": [
           {
             "name": "type",
@@ -3623,7 +3623,7 @@
                   "items": {
                     "$ref": "#/components/schemas/DealProduct"
                   },
-                  "title": "Response 200 Deals By Type Endpoint Api V1 Deals By Type Get"
+                  "title": "Response 200 List Deals By Type"
                 }
               }
             }
@@ -3700,7 +3700,7 @@
         ],
         "summary": "New Deals Endpoint",
         "description": "Products scraped this week, sorted by most recent.",
-        "operationId": "new_deals_endpoint_api_v1_deals_new_get",
+        "operationId": "list_new_deals",
         "parameters": [
           {
             "name": "limit",
@@ -3746,7 +3746,7 @@
                   "items": {
                     "$ref": "#/components/schemas/DealProduct"
                   },
-                  "title": "Response 200 New Deals Endpoint Api V1 Deals New Get"
+                  "title": "Response 200 List New Deals"
                 }
               }
             }
@@ -3823,7 +3823,7 @@
         ],
         "summary": "Request Free Key",
         "description": "Request a free API key. We mail a link; clicking it issues the key.\n\nThe response is deliberately the same whether or not the address already has\na key — otherwise this endpoint would answer \"is X a customer of yours?\" for\nany X. The 5/hour cap is per IP and exists so nobody can use us to mail-bomb\na stranger's inbox.",
-        "operationId": "request_free_key_api_v1_partner_signup_post",
+        "operationId": "request_free_key",
         "requestBody": {
           "content": {
             "application/json": {
@@ -3917,7 +3917,7 @@
         ],
         "summary": "Partner Usage",
         "description": "Partner checks their own API usage.\n\nRequires a valid partner API key in the X-API-Key header.\nReturns current rate limit usage, account info and `daily_usage`: requests\nper Dutch calendar day over the last 30 days (oldest first), split by\nendpoint group (`search`, `products`, `deals`, `match`, `shelf_prices`,\n`price_history`, `forecast`, `overig`) and status class (`2xx`, `3xx`,\n`4xx`, `429` = over your rate limit, `403_plan` = paid data without a paid\nplan, `5xx`). `daily_usage` is `null` when the history cannot be read right\nnow, never an empty history.\n\n`plan` is the plan that is enforced: an expired trial reads `free`.",
-        "operationId": "partner_usage_api_v1_partner_usage_get",
+        "operationId": "get_partner_usage",
         "responses": {
           "200": {
             "description": "Successful Response",
@@ -4000,7 +4000,7 @@
         ],
         "summary": "Sla Public",
         "description": "This host's availability per calendar month, newest first — the same shape\nas the internal route, minus ``refresh`` (a status page has no use for it and it\nis not a knob to hand the open internet).",
-        "operationId": "sla_public_api_v1_sla_summary_get",
+        "operationId": "get_sla_summary",
         "parameters": [
           {
             "name": "months",
@@ -4098,7 +4098,7 @@
         ],
         "summary": "Report a data error",
         "description": "Report that a price, pack size, name, promotion or comparison is wrong. Free,\nno key needed. The report lands with us, the party that can fix the data.\n\nName **one** row: a `product_id` (as returned by `/search` or `/products`, the\ndated id or its `base_product_id`), or a shelf row as `retailer` + `shelf_id`\n(from `/shelf-prices`). To report the row of another chain on a product's\ncomparison, send that product's `product_id` plus `compared_retailer`; a\n`match` report needs it.\n\nThere is deliberately no free-text field: every value is a choice or a price,\nso a report carries no personal data. Keep your key on your server; a key in an\napp or in browser JavaScript is a leaked key.\n\nWe check every report against the data as we show it now and against the same\nproduct at the other chains. `status` is `resolved` when our data has already\nmoved past it (the promotion ended, or we now show the price you saw), and\n`open` otherwise. Nothing is corrected automatically.\n\nWithout a key: 10 reports an hour and 30 a day per IP address.\n\nNo backend of your own, or a native app? Open our hosted form instead:\n`https://www.prijsprofeet.nl/melden/?product_id=<id>&bron=<your partner id>`\n(`www.prijsprofeet.be` for Belgian data). The user picks what is wrong there;\nno key on the device and no account. `bron` is used for statistics only.",
-        "operationId": "create_report_api_v1_reports_post",
+        "operationId": "create_report",
         "requestBody": {
           "required": true,
           "content": {
@@ -4190,7 +4190,7 @@
         ],
         "summary": "Your own reports",
         "description": "Every report sent with your key, newest first. Needs a key: without one there is nothing to tell whose reports are yours. Only the reports for this storefront (`www.prijsprofeet.be` for Belgian rows).",
-        "operationId": "list_reports_api_v1_reports_get",
+        "operationId": "list_reports",
         "parameters": [
           {
             "name": "page",
@@ -4308,7 +4308,7 @@
         ],
         "summary": "Status of a report",
         "description": "Where a report stands, for whoever holds its id (the id from `POST /api/v1/reports`; it cannot be guessed). Free, no key needed. Use it to tell your user that the error they reported is fixed. Ask the storefront you reported on: a Dutch report is not found on `www.prijsprofeet.be`.",
-        "operationId": "report_status_api_v1_reports__report_id__get",
+        "operationId": "get_report",
         "parameters": [
           {
             "name": "report_id",

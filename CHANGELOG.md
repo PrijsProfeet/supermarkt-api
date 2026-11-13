@@ -22,6 +22,55 @@ Nieuwe velden, nieuwe ketens en betere dekking rollen we zonder aankondiging uit
 aan** (art. 10 van de [API-voorwaarden](https://www.prijsprofeet.nl/api-voorwaarden)):
 per e-mail aan betalende afnemers én hier.
 
+## 2026-11-13 · Actie nodig
+
+**Elke operatie in de spec heeft een vaste naam (`operationId`).** De namen waren
+afgeleid uit functienaam, pad en methode, zoals `list_products_api_v1_products_get`, en zo
+heette elke methode in een gegenereerde client. Twee routes deelden bovendien
+`search_products`. Nu heeft elke operatie een eigen, korte naam die niet meer stil
+verandert.
+
+**Wat je moet doen**: alleen als je een client genereert uit `openapi.json`. Een client die
+je al hebt blijft werken, want de API zelf verandert niet. Genereer je opnieuw, dan krijgen
+de methodes de nieuwe namen hieronder; pas je code daarop aan. Roep je de API direct aan
+(HTTP), dan verandert er niets.
+
+| Endpoint | Oud | Nieuw |
+|---|---|---|
+| `GET /health` | `health_check_api_v1_health_get` | `get_health` |
+| `GET /products` | `list_products_api_v1_products_get` | `list_products` |
+| `GET /products/changes` | `list_product_changes_api_v1_products_changes_get` | `list_product_changes` |
+| `GET /products/{product_id}` | `get_product_api_v1_products__product_id__get` | `get_product` |
+| `GET /products/{product_id}/price-history` | `get_price_history_api_v1_products__product_id__price_history_get` | `get_price_history` |
+| `GET /products/{product_id}/forecast` | `get_forecast_api_v1_products__product_id__forecast_get` | `get_forecast` |
+| `GET /products/search/{query}` | `search_products_api_v1_products_search__query__get` | `search_products_by_path` |
+| `GET /products/folder/{folder_id}` | `get_products_by_folder_api_v1_products_folder__folder_id__get` | `list_products_by_folder` |
+| `GET /products/retailer/{retailer}` | `get_products_by_retailer_api_v1_products_retailer__retailer__get` | `list_products_by_retailer` |
+| `GET /products/promotional/all` | `get_promotional_products_api_v1_products_promotional_all_get` | `list_promotions` |
+| `GET /search` | `search_products_api_v1_search_get` | `search_products` |
+| `GET /categories` | `get_categories_api_v1_categories_get` | `list_categories` |
+| `GET /filter-stats` | `get_filter_stats_api_v1_filter_stats_get` | `get_filter_stats` |
+| `GET /match/ean/{ean}` | `match_by_ean_api_v1_match_ean__ean__get` | `match_by_ean` |
+| `GET /match/product/{product_id}` | `match_for_product_api_v1_match_product__product_id__get` | `match_by_product` |
+| `GET /match/compare/{ean}` | `compare_prices_api_v1_match_compare__ean__get` | `compare_prices` |
+| `GET /match/stats` | `get_ean_stats_api_v1_match_stats_get` | `get_ean_coverage` |
+| `POST /match/ingredients` | `match_ingredients_api_v1_match_ingredients_post` | `match_ingredients` |
+| `GET /shelf-prices` | `search_shelf_prices_api_v1_shelf_prices_get` | `search_shelf_prices` |
+| `GET /shelf-prices/history` | `shelf_price_history_api_v1_shelf_prices_history_get` | `list_shelf_price_history` |
+| `GET /private-label-equivalents` | `private_label_equivalents_api_v1_private_label_equivalents_get` | `list_private_label_equivalents` |
+| `GET /deals/top` | `get_top_deals_endpoint_api_v1_deals_top_get` | `list_top_deals` |
+| `GET /deals/brand/{brand}` | `get_brand_deals_api_v1_deals_brand__brand__get` | `list_brand_deals` |
+| `GET /deals/summary` | `deals_summary_endpoint_api_v1_deals_summary_get` | `get_deals_summary` |
+| `GET /deals/popular` | `popular_deals_endpoint_api_v1_deals_popular_get` | `list_popular_deals` |
+| `GET /deals/by-type` | `deals_by_type_endpoint_api_v1_deals_by_type_get` | `list_deals_by_type` |
+| `GET /deals/new` | `new_deals_endpoint_api_v1_deals_new_get` | `list_new_deals` |
+| `POST /partner/signup` | `request_free_key_api_v1_partner_signup_post` | `request_free_key` |
+| `GET /partner/usage` | `partner_usage_api_v1_partner_usage_get` | `get_partner_usage` |
+| `GET /sla/summary` | `sla_public_api_v1_sla_summary_get` | `get_sla_summary` |
+| `POST /reports` | `create_report_api_v1_reports_post` | `create_report` |
+| `GET /reports` | `list_reports_api_v1_reports_get` | `list_reports` |
+| `GET /reports/{report_id}` | `report_status_api_v1_reports__report_id__get` | `get_report` |
+
 ## 2026-11-12 · Uitbreiding
 
 **`GET /api/v1/match/compare/{ean}`: de beste deal is te betalen.** Per keten toont de
