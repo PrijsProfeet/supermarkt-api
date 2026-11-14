@@ -333,7 +333,8 @@ curl -X POST https://www.prijsprofeet.nl/api/v1/match/ingredients \
       "interpreted": {"terms": ["uien"], "amount": {"value": 2.0, "unit": "stuk"}, "organic": false},
       "retailers": {
         "albert_heijn": [
-          {"name": "AH Gele uien", "brand": "AH", "quantity": "3 stuks", "price": 0.89,
+          {"name": "AH Gele uien", "brand": "AH", "quantity": "3 stuks",
+           "pack_size": {"value": 3.0, "unit": "stuk"}, "price": 0.89,
            "unit_price": 0.3, "unit": "stuk", "packs": 1, "line_price": 0.89,
            "shelf_id": "525847", "ean": "8718907615778", "product_url": "…", "image_url": "…"}
         ]
@@ -361,6 +362,21 @@ dichtst bij de gevraagde hoeveelheid ligt, naar boven afgerond op hele verpakkin
 (`packs`). Een keukenmaat (`el`, `teen`, `takje`, `snufje`) zegt niets over wat je koopt:
 dan nemen we één keer de kleinste verpakking, en `amount` is `null`. "4 tenen knoflook" is
 dus één verpakking knoflook. Zonder het woord "tenen" lezen we 4 stuks knoflook.
+
+**Is deze verpakking groter dan ik nodig heb?** Dat beslis je zelf, met `pack_size`: de
+verpakkingsmaat als getal, in dezelfde eenheid als `interpreted.amount`, en `null` als de
+keten geen leesbare maat noemt. Deel hem door de gevraagde hoeveelheid en kies je eigen
+drempel. Wij zetten er geen vlaggetje bij, en dat is een meting: over 1.643 door
+testpartners beoordeelde producten is een verpakking bij 55% minstens twee keer de
+gevraagde hoeveelheid, en negen van de tien keer is dat gewoon de normale verpakking — een
+liter zonnebloemolie voor 15 ml koop je nu eenmaal zo. Een waarschuwing van ons zou dus bij
+meer dan de helft van je regels staan en meestal onterecht zijn.
+
+**Een vorm die een apparaat vraagt valt af.** Een regel om koffie of espresso levert geen
+capsules, cups of pads, en geen kant-en-klare koffie met melk of suiker; gemalen koffie,
+oploskoffie en bonen blijven, en een blikje zonder suiker en zonder melk ook. Vraagt de
+regel zelf om die vorm ("20 koffiecapsules"), dan krijg je hem wel. Zo werkt het ook voor
+brood: een regel om brood levert geen stokbrood of broodje, tenzij je dat vraagt.
 
 **Het totaal** per keten is de som van `line_price` over de gevonden regels. Lees het altijd
 naast `lines_found` van `lines_total`: een totaal over 7 van 12 regels is geen mandjesprijs.

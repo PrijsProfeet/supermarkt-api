@@ -5444,6 +5444,25 @@
         ],
         "title": "IngredientMatchResponse"
       },
+      "IngredientPackSize": {
+        "properties": {
+          "value": {
+            "type": "number",
+            "title": "Value"
+          },
+          "unit": {
+            "type": "string",
+            "title": "Unit",
+            "description": "kg, L or stuk (piece)"
+          }
+        },
+        "type": "object",
+        "required": [
+          "value",
+          "unit"
+        ],
+        "title": "IngredientPackSize"
+      },
       "IngredientPick": {
         "properties": {
           "name": {
@@ -5478,6 +5497,17 @@
               }
             ],
             "title": "Quantity"
+          },
+          "pack_size": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/IngredientPackSize"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "The pack size as a number, in the same unit as `interpreted.amount`; null when the retailer states no readable size. Compare it with the amount the line asks for to decide for yourself whether a pack is larger than you need: we do not make that judgement, because a litre of oil for 15 ml is the normal pack"
           },
           "price": {
             "anyOf": [
@@ -5579,6 +5609,7 @@
           "name",
           "brand",
           "quantity",
+          "pack_size",
           "price",
           "unit_price",
           "unit",

@@ -22,6 +22,32 @@ Nieuwe velden, nieuwe ketens en betere dekking rollen we zonder aankondiging uit
 aan** (art. 10 van de [API-voorwaarden](https://www.prijsprofeet.nl/api-voorwaarden)):
 per e-mail aan betalende afnemers én hier.
 
+## 2026-11-14 · Uitbreiding
+
+**Bèta receptregels: de verpakkingsmaat als getal, en koffie die een apparaat vraagt
+valt af.** Elk product op `POST /api/v1/match/ingredients` draagt nu `pack_size`: de
+verpakkingsmaat als getal (`{"value": 0.8, "unit": "kg"}`), in dezelfde eenheid als
+`interpreted.amount`, en `null` als de keten geen leesbare maat noemt. Zo kun je zelf
+bepalen of een verpakking groter is dan je nodig hebt, zonder onze `quantity`-tekst
+("1 liter", "250g", "Inhoud: 10 stuks, 350 g") uit te lezen.
+
+Wij vellen dat oordeel bewust niet, en dat is gemeten: over 1.643 door testpartners
+beoordeelde producten is een verpakking bij 55% minstens twee keer de gevraagde
+hoeveelheid, en daarvan is 738 goedgekeurd tegen 75 afgekeurd — negen van de tien keer
+is zo'n verpakking dus simpelweg de normale (een liter olie voor 15 ml). Van die 75
+afgekeurde producten waren er 74 fout om het product, niet om de maat. Een vlaggetje
+"grote verpakking" van ons zou dus bij meer dan de helft van je regels staan en meestal
+onterecht; de drempel hoort bij jou.
+
+Daarnaast levert een regel die om koffie of espresso vraagt geen capsules, cups of pads
+meer (die vragen een apparaat), en geen kant-en-klare koffie met melk of suiker. Gemalen
+koffie, oploskoffie en bonen blijven, en een blikje zonder suiker en zonder melk ook.
+Vraagt de regel zelf om capsules of pads ("20 koffiecapsules"), dan krijg je die wel.
+Gemeten over 2.698 beoordeelde producten verandert deze regel twee hoofdproducten, beide
+ten goede, en geen enkel ander.
+
+Bestaande velden en gedrag blijven gelijk.
+
 ## 2026-11-13 · Actie nodig
 
 **Elke operatie in de spec heeft een vaste naam (`operationId`).** De namen waren

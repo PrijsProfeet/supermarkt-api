@@ -5444,6 +5444,25 @@
         ],
         "title": "IngredientMatchResponse"
       },
+      "IngredientPackSize": {
+        "properties": {
+          "value": {
+            "type": "number",
+            "title": "Value"
+          },
+          "unit": {
+            "type": "string",
+            "title": "Unit",
+            "description": "kg, L of stuk"
+          }
+        },
+        "type": "object",
+        "required": [
+          "value",
+          "unit"
+        ],
+        "title": "IngredientPackSize"
+      },
       "IngredientPick": {
         "properties": {
           "name": {
@@ -5478,6 +5497,17 @@
               }
             ],
             "title": "Quantity"
+          },
+          "pack_size": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/IngredientPackSize"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "De verpakkingsmaat als getal, in dezelfde eenheid als `interpreted.amount`; null als de keten geen leesbare maat noemt. Houd hem tegen de gevraagde hoeveelheid om zelf te beslissen of een verpakking groter is dan je nodig hebt: wij vellen dat oordeel niet, want een liter olie voor 15 ml is de normale verpakking"
           },
           "price": {
             "anyOf": [
@@ -5579,6 +5609,7 @@
           "name",
           "brand",
           "quantity",
+          "pack_size",
           "price",
           "unit_price",
           "unit",
