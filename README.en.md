@@ -330,7 +330,8 @@ curl -X POST https://www.prijsprofeet.nl/api/v1/match/ingredients \
       "interpreted": {"terms": ["uien"], "amount": {"value": 2.0, "unit": "stuk"}, "organic": false},
       "retailers": {
         "albert_heijn": [
-          {"name": "AH Gele uien", "brand": "AH", "quantity": "3 stuks", "price": 0.89,
+          {"name": "AH Gele uien", "brand": "AH", "quantity": "3 stuks",
+           "pack_size": {"value": 3.0, "unit": "stuk"}, "price": 0.89,
            "unit_price": 0.3, "unit": "stuk", "packs": 1, "line_price": 0.89,
            "shelf_id": "525847", "ean": "8718907615778", "product_url": "…", "image_url": "…"}
         ]
@@ -358,6 +359,20 @@ asked, rounded up to whole packs (`packs`). A kitchen measure (`el`, `teen`, `ta
 `snufje`) says nothing about what you buy: then we take the smallest pack once, and
 `amount` is `null`. So "4 tenen knoflook" is one pack of garlic. Without the word "tenen"
 we read 4 pieces of garlic.
+
+**Is this pack bigger than I need?** That is your call, with `pack_size`: the pack size as
+a number, in the same unit as `interpreted.amount`, and `null` when the chain states no
+readable size. Divide it by the amount asked for and pick your own threshold. We attach no
+flag of our own, and that is a measurement: over 1,643 products reviewed by test partners, a
+pack is at least twice the amount asked for in 55% of cases, and nine times out of ten that
+is simply the normal pack — a litre of sunflower oil for 15 ml is how oil is sold. A warning
+from us would therefore sit on more than half of your lines and be wrong most of the time.
+
+**A form that needs a machine is dropped.** A line asking for coffee or espresso returns no
+capsules, cups or pads, and no ready-to-drink coffee with milk or sugar; ground coffee,
+instant coffee and beans stay, and so does a can without sugar and without milk. If the line
+itself asks for that form ("20 koffiecapsules"), you do get it. The same holds for bread: a
+line asking for bread returns no baguette or roll unless you ask for one.
 
 **The total** per chain is the sum of `line_price` over the lines found. Always read it next
 to `lines_found` out of `lines_total`: a total over 7 of 12 lines is not a basket price.
