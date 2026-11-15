@@ -22,6 +22,22 @@ Nieuwe velden, nieuwe ketens en betere dekking rollen we zonder aankondiging uit
 aan** (art. 10 van de [API-voorwaarden](https://www.prijsprofeet.nl/api-voorwaarden)):
 per e-mail aan betalende afnemers én hier.
 
+## 2026-11-15 · Alleen documentatie
+
+**De spec noemt Bio-Planet, Intermarché en Spar bij de Belgische ketens.** Die drie
+leveren sinds 15 november data op `www.prijsprofeet.be/api/v1`, dus `retailer` kan nu
+ook `bioplanet`, `intermarche` en `spar_be` zijn, en je kunt er in `retailer=` op
+filteren. Gemeten op 15 november over hun lopende aanbiedingen: Bio-Planet draagt
+een barcode op 241 van 241, Intermarché op 69 van 93 (74%) en Spar op 0 van 109 — bij
+die laatste komt een match dus alleen van naam en merk. Bio-Planet levert daarnaast
+schapprijzen (`GET /api/v1/shelf-prices`, Pro).
+
+Er verandert niets aan een bestaand veld of endpoint — een keten erbij rollen we uit
+zonder aankondiging, en je krijgt die rijen vanzelf als je geen `retailer=` meestuurt.
+Deze regel staat er omdat de spec en de README ze nu bij naam noemen: de intro leest
+"20+ Nederlandse en 10+ Belgische supermarkten" in plaats van 7 Belgische, en de
+`retailer`-parameter somt per host zijn eigen ketens op.
+
 ## 2026-11-14 · Uitbreiding
 
 **Bèta receptregels: de verpakkingsmaat als getal, en koffie die een apparaat vraagt

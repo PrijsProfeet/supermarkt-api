@@ -50,8 +50,8 @@ that is a paid endpoint: see [Free, Pro and Business](#free-pro-and-business).
 Boni · Boon's Markt · Coop · Dagwinkel · DekaMarkt · Dirk · Ekoplaza · Gewoon Coop ·
 Hoogvliet · Jumbo · Lidl · MCD · Nettorama · PLUS · Poiesz · SPAR · Vomar
 
-**Belgium** (`www.prijsprofeet.be/api/v1`): Albert Heijn · Aldi · Carrefour · Colruyt ·
-Delhaize · Jumbo · Lidl
+**Belgium** (`www.prijsprofeet.be/api/v1`): Albert Heijn · Aldi · Bio-Planet · Carrefour ·
+Colruyt · Delhaize · Intermarché · Jumbo · Lidl · Spar
 
 **Germany** (`www.prijsprofeet.de/api/v1`): Aldi Süd. Germany is served per retailer: name
 exactly one retailer in `retailer=aldi_sued` on `/search`, `/products` or `/products/changes`,

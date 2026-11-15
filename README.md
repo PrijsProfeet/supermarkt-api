@@ -51,8 +51,8 @@ staat in `GET /api/v1/shelf-prices`, en dat is een betaald endpoint: zie
 Boni · Boon's Markt · Coop · Dagwinkel · DekaMarkt · Dirk · Ekoplaza · Gewoon Coop ·
 Hoogvliet · Jumbo · Lidl · MCD · Nettorama · PLUS · Poiesz · SPAR · Vomar
 
-**België** (`www.prijsprofeet.be/api/v1`): Albert Heijn · Aldi · Carrefour · Colruyt ·
-Delhaize · Jumbo · Lidl
+**België** (`www.prijsprofeet.be/api/v1`): Albert Heijn · Aldi · Bio-Planet · Carrefour ·
+Colruyt · Delhaize · Intermarché · Jumbo · Lidl · Spar
 
 **Duitsland** (`www.prijsprofeet.de/api/v1`): Aldi Süd. Duitsland levert per keten: noem
 precies één keten in `retailer=aldi_sued` op `/search`, `/products` of `/products/changes`,
