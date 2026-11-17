@@ -2092,7 +2092,7 @@
           "matching"
         ],
         "summary": "Find matching products at other retailers",
-        "description": "Find the same product at other retailers: the comparison our own product pages show. Exact EAN matches first; then, for chains still open, approximations marked `approx: true` -- name and pack size at chains that publish no barcode (Aldi shelf prices), another  chain's own house brand under the same name and pack (`private_label_equivalent: true`), and brand, name and pack for a product without a barcode. Below three barcode matches a name search fills chains without one, so a chain can carry an approximation and a search match. Measured precision per picked row: 89% (name), 92% (brand and name), 99% (house brand). Filter on `approx` to keep barcode matches only.\n\n**Cheaper house brand.** With `include_substitutes=true` the response also carries `substitutes`: house brands under the same name and pack size that cost less than this A-brand promotion. They are a different product and never appear in `matches`. Measured on hand-labelled pairs: 38 of 38 judged a useful alternative.",
+        "description": "Find the same product at other retailers: the comparison our own product pages show. Exact EAN matches first; then, for chains still open, approximations marked `approx: true` -- name and pack size at chains that publish no barcode (Aldi shelf prices), another chain's own house brand under the same name and pack (`private_label_equivalent: true`), and brand, name and pack for a product without a barcode. Below three barcode matches a name search fills chains without one; those rows are approximations too, so a chain can carry two of them. Measured precision per picked row: 89% (name), 92% (brand and name), 99% (house brand); the name search is the weakest of the four. To keep barcode matches only, filter on `match_level == \"exact_ean\"`, which is the same set as `approx == false`.\n\n**Cheaper house brand.** With `include_substitutes=true` the response also carries `substitutes`: house brands under the same name and pack size that cost less than this A-brand promotion. They are a different product and never appear in `matches`. Measured on hand-labelled pairs: 38 of 38 judged a useful alternative.",
         "operationId": "match_by_product",
         "parameters": [
           {
@@ -5982,7 +5982,7 @@
           "approx": {
             "type": "boolean",
             "title": "Approx",
-            "description": "True marks an approximation, never the same product: a match on name and pack size (at a chain that publishes no barcode), on brand, name and pack, or another chain's house brand. Only on /match/product; always false on /match/ean."
+            "description": "True marks an approximation, never the same product: a match on name and pack size (at a chain that publishes no barcode), on brand, name and pack, another chain's house brand, or the name search that fills chains below three barcode matches. Every row that is not an exact barcode match carries it, so `approx == false` is the same set as `match_level == \"exact_ean\"`. Only on /match/product; always false on /match/ean."
           },
           "private_label_equivalent": {
             "type": "boolean",

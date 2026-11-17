@@ -22,6 +22,28 @@ Nieuwe velden, nieuwe ketens en betere dekking rollen we zonder aankondiging uit
 aan** (art. 10 van de [API-voorwaarden](https://www.prijsprofeet.nl/api-voorwaarden)):
 per e-mail aan betalende afnemers én hier.
 
+## 2026-11-17 · Actie nodig
+
+**`approx` staat nu ook op de zoekrijen van `GET /api/v1/match/product/{product_id}`.**
+Onder drie barcodetreffers vult een zoekopdracht op naam de ketens die nog open staan.
+Die rijen hebben net zo goed geen barcode onder zich als een treffer op naam, op merk en
+naam of op het huismerk van een andere keten, maar ze stonden op `approx: false`, terwijl de
+spec en `/api` zeiden dat je op dat veld kon filteren om alleen barcodetreffers over te
+houden. Dat was onwaar. Ze staan nu op `true`.
+
+**Wat je moet doen**: alleen als je op `approx` filtert of ertegen aan sorteert. Filterde
+je op `approx == false` om alleen barcodetreffers te houden, dan krijg je nu inderdaad
+alleen die; de zoekrijen die er eerst tussen zaten vallen weg. Wil je ze juist houden,
+filter dan niet op `approx`. Welke rij uit welke koppeling komt staat per rij in
+`match_level`: `exact_ean` is de barcodetreffer, en `fuzzy_text` dekt zowel de treffer op
+naam of merk als de zoekopdracht. `approx == false` is daarmee precies dezelfde
+verzameling als `match_level == "exact_ean"`, en dat blijft zo.
+
+Geen veld verdwijnt en geen rij verdwijnt uit het antwoord: alleen de waarde van `approx`
+op de zoekrijen verandert. Gemeten tegen de stand van vóór de wijziging over 128
+producten: dezelfde rijen, 190 rijen van `false` naar `true`, geen enkel ander veld
+anders. Gemeld door een afnemer die zijn vergelijking op dit veld indeelde.
+
 ## 2026-11-15 · Alleen documentatie
 
 **De spec noemt Bio-Planet, Intermarché en Spar bij de Belgische ketens.** Die drie
