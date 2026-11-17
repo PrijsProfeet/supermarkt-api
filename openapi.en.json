@@ -5845,7 +5845,7 @@
           "confidence": {
             "type": "number",
             "title": "Confidence",
-            "description": "A fixed value per source, not a per-row score: 0.98 live promotion on EAN, 0.95 shelf price on EAN, 0.90 recent observation on EAN, 0.85 name match. Orders sources; do not threshold on it."
+            "description": "A RANK per source, not a per-row score and not a probability: 0.98 live promotion on EAN, 0.95 shelf price on EAN, 0.90 recent observation on EAN, 0.80 another chain's house brand, 0.60 a match on name or on brand and name, 0.50 the name search that fills chains below three barcode matches. The order follows measured precision per picked row (house brand 99%, name and brand 93-96%, the name search far below that), so it orders sources. Do not threshold on it and do not read it as a chance."
           },
           "promotion": {
             "anyOf": [

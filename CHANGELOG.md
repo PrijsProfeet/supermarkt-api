@@ -22,6 +22,38 @@ Nieuwe velden, nieuwe ketens en betere dekking rollen we zonder aankondiging uit
 aan** (art. 10 van de [API-voorwaarden](https://www.prijsprofeet.nl/api-voorwaarden)):
 per e-mail aan betalende afnemers én hier.
 
+## 2026-11-17 (2) · Actie nodig
+
+**`confidence` ordent de bronnen nu volgens de gemeten precisie.** Het veld is een vaste rang
+per bron, geen score per rij, en de zoekopdracht op naam stond met 0,85 boven elke beter
+gemeten benadering: boven het huismerk van een andere keten (0,70) en boven een treffer op naam
+of op merk en naam (0,60), terwijl die zoekopdracht van de vier juist de minst betrouwbare is.
+De nieuwe ladder:
+
+| waarde | bron | gemeten precisie per gekozen rij |
+|---|---|---|
+| 0,98 | lopende actie op dezelfde barcode | de barcode identificeert het product |
+| 0,95 | schapprijs op dezelfde barcode | idem |
+| 0,90 | waarneming van hoogstens 60 dagen op dezelfde barcode | idem |
+| 0,80 | het huismerk van een andere keten onder dezelfde naam en maat | 99% |
+| 0,60 | een treffer op naam, of op merk en naam | 93-96% |
+| 0,50 | de zoekopdracht op naam die ketens vult onder drie barcodetreffers | ver daaronder |
+
+De drie barcoderangen veranderen niet. Het huismerk gaat van 0,70 naar 0,80 en de zoekopdracht
+van 0,85 naar 0,50.
+
+**Wat je moet doen**: alleen als je op dit veld rangschikt of sorteert. Dan verandert de
+volgorde van je benaderingen, en wel in de richting die de meting aangeeft: de zwakste staat
+nu onderaan in plaats van bovenaan. Gebruik je het veld niet, of filter je op `match_level`,
+dan verandert er niets.
+
+**Niet als kans lezen, en niet als drempel gebruiken.** De getallen zijn rangen. 0,50 bij de
+zoekopdracht betekent "onder elke andere benadering", niet "de helft klopt". Dat stond er al,
+en de beschrijving in de spec zei tot vandaag toch "0.85 name match" terwijl die tier 0,60
+droeg; die tekst is rechtgezet.
+
+Geen veld verdwijnt en geen rij verdwijnt uit het antwoord.
+
 ## 2026-11-17 · Actie nodig
 
 **`approx` staat nu ook op de zoekrijen van `GET /api/v1/match/product/{product_id}`.**
