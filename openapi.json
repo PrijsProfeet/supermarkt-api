@@ -8328,6 +8328,18 @@
             "title": "Unit Price",
             "description": "Derived price per standard unit (kg/L/piece)"
           },
+          "nutriscore": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Nutriscore",
+            "description": "Nutri-Score grade a-e (lowercase), where the retailer publishes one: Albert Heijn (NL and BE), Colruyt, Bio-Planet and Delhaize. Null for every other chain, and null where the chain itself states no grade -- a brand that refuses the Nutri-Score is published as null, never as a grade."
+          },
           "product_url": {
             "anyOf": [
               {
@@ -8381,6 +8393,7 @@
           "ean": "8718452547647",
           "last_seen": "2026-09-22T01:55:34+02:00",
           "name": "Jumbo Boerderij Zuivel Halfvolle Melk 1 L",
+          "nutriscore": "a",
           "price": 1.95,
           "price_changed_at": "2026-09-07T01:55:36+02:00",
           "product_url": "https://www.jumbo.com/producten/jumbo-boerderij-zuivel-halfvolle-melk-1-l-646586FLS",

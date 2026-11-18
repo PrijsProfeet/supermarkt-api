@@ -22,6 +22,32 @@ Nieuwe velden, nieuwe ketens en betere dekking rollen we zonder aankondiging uit
 aan** (art. 10 van de [API-voorwaarden](https://www.prijsprofeet.nl/api-voorwaarden)):
 per e-mail aan betalende afnemers én hier.
 
+## 2026-11-18 · Actie nodig
+
+**`nutriscore` staat nu ook op een schapprijs, en spreekt overal kleine letters.**
+`GET /api/v1/shelf-prices` draagt per rij `nutriscore`, zodat een schapprijs hetzelfde
+over een product zegt als `/products` al deed. Gevuld waar de keten zelf een Nutri-Score
+publiceert — Albert Heijn (NL en BE), Colruyt, Bio-Planet en Delhaize — en `null` bij
+elke andere keten.
+
+**Waarvoor je iets moet doen:** het veld was niet overal gelijk geschreven. Albert Heijn
+gaf `a` t/m `e`, de drie Belgische ketens `A` t/m `E` (1.055 van de 3.217 rijen met een
+cijfer), en Delhaize op vijf rijen `Z` — dat laatste is geen cijfer maar een merk dat de
+Nutri-Score weigert. Overal geldt nu één vocabulaire: een kleine letter `a` t/m `e`, en
+wat geen cijfer is geeft `null` in plaats van een letter. Dat raakt `/products`,
+`/products/{id}` en de nieuwe velden op `/shelf-prices`.
+
+- Filter je op `== "a"`, dan vind je vanaf nu ook de rijen die een hoofdletter droegen.
+- Vergeleek je zelf op een hoofdletter (`== "A"`), dan moet dat een kleine letter worden.
+- Las je `Z` als een cijfer, dan is dat nu `null`.
+
+De waarden komen mee met de nachtrun van elke keten; `/products/{id}` serveert zijn
+antwoord 24 uur uit de cache, dus die rijen volgen binnen een dag.
+
+Daarnaast wordt de Nutri-Score vanaf nu bewaard in onze eigen historie, zodat er een
+reeks over tijd ontstaat. Dat is geen API-wijziging: `/products/{id}/price-history`
+publiceert het veld niet.
+
 ## 2026-11-17 (2) · Actie nodig
 
 **`confidence` ordent de bronnen nu volgens de gemeten precisie.** Het veld is een vaste rang

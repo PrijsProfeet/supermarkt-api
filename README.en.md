@@ -179,7 +179,7 @@ lower plan.
 | Which private label is the same as another chain's? | `GET /api/v1/private-label-equivalents` (Business) | Where no barcode links them: same product and same pack size. |
 | What does this recipe cost at each chain? | `POST /api/v1/match/ingredients` (beta; Pro and Business) | See [Recipe lines to shelf products](#recipe-lines-to-shelf-products). Always read the total per chain next to `lines_found` and `lines_total`. |
 | How much of my limit have I used? | `GET /api/v1/partner/usage` (any key) | Also per day, and visible in your [API account](https://www.prijsprofeet.nl/api-account/). |
-| Which fields are only on product detail? | `GET /api/v1/products/{id}` (all plans) | `retailer_category`, `nutriscore` and `discount_percentage` are not in the search results. |
+| Which fields are only on product detail? | `GET /api/v1/products/{id}` (all plans) | `retailer_category`, `nutriscore` and `discount_percentage` are not in the search results. Since 2026-11-18 `nutriscore` is on `/shelf-prices` too. |
 
 ## Limits
 

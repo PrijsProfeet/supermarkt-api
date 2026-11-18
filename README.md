@@ -179,7 +179,7 @@ lager plan.
 | Welk huismerk is hetzelfde als dat van een andere keten? | `GET /api/v1/private-label-equivalents` (Business) | Waar geen barcode ze koppelt: zelfde product én zelfde verpakking. |
 | Wat kost dit recept bij elke keten? | `POST /api/v1/match/ingredients` (bèta; Pro en Business) | Zie [Receptregels naar schapproducten](#receptregels-naar-schapproducten). Lees het totaal per keten altijd naast `lines_found` en `lines_total`. |
 | Hoeveel van mijn limiet heb ik gebruikt? | `GET /api/v1/partner/usage` (elke key) | Ook per dag, en te zien in je [API-account](https://www.prijsprofeet.nl/api-account/). |
-| Welke velden staan alleen op productdetail? | `GET /api/v1/products/{id}` (alle plannen) | `retailer_category`, `nutriscore` en `discount_percentage` staan niet in de zoekresultaten. |
+| Welke velden staan alleen op productdetail? | `GET /api/v1/products/{id}` (alle plannen) | `retailer_category`, `nutriscore` en `discount_percentage` staan niet in de zoekresultaten. `nutriscore` staat sinds 2026-11-18 ook op `/shelf-prices`. |
 
 ## Limieten
 
