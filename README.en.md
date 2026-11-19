@@ -302,7 +302,8 @@ give feedback there too. Currently in beta:
   recipe or shopping list and get the matching product at each chain.
 
 The [notification after the nightly run](#notification-after-the-nightly-run) was in beta
-until 5 November 2026 and is now part of the regular API.
+until 5 November 2026, and [reporting data errors](#reporting-data-errors) until
+26 October 2026. Both are now part of the regular API.
 
 ### Recipe lines to shelf products
 
@@ -447,6 +448,40 @@ notification with `"test": true` right away.
 
 Available on every plan. Since 5 November 2026 the notification is no longer a beta: we
 announce a breaking change 30 days in advance ([art. 10, in Dutch](https://www.prijsprofeet.nl/api-voorwaarden)).
+
+## Reporting data errors
+
+Does a user of your app see a price, pack size, name or comparison that is wrong, or an
+offer that is no longer running? Let them report it to us: we can fix it at the source,
+and then it is right for everyone. Free, no key and no sign-up.
+
+**A button in your app.** Have a "Something wrong?" button open our form:
+
+```
+https://www.prijsprofeet.nl/melden/?product_id=<product_id>&bron=<your partner id>
+```
+
+(`www.prijsprofeet.be` for Belgian data.) Your user picks what is wrong there; we ask for
+no name and no email address. We use `bron` ("source") for statistics only. That way no
+key sits on the device.
+
+**From your server.** Rather keep everything in your own interface? Send the report to
+`POST /api/v1/reports`. You name one row (a `product_id`, or a shelf row as `retailer` +
+`shelf_id`; with `compared_retailer` the row of another chain in the comparison) and pick
+in `field` what is wrong. The permitted values are in the
+[OpenAPI specification](openapi.json) ([`openapi.en.json`](openapi.en.json) holds the
+same spec with English descriptions). There is deliberately no free-text field, so a
+report contains no personal data. Without a key 10 reports per hour and 30 per day per IP
+address, with a key the limit of your plan.
+
+**Checking the status.** With the `id` from the response, `GET /api/v1/reports/{id}`
+gives the state: `open`, `confirmed` (it is wrong, the fix follows), `resolved` (our data
+is right now) or `rejected` (no error found), with `reported_at` and `resolved_at`. Ask
+it of the storefront you reported to. With a key, `GET /api/v1/reports` gives all your
+own reports, newest first.
+
+Available to everyone, with or without a key. We announce a breaking change to these
+routes the way we do for any other endpoint (see [Changes](#changes)).
 
 ## Changes
 
