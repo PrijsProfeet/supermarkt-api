@@ -39,3 +39,8 @@ spreiden, en een voorbeeld hoort niet voor te doen hoe je eromheen werkt.
 
 `openapi.json` wordt gegenereerd uit de draaiende API en is niet met de hand te
 bewerken; klopt er iets niet, open dan een issue.
+
+Raak je de README, raak dan **beide**: `README.md` is Nederlands en de bron,
+`README.en.md` is de Engelse kopie, en ze horen in hetzelfde commit mee te
+veranderen. Een controle in CI vergelijkt hun structuur en loopt elke interne
+link na, dus een sectie die maar in één van de twee staat maakt de check rood.

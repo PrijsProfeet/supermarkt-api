@@ -1,0 +1,48 @@
+# De Nederlandse en de Engelse README horen dezelfde structuur te hebben.
+#
+# Ze veranderen per afspraak in hetzelfde commit, en dat controleerde niets: twee
+# keer in zes dagen kreeg `README.md` een stuk dat `README.en.md` nooit kreeg, en
+# beide keren viel het op doordat iemand het met het oog zag. Een Engelstalige
+# partner leest dan een link of een sectie die er niet is.
+#
+# Deze controle leest alleen de twee bestanden, dus hij kan niets anders rood
+# maken dan wat hij meet. Hij blokkeert geen release: deze repo deployt niets.
+
+name: README-pariteit
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "README.md"
+      - "README.en.md"
+      - ".github/scripts/readme_pariteit.py"
+      - ".github/workflows/readme-pariteit.yml"
+  pull_request:
+    # Bewust uitgeschreven in plaats van een YAML-anker: GitHub Actions
+    # ondersteunt anchors en aliases niet betrouwbaar in een workflow, en dat
+    # merk je pas als de workflow niet parseert.
+    paths:
+      - "README.md"
+      - "README.en.md"
+      - ".github/scripts/readme_pariteit.py"
+      - ".github/workflows/readme-pariteit.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: readme-pariteit-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  pariteit:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      # Alleen de standard library, zoals de voorbeelden in deze repo: geen
+      # installatiestap die kan breken om een reden die niets met de READMEs
+      # te maken heeft.
+      - name: Lopen de twee READMEs uiteen?
+        run: python3 .github/scripts/readme_pariteit.py
