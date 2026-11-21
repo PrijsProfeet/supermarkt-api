@@ -22,6 +22,24 @@ Nieuwe velden, nieuwe ketens en betere dekking rollen we zonder aankondiging uit
 aan** (art. 10 van de [API-voorwaarden](https://www.prijsprofeet.nl/api-voorwaarden)):
 per e-mail aan betalende afnemers én hier.
 
+## 2026-11-21 · Actie nodig
+
+**Aankondiging: `/match/product` vult ketens per 23 december 2026 niet meer aan met een
+zoekopdracht op naam.** Onder drie barcodetreffers vult nu een zoekopdracht op naam de
+ketens die nog open staan. Die rijen zijn de zwakste van het antwoord: gemeten op 1.500
+producten met een barcode bij twee ketens wees hij in 31% van de gevallen helemaal het
+verkeerde product aan, en per rij klopt 54%. Ook met strengere regels bleef hij op 74%
+per rij, waar de rijen op naam, merk en huismerk op 93 tot 99% zitten. Per 23 december
+2026 draait hij niet meer; een keten die geen barcode-, naam-, merk- of
+huismerkkoppeling vindt, blijft dan leeg in plaats van aangevuld met een gok.
+
+Wat je nu nodig hebt: niets, tenzij je integratie rekent op meer dan wat de andere
+koppelingen vinden. De rijen die verdwijnen herken je aan `match_level == "fuzzy_text"`
+samen met `approx == true` en `confidence == 0.5` (die laatste waarde hoort bij geen
+enkele andere bron). Rijen op barcode (`exact_ean`), op naam of merk en het
+huismerk-equivalent blijven, net als de velden `approx`, `match_level` en `confidence`
+zelf. De Vergelijk-kaart op de site draait deze zoekopdracht al niet meer.
+
 ## 2026-11-18 · Actie nodig
 
 **`nutriscore` staat nu ook op een schapprijs, en spreekt overal kleine letters.**
