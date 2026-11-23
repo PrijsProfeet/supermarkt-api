@@ -5507,7 +5507,7 @@
                 "type": "null"
               }
             ],
-            "description": "The pack size as a number, in the same unit as `interpreted.amount`; null when the retailer states no readable size. Compare it with the amount the line asks for to decide for yourself whether a pack is larger than you need: we do not make that judgement, because a litre of oil for 15 ml is the normal pack"
+            "description": "The pack size as a number, in the same unit as `interpreted.amount`; null when the retailer states no readable size. Compare it with the amount the line asks for to decide for yourself whether a pack is larger than you need: we do not make that judgement, because a litre of oil for 15 ml is the normal pack. It is also the tool for reading `total_price` across chains"
           },
           "price": {
             "anyOf": [
@@ -7969,7 +7969,7 @@
           "total_price": {
             "type": "number",
             "title": "Total Price",
-            "description": "Sum of line_price over lines_found; read it next to the coverage"
+            "description": "Sum of line_price over lines_found; read it next to the coverage. The sum runs over the packs chosen, without correcting for the difference in size between chains: a chain that picks one large pack (a 12-pack for a line of 1 litre) looks more expensive without its price being higher. Read `pack_size` per product alongside it, and watch for a unit that does not fit the line (piece against L)"
           }
         },
         "type": "object",

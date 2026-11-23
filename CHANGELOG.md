@@ -22,6 +22,16 @@ Nieuwe velden, nieuwe ketens en betere dekking rollen we zonder aankondiging uit
 aan** (art. 10 van de [API-voorwaarden](https://www.prijsprofeet.nl/api-voorwaarden)):
 per e-mail aan betalende afnemers én hier.
 
+## 2026-11-23 · Alleen documentatie
+
+**Bèta receptregels: `total_price` zegt nu dat de som over verschillende
+verpakkingsgroottes loopt.** Alleen de beschrijving in de spec is aangevuld, de
+antwoorden veranderen niet. `total_price` telt `line_price` op over de gekozen
+verpakkingen, zonder te corrigeren voor het verschil in grootte tussen ketens: kiest een
+keten één grote verpakking (een 12-pack voor een regel van 1 liter), dan lijkt hij
+duurder zonder dat de prijs hoger is. Lees `pack_size` per product mee, en let op een
+eenheid die niet bij de regel past (stuk tegen L).
+
 ## 2026-11-21 · Actie nodig
 
 **Aankondiging: `/match/product` vult ketens per 23 december 2026 niet meer aan met een

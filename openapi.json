@@ -5507,7 +5507,7 @@
                 "type": "null"
               }
             ],
-            "description": "De verpakkingsmaat als getal, in dezelfde eenheid als `interpreted.amount`; null als de keten geen leesbare maat noemt. Houd hem tegen de gevraagde hoeveelheid om zelf te beslissen of een verpakking groter is dan je nodig hebt: wij vellen dat oordeel niet, want een liter olie voor 15 ml is de normale verpakking"
+            "description": "De verpakkingsmaat als getal, in dezelfde eenheid als `interpreted.amount`; null als de keten geen leesbare maat noemt. Houd hem tegen de gevraagde hoeveelheid om zelf te beslissen of een verpakking groter is dan je nodig hebt: wij vellen dat oordeel niet, want een liter olie voor 15 ml is de normale verpakking. Het is ook het hulpmiddel om `total_price` tussen ketens te lezen"
           },
           "price": {
             "anyOf": [
@@ -7969,7 +7969,7 @@
           "total_price": {
             "type": "number",
             "title": "Total Price",
-            "description": "Som van line_price over lines_found; lees hem naast de dekking"
+            "description": "Som van line_price over lines_found; lees hem naast de dekking. De som loopt over de gekozen verpakkingen, zonder te corrigeren voor het verschil in grootte tussen ketens: een keten die één grote verpakking kiest (een 12-pack voor een regel van 1 liter) lijkt duurder zonder dat de prijs hoger is. Lees `pack_size` per product mee, en let op een eenheid die niet bij de regel past (stuk tegen L)"
           }
         },
         "type": "object",
