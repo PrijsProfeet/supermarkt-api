@@ -22,6 +22,20 @@ Nieuwe velden, nieuwe ketens en betere dekking rollen we zonder aankondiging uit
 aan** (art. 10 van de [API-voorwaarden](https://www.prijsprofeet.nl/api-voorwaarden)):
 per e-mail aan betalende afnemers én hier.
 
+## 2026-11-24 (3) · Actie nodig
+
+**Bij Aldi is `original_price` nu `null` als hij gelijk is aan `price`.** Een aanbieding
+met een geldigheidsvenster maar zonder eigen streepprijs (Aldi's "op=op"-specials) kreeg
+zijn huidige prijs als van-prijs, dus `original_price` stond op dezelfde waarde als
+`price`. Dat is geen van-prijs: er is niets om tegen te vergelijken, en het las als "geen
+korting". Gemeten op productie raakte dit 144 van 259 lopende rijen bij Aldi NL en 41 van
+105 bij Aldi-BE. Nu staat `original_price` alleen op een rij als hij hoger is dan
+`price`. Staat je integratie op `original_price != null` om een korting te herkennen,
+dan krijg je er bij Aldi minder (en geen valse) bij; de velden zelf blijven, en
+`discount_percentage` en `savings_*` waren op deze rijen al `null`. De waarden komen mee
+met de nachtrun. Een rij die Aldi niet meer aanbiedt blijft tot zijn einddatum staan met
+de oude waarde.
+
 ## 2026-11-24 (2) · Uitbreiding
 
 **Bèta receptregels: `organic`, en twee regels die een 503 gaven of de verkeerde variant
