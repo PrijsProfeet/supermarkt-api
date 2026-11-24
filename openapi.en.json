@@ -5386,6 +5386,16 @@
             "minItems": 1,
             "title": "Lines",
             "description": "At most 50 lines: text (\"500 g spaghetti\") or an object with name, value and unitCode"
+          },
+          "organic": {
+            "type": "string",
+            "enum": [
+              "allow",
+              "avoid"
+            ],
+            "title": "Organic",
+            "description": "`avoid`: a line that does not itself ask for organic gets organic products (in the name or brand, such as Bio+ or AH Biologisch) after the ordinary product of the same chain. It is a preference, not a filter: if a chain only has organic, that stays the product. A line that asks for organic still gets organic. Default `allow`: the answer is then what it always was",
+            "default": "allow"
           }
         },
         "type": "object",

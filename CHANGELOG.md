@@ -22,6 +22,24 @@ Nieuwe velden, nieuwe ketens en betere dekking rollen we zonder aankondiging uit
 aan** (art. 10 van de [API-voorwaarden](https://www.prijsprofeet.nl/api-voorwaarden)):
 per e-mail aan betalende afnemers én hier.
 
+## 2026-11-24 (2) · Uitbreiding
+
+**Bèta receptregels: `organic`, en twee regels die een 503 gaven of de verkeerde variant
+kozen.** `POST /api/v1/match/ingredients` neemt nu het optionele veld `organic`:
+`allow` (standaard, het antwoord van altijd) of `avoid`. Bij `avoid` krijgt een regel die
+zelf geen bio vraagt de biologische producten (in de naam of het merk, zoals Bio+ en AH
+Biologisch) achteraan, na het gewone product van dezelfde keten. Het is een voorkeur en
+geen filter: heeft een keten alleen bio, dan blijft dat het product, en een regel die bio
+vraagt blijft bio krijgen. Over 430 beoordeelde regels verandert `allow` geen enkel
+hoofdproduct en `avoid` er 148; twee eerdere testpartners keurden bio-keuzes juist goed,
+vandaar dat het een keuze van jou is en geen nieuwe standaard.
+
+Twee reparaties in dezelfde bèta, zonder wijziging aan velden. Een maat achter een
+verpakking ("1 zak spinazie van 450 g", "uit het zakje van 150 g") werd als zoekwoord
+gelezen en gaf een 503 of `not_understood`; nu is het de verpakkingsmaat. En een regel
+die "vers" zegt krijgt geen diepvries meer (Jumbo en Dirk noemen die kaal
+"Bladspinazie"). Een bèta valt niet onder de aankondigingstermijn van art. 10.
+
 ## 2026-11-24 · Actie nodig
 
 **`unit_price` van Albert Heijn is nu overal prijs gedeeld door de verpakkingsmaat.**

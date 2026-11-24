@@ -5386,6 +5386,16 @@
             "minItems": 1,
             "title": "Lines",
             "description": "Hooguit 50 regels: tekst (\"500 g spaghetti\") of een object met name, value en unitCode"
+          },
+          "organic": {
+            "type": "string",
+            "enum": [
+              "allow",
+              "avoid"
+            ],
+            "title": "Organic",
+            "description": "`avoid`: een regel die zelf geen bio vraagt krijgt biologische producten (naam of merk, zoals Bio+ of AH Biologisch) achteraan, na het gewone product van dezelfde keten. Het is een voorkeur en geen filter: heeft een keten alleen bio, dan blijft dat het product. Een regel die bio vraagt blijft bio krijgen. Standaard `allow`: het antwoord is dan wat het altijd was",
+            "default": "allow"
           }
         },
         "type": "object",
