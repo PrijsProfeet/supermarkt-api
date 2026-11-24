@@ -22,6 +22,20 @@ Nieuwe velden, nieuwe ketens en betere dekking rollen we zonder aankondiging uit
 aan** (art. 10 van de [API-voorwaarden](https://www.prijsprofeet.nl/api-voorwaarden)):
 per e-mail aan betalende afnemers én hier.
 
+## 2026-11-24 · Actie nodig
+
+**`unit_price` van Albert Heijn is nu overal prijs gedeeld door de verpakkingsmaat.**
+Op de lopende acties van Albert Heijn (NL en BE) nam `unit_price` het cijfer van AH zelf
+over. Dat is bij potten en blik de prijs per kilo uitlekgewicht (Hak bruine bonen 720 g:
+€ 3,31 per kilo, terwijl prijs gedeeld door 720 g € 2,14 geeft), en bij een "3-pack" de
+prijs van het hele pack in plaats van per stuk. Elke andere keten en de schaprijzen van AH
+rekenen prijs gedeeld door `quantity`, dus twee ketens op één product waren niet te
+vergelijken. Nu rekent ook de actierij zo, en geven `unit_price` en `unit` het bruto
+cijfer per `kg`, `L` of `stuk`. Gemeten raakt dit 154 van 2.931 lopende rijen bij AH en
+19 van 849 bij AH-BE. Staat je integratie op het uitlekgewicht, dan verandert die waarde;
+de velden zelf blijven. Alleen als de maat niet te lezen is, blijft het cijfer van AH
+staan. De waarden komen mee met de nachtrun.
+
 ## 2026-11-23 · Alleen documentatie
 
 **Bèta receptregels: `total_price` zegt nu dat de som over verschillende
