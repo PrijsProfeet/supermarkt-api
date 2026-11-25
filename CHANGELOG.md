@@ -22,6 +22,17 @@ Nieuwe velden, nieuwe ketens en betere dekking rollen we zonder aankondiging uit
 aan** (art. 10 van de [API-voorwaarden](https://www.prijsprofeet.nl/api-voorwaarden)):
 per e-mail aan betalende afnemers én hier.
 
+## 2026-11-25 · Uitbreiding
+
+**Bèta receptregels: "vers" vindt nu ook gewassen en ongewassen groente.** Een regel die
+"vers" zegt (`verse spinazie`, `150 g spinazie vers`) weigerde elk product met een extra
+woord in de naam, en Jumbo en Dirk noemen hun verse spinazie "Gewassen Spinazie" en
+"Spinazie ongewassen". Daardoor kwam er bij die twee ketens niets terug. De woorden
+`gewassen`, `ongewassen`, `kleinverpakking` en `grootverpakking` tellen bij een regel met
+"vers" niet meer als extra woord. Zonder "vers" in de regel verandert er niets, en
+diepvries en gerechten met het woord erin blijven afvallen. Een reparatie in de bèta,
+zonder wijziging aan velden; een bèta valt niet onder de aankondigingstermijn van art. 10.
+
 ## 2026-11-24 (3) · Actie nodig
 
 **Bij Aldi is `original_price` nu `null` als hij gelijk is aan `price`.** Een aanbieding
