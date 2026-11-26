@@ -243,8 +243,10 @@ key and no registration.
 | Transport | Streamable HTTP, POST only (a GET answers `405`) |
 | Authentication | none |
 
-The host decides the country, as with the API. To add it as a user in Claude or
-ChatGPT, see the steps (in Dutch) at
+The host decides the country, as with the API. Building an agent or assistant on it? The
+address, an example call and the line to the API are at
+[prijsprofeet.nl/en/agents](https://www.prijsprofeet.nl/en/agents/). To add it as a user
+in Claude or ChatGPT, see the steps (in Dutch) at
 [prijsprofeet.nl/chatgpt-en-claude](https://www.prijsprofeet.nl/chatgpt-en-claude/); it
 is listed in the directory of Claude (Netherlands, Belgium and Germany) and ChatGPT
 (Netherlands and Belgium).
@@ -261,6 +263,8 @@ not full price series. **If you are building your own product or app, use the
 |---|---|
 | `search` | Search by product or brand name. Returns brand pages and products, each with an `id`. An EAN is not accepted as a query. |
 | `fetch` | Fetch a result by its `id`. |
+| `show_products` | The same products as cards with a photo, for clients that show a widget. Netherlands and Belgium only. |
+| `price_recipe` (beta) | The ingredients of a recipe: per supermarket the total, with how many ingredients were found. At most 20 lines per call, Netherlands and Belgium only. |
 
 | Id | Returns |
 |---|---|

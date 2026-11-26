@@ -22,6 +22,16 @@ Nieuwe velden, nieuwe ketens en betere dekking rollen we zonder aankondiging uit
 aan** (art. 10 van de [API-voorwaarden](https://www.prijsprofeet.nl/api-voorwaarden)):
 per e-mail aan betalende afnemers én hier.
 
+## 2026-11-26 · Alleen documentatie
+
+**Pagina voor agentbouwers op de MCP-connector, en de README noemt alle tools.** Op
+[prijsprofeet.nl/agents](https://www.prijsprofeet.nl/agents/) (Engels:
+[/en/agents](https://www.prijsprofeet.nl/en/agents/)) staan het adres per land, een
+voorbeeldaanroep, de tools en wanneer je de [REST-API](https://www.prijsprofeet.nl/api)
+nodig hebt in plaats van de connector. In de README staan nu ook `show_products` en
+`price_recipe` (bèta), die er al waren. Alleen tekst, de API en de connector zelf
+veranderen niet.
+
 ## 2026-11-25 · Uitbreiding
 
 **Bèta receptregels: "vers" vindt nu ook gewassen en ongewassen groente.** Een regel die

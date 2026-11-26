@@ -244,8 +244,10 @@ zonder registratie.
 | Transport | Streamable HTTP, alleen POST (een GET geeft een `405`) |
 | Authenticatie | geen |
 
-Het land komt uit de host, net als bij de API. Wie hem als gebruiker in Claude of
-ChatGPT wil toevoegen: de stappen staan op
+Het land komt uit de host, net als bij de API. Bouw je een agent of assistent erop? Het
+adres, een voorbeeldaanroep en de grens met de API staan op
+[prijsprofeet.nl/agents](https://www.prijsprofeet.nl/agents/). Wie hem als gebruiker in
+Claude of ChatGPT wil toevoegen: de stappen staan op
 [prijsprofeet.nl/chatgpt-en-claude](https://www.prijsprofeet.nl/chatgpt-en-claude/), en
 hij staat in de directory van Claude (Nederland, België en Duitsland) en ChatGPT
 (Nederland en België).
@@ -263,6 +265,8 @@ naar dezelfde data.
 |---|---|
 | `search` | Zoek op product- of merknaam. Geeft merkpagina's en producten, elk met een `id`. Een EAN als zoekterm wordt niet aangenomen. |
 | `fetch` | Haal een resultaat op met zijn `id`. |
+| `show_products` | Dezelfde producten als kaarten met foto, voor clients die een widget tonen. Alleen Nederland en België. |
+| `price_recipe` (bèta) | De ingrediënten van een recept, per supermarkt het totaal met hoeveel ingrediënten gevonden zijn. Hooguit 20 regels per aanroep, alleen Nederland en België. |
 
 | Id | Geeft |
 |---|---|
