@@ -22,6 +22,14 @@ Nieuwe velden, nieuwe ketens en betere dekking rollen we zonder aankondiging uit
 aan** (art. 10 van de [API-voorwaarden](https://www.prijsprofeet.nl/api-voorwaarden)):
 per e-mail aan betalende afnemers én hier.
 
+## 2026-11-28 · Uitbreiding
+
+**`POST /api/v1/partner/signup` accepteert `lang: "fr"` en `lang: "de"`.** De bevestigingsmail met de
+keylink, de bevestigings- en keypagina en de bronvermelding komen dan in het Frans of Duits. Het
+account en de rest van de ontwikkelaarsflow blijven Nederlands of Engels: wie in het Frans of Duits
+aanmeldt krijgt een Engels account. `nl` en `en` werken ongewijzigd, en zonder `lang` blijft het
+Nederlands. De voorwaarden en de privacyverklaring blijven Nederlands.
+
 ## 2026-11-28 · Alleen documentatie
 
 **De spec noemt nu een contactadres en de voorwaarden.** `info.contact` (info@prijsprofeet.nl) en

@@ -5691,10 +5691,12 @@
             "type": "string",
             "enum": [
               "nl",
-              "en"
+              "en",
+              "fr",
+              "de"
             ],
             "title": "Lang",
-            "description": "Language of the mail and the key page: `en` from /en/api",
+            "description": "Language of the mail and the key page: `en` from /en/api, `fr` or `de` from the French and German pages. The account itself is Dutch or English.",
             "default": "nl"
           },
           "turnstile_token": {
