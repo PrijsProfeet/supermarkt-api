@@ -24,16 +24,17 @@ per e-mail aan betalende afnemers én hier.
 
 ## 2026-11-28 · Uitbreiding
 
-**Duitse aanbiedingen: Aldi Nord en Netto (Scottie) erbij op `www.prijsprofeet.de/api/v1`,
-beide met een gratis key.** `retailer=aldi_nord` en `retailer=netto_de` werken op
-dezelfde routes als `aldi_sued`: `GET /api/v1/search`, `/products`, `/products/changes` en
+**Duitse aanbiedingen: Aldi Nord, Netto (Scottie) en Denns BioMarkt erbij op
+`www.prijsprofeet.de/api/v1`, alle drie met een gratis key.** `retailer=aldi_nord`,
+`retailer=netto_de` en `retailer=denns` werken op dezelfde routes als `aldi_sued`: `GET /api/v1/search`, `/products`, `/products/changes` en
 `/products/retailer/{retailer}`. Anders dan bij Aldi Süd, die sleutelloos bereikbaar blijft,
-vragen deze twee een `X-API-Key`: zonder key krijg je een `401` met de weg naar de gratis
-key. Zo kunnen we je bij een storing of wijziging bereiken. Netto (Scottie) is de Deense
+vragen deze drie een `X-API-Key`: zonder key krijg je een `401` met de weg naar de gratis
+key. Zo kunnen we je bij een storing of wijziging bereiken. Denns BioMarkt is de Duitse bioketen; zijn aanbiedingen hebben een echte einddatum en
+de tag `bio`. Netto (Scottie) is de Deense
 keten van Salling met ~340 winkels vooral in het noorden en oosten, niet Netto
 Marken-Discount; hij publiceert geen EAN, en zijn week loopt van maandag tot en met
 zaterdag, dus op zondag staat er niets. Voor `.nl` en `.be` en voor de andere Duitse routes
-verandert er niets; de ketenlijst bij `retailer` in de specificaties noemt alle drie.
+verandert er niets; de ketenlijst bij `retailer` in de specificaties noemt alle vier.
 
 ## 2026-11-26 · Alleen documentatie
 

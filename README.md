@@ -3,7 +3,7 @@
 **Nederlands** · [English](README.en.md)
 
 Wekelijkse **supermarktaanbiedingen van meer dan twintig Nederlandse en Belgische
-ketens**, en van Aldi Süd, Aldi Nord en Netto in Duitsland, via één REST-API, elke nacht ververst. Dit is
+ketens**, en van Aldi Süd, Aldi Nord, Netto en Denns in Duitsland, via één REST-API, elke nacht ververst. Dit is
 de publieke documentatie, OpenAPI-specificatie en voorbeeldcode bij de API van [PrijsProfeet](https://www.prijsprofeet.nl).
 
 Geen enkele Nederlandse of Belgische supermarkt biedt een officiële publieke API. Deze wel — en
@@ -16,7 +16,7 @@ curl -H 'User-Agent: MijnApp/1.0 (jij@voorbeeld.nl)' \
 
 Belgische aanbiedingen haal je met dezelfde API en dezelfde key bij
 `https://www.prijsprofeet.be/api/v1/…`: de host bepaalt het land. Duitse aanbiedingen
-staan op `https://www.prijsprofeet.de/api/v1/…`, voorlopig van Aldi Süd, Aldi Nord en Netto (zie
+staan op `https://www.prijsprofeet.de/api/v1/…`, voorlopig van Aldi Süd, Aldi Nord, Netto en Denns (zie
 [Ketens](#ketens)).
 
 > **Wijzigingen volgen?** Zet deze repo op *Watch → Releases* — de knop rechtsboven,
@@ -54,10 +54,10 @@ Hoogvliet · Jumbo · Lidl · MCD · Nettorama · PLUS · Poiesz · SPAR · Voma
 **België** (`www.prijsprofeet.be/api/v1`): Albert Heijn · Aldi · Bio-Planet · Carrefour ·
 Colruyt · Delhaize · Intermarché · Jumbo · Lidl · Spar
 
-**Duitsland** (`www.prijsprofeet.de/api/v1`): Aldi Süd, Aldi Nord en Netto (Scottie).
-Duitsland levert per keten: noem precies één keten in `retailer=aldi_sued`, `aldi_nord` of
-`netto_de` op `/search`, `/products` of `/products/changes`, of gebruik
-`/products/retailer/{keten}`. Aldi Nord en Netto vragen een gratis `X-API-Key`, Aldi Süd
+**Duitsland** (`www.prijsprofeet.de/api/v1`): Aldi Süd, Aldi Nord, Netto (Scottie) en Denns BioMarkt.
+Duitsland levert per keten: noem precies één keten in `retailer=aldi_sued`, `aldi_nord`,
+`netto_de` of `denns` op `/search`, `/products` of `/products/changes`, of gebruik
+`/products/retailer/{keten}`. Aldi Nord, Netto en Denns vragen een gratis `X-API-Key`, Aldi Süd
 niet. Andere routes en vragen zonder die keten geven een 403. Een productfoto komt alleen mee als link naar de keten zelf. De pagina voor
 ontwikkelaars staat op [prijsprofeet.de/en/api](https://www.prijsprofeet.de/en/api) (Engels).
 
