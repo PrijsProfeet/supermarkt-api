@@ -22,6 +22,19 @@ Nieuwe velden, nieuwe ketens en betere dekking rollen we zonder aankondiging uit
 aan** (art. 10 van de [API-voorwaarden](https://www.prijsprofeet.nl/api-voorwaarden)):
 per e-mail aan betalende afnemers én hier.
 
+## 2026-11-28 · Uitbreiding
+
+**Duitse aanbiedingen: Aldi Nord en Netto (Scottie) erbij op `www.prijsprofeet.de/api/v1`,
+beide met een gratis key.** `retailer=aldi_nord` en `retailer=netto_de` werken op
+dezelfde routes als `aldi_sued`: `GET /api/v1/search`, `/products`, `/products/changes` en
+`/products/retailer/{retailer}`. Anders dan bij Aldi Süd, die sleutelloos bereikbaar blijft,
+vragen deze twee een `X-API-Key`: zonder key krijg je een `401` met de weg naar de gratis
+key. Zo kunnen we je bij een storing of wijziging bereiken. Netto (Scottie) is de Deense
+keten van Salling met ~340 winkels vooral in het noorden en oosten, niet Netto
+Marken-Discount; hij publiceert geen EAN, en zijn week loopt van maandag tot en met
+zaterdag, dus op zondag staat er niets. Voor `.nl` en `.be` en voor de andere Duitse routes
+verandert er niets; de ketenlijst bij `retailer` in de specificaties noemt alle drie.
+
 ## 2026-11-26 · Alleen documentatie
 
 **Pagina voor agentbouwers op de MCP-connector, en de README noemt alle tools.** Op

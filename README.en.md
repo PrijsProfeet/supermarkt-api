@@ -3,7 +3,7 @@
 [Nederlands](README.md) · **English**
 
 Weekly **supermarket promotions from more than twenty Dutch and Belgian chains**, and from
-Aldi Süd in Germany, through a single REST API, refreshed every night. This is the
+Aldi Süd, Aldi Nord and Netto in Germany, through a single REST API, refreshed every night. This is the
 public documentation, OpenAPI specification and example code for the API of [PrijsProfeet](https://www.prijsprofeet.nl).
 
 Not a single Dutch or Belgian supermarket offers an official public API. This one does —
@@ -16,7 +16,7 @@ curl -H 'User-Agent: MyApp/1.0 (you@example.com)' \
 
 Belgian promotions come from the same API with the same key at
 `https://www.prijsprofeet.be/api/v1/…`: the host decides the country. German offers
-are on `https://www.prijsprofeet.de/api/v1/…`, for now from Aldi Süd only (see
+are on `https://www.prijsprofeet.de/api/v1/…`, for now from Aldi Süd, Aldi Nord and Netto (see
 [Chains](#chains)).
 
 > **Want to follow changes?** Set this repo to *Watch → Releases* — the button at the top
@@ -53,10 +53,11 @@ Hoogvliet · Jumbo · Lidl · MCD · Nettorama · PLUS · Poiesz · SPAR · Voma
 **Belgium** (`www.prijsprofeet.be/api/v1`): Albert Heijn · Aldi · Bio-Planet · Carrefour ·
 Colruyt · Delhaize · Intermarché · Jumbo · Lidl · Spar
 
-**Germany** (`www.prijsprofeet.de/api/v1`): Aldi Süd. Germany is served per retailer: name
-exactly one retailer in `retailer=aldi_sued` on `/search`, `/products` or `/products/changes`,
-or use `/products/retailer/aldi_sued`. Other routes and requests without that retailer
-return a 403. A product photo is only included as a link to the retailer itself. The
+**Germany** (`www.prijsprofeet.de/api/v1`): Aldi Süd, Aldi Nord and Netto (Scottie). Germany
+is served per retailer: name exactly one retailer in `retailer=aldi_sued`, `aldi_nord` or
+`netto_de` on `/search`, `/products` or `/products/changes`, or use
+`/products/retailer/{retailer}`. Aldi Nord and Netto need a free `X-API-Key`, Aldi Süd does
+not. Other routes and requests without that retailer return a 403. A product photo is only included as a link to the retailer itself. The
 developer page is at [prijsprofeet.de/en/api](https://www.prijsprofeet.de/en/api).
 
 EAN coverage differs per chain, and that is no detail if you want to match on product.
