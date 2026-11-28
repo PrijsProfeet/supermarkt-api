@@ -22,6 +22,14 @@ Nieuwe velden, nieuwe ketens en betere dekking rollen we zonder aankondiging uit
 aan** (art. 10 van de [API-voorwaarden](https://www.prijsprofeet.nl/api-voorwaarden)):
 per e-mail aan betalende afnemers én hier.
 
+## 2026-11-28 · Alleen documentatie
+
+**De spec noemt nu een contactadres en de voorwaarden.** `info.contact` (info@prijsprofeet.nl) en
+`info.license` (de API-voorwaarden) staan in `openapi.json` en `openapi.en.json`, zodat
+directories en codegeneratoren weten wie erachter zit en onder welke voorwaarden de data geldt.
+Geen endpoint of veld verandert. De API-pagina van `prijsprofeet.de` staat daarnaast in het Duits
+(`https://www.prijsprofeet.de/api`).
+
 ## 2026-11-28 · Uitbreiding
 
 **Duitse aanbiedingen: Aldi Nord, Netto (Scottie) en Denns BioMarkt erbij op
